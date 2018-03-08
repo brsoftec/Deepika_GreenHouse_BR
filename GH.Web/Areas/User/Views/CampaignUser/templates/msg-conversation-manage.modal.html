@@ -1,0 +1,38 @@
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog msg-manage-conversation-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="btn-modal-close" ng-click="$hide()">Close</button>
+                <h4 class="modal-title">{{modalParms && modalParms.newGroupChat ? 'New group chat' : 'Manage conversation'}}</h4></div>
+            <div class="modal-body">
+                <form name="formManageConversation">
+                    <div class="form-row msg-conversation-name-row">
+                        <label>Conversation name:&nbsp;</label>
+                        <input name="conversationName" ng-model="conversation.name">
+                    </div>
+                    <ul class="user-picker-picked-full">
+                        <li>
+                            <div><img class="user-picker-avatar" src="{{me.avatar}}"></div>
+                            <div class="user-picker-name" ng-bind="me.name"></div>
+                            <div class="user-picker-role">Owner</div>
+                        </li>
+                        <li ng-repeat="user in participators">
+                            <div><img class="user-picker-avatar" src="{{user.avatar}}"></div>
+                            <div class="user-picker-name" ng-bind="user.name"></div>
+                            <button ng-if="participators.length>1" class="btn-delete" ng-click="unpickUser(user)">Unpick</button>
+                        </li>
+                    </ul>
+                    <div class="form-row msg-conversation-user-picker-row">
+                    <label>Add people:&nbsp;</label>
+                    <rgu-user-picker class="msg-manage-conversation-user-picker" ng-model="participators"></rgu-user-picker>
+                        </div>
+                </form>
+                <div class="modal-footer center">
+                    <button type="button" class="btn btn-default" ng-click="$hide()">Cancel</button>
+                    <button class="btn btn-primary" ng-click="submitParticipators(true);$hide()">Done</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

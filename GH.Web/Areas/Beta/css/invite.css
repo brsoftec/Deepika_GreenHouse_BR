@@ -1,0 +1,232 @@
+h1 {
+    background: transparent url(../img/invite-people.svg) no-repeat 10px center;
+    background-size: 40px;
+    padding-left: 60px;
+}
+
+.invite-dashboard {
+
+}
+
+.invite-dashboard-item {
+    display: inline-block;
+    width: 180px;
+    /*height: 200px;*/
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center 12px;
+    background-size: 60px;
+    padding: 80px 20px 20px 20px;
+    border: 1px #ddd;
+    border-style: solid solid none solid;
+    border-radius: 8px;
+    font-size: 120%;
+    margin-right: 4px;
+}
+
+.invite-dashboard-item.active {
+    border-top: 4px solid chocolate;
+}
+
+.invite-dashboard-item.google-contacts {
+    background-image: url(../img/invite-google.png);
+}
+
+.invite-dashboard-item.facebook-friends {
+    background-image: url(../img/invite-facebook.png?v=1);
+}
+
+.invite-section {
+    padding: 20px;
+}
+.invite-authorize {
+
+}
+
+.invite-message {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px 20px 10px 60px;
+    background-color: #fafafa;
+    background-repeat: no-repeat;
+    background-size: 36px;
+    background-position: 10px center;
+}
+.message-success {
+    background-image: url(../img/success.svg);
+    background-color: #e6ffe7;
+}.message-alert {
+    background-color: #ffeecf;
+}.message-error {
+    background-color: rgb(250, 227, 222);
+    border-color: orangered;
+    color: orangered;
+}
+
+.invite-authorize-action {
+    background: #00adef url(../img/google-lite.svg) no-repeat 10px center;
+    background-size: 18px;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    padding: 6px 20px 6px 36px;
+}
+.section-facebook .invite-authorize-action {
+    background-image: url(../img/facebook-lite.svg);
+    background-size: auto 20px;
+    padding-left: 30px;
+}
+
+.invite-header {
+    margin-bottom: 10px;
+}
+.invite-header > div {
+    display: inline-block;
+    vertical-align: middle;
+}.invite-profile > div {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.invite-profile-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: #a0c3ff url(../img/google-default-avatar.png) no-repeat center center;
+    background-size: 40px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.invite-profile-avatar img {
+    width: 100%;
+    vertical-align: center;
+}
+
+.invite-profile-name {
+    font-size: 120%;
+    font-weight: 500;
+    margin-left: 4px;
+}
+.invite-profile-email {
+    background: transparent url(../img/invite-email.svg) no-repeat left center;
+    background-size: 16px;
+    padding-left: 20px;
+    vertical-align: middle;
+    margin-left: 20px;
+}
+
+.invite-header .invite-switch {
+    float: right;
+    margin-top: 8px;
+}
+
+.invite-actions {
+    background-image: url(../img/invite-actions.svg);
+    background-size: 50px;
+    padding-left: 80px;
+    background-position: 10px 20px;
+}
+.invite-send-action {
+    background: #00adef url(../img/send-lite.svg) no-repeat 10px center;
+    background-size: 20px;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    padding: 6px 20px 6px 36px;
+}
+.section-facebook .invite-send-action {
+    background-image: url(../img/send-facebook.svg);
+    background-size: 16px;
+}
+
+.invite-selected-count {
+    font-weight: bold;
+    font-size: 120%;
+}
+.invite-grid {
+    max-height: 600px;
+    overflow: scroll;
+    overflow-x: scroll;
+}
+
+.invite-selected-badge {
+    background: transparent url(../img/checked-hi.svg) no-repeat center center;
+    background-size: 20px;
+    width: 20px;
+    height: 20px;
+
+}
+
+.invite-grid td {
+    padding: 4px 10px;
+
+}
+
+.invite-grid .selected td {
+    background: #edf9fb;
+}
+.invite-grid .selected .invite-name {
+    font-weight: bold;
+}
+.invite-grid .selectable td {
+    cursor: pointer;
+}.sent .selectable td {
+    cursor: default !important;
+}
+
+ .invite-name {
+     vertical-align: middle;
+ }
+
+.invite-email {
+    background: transparent url(../img/invite-email.svg) no-repeat left center;
+    background-size: 14px;
+    padding-left: 20px;
+    vertical-align: middle;
+    opacity: .6;
+}
+
+.invite-avatar {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    background: #a0c3ff url(../img/google-default-avatar.png) no-repeat center center;
+    background-size: 30px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.invite-avatar img {
+    width: 100%;
+    vertical-align: center;
+}
+
+.invite-default-avatar {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: #a0c3ff url(../img/google-default-avatar.png) no-repeat center center;
+    background-size: 30px;
+    opacity: .5;
+}
+.selected .invite-default-avatar {
+    opacity: .9 !important;
+
+}
+.invite-default-avatar.with-email {
+
+}
+
+.invite-default-avatar.with-email:after {
+    display: inline-block;
+    position: relative;
+    left: -20px;
+    top: -10px;
+    width: 20px; height: 20px;
+    background: transparent url(../img/with-email.png) no-repeat left top;
+}
+
+.invite-message-input {
+    width: 100%;
+    padding: 3px 10px;
+}
+

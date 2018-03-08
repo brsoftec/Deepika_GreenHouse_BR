@@ -1,0 +1,231 @@
+﻿@model GH.Web.Areas.User.ViewModels.PaymentResult
+
+@{
+    ViewBag.Title = "Billing";
+    Layout = "~/Areas/User/Views/Shared/_LayoutDefaultBusinessApply.cshtml";
+
+    string chargeId = "";
+    string chargeStatus = "";
+    string chargeResponse = "";
+    bool hasResult = false;
+
+    if (Model != null)
+    {
+        hasResult = true;
+        chargeId = Model.ChargeId;
+        chargeStatus = Model.ChargeStatus;
+        chargeResponse = Model.ResponseJson;
+    }
+}
+
+@section styles {
+
+    @Styles.Render("~/bundles/css/phone-input")
+    <link rel="stylesheet" href="@Url.Versioned("~/Areas/Beta/css/billing.css")">
+}
+
+@section scripts {
+
+    <!--<script src="https://js.stripe.com/v3/"></script>-->
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/BillingController.js")"></script>
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/BillingQuotaController.js")"></script>
+}
+
+
+<div class="module module-main module-account account-settings-page" ng-controller="BillingController"
+     rgu-event-listener>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/BusinessAccount">&laquo; Business Home</a>
+        </li>
+        <li class="breadcrumb-item active">Billing</li>
+    </ol>
+    <h1>Billing</h1>
+
+
+    <div class="billing-page">
+        <button ng-if="isAdmin" class="btn btn-primary" ng-click="generatePromoCode()">Promo Code</button>
+        <div class="billing-details">
+            <div class="billing-overview">
+                <div class="billing-overview-row">
+                    <div class="billing-overview-label">Account Number</div>
+                    <div class="billing-overview-value" ng-bind="regitGlobal.businessAccount.id"></div>
+                </div>
+                <div class="billing-overview-row">
+                    <div class="billing-overview-label">Account Owner</div>
+                    <div class="billing-overview-value" ng-bind="regitGlobal.businessAccount.displayName"></div>
+                </div>
+                <div class="billing-overview-row">
+                    <div class="billing-overview-label">Billing Address</div>
+                    <div class="billing-overview-value billing-overview-address" ng-bind-html="billing.address"></div>
+                </div>
+                <div class="billing-overview-row">
+                    <div class="billing-overview-label">Your current plan</div>
+                    <div class="billing-overview-value" ng-bind="billing.plan.label"></div>
+                </div>               
+                <div class="billing-overview-row">
+                    <div class="billing-overview-label"></div>
+                    <div class="billing-overview-value billing-overview-notes">Enterprise plan is billed separately based on actual usage.</div>
+                </div>               
+                <div class="billing-overview-row" ng-if="billing.currentBilling.promocode">
+                    <div class="billing-overview-label">Using Promo Code</div>
+                    <div class="billing-overview-value">Yes</div>
+                </div>
+                <div class="billing-overview-row" ng-if="billing.plan.name!=='free'">
+                    <div class="billing-overview-label" ng-if="!billing.currentBilling.promocode">Next cycle</div>
+                    <div class="billing-overview-label" ng-if="billing.currentBilling.promocode">Expires</div>
+                    <div class="billing-overview-value">{{billing.nextCharge | date:'dd MMMM yyyy'}}</div>
+                </div>
+                <div class="billing-overview-row" ng-if="billing.subscription.PendingPromoCode">
+                    <div class="billing-overview-label">Pending Promo Code</div>
+                    <div class="billing-overview-value">{{billing.subscription.PendingPromoCode}}</div>
+                </div>
+                <div class="promocode-panel" ng-if="!billing.subscription.PendingPromoCode">
+                    <button class="promocode-edit-opener" ng-if="!view.promoCode.editing" ng-click="openEditPromoCode()">Add Promo Code</button>
+                    <div class="promocode-edit" ng-if="view.promoCode.editing">
+                        <p ng-if="!billing.currentBilling.promocode && billing.plan.name!=='free'">Your current subscription has been paid until next cycle. 
+                            Adding a promo code will apply to your next subscription.</p>
+                        <p ng-if="billing.currentBilling.promocode && billing.plan.name!=='free'">Your current subscription is using a promo code. 
+                            Adding a new promo code will apply after current promo code expires.</p>
+                        <p ng-if="view.promoCode.message" class="promocode-edit-message" ng-bind="view.promoCode.message"></p>
+                        <p>
+                            <input class="promocode-edit-input" ng-model="view.promoCode.model" ng-change="view.promoCode.message=''" placeholder="Enter promo code">
+                            <button class="promocode-edit-action" ng-if="view.promoCode.model.length" ng-click="savePromoCode()">Add</button>
+                            <button class="promocode-edit-action cancel" ng-click="cancelEditPromoCode()">Cancel</button>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="billing-overview-plan">
+                <div class="billing-plan-info" ng-bind-html="renderPlanInfo(billing.plan)">
+
+                </div>
+                <div class="billing-plan-upgrade">
+                    <button class="billing-plan-upgrade-action" ng-click="upgradePlan()">Change Plan </button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="billing-usage">
+            <div class="billing-overview">
+                <h4>Plan Usage</h4>
+
+                <div class="billing-overview-row">
+                    <div class="billing-overview-label">Interactions</div>
+                    <div class="billing-overview-value">{{interactions}}</div>
+                </div>
+                <div class="billing-overview-row">
+                    <div class="billing-overview-label">Handshake Relationships</div>
+                    <div class="billing-overview-value">{{syncMembers}} 
+                        <span ng-if="billing.plan.name != 'enterprise'">({{billing.plan.quota.syncRelationships - syncMembers}} remaining)</span></div>
+                </div>
+                <div class="billing-overview-row">
+                    <div class="billing-overview-label">Business Members</div>
+                    <div class="billing-overview-value">{{workflowMembers}} 
+                        <span ng-if="billing.plan.name != 'enterprise'">({{billing.plan.quota.businessUsers - workflowMembers}} remaining)</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="billing-details">
+            <div class="billing-overview">
+                <div class="billing-overview-row">
+                    <div class="billing-overview-label">Your Current Invoice</div>
+                    <div class="billing-overview-value"></div>
+                </div>
+                <div class="billing-overview-row">
+                    <div class="billing-overview-label">Due Date</div>
+                    <div class="billing-overview-value">N/A</div>
+                </div>
+                <div class="billing-overview-row">
+                    <div class="billing-overview-label">View Bill</div>
+                    <div class="billing-overview-value">N/A</div>
+                </div>
+            </div>
+        </div>
+
+
+        
+
+        <div class="billing-section">
+            <!--<img src="~/Areas/Beta/img/paypal-logo.jpg" class="billing-paypal-logo">-->
+            <div class="billing-section-heading">Payment Methods</div>
+            <div class="billing-section-notes">
+                We accept all major debit and credit cards.
+                <div class="billing-accept-cards">
+                    <img ng-repeat="brand in paymentConfig.cardBrands" class="card-brand-logo"
+                         ng-src="{{getCardTypeIconUrl(brand.name)}}">
+                </div>
+            </div>
+            <div class="payment-method-add">
+                <button class="payment-method-add-action" ng-click="addPaymentMethod()">+ Add Payment Method</button>
+            </div>
+            <div class="payment-methods-list">
+                <div class="payment-method-item" ng-repeat="method in payment.methods">
+                    <div class="payment-method-icon">
+                        <img ng-src="{{getCardTypeIconUrl(method.cardType)}}">
+                    </div>
+                    <div class="payment-method-info">
+                        <div class="payment-method-number" ng-bind="method.cardNumber | secureCCNumber">
+                        </div>
+                        <div class="payment-method-expires">
+                            Expires: {{method.expires.month}}/{{method.expires.year}}
+                        </div>
+                    </div>
+                    <div class="payment-method-default">
+                        <div class="payment-method-isdefault" ng-if="method.isDefault">Default</div>
+                    </div>
+                    <div class="payment-method-actions">
+                        <button class="grid-action action-more" ng-click="openMoreActions($index+1,$event)">
+                            More
+                        </button>
+                        <div class="more-actions-dropdown" ng-if="rguView.openingMoreActions===$index+1">
+                            <button class="more-action" ng-click="editPaymentMethod(method,$index);closeMoreActions()">
+                                Edit
+                            </button>
+                            <button class="more-action" ng-if="canSetDefaultMethod(method)"
+                                    ng-click="setDefaultPaymentMethod(method);closeMoreActions()">
+                                Set as Default
+                            </button>
+                            <button class="more-action" ng-click="removePaymentMethod(method);closeMoreActions()">
+                                Remove
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="billing-section">
+            <div class="billing-section-heading">Billing History</div>
+            <div class="billing-history">
+                <table class="billing-history-grid table table-striped">
+                    <tr>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Transaction ID</th>
+                        <th>Product Name</th>
+                        <th>Payment Method</th>
+                        <th>Bill Amount</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr ng-repeat="bill in billHistory.bills" class="billing-history-row">
+                        <td ng-bind="bill.startdate | date:'d MMM yyyy'"></td>
+                        <td ng-bind="bill.enddate | date:'d MMM yyyy'"></td>
+                        <td ng-bind="bill.transactionId"></td>
+                        <td ng-bind="bill.productname"></td>
+                        <td ng-bind-html="bill.methodpayment"></td>
+                        <td ng-bind-template="US$ {{bill.amount}}"></td>
+                        <td ng-bind="bill.status"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>

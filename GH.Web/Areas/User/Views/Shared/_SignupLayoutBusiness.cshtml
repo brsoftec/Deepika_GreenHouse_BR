@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Tier = "business";
+ViewBag.Layout = "signup";
+}
+
+<!DOCTYPE html>
+<html ng-app="regitPublicBusiness" ng-cloak>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Regit for Business">
+    <meta property="og:title" content="Regit for Business" />
+    <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <title>Regit for Business - @ViewBag.Title</title>
+
+    @Styles.Render("~/bundles/css/phone-input")
+    @Styles.Render("~/bundles/css/main")
+    @Styles.Render("~/bundles/css/public")
+    <link rel="stylesheet" href="~/Areas/Beta/css/responsive.css">
+    @RenderSection("styles", required: false)
+</head>
+<body class="regit-public regit-business page-business @ViewBag.BodyClass">
+    @Html.Partial("_PublicHeaderPartial")
+    <div class="main-body">
+        @RenderBody()
+    </div>
+    @Html.Partial("_PublicFooterPartial")
+
+    @Scripts.Render("~/bundles/js/vendor")
+    @Scripts.Render("~/bundles/js/phone-input")
+      @Scripts.Render("~/bundles/js/main")
+
+    <script src="~/Scripts/regit-responsive.js"></script>
+
+    <script src="~/Areas/Beta/js/modules/campaigns.js"></script>
+    <script src="~/Areas/Beta/js/regitSignup.js"></script>
+
+    @Scripts.Render("~/bundles/js/greenhouse")
+    @Scripts.Render("~/bundles/js/greenhouseBusiness")
+    @*@Scripts.Render("~/bundles/js/regit-ui")*@
+
+    @Scripts.Render("~/bundles/user-service")
+    @Scripts.Render("~/bundles/js/public")
+
+    <script src="~/Areas/Beta/js/regitPublicBusiness.js"></script>
+
+    @RenderSection("scripts", required: false)
+
+    @Html.Partial("_GoogleAnalyticsScript")
+</body>
+</html>

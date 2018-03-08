@@ -1,0 +1,92 @@
+<div class="user-grid">
+    <div class="interaction-dashboard user-grid-dashboard">
+        <button type="button" class="interaction-cta cta-add-member expandable last-in-group"
+                ng-class="{collapsable: view.showingAddMember}" ng-click="toggleAddMember()">
+            Add Member
+        </button>
+    </div>
+
+    <user-select ng-if="view.showingAddMember" type="network" class="expandable-user-select network-user-select" ignores="users" invites="invites" on-add="inviteMember(user)"></user-select>
+
+    <div ng-if="!view.loaded"><rgu-spinner></rgu-spinner>Loading network...</div>
+    <div ng-if="view.loaded && !users.length">No one in your network</div>
+    <table ng-if="users.length" class="table">
+        <tbody>
+        <tr ng-repeat-start="user in users | orderBy:sortUsers" ng-class="{even: $index%2}">
+            <td class="user-avatar-cell">
+                <a ng-if="user.profileUrl" href="{{user.profileUrl}}">
+                <img class="img-thumbnail" ng-src="{{user.avatar | avatarUrl}}">
+                </a>
+                <img  class="img-thumbnail" ng-if="!user.profileUrl" ng-src="{{user.avatar | avatarUrl}}">
+            </td>
+            <td class="user-name-cell">
+                <a ng-if="user.profileUrl" href="{{user.profileUrl}}">{{user.displayName}}</a>
+                <span ng-if="!user.profileUrl">{{user.displayName}}</span>
+                <div class="user-relationship" ng-if="user.relationship">
+                    {{user.relationship}}
+                </div>
+            </td>
+            <td class="user-status-cell">
+                <span ng-if="user.trusted" class="user-network-badge user-network-badge-trusted badge">Trusted</span>
+                <span ng-if="user.pending && !user.incoming" class="user-network-badge user-network-badge-pending badge-pending">Pending</span>
+                <span ng-if="user.pending && user.incoming" class="user-network-badge user-network-badge-pending badge">Incoming Request</span>
+                <span ng-if="user.isEmergency && user.emergency.status==='pending' && !user.emergency.incoming" class="user-network-badge user-network-badge-pending badge">Pending Emergency Contact</span>
+                <span ng-if="user.isEmergency && user.emergency.status==='pending' && user.emergency.incoming" class="user-network-badge user-network-badge-pending badge">Pending Request</span>
+                <span ng-if="user.isEmergency && user.emergency.status!=='pending' && !user.emergency.incoming" class="user-network-badge user-network-badge-emergency badge">Emergency Contact</span>
+            </td>
+            <td class="user-info-cell">
+                <span ng-if="user.pending && !user.incoming && !user.inviteId" class="user-pending-sent">Invitation sent {{user.sent | friendlyTime}}</span>
+                <span ng-if="user.pending && user.inviteId">Signed up {{user.invitation.SentAt | friendlyTime}}<br>following your email invitation</span>
+                <span ng-if="user.isEmergency && user.emergency.status==='pending' && !user.emergency.incoming" class="user-pending-sent">Emergency contact request sent {{user.emergency.sent | friendlyTime}}</span>
+                <div ng-if="user.isEmergency && user.emergency.status==='pending' && user.emergency.incoming" class="user-info-emergency">Requesting to add you as emergency contact</div>
+                <div ng-if="user.isEmergency && user.emergency.status!=='pending' && !user.emergency.incoming" class="user-info-emergency"></div>
+                <div ng-if="user.delegations.length" ng-repeat="delegation in user.delegations" class="user-info-delegation">
+                    <span ng-if="!delegation.outgoing">Delegating you with {{delegation.role}} role</span>
+                    <span ng-if="delegation.outgoing">You are delegating with {{delegation.role}} role</span>
+                    <span ng-if="delegation.pending"> (Pending)</span>
+                </div>
+            </td>
+
+            <td class="user-grid-actions">
+                <button type="button" ng-if="view.editing && view.editingUser.id === user.id" class="grid-action action-save" ng-click="saveEdit(user,$event)">Save</button>
+                <button type="button" ng-if="view.editing && view.editingUser.id === user.id" class="grid-action action-cancel" ng-click="cancelEdit(user,$event)">Cancel</button>
+                <button type="button" ng-if="user.incoming" class="grid-action action-accept" ng-click="acceptRequest(user)">Accept</button>
+                <button type="button" ng-if="user.incoming" class="grid-action action-deny" ng-click="denyRequest(user)">Deny</button>
+                <button type="button" ng-if="user.isEmergency && user.emergency.incoming" class="grid-action action-accept" ng-click="acceptEmergencyRequest(user)">Accept</button>
+                <button type="button" ng-if="user.isEmergency && user.emergency.incoming" class="grid-action action-deny" ng-click="denyEmergencyRequest(user)">Deny</button>
+            </td>
+
+            <td class="more-actions">
+                <button ng-if="!user.incoming && !view.editing" class="grid-action action-more"
+                        ng-click="rguView.openMoreActions(user.id,$event)">More</button>
+                <div class="more-actions-dropdown" ng-if="rguView.isOpenMoreActions(user.id)">
+                    <button ng-if="!user.pending" class="more-action" ng-click="beginEdit(user,$event)">Edit</button>
+                    <button ng-if="user.pending" class="more-action" ng-click="resendRequest(user)">Resend Invitation</button>
+                    <button ng-if="user.pending" class="more-action" ng-click="cancelRequest(user)">Cancel Invitation</button>
+                    <button ng-if="!user.pending && !user.trusted" class="more-action" ng-click="trustUser(user)">Trust</button>
+                    <button ng-if="user.trusted" class="more-action" ng-click="untrustUser(user)">Untrust</button>
+                    <button ng-if="user.trusted && !user.isEmergency" class="more-action" ng-click="addEmergency(user)">Add as Emergency Contact</button>
+                    <button ng-if="user.trusted && user.isEmergency" class="more-action" ng-click="removeEmergency(user)">Remove Emergency Contact</button>
+                    <button ng-if="user.delegations.length" class="more-action" ng-click="viewDelegationDetails(user)">Delegation Details</button>
+                    <button ng-if="!user.pending && !user.delegations.length" class="more-action" ng-click="addDelegatee(user)">Delegate</button>
+                    <button ng-if="!user.pending" class="more-action" ng-click="removeUser(user)">Remove From Network</button>
+                </div>
+            </td>
+        </tr>
+
+        <tr ng-repeat-end>
+            <td ng-if="view.editing && view.editingUser.id === user.id" colspan="6" class="user-edit-cell">
+                <div class="user-edit">
+                    <label>Select this member's relationship with you</label>&nbsp;&nbsp;
+                    <rgu-smart-select list="relationships" ng-model="user.relationship">
+                    </rgu-smart-select>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+    <invite-grid type="network" invites="invites"></invite-grid>
+</div>
+

@@ -1,0 +1,180 @@
+<div class="user-select" rgu-event-listener>
+    <div class="user-search">
+        <input type="text" autofocus class="user-search-input" ng-model="search.query" ng-change="onUserSearchInput()"
+              ng-disabled="view.openingUserPopover" placeholder="{{search.placeholder}}">
+        <div class="more-actions search-options">
+            <button class="grid-action action-more"
+                    ng-click="rguView.openMoreActions('search-options',$event)">Search options
+            </button>
+            <div class="more-actions-dropdown has-prefix" ng-if="rguView.isOpenMoreActions('search-options')">
+                <button class="more-action" ng-class="{checked:search.by==='auto'}" ng-click="searchBy('auto')">Auto
+                </button>
+                <button class="more-action" ng-class="{checked:search.by==='name'}" ng-click="searchBy('name')">By
+                    name
+                </button>
+                <button class="more-action" ng-class="{checked:search.by==='email'}" ng-click="searchBy('email')">By
+                    email
+                </button>
+            </div>
+        </div>
+
+        <div class="rgu-message search-message message-alert"
+             ng-if="!search.byEmail && search.query.length && search.loaded && !search.users.length">No user found by that name
+        </div>
+        <div class="rgu-message search-message message-alert"
+             ng-if="search.byEmail && search.query.length && !validateEmail(search.query)">Enter a full email address
+        </div>
+        <div class="rgu-message search-message message-alert"
+             ng-if="search.byEmail && !search.me && !search.ignored && !search.invited && validateEmail(search.query) && search.loaded && !search.users.length && !isHandshake">No user found with that email address. <button type="button" ng-if="!isCustomers" class="grid-action user-grid-action action-add" ng-click="inviteEmail(search.query,$event)">Invite onto Regit</button>
+        </div>
+        <div class="rgu-message search-message message-alert"
+             ng-if="search.byEmail && search.me">Can't add yourself
+        </div>
+        <div class="rgu-message search-message message-alert"
+             ng-if="search.byEmail && search.ignored">User with that email address already in list ({{search.ignored.displayName}})
+        </div>
+        <div class="rgu-message search-message message-alert"
+             ng-if="search.byEmail && search.invited">An invitation already sent to that email address
+        </div>
+        <div class="rgu-message search-message message-alert"
+             ng-if="search.alert" ng-bind-html="search.alert">
+        </div>
+    </div>
+
+    <div class="search-users">
+        <table ng-if="users.length" class="">
+            <tbody>
+            <tr ng-repeat="user in search.users = (users | filter:filterUsers | limitTo:15 | orderBy:sortUsers)" ng-class="{even: $index%2}">
+                <td class="user-avatar-cell">
+                    <a ng-if="user.profileUrl" href="{{user.profileUrl}}">
+                        <img class="search-user-avatar" ng-src="{{user.avatar | avatarUrl}}">
+                    </a>
+                    <img class="search-user-avatar" ng-if="!user.profileUrl" ng-src="{{user.avatar | avatarUrl}}">
+                </td>
+                <td class="user-name-cell">
+                    <a ng-if="user.profileUrl" href="{{user.profileUrl}}">{{user.displayName}}</a>
+                    <span ng-if="!user.profileUrl">{{user.displayName}}</span>
+                </td>
+
+                <td class="user-grid-info">
+                </td>
+                <td class="user-grid-actions">
+                    <button type="button" ng-if="!isHandshake" class="grid-action user-grid-action action-add" ng-click="addUser(user,$event)"
+                            ng-disabled="view.openingUserPopover">Add</button>
+                    <button type="button" ng-if="isHandshake" class="grid-action user-grid-action action-select"
+                            ng-click="selectUser(user);onSelect({user:user})" selected-user="handshake.recipient">Select</button>
+                </td>
+
+            </tr>
+            </tbody>
+
+        </table>
+
+
+        <div ng-if="type==='network'" class="rgu-popover popover-add-member popover-{{type}}-add-member" ng-show="rguView.openingPopover">
+            <div class="popover-header">
+            <h5 class="popover-title">Add Network Member</h5>
+            </div>
+            <div class="popover-row user-info">
+                <div class="popover-label"></div>
+                <div class="popover-field">
+                    <div class="add-user-avatar" ng-class="{default:!newUser.avatar}">
+                    <img class="img-thumbnail" ng-src="{{newUser.avatar | avatarUrl}}">
+                    </div>
+                    <div ng-if="!newUser.invite" class="user-info-name" ng-bind="newUser.displayName"></div>
+                    <div ng-if="newUser.invite" class="user-info-email" ng-bind="newUser.invite.email"></div>
+                </div>
+            </div>
+            <div class="popover-row">
+                <div class="popover-label"></div>
+                <div ng-if="newUser.invite" class="popover-field network-add-member-text">Email this person invitation to sign up onto Regit and join your network</div>
+                <div ng-if="!newUser.invite" class="popover-field network-add-member-text">Ask this user to join your network</div>
+            </div>
+            <div class="popover-row user-role-edit" ng-if="newUser.invite">
+                <div class="popover-label">Message</div>
+                <div class="popover-field">
+                    <textarea class="invite-message-input" rows="3" ng-model="newUser.invite.message" placeholder="Type a comment to include in email"></textarea>
+                </div>
+            </div>
+            <div class="popover-actions">
+                <button type="button" class="popover-action action-cancel" ng-click="cancelAddUser()">Cancel</button>
+                <button type="button" class="popover-action high-action action-save" ng-disabled="!canAddUser()" ng-click="saveAddUser()">Invite</button>
+            </div>
+        </div>
+
+        <div ng-if="type==='workflow'" class="rgu-popover popover-{{type}}-add-member" ng-show="rguView.openingPopover">
+            <div class="popover-header">
+            <h5 class="popover-title">Add Workflow Member</h5>
+            </div>
+            <div class="popover-row user-info">
+                <div class="popover-label"></div>
+                <div class="popover-field">
+                    <div class="add-user-avatar">
+                    <img class="img-thumbnail" ng-src="{{newUser.avatar | avatarUrl}}">
+                    </div>
+                    <div ng-if="!newUser.invite" class="user-info-name" ng-bind="newUser.displayName"></div>
+                    <div ng-if="newUser.invite" class="user-info-email" ng-bind="newUser.invite.email"></div>
+                </div>
+            </div>
+            <div class="popover-row user-role-edit">
+                <div class="popover-label">Roles</div>
+                <div class="popover-field">
+                    <rgu-checkbox label="Admin" ng-model="newUser.roleModel.admin"></rgu-checkbox>
+                    <rgu-checkbox label="Editor" ng-model="newUser.roleModel.editor"></rgu-checkbox>
+                    <rgu-checkbox label="Approver" ng-model="newUser.roleModel.approver"></rgu-checkbox>
+                </div>
+            </div>
+
+
+            <div class="popover-row" ng-if="newUser.invite">
+                <div class="popover-label"></div>
+                <div class="popover-field network-add-member-text">Email this person invitation to sign up onto Regit and join your workflow</div>
+            </div>
+
+            <div class="popover-row user-role-edit" ng-if="newUser.invite">
+                <div class="popover-label">Message</div>
+                <div class="popover-field">
+                    <textarea class="invite-message-input" rows="3" ng-model="newUser.invite.message" placeholder="Type a comment to include in email"></textarea>
+                </div>
+            </div>
+
+            <div class="popover-actions">
+                <button type="button" class="popover-action action-cancel" ng-click="cancelAddUser()">Cancel</button>
+                <button type="button" class="popover-action high-action action-save" ng-disabled="!canAddUser()" ng-click="saveAddUser()">Invite</button>
+            </div>
+        </div>
+
+        <div ng-if="type==='customer'" class="rgu-popover popover-add-member popover-{{type}}-add-member" ng-show="rguView.openingPopover">
+            <div class="popover-header">
+                <h5 class="popover-title">Add Customer</h5>
+            </div>
+            <div class="popover-row user-info">
+                <div class="popover-label"></div>
+                <div class="popover-field">
+                    <div class="add-user-avatar" ng-class="{default:!newUser.avatar}">
+                        <img class="img-thumbnail" ng-src="{{newUser.avatar | avatarUrl}}">
+                    </div>
+                    <div ng-if="!newUser.invite" class="user-info-name" ng-bind="newUser.displayName"></div>
+                    <div ng-if="newUser.invite" class="user-info-email" ng-bind="newUser.invite.email"></div>
+                </div>
+            </div>
+            <div class="popover-row">
+                <div class="popover-label"></div>
+                <div ng-if="newUser.invite" class="popover-field network-add-member-text">Email this person invitation to sign up onto Regit and join interaction</div>
+                <div ng-if="!newUser.invite" class="popover-field network-add-member-text">Ask this user to join interaction</div>
+            </div>
+            <div class="popover-row user-role-edit">
+                <div class="popover-label">Message</div>
+                <div class="popover-field">
+                    <textarea ng-if="newUser.invite" class="invite-message-input" rows="3" ng-model="newUser.invite.message" placeholder="Type a comment to include in email"></textarea>
+                    <textarea ng-if="!newUser.invite" class="invite-message-input" rows="3" ng-model="newUser.message" placeholder="Type a comment to include in invitation"></textarea>
+                </div>
+            </div>
+            <div class="popover-actions">
+                <button type="button" class="popover-action action-cancel" ng-click="cancelAddUser()">Cancel</button>
+                <button type="button" class="popover-action high-action action-save" ng-disabled="!canAddUser()" ng-click="saveAddUser()">Invite</button>
+            </div>
+        </div>
+
+    </div>
+</div>

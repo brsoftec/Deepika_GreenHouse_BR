@@ -1,0 +1,143 @@
+﻿<div ng-controller="searchVaultForm">
+    <div class="vault-group-content" ng-repeat="value in listForm" ng-if="read">
+        <div class="vault-row" ng-if="write">
+            <div class="vault-group-actions">
+                <button ng-hide="value.isEdit" class="btn-vault-action btn-vault-edit" ngclipboard data-clipboard-target="#copy-{{query.formName}}{{$index}}">
+                    Copy text
+                </button>
+
+                <button ng-hide="value.isEdit" class="btn-vault-action btn-vault-edit" ng-click="value.isEdit = !value.isEdit">
+                    Edit
+                </button>
+
+                <button ng-hide="!value.isEdit" class="btn-vault-action btn-vault-save" ng-click="Save()">
+                    Save
+                </button>
+                <button ng-hide="!value.isEdit" class="btn-vault-action btn-vault-cancel btn-cancel"
+                        ng-click="Cancel()">
+                    Cancel
+                </button>
+            </div>
+        </div>
+        <!-- // -->
+        <div class="vault-row" ng-hide="value.isEdit" id="copy-{{query.formName}}{{$index}}">
+            <div class="vault-label">
+                <label ng-if="$index == 0"> {{_form._label}} </label>
+            </div>
+
+            <div class="vault-field">
+                <div class="vault-field-value">
+                    <strong>
+                        {{value.description.value}} <br />
+                    </strong>
+
+                    <span ng-if="value.name.value">
+                        <strong> {{value.name.label}}: </strong> {{value.name.value }} <br />
+                    </span>
+                    <span ng-if="value.type.value">
+                        <strong> {{value.type.label}}: </strong> {{value.type.value }} <br />
+                    </span>
+                    <span ng-if="value.breed.value">
+                        <strong> {{value.breed.label}}: </strong> {{value.breed.value }} <br />
+                    </span>
+                    <span ng-if="value.gender.value">
+                        <strong> {{value.gender.label}}: </strong> {{value.gender.value }} <br />
+                    </span>
+                    <span ng-if="value.dob.value">
+                        <strong> {{value.dob.label}}: </strong> {{value.dob.value | date:'fullDate'}} <br />
+                    </span>
+                    <span ng-if="value.note.value">
+                        <strong> {{value.note.label}}: </strong> {{value.note.value }} <br />
+                    </span>
+                    <div class="vault-privacy-indicator" ng-class="{'privacy-on': value.privacy.value}"
+                         bs-tooltip
+                         data-title="{{value.privacy.value?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                         data-placement="bottom-left">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-if="write" ng-hide="!value.isEdit">
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label></label>
+                </div>
+                <div class="vault-field-edit">
+                    <strong>{{_form._label}} </strong>
+                    <button class="btn-vault-privacy" ng-class="{'privacy-on': value.privacy}"
+                            ng-click="value.privacy = !value.privacy"
+                            bs-tooltip
+                            data-title="{{value.privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                            data-placement="bottom-left"></button>
+                </div>
+            </div>
+
+            <!-- Name -->
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>{{value.name.label}}</label>
+                </div>
+                <div class="vault-field-edit">
+                    <rgu-control type="textbox" ng-model="value.name.value" />
+                </div>
+            </div>
+            <!-- type -->
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>{{value.type.label}}</label>
+                </div>
+                <div class="vault-field-edit">
+                    <rgu-control type="select" class="short" options="['Dog','Cat', 'Fish', 'Bird', 'Other']" ng-model="value.type.value" />
+                </div>
+            </div>
+            <!-- Breed -->
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>{{value.breed.label}}</label>
+                </div>
+                <div class="vault-field-edit">
+                    <rgu-control type="textbox" ng-model="value.breed.value" />
+                </div>
+            </div>
+            <!-- Gender -->
+            <div class="vault-row">
+                <div class="vault-label">
+                    {{value.gender.label}}
+                </div>
+                <div class="vault-field-edit">
+                    <rgu-radio-group values="['Male','Female', 'Other']" ng-model="value.gender.value"></rgu-radio-group>
+                </div>
+            </div>
+            <!-- dob -->
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>{{value.dob.label}}</label>
+                </div>
+                <div class="vault-field-edit">
+                    <rgu-control type="textbox" ng-model="value.dob.value" />
+                </div>
+            </div>
+            <!-- note -->
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>{{value.note.label}}</label>
+                </div>
+                <div class="vault-field-edit">
+                    <textarea ng-model="value.note.value"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="query.value !=''">
+
+        <div class="vault-entry-form-edit-actions">
+            <button type="button"
+                    class="btn-edit-vault-field-action btn-edit-vault-field-cancel"
+                    ng-click="$event.preventDefault();cancelField(entry)">
+                Close view
+            </button>
+
+        </div>
+    </div>
+</div>

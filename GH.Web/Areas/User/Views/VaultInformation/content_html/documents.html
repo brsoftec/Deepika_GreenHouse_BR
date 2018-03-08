@@ -1,0 +1,46 @@
+﻿<div class="vault-group">
+    <h1>Document Vault</h1>
+    <div class="vault-documents" ng-controller="DocumentController">
+    
+        <div class="vault-doc-header clearfix">
+            <button class="vault-doc-upload-btn" ng-click="$event.preventDefault(); uploadDoc()">Upload a file </button>
+            <div class="vault-doc-search" ng-class="{'vault-doc-search-empty':!vaultDocSearch.query.length}">
+                <input class="search-vault search-doc-vault" placeholder="Search documents"
+                       ng-model="vaultDocSearch.query" ng-change="onVaultDocSearchInput()">
+                <button type="button" class="search-clear" ng-click="clearDocSearch()">Clear search</button>
+            </div>
+        </div>
+        <div class="vault-doc-container">
+            <h3>My Files </h3>
+            <table class="vault-doc-grid">
+                <tr ng-repeat="doc in matchedDocs = (_listdoc | filter: filterDocsByQuery) | limitTo:vaultDocSearch.pageSize:vaultDocSearch.pageStart as qdocs"
+                    ng-init="initPages()">
+                    <td class="vault-doc-type-icon vault-doc-type-{{GenerateFileType(doc.type)}}"></td>
+                    <td>
+                        <a href="#" class="vault-doc-name" ng-click="$event.preventDefault(); openDocEditor(doc)"
+                           ng-bind-html="doc.description  | vaultHighlightMatch:vaultDocSearch.query"></a>
+                        <div class="vault-doc-cat" ng-bind-html="doc.category | vaultHighlightMatch:vaultDocSearch.query"></div>
+
+                    </td>
+                    <td>
+                        <div class="vault-doc-date">Uploaded {{doc.uploadDate | date:'dd MMM yy'}}</div>
+                        <div class="vault-doc-date" ng-if="doc.expiryDate">Expires {{doc.expiryDate | date:'dd MMM yy'}}</div>
+
+                    </td>
+
+                    <td class="vault-doc-actions" >
+                        <button class="vault-doc-delete" ng-click="DeleteFile(doc)">Delete</button>
+                    </td>
+                </tr>
+            </table>
+            <div class="vault-doc-pager pager" ng-if="matchedDocs.length>vaultDocSearch.pageSize">
+                <ul>
+                    <li ng-repeat="pages in vaultDocSearch.pages">
+                        <a href="#" ng-click="$event.preventDefault();gotoPage($index)" ng-bind="$index+1"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>

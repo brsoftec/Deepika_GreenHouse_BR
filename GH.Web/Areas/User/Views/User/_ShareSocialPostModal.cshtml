@@ -1,0 +1,40 @@
+﻿<div bs-modal bs-modal-on-hidden="onShareSocialPostModalHidden()" bs-modal-show="configs.ShowShareSocialPostModal" class="modal fade share-social-post-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="share-social-post-description">
+                    <textarea ng-model="shareSocialPost.Description" class="form-control" placeholder="Write a description ..."></textarea>
+                </div>
+                <div class="share-social-post-content">
+                    <div class="row share-social-post-content-row">
+                        <div ng-if="!shareSocialPost.VideoUrl && shareSocialPost.Photos.length" class="col-xs-12 col-sm-5 share-social-post-content-image">
+                            <div class="share-social-post-content-image-wrapper">
+                                <img class="img-responsive" ng-src="{{shareSocialPost.Photos[0].Url}}" />
+                            </div>
+                        </div>
+                        <div ng-class="{'col-sm-7': !shareSocialPost.VideoUrl && shareSocialPost.Photos.length}" class="col-xs-12 share-social-post-content-text" ng-bind-html="shareSocialPost.Message">
+                        </div>
+                    </div>
+                </div>
+                <div class="row share-social-post-options">
+                    <div class="col-md-12">Share on:</div>
+                    <div class="col-xs-12 col-md-7">
+                        <label class="regit-color checkbox-inline" style="font-size: 25px; font-family: swing">
+                            <input ng-model="shareSocialPost.GreenHouse" type="checkbox" style="top: 10px"> regit
+                        </label>
+                        <label ng-if="linkedNetworks.Facebook" class="btn-facebook-color checkbox-inline" style="font-size: 20px; font-weight: 700">
+                            <input ng-model="shareSocialPost.Facebook" type="checkbox" style="top: 7px"> facebook
+                        </label>
+                        <label ng-if="linkedNetworks.Twitter" class="regit-color checkbox-inline" style="font-size: 20px; font-weight: 700">
+                            <input ng-model="shareSocialPost.Twitter" type="checkbox" style="top: 7px"> twitter
+                        </label>
+                    </div>
+                    <div class="col-xs-12 col-md-5 share-social-post-actions">
+                        <a class="btn btn-white" ng-click="configs.ShowShareSocialPostModal = false">Cancel</a>
+                        <a class="btn btn-blue" ng-click="saveShareSocialPost()">Share</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

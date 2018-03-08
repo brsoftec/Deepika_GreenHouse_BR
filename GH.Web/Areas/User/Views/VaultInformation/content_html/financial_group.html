@@ -1,0 +1,56 @@
+﻿<div class="vault-group">
+    <div class="vault-panel" ng-controller="GroupFinancialController">
+        <div class="vault-panel-header">
+            <button class="btn-vault-panel-header btn-vault-panel-back" ng-click="vm.AlphaRedirectTask('main_form.html')" href="#"> Back</button>
+            <button class="btn-vault-panel-header btn-vault-panel-close" ng-click="vm.AlphaRedirectTask('main_form.html')" href="#"> Close</button>
+            <h4 class="vault-panel-title">
+                Add a new Financial
+            </h4>
+        </div>
+
+        <div class="vault-panel-body">
+            <form name="formGroup" class="vault-panel-form" novalidate>
+
+                <div class="vault-panel-row">
+
+                    <select rgu-select class="short" ng-model="_select._value" ng-options="group for group in list_group">
+                        <option value="" class="select-heading">{{_select._value}}</option>
+                    </select>
+
+                    <!-- Bank account -->
+                    <div ng-if="_select._value == 'Bank account'">
+                        <div ng-include="vm.bank_account"></div>
+                    </div>
+                    <!-- -->
+                    <!-- Bank card -->
+                    <div ng-if="_select._value == 'Bank card'">
+                        <div ng-include="vm.bank_card"></div>
+                    </div>
+                    <!-- Master card -->
+                    <div ng-if="_select._value == 'Master card'">
+                        <div ng-include="vm.master_card"></div>
+                    </div>
+                    <!-- Visa card -->
+                    <div ng-if="_select._value == 'Visa card'">
+                        <div ng-include="vm.visa_card"></div>
+                    </div>
+                    <!-- Paypal -->
+                    <div ng-if="_select._value == 'Paypal'">
+                        <div ng-include="vm.paypal"></div>
+                    </div>
+                    <!-- -->
+                    <!-- Investment   -->
+                    <div ng-if="_select._value == 'Insurance'">
+                        <div ng-include="vm.insurance"></div>
+                    </div>
+                    <!-- Insurance -->
+                    <div ng-if="_select._value == 'Investment'">
+                        <div ng-include="vm.investment"></div>
+                    </div>
+                    <!-- -->
+                </div>
+
+            </form>
+        </div>
+    </div>
+ </div>

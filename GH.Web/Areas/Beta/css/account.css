@@ -1,0 +1,226 @@
+
+.field-title {
+    line-height: 20px !important;
+    display: inline-block;
+    /*min-width: 20em;*/
+}
+
+.field-editor {
+    display: inline-block;
+    width: 80%;
+}
+
+.field-action {
+    position: absolute;
+    display: inline-block;
+    top: 10px;
+    right: 10px;
+    background: transparent url(../img/account-form-edit.png) no-repeat left center;
+    padding-left: 12px;
+}
+
+.field-action:hover {
+    text-decoration: underline;
+}
+
+.ui-select-choices-row-inner {
+    padding: 4px;
+    color: black !important;
+    text-decoration: none !important;
+}
+
+.friend-name {
+    font-weight: normal;
+}
+
+/* Basic Theme */
+
+.account-summary {
+    position: relative;
+    padding: 4px 40px 4px 10px;
+    background: #00adef;
+    color: white;
+    margin-top: 10px;
+    font-size: 120%;
+    cursor: pointer;
+}
+
+.regit-business .account-summary {
+    background: #0076a3;
+}
+
+.account-summary:after {
+    content: "";
+    position: absolute;
+    right: 10px;
+    top: 0;
+    font-weight: 200;
+    color: #444;
+    height: 32px;
+    width: 12px;
+    background: url('../img/expand-more.png') right center no-repeat;
+}
+
+.account-summary-secure {
+    background: transparent url(../img/network-type.svg) no-repeat right center;
+    padding-right: 20px;
+}
+
+.account-accordion.open > .account-summary:after {
+    -webkit-transform: rotate(-180deg);
+    -ms-transform: rotate(-180deg);
+    transform: rotate(-180deg);
+}
+
+.account-form-row {
+    border-bottom: 1px solid #ddd;
+    padding: 12px;
+    clear: both;
+    vertical-align: middle;
+    position: relative;
+}
+
+.account-form-row:last-child {
+    border-bottom: none;
+}
+
+.account-form-label {
+    display: inline-block;
+    width: 30%;
+}
+
+.account-form-control {
+    display: inline-block;
+    position: relative;
+    width: 80%;
+}
+
+.account-form-control-wide {
+    width: 100%;
+}
+
+account-form-control-avatar {
+}
+
+.upload-control {
+    display: inline-block;
+    width: 250px;
+}
+
+.account-message {
+    padding: 10px;
+    text-align: left;
+}
+
+.control-float-right {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: auto;
+}
+
+.account-form-link {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 8px;
+}
+
+.account-network {
+    padding: 20px 10px 10px 10px;
+}
+
+.account-form-action {
+    display: inline-block;
+}
+
+.network-heading {
+    color: #00adef;
+    font-weight: bold;
+    font-size: 140%;
+    background: transparent url(../img/network-type-normal.png) no-repeat left center;
+    padding-left: 40px;
+    margin-bottom: 10px;
+}
+
+.network-type-trusted {
+    background-image: url(../img/network-type-trusted.png);
+}
+
+.network-type-emergency {
+    background-image: url(../img/network-type-emergency.png);
+}
+
+.manage-network .friends {
+}
+
+.account-desc-input {
+
+}
+
+.account-desc-input textarea {
+    width: 100% !important;
+}
+
+.network-business-item-action {
+    border: 1px solid #00adef;
+    border-radius: 3px;
+    color: #999;
+    text-transform: uppercase;
+    padding: 4px;
+    font-size: 90%;
+}
+
+.network-business-form {
+    padding: 10px;
+}
+
+.network-business-item-name {
+    background: transparent url(../img/icon-business.png) no-repeat left center;
+    padding-left: 24px;
+    height: 24px;
+}
+
+.network-business-item-date {
+    color: #999;
+    cursor: default;
+}
+
+.image-editor-action {
+    margin-right: 30px;
+    padding: 16px 20px;
+}
+.image-editor {
+    /*width: 100%;*/
+    min-width: 700px;
+    min-height: 200px;
+}
+.editing-image {
+    max-width: 100%;
+}
+.qr-viewer {
+    width: 100%;
+    margin-top: 10px;
+}
+.qr-viewer-image {
+    width: 120px;
+    display: inline-block;
+    vertical-align: center;
+}
+.qr-viewer-description {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.qr-viewer-description p {
+    margin: 4px; padding: 0;
+}
+.qr-action-download {
+    display: inline-block;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background: white url(../img/download.svg) no-repeat 96% center;
+    background-size: 16px;
+    padding: 4px 30px 4px 10px;
+    margin-top: 10px;
+}

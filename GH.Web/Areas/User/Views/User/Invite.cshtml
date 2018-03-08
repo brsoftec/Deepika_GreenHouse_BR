@@ -1,0 +1,236 @@
+﻿@{
+    ViewBag.Title = "Invite People";
+    Layout = "~/Areas/User/Views/Shared/_LayoutDefaultApply.cshtml";
+    ViewBag.NgApp = "inviteApp";
+
+    var host = Request.Url.Host;
+    string environment = "development";
+    if (host.Contains(("demo.regit.today")))
+    {
+        environment = "staging";
+    }
+    else if (host.Contains(("regit.today")))
+    {
+        environment = "production";
+    }
+    bool isDev = environment == "development";
+    bool isProd = environment == "production";
+    var gapiConfig = new
+    {
+        apiKey = "AIzaSyDwqVlapEaqiZSSNCfFdIalDjujChRGS_0",
+        clientId = isDev ? "684473435765-bgo0f2fkm1scd7d7tsa509hue31ehch6.apps.googleusercontent.com"
+            : "684473435765-nsaffkkt0clcp0cruu24rlh77mqlprp3.apps.googleusercontent.com"
+    };
+    var fbapiConfig = new
+    {
+        appId = isDev ? "1830214053873590" : "1733667833548650"
+    };
+    bool showSignOut = false;
+}
+@section styles{
+    <link rel="stylesheet" href="@Url.Versioned("~/Areas/Beta/css/interaction.css")">
+    <link href="@Url.Versioned("~/Areas/Beta/css/invite.css")" rel="stylesheet"/>
+}
+@section prescripts {
+
+}
+@section initscripts {
+    <script src="@Url.Versioned("~/Areas/regitUI/js/modules/cloudapps.js")"></script>
+    <script>
+        angular.module('cloudapps')
+            .value('gapiConfig',
+                {
+                    apiKey: "@gapiConfig.apiKey",
+                    clientId: "@gapiConfig.clientId"
+                })
+            .value('fbapiConfig',
+                {
+                    appId: "@fbapiConfig.appId"
+                });
+        angular.module('inviteApp', ['myApp', 'cloudapps']);
+    </script>
+}
+@section scripts {
+
+
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/InviteController.js")"></script>
+
+    <script async defer src="https://apis.google.com/js/api.js"
+            onload="this.onload = function() {};gapiInit();"
+            onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+    <script>
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+}
+
+@*BODY*@
+
+@section body {
+    <div ng-controller="InviteController">
+        <div class="module module-main module-invite">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="/">&laquo; Home</a>
+                </li>
+                <li class="breadcrumb-item active">Regit Connections</li>
+            </ol>
+            <h1>Invite People to Regit</h1>
+            <div class="invite-dashboard">
+                <button type="button" class="invite-dashboard-item google-contacts" ng-class="{active: nav.section==='google'}"
+                        ng-click="navTo('google')">
+                    Google Contacts
+                </button>
+                <button type="button" class="invite-dashboard-item facebook-friends" ng-class="{active: nav.section==='facebook'}"
+                        ng-click="navTo('facebook')">
+                    Facebook Friends
+                </button>
+
+            </div>
+
+            <div class="invite-loading" ng-if="nav.section==='google' && (!gapi.loaded || gapi.signedIn && !ggContactsLoaded)">
+                <p>
+                    <rgu-spinner></rgu-spinner> Loading Google contacts...
+                </p>
+            </div>
+            <div class="invite-loading" ng-if="nav.section==='facebook' && !fbapi.loaded">
+                <p>
+                    <rgu-spinner></rgu-spinner> Connecting to Facebook...
+                </p>
+            </div>
+
+            <div class="invite-section section-google" ng-if="gapi.loaded && nav.section==='google'" ng-class="{'sent': sent}">
+
+                <div class="invite-authorize invite-message" ng-if="!gapi.signedIn">
+                    <p>Log in your Google account to view your contacts.</p>
+                    <p>
+                        <button class="invite-authorize-action" ng-click="signInGoogle()">Sign In</button>
+                    </p>
+                </div>
+                @if (showSignOut)
+                {
+                    <div class="invite-authorize" ng-if="gapi.signedIn">
+                        <p>
+                            <button class="invite-authorize-action" ng-click="signOutGoogle()">Sign Out</button>
+                        </p>
+                    </div>
+                }
+                <div class="contacts-container" ng-if="ggContactsLoaded">
+                    @*                    <pre>{{rawContacts | json}}</pre>*@
+                    <div class="invite-header">
+                        <div class="invite-profile" ng-if="profileLoaded">
+                            <div class="invite-profile-avatar">
+                                <img ng-src="{{profile.avatar}}"/>
+                            </div>
+                            <div class="invite-profile-name" ng-bind="profile.name"></div>
+                            <div class="invite-profile-email" ng-bind="profile.email"></div>
+                        </div>
+                        <div class="invite-switch">
+                            <rgu-checkbox ng-model="view.showingAll" label="Show contacts without email address"></rgu-checkbox>
+                        </div>
+                    </div>
+                    <div class="invite-message message-error" ng-if="noEmails()">
+                        <p>Found no contact with an email address, necessary for invitation.</p>
+                    </div>
+                    <div class="invite-message message-error" ng-if="!noEmails() && !selectedContacts().length">
+                        <p>Please select contacts to invite.</p>
+                    </div>
+                    <div class="invite-message invite-actions" ng-if="!sent && selectedContacts().length">
+                        <p>
+                            Email <span class="invite-selected-count">{{selectedContacts().length}}</span> contacts selected below to invite them to join Regit.
+                        </p>
+                        <p>Include message:</p>
+                        <p>
+                            <textarea cols="2" ng-model="invite.message" class="invite-message-input"></textarea>
+                        </p>
+                        <button class="invite-send-action" ng-click="sendInvitations()">Send Invitations</button>
+                    </div>
+                    <div class="invite-message message-success" ng-if="sent">
+                        <p>
+                            Sent email invitations to <span class="invite-selected-count">{{selectedContacts().length}}</span> selected contacts.
+                        </p>
+                    </div>
+
+                    <div class="invite-grid">
+                        <table class="table table-striped">
+                            <tbody>
+                            <tr ng-repeat="person in ggContacts | filter:filterContacts | orderBy:sortByName | orderBy:sortByEmail"
+                                ng-class="{selected:person.selected, selectable:person.email && !sent}" ng-click="toggleSelect(person)">
+                                <td>
+                                    <div class="invite-avatar" ng-if="person.avatar">
+                                        <img ng-src="{{person.avatar}}"/>
+                                    </div>
+                                    <div class="invite-default-avatar" ng-if="!person.avatar" ng-class="{'with-email':person.email}">
+
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="invite-name" ng-bind="person.name"></div>
+                                </td>
+                                <td>
+                                    <div class="invite-email" ng-bind="person.email"></div>
+                                </td>
+                                <td>
+                                    <div class="invite-selected-badge" ng-if="person.selected"></div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="invite-section section-facebook" ng-if="nav.section==='facebook'">
+                <div class="invite-authorize invite-message" ng-if="fbapi.signedIn === false">
+                    <p>Log in your Facebook account to invite friends.</p>
+                    <p>
+                        <button class="invite-authorize-action" ng-click="signInFacebook()">Sign In</button>
+                    </p>
+                </div>
+@*                <div class="invite-authorize" ng-if="fbapi.signedIn">
+                    <p>
+                        <button class="invite-authorize-action" ng-click="signOutFacebook()">Sign Out</button>
+
+                    </p>
+                </div>*@
+                <div class="friends-container" ng-if="fbProfileLoaded">
+                    <div class="invite-header">
+                        <div class="invite-profile">
+                            <div class="invite-profile-avatar">
+                                <img ng-src="{{fbProfile.avatar}}"/>
+                            </div>
+                            <div class="invite-profile-name" ng-bind="fbProfile.name"></div>
+                        </div>
+
+                    </div>
+
+                    <div class="invite-message message-success" ng-if="fbSent">
+                        <p>Your last invitations sent succesfully.</p>
+                    </div>
+
+                    <div class="invite-message invite-actions">
+                        <p>On the invitation dialog, enter a message and add your friends one by one to invite them to join Regit.</p>
+                        <button class="invite-send-action" ng-click="openSendDialog()">Create Invitation</button>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+}

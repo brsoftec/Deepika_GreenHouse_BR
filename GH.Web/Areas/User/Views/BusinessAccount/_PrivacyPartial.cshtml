@@ -1,0 +1,35 @@
+﻿<div ng-controller="BusinessPrivacySettingsController" collapse-base-on-route="/privacy" class="collapse-item">
+    <div class="collapse-header">
+        <a href="#/privacy" class="regit-color" data-toggle="collapse" aria-expanded="false" data-target="#privacyCollapseContent">@GH.Lang.Regit.Privacy</a>
+    </div>
+    <div class="collapse-content">
+        <div class="collapse" id="privacyCollapseContent">
+            <div class="row field">
+                <div class="col-md-6">
+                    <span class="field-title">@GH.Lang.Regit.Who_can_view</span>
+                </div>
+                <div class="col-md-6 text-right">
+                    <div class="dropdown privacy-drop-list">
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            {{privacyItems[Model.Privacy]}}
+                            <span class="dl-caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="Privacy in privacyItems" ng-if="$index!=Model.Privacy"><a ng-click="setprivacy($index)">{{Privacy}}</a></li>
+                        </ul>
+                    </div>
+                    <a class="btn btn-blue fix-width-mini" ng-click="Save()">@GH.Lang.Regit.Save</a>
+                </div>
+            </div>
+            <hr />
+            <div class="row field">
+                <div class="col-md-8">
+                    <span class="field-title">@GH.Lang.Regit.Allow_comment</span>
+                </div>
+                <div class="col-md-4 text-right">
+                    <switcher ng-model="Model.AllowComment" switcher-on-text="Yes" switcher-off-text="No" on-changed="Save()"></switcher>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

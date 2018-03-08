@@ -1,0 +1,29 @@
+<div class="modal interaction-form-modal interaction-form-viewer-modal" tabindex="-1" role="dialog" aria-hidden="true"
+     ng-controller="InteractionFormViewerController">
+    <div class="interaction-form-header">
+
+        <div class="interaction-form-type" ng-bind="interaction.type"></div>
+        <div class="interaction-form-avatar" ng-if="interaction.business.avatar">
+            <img class="" ng-src="{{interaction.business.avatar | avatarUrl:true}}">
+        </div>
+        <div class="header-business-name" ng-bind="interaction.business.name"></div>
+        <h3 class="interaction-form-heading">{{interaction.name}} - {{titleSuffix}}</h3>
+    </div>
+
+    <div class="form-horizontal form-registration interaction-form interaction-form-viewer">
+
+        <fieldset ng-repeat="group in groups">
+
+            <legend ng-bind="group.displayName || group.name"></legend>
+            <div class="form-row" ng-repeat="field in group.fields">
+                <interaction-field ng-model="field" interaction="interaction" mode="mode"></interaction-field>
+            </div>
+        </fieldset>
+
+
+        <div class="interaction-form-actions">
+            <button type="button" ng-click="closeViewer()" class="interaction-form-action form-action-cancel">Close
+            </button>
+        </div>
+    </div>
+</div>

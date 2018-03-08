@@ -1,0 +1,22 @@
+<div class="msg-conversation-input" class="form-msg-input">
+    <div class="msg-input-box" contentEditable="true" placeholder="Type a message"></div>
+    '
+</div>
+
+<div class="msg-input-btn-group">
+    <button type="button" class="btn-msg btn-drfi"></button>
+    <button type="button" class="btn-msg btn-emojis" popover-placement="top-left"
+            uib-popover-template="'msg-emojis-selector.html'" popover-title="" popover-is-open="openingPopover"
+            popover-trigger="'outsideClick'">
+    </button>
+</div>
+
+<script type="text/ng-template" id="msg-emojis-selector.html">
+    <div class="msg-emoji-selectors">
+        <a href="#" ng-repeat="i in emojis track by $index" ng-init="index=$index+1"
+           ng-click="$event.preventDefault();insertEmoji(index)">
+            <img src="img/emojis/{{index<10?'0':''}}{{index}}.png">
+        </a>
+    </div>
+
+</script>

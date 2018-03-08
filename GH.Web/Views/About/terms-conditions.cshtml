@@ -1,0 +1,71 @@
+﻿@{
+ViewBag.Title = "Regit Terms and Conditions - End User";
+Layout = "~/Areas/User/Views/Shared/_AboutNewLayout.cshtml";
+ViewBag.AboutSecondary = true;
+    ViewBag.AngularApp = "regitAbout";
+}
+
+@section styles {
+<link rel="stylesheet" href="~/Areas/About/Content/css/legal.css?v1">
+<link rel="stylesheet" href="~/Areas/About/Content/css/privacy.css?v1">
+}
+
+@section initscripts {
+    <script>
+        angular.module('regitAbout',['UserModule']);
+    </script>
+}
+<div class="cms-doc legal-doc">
+
+
+    <h2>Regit Terms of Service &ndash; Individual User</h2>
+    <p>Posted: [June 15 2017]</p>
+    <p>Thanks for using Regit! In these terms of service ("Terms"), “we”, “us”, “our” or “REGIT” means Regit Pte. Ltd. These Terms cover your use of and access to our services, client software and websites ("Services") provided to you as an individual user of the Regit platform.</p>
+        <p>The Regit platform is a communication platform for you to organize and exchange your personal information with other users and organisations (including businesses) you authorise. Any personal information stored on the platform is fully at your discretion. Regit does not require you to provide any more information than necessary to create your platform user account. Any additional information stored and shared on the platform is with your explicit consent. Regit does not sell your personal information.
+    </p>
+    <p>Our <a href="/about/privacy-policy">Privacy Policy</a> explains how we collect, use, disclose, process, manage and protect your personal information generally when using our Services. By using our Services, you're agreeing to be bound by these Terms and our Privacy Policy. We reserve the right, at our sole discretion, to change or modify all or any of these Terms at any time. If we do this, we will post the changes on this page and will indicate at the top of this page the date these Terms were last revised. We will also notify you, either through the Regit platform, in an email notification or through other reasonable means.
+    </p>
+    <h3>Your Registration Obligations</h3>
+    <p>You are required to register with Regit in order to access and use our Services. You agree to provide and maintain true, accurate, current and complete information about yourself as required by the registration form on our platform. Registration data and certain other information about you are governed by our Privacy Policy.</p>
+    <h3>Your Information &amp; Permissions</h3>
+    <p>The Regit platform’s Vault Services are designed to securely store your personal information, including but not limited to, your name, phone number, address, email, as well as provide you safe access to the information. We do not have any right to your information save for all necessary rights which enable us to offer the Services, including sharing your information to other users and organisations you authorise. We strictly do not sell your information.</p>
+        <p>You agree to provide and maintain true, accurate, current and complete information on the platform for the purpose of using the Services and for any dealing with any other user or organisation. We shall not be held responsible for any claims, losses, damages, penalties, liabilities, and costs, of any kind or nature, arising from your failure to provide true, accurate, current and complete information.</p>
+    <h3 id="delegation">Delegation</h3>
+    <p>The Regit platform&rsquo;s Delegation Service is designed to additionally facilitate information collaboration and sharing amongst other authorised users in your trusted network (e.g. family members). You may control your information in your Vault, and set permissions for sharing all or any such information to an authorised user (a delegatee) through the Delegation Service. </p>
+    <p>Depending on the settings you specify, you will have varying degrees of control over your information <em>vis-&agrave;-vis</em> the delegatee. You may authorise a delegatee to share some or any of your personal information with any other user or organisation. You may also authorise a delegatee to view, edit or search some or any of your personal information. You may also authorise a delegatee to register for events or other activities with other users or organisations on your behalf. </p>
+    <p>By so authorising a delegatee, you agree that you have given us consent to disclose or otherwise deal with your information <em>vis-&agrave;-vis</em> the delegatee, any user or any organisation registered on the Regit platform in accordance with the settings you specify, on the delegatee&rsquo;s request, for any purpose in the delegatee&rsquo;s discretion. We recommend you regularly review your delegatees&rsquo; access rights.</p>
+    <p>If you are a delegatee, you agree to only access, edit, use or disclose any such information, and use the Services, for the purposes which your delegator has authorised and given you consent to. You are not allowed to sell that information. If you do not want such a responsibility, you should deny, cancel, and/or inform the delegator.</p>
+    <h3>Interaction</h3>
+    <p>The Regit platform&rsquo;s integrated communication allows you to use and disclose your information with the users and organisations you trust. We make it easy for you to share, update, and even rescind your information where applicable. </p>
+    <p>Any information to be disclosed by you through any platform interaction must be consented to by you. By accepting the interaction, you are deemed to have given explicit consent to disclose the relevant information to the relevant user or organisation for the purpose set out in that interaction. </p>
+    <p>Some interactions, including but not limited to the handshake function, allow you to disclose the relevant information for any purpose of the other party in its discretion. If you accept such interactions, you are deemed to have given explicit consent to disclose the relevant information to the relevant user or organisation for any purpose in that party&rsquo;s discretion. You may pause or terminate any interaction at any time, and thereby withdraw your consent to disclose your information to the relevant user or organisation. The other user or organisation may also pause or terminate such interaction with you at any time. We cannot warrant or guarantee that you may always make available any such information provided to any other user or organisation.&nbsp; </p>
+    <h3>Member Account Security</h3>
+    <p>You are responsible for maintaining the confidentiality of your password and account details, and are fully responsible for any and all activities that occur under your password or account. You agree to immediately notify Regit of any unauthorised use of your password or account or any other breach of security.</p>
+
+
+    <h3>Regit Security</h3>
+    <p>For your information, we take the security of your information very seriously and therefore have implemented a number of security measures to keep your information safe above and beyond industry standards.</p>
+    <p><strong>Infrastructure Layer</strong>: To ensure your data is highly available, and secure, Regit partners with a top-tier cloud service provider to deliver our Services over the Internet.</p>
+    <p>At the application layer: <strong>Mandatory Complex Password</strong>: A strong password is the first line of defence against unauthorised use. Regit recommends that you change your password regularly.</p>
+    <p><strong>Security Questions</strong>: A required and additional step during password reset.</p>
+    <p><strong>SSL</strong>: To encrypt data while transmitting over the internet.</p>
+    <p><strong>SMS OTP</strong>: SMS pin is required for initial account set up to verify your phone number. It is also required for login password changes, security questions reset, and changes to your Vault PIN.</p>
+    <p><strong>Vault PIN</strong>: The Vault PIN is an additional PIN required for you to access your Vault or perform any function that would require you to view or make changes to the Vault. This PIN can be changed under the account setting.</p>
+    <p><strong>Auto Session Time-Out</strong>: Regit auto logs you out of your account if it is idle over a period of time. This is not applicable for the Regit app installed on your mobile.</p>
+
+    <h3>Copyrights and Trademarks</h3>
+    <p>Regit’s website is based on proprietary technology and includes its content (the “Content”). The website, including the Content, is protected by applicable intellectual property and other laws, including trademark and copyright laws. The website, including all intellectual property rights in the website, belongs to and is the property of Regit. Regit owns and retains all copyright to the Content with the exception of certain content which are specifically permitted to be on the website. The Content may not be copied, reproduced, modified, republished, uploaded, posted, transmitted, performed, or distributed in any way, and you agree not to modify, rent, lease, loan, sell, distribute, transmit, broadcast, or create derivative works based on the Content or the website, in whole or in part, by any means. Regit’s logos, and other marks used by Regit from time to time, are trademarks and the property of Regit.</p>
+    <h3>Third Party Websites</h3>
+    <p>In the course of providing the Services, we may provide, or third parties such as other users or organisations on the platform may provide, or our website may contain, hyperlinks or other access to other websites and resources on the Internet. Regit has no control over such websites and resources and Regit is not responsible for and does not endorse such websites and resources. You further acknowledge and agree that Regit shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any content, events, goods or services available on or through any such website or resource. Any dealings you have with third parties found while using the Services are between you and the third party, and you agree that Regit is not liable for any loss or claim that you may have against any such third party.</p>
+    <h3>Beta Services</h3>
+    <p>As our commitment to constantly improve and enhance our service offering, we may invite users to participate in the Beta version (testing version). Those Services have been marked beta, preview, early access, or evaluation (or with words or phrases with similar meanings) and may not be as reliable as Regit’s other services. Regit shall not be liable for any damages or losses as a result of using these Beta services.</p>
+    <h3>Indemnification</h3>
+    <p>You shall defend, indemnify, and hold harmless Regit, its affiliates, directors, officers, employees, and agents from and against all claims, losses, damages, penalties, liabilities, and costs, of any kind or nature which are in connection with or arising from: (i) your access to or use of the Regit website and Services; (ii) your breach of these Terms; or (iii) your violation of any third party right, including, without limitation, any intellectual property right, publicity, confidentiality, property or privacy right.</p>
+    <h3>Resolving Disputes</h3>
+    <p>We want to address your concerns in a proactive way. You agree to try to resolve the dispute by contacting
+        <a href="mailto:service@regit.today">service@regit.today</a>. Disputes will be resolved via email, phone, or in person depending on the specific
+        circumstances.
+    </p>
+    <h3>Governing Law</h3>
+    <p>These Terms and your use of our website shall be governed by Singapore law. If you are not residing in Singapore, your use of our website shall be deemed to mean that you will not hold us responsible for any non-compliance with the laws of your residence to the extent that such laws are applicable. Further, by your continued use of our website, you consent to the transfer and use of your personal data outside your country.</p>
+</div>

@@ -1,0 +1,272 @@
+﻿<div ng-controller="SearchAddressController">
+
+
+    <div ng-if="write == false">
+        <div class="vault-group-content" ng-repeat="value in _listForm">
+            <div class="vault-row">
+                <div class="vault-group-actions">
+                    <button ng-hide="value.IsEdit" class="btn-vault-action btn-vault-edit" ngclipboard data-clipboard-target="#copy-{{query.formName}}{{$index}}">
+                        Copy text
+                    </button>
+
+                    <button ng-hide="value.IsEdit" class="btn-vault-action btn-vault-edit" ng-click="value.IsEdit = !value.IsEdit">
+                        Edit
+                    </button>
+
+                    <button ng-hide="!value.IsEdit" class="btn-vault-action btn-vault-save" ng-click="Save()">
+                        Save
+                    </button>
+                    <button ng-hide="!value.IsEdit" class="btn-vault-action btn-vault-cancel btn-cancel"
+                            ng-click="Cancel()">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+            <!-- // -->
+            <div class="vault-row" ng-hide="value.IsEdit" id="copy-{{query.formName}}{{$index}}">
+                <div class="vault-label">
+                    <label ng-if="$index == 0"> {{_form._label}} </label>
+                </div>
+                <div class="vault-field">
+                    <div class="vault-field-value">
+                        <span ng-if="value.description != ''">
+                            <strong> Description: </strong> {{value.description }}
+                        </span>
+
+                        <div ng-show="value.description == _form._default" class="vault-is-default">default</div> <br />
+                        <span ng-if="value.addressLine != ''">
+                            <strong> Address line: </strong> {{value.addressLine }} <br />
+                        </span>
+
+                        <span ng-if="value.countryCity.country != ''">
+                            <strong> Country: </strong> {{value.countryCity.country }} <br />
+                        </span>
+                        <span ng-if="value.countryCity.city != ''">
+                            <strong> City: </strong> {{value.countryCity.city }} <br />
+                        </span>
+                        <span ng-if="value.zipCode != ''">
+                            <strong> ZIP / Postal Code: </strong> {{value.zipCode }} <br />
+                        </span>
+                        <span ng-if="value.instruction != ''">
+                            <strong> Additional instructions: </strong> {{value.instruction }} <br />
+                        </span>
+                        <span ng-if="value.startDate != '' ">
+                            <strong>From date: </strong> {{value.startDate | vaultValue}} <br />
+                        </span>
+                        <span ng-if="value.endDate != ''">
+                            <strong> To date: </strong> {{value.endDate | vaultValue}} <br />
+                        </span>
+                        <span ng-if="value.note != ''">
+                            <strong> Note: </strong> {{value.note }} <br />
+                        </span>
+                        <div class="vault-privacy-indicator" ng-class="{'privacy-on': value.privacy}"
+                             bs-tooltip
+                             data-title="{{value.privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                             data-placement="bottom-left">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- //  edit Billing Address-->
+            <div ng-hide="!value.IsEdit">
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label></label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <strong> {{_form._label}} </strong>
+                        <button class="btn-vault-privacy" ng-class="{'privacy-on': value.privacy}"
+                                ng-click="value.privacy = !value.privacy"
+                                bs-tooltip
+                                data-title="{{value.privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                                data-placement="bottom-left"></button>
+                    </div>
+                    <button class="vault-field-remove" ng-click="removeForm(value)">Remove</button>
+                </div>
+
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>Decription</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-control type="textbox" ng-model="value.description">
+                        </rgu-control>
+                    </div>
+                </div>
+
+                <!--addressLine -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>Address Line</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-control type="textbox" ng-model="value.addressLine" placeholder="Street #, Street Name, Unit #"></rgu-control>
+                    </div>
+                </div>
+                <div class="vault-row">
+
+                    <div class="vault-label">
+
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-control type="location" ng-model="value.countryCity"></rgu-control>
+                    </div>
+                </div>
+
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>ZIP / Postal Code</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-control type="textbox" ng-model="value.zipCode" />
+                    </div>
+                </div>
+
+                <!--instruction -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>Additional instructions</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-control type="textbox" ng-model="value.instruction"></rgu-control>
+                    </div>
+                </div>
+                <!--Date -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>From date</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <!-- <rgu-control type="datedmy" ng-model="value.startDate"></rgu-control>-->
+                        <rgu-date-input type="combo" ng-model="value.startDate"></rgu-date-input>
+                    </div>
+                </div>
+
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>Specify End Date </label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <label class="checkbox-square"><input type="checkbox" ng-model="value.checkEndDate" /><span></span></label>
+                        <!--<rgu-control type="checkbox" ng-model="value.checkEndDate" />-->
+                    </div>
+                </div>
+                <div class="vault-row" ng-show="value.checkEndDate">
+                    <div class="vault-label">
+                        <label>To date</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <!-- <rgu-control type="datedmy" ng-model="value.endDate"></rgu-control>-->
+                        <rgu-date-input type="combo" ng-model="value.endDate" after="value.startDate"></rgu-date-input>
+                    </div>
+                </div>
+                <!-- note -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>Note</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <textarea ng-model="value.note"></textarea>
+                    </div>
+                </div>
+
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>Default</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <label class="checkbox-square"><input type="checkbox" ng-model="value._default" /><span></span></label>
+
+                    </div>
+                </div>
+                <div class="vault-field-actions" ng-if="query.mySelf">
+                    <a href="#" class="vault-field-add"
+                       ng-click="$event.preventDefault(); vm.AlphaRedirectTask('address_billing.html') ">+ Add more Billing Address</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div ng-if="!write && read">
+        <div class="vault-group-content" ng-repeat="value in _listForm">
+            <div class="vault-group-actions">
+                <button class="btn-vault-action btn-vault-edit" ngclipboard data-clipboard-target="#copy-{{query.formName}}{{$index}}">
+                    Copy text
+                </button>
+
+            </div>
+            <!-- // -->
+            <div class="vault-row" id="copy-{{query.formName}}{{$index}}">
+                <div class="vault-label">
+                    <label ng-if="$index == 0">{{_form._label}} </label>
+                </div>
+                <div class="vault-field">
+                    <div class="vault-field-value">
+                        <span ng-if="value.description != ''">
+                            <strong> Description: </strong> {{value.description }}
+                        </span>
+
+                        <div ng-show="value.description == _form._default" class="vault-is-default">default</div> <br />
+                        <span ng-if="value.addressLine != ''">
+                            <strong> Address line: </strong> {{value.addressLine }} <br />
+                        </span>
+
+                        <span ng-if="value.countryCity.country != ''">
+                            <strong> Country: </strong> {{value.countryCity.country }} <br />
+                        </span>
+                        <span ng-if="value.countryCity.city != ''">
+                            <strong> City: </strong> {{value.countryCity.city }} <br />
+                        </span>
+                        <span ng-if="value.zipCode != ''">
+                            <strong> ZIP / Postal Code: </strong> {{value.zipCode }} <br />
+                        </span>
+                        <span ng-if="value.instruction != ''">
+                            <strong> Additional instructions: </strong> {{value.instruction }} <br />
+                        </span>
+                        <span ng-if="value.startDate != '' ">
+                            <strong>From date: </strong> {{value.startDate | vaultValue}} <br />
+                        </span>
+                        <span ng-if="value.endDate != ''">
+                            <strong> To date: </strong> {{value.endDate | vaultValue}} <br />
+                        </span>
+                        <span ng-if="value.note != ''">
+                            <strong> Note: </strong> {{value.note }} <br />
+                        </span>
+                        <div class="vault-privacy-indicator" ng-class="{'privacy-on': value.privacy}"
+                             bs-tooltip
+                             data-title="{{value.privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                             data-placement="bottom-left">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="vault-field-actions" ng-if="query.mySelf">
+                <a href="#" class="vault-field-add"
+                   ng-click="$event.preventDefault(); vm.AlphaRedirectTask('address_billing.html') ">+ Add more Billing Address</a>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+    <div ng-if="query.value !=''">
+
+        <div class="vault-entry-form-edit-actions">
+            <button type="button"
+                    class="btn-edit-vault-field-action btn-edit-vault-field-cancel"
+                    ng-click="$event.preventDefault();cancelField(entry)">
+                Close view
+            </button>
+
+        </div>
+    </div>
+</div>

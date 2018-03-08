@@ -1,0 +1,46 @@
+﻿<header class="main-header">
+    <a href="/" class="main-header-logo">
+    @if (ViewBag.Tier != "business")
+    {
+        <img src="/Areas/Beta/img/regit-light.svg">
+    }
+    else
+    {
+        <img src="/Areas/Beta/img/regit-business-light.svg">
+    }
+    </a>
+    <div class="main-search">
+        <form name="formSearch" action="/Search/Public" method="get">
+            <input name="query" class="main-search-input" placeholder="Search Regit">
+            <button class="main-search-options">
+                Search options
+            </button>
+        </form>
+    </div>
+    <div class="header-actions" ng-controller="PublicSigninController">
+        @if (ViewBag.Page != "signin" && ViewBag.Page != "signin-business") {
+        <form class="public-signin-form" ng-submit="$event.preventDefault();signIn()">
+            <input class="public-signin-input" ng-model="signModel.Email" placeholder="EMAIL"/>
+            <input class="public-signin-input" type="password" ng-model="signModel.Password" placeholder="PASSWORD"/>
+            <button class="public-signin-action" ng-click="$event.preventDefault();signIn()">Sign In</button>
+            <div class="public-signin-message"><span class="public-signin-message-text"></span><a href="/User/Trouble">Forgot
+                password?</a></div>
+        </form>
+        }
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="responsive-user-menu-links responsive-panel">
+        <a class="header-action header-action-signup-business"  href="/BusinessAccount/SignOut">Log Out</a>
+    </div>
+}
+else
+{
+    <a class="header-action header-action-signup" href="/User/SignUp">Create An Account</a>
+    <a class="header-action header-action-signup-business" href="/BusinessAccount/SignUp">Create A Business Account</a>
+
+}
+    </div>
+
+</header>
+
+@Html.Partial("_ResponsiveHeaderPublicPartial")

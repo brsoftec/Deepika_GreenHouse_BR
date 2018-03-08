@@ -1,0 +1,20 @@
+<div class="social-label">Share this</div>
+<div class="social-actions">
+
+    <button type="button" class="social-action social-action-link" ng-click="toggleSocialLink()">
+    </button>
+
+    <div class="social-link-panel rgu-popover" ng-if="view.openingSocialLink">
+        <button type="button" class="popover-close" ng-click="closeSocialLink()">Close</button>
+
+        <span class="social-link-url">{{publicUrl}}</span>
+        <button class="copy-url-btn btn btn-default" ngclipboard data-clipboard-text="{{publicUrl}}" ng-click="closeSocialLink()">
+            Copy Link
+        </button>
+    </div>
+    <social-action ng-repeat="sharer in sharers" provider="{{sharer.provider}}" url="{{sharer.url}}">
+
+    </social-action>
+
+</div>
+

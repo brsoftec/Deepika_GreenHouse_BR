@@ -1,0 +1,55 @@
+﻿.input-border-radius {
+    border-radius: 15px;
+}
+
+.button-border-radius {
+    border-radius: 55px;
+}
+
+.component-padding {
+    padding: 10px;
+}
+
+.no-padding-login-part {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.padding-forgot-password {
+    padding-bottom: 25px !important;
+}
+
+.button-background {
+    background-color: white;
+    color: black;
+    border-color: white;
+}
+
+#footer {
+    background-color: white !important;
+}
+
+[ng-cloak], .ng-cloak {
+    display: none !important;
+}
+
+.avatar-image {
+    height: 50px;
+    width: 50px;
+    padding-right: 0px !important;
+    padding-bottom: 10px;
+}
+
+.none-padding {
+    padding: 0px !important;
+}
+
+.widget {
+    border: 10px solid #eee;
+    padding: 5px 15px;
+    background: #fff;
+}
+
+    .widget h2 {
+        margin-top: 10px;
+    }

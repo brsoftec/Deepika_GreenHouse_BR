@@ -1,0 +1,33 @@
+﻿   <!-- ADDRESS GROUP -->
+<div ng-controller="GroupAddressController">
+    <div ng-if="group._name !='' ">
+        <div class="vault-group">
+            <div class="vault-group-header">
+                <h4>{{group._label}}</h4>
+                <button class="btn-vault-group-collapse" ng-init="hideAddressBody=false;"
+                        ng-click="$event.preventDefault();hideAddressBody=!hideAddressBody;"></button>
+
+            </div>
+
+            <div ng-hide="hideAddressBody">
+                <!-- Current Address -->
+                <div ng-include="vm._current_address"></div>
+              
+                <!-- // -->
+                <!-- Delivery Address -->
+                <div ng-include="vm._delivery_address"></div>
+                <!-- // -->
+                <!-- Billing Address -->
+                <div ng-include="vm._billing_address"></div>
+                <!-- // -->
+                <!-- Mailing Address -->
+                <div ng-include="vm._mailing_address"></div>
+                <!-- // -->
+                <!-- Pobox -->
+                <div ng-include="vm._pobox"></div>
+                <!-- // -->
+
+            </div>
+        </div>
+    </div>
+</div>

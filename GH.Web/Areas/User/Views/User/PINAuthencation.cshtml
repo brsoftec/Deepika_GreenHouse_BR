@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "PIN Authentication";
+    Layout = "~/Areas/User/Views/Shared/_LayoutDeFaultApply.cshtml";
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/smsauthencation-ctrl")
+}
+@section styles{
+}
+<div class="module module-main module-sms-auth">
+
+    <div class="vault-sms-auth-container" ng-controller="SMSAuthencationController">
+
+        <h2 class="sms-auth-heading"><i class="sms-auth-heading-icon"></i>Second Authentication</h2>
+
+        <div class="sms-auth-content">
+
+            <div class="sms-auth-intro pin-auth-intro">
+                <p>Enter your Vault PIN to proceed. If you don't remember it <a href=""> click here to change it.</a> </p>
+            </div>
+
+            <div class="sms-auth-input-row">
+                <input ng-model="PIN" type="password" class="input-pin sms-auth-input" placeholder="_ _ _ _">
+            </div>
+
+            <div class="button-group sms-auth-actions">
+                <button type="button" ng-click="Cancel()" class="btn btn-default sms-auth-btn">Cancel</button>
+                <button type="submit" ng-click="Authencation()" class="btn btn-primary sms-auth-btn">Authenticate</button>
+            </div>
+
+            <div style="padding-top:20px">
+                <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+                    <div ng-bind-html="messageBox"></div>
+                </uib-alert>
+            </div>
+        </div>
+    </div>
+
+</div>

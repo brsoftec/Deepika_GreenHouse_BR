@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Beta Test Center";
+    Layout = "~/Areas/User/Views/Shared/_LayoutDefaultApply.cshtml";
+    var isfeedback = ViewBag.roleuser == "FeedBack" ? true : false;
+}
+@section styles {
+}
+@section scripts {
+    ,
+}
+<div class="module module-main module-betatest">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">&laquo; Home</a></li>
+        <li class="breadcrumb-item active">Beta Test Center</li>
+    </ol>
+    <h1>Beta Test Center</h1>
+
+    @if (isfeedback)
+    {
+        <div class="betatest-admin" >
+        <!--<a  href="/Feedback" class="btn btn-primary">Manage Feedbacks</a>-->
+      </div>
+    }
+    <div class="regit-doc betatest-guide">
+        <p>Regit is currently in Public Beta Test phase. Every signed up user can contribute in beta testing to help us improve our product.</p>
+        <p>As a beta tester, you can:</p>
+        <ul>
+            <li>Give us comment and suggestion on every aspect of the application, including look and feel, user experience and functions</li>
+            <li>Request new features</li>
+            <li>Report bugs and issues you encounter during testing</li>
+        </ul>
+        <h2>FAQ</h2>
+        <h3>How do I send feedback?</h3>
+        <p>On the bottom right corner of the footer, click on the Feedback! button, enter your feedback and submit. We appreciate if you give us as much details as possible.</p>
+        <p>Make sure to select the right type for your feedback. Component is the part of the application where your feedback applies. If you're not sure, select Other.</p>
+        <p>Enter the URL where you found the bug, or on which you'd like to comment. If that is the URL you are on then no need to type it, just click the link below the textbox to copy and paste.</p>
+        <p>We may get back to you by email with follow-up information if necessary.</p>
+        <h3>How do I see system information?</h3>
+        <p>Click "BETA" after the Regit logo on the header. The appearing dropdown displays various system information about the application and your user information,
+            that may be useful for you during testing.</p>
+        <p>You don't need to enter this information in the feedback message, since it will be automatically attached.</p>
+    </div>
+</div>

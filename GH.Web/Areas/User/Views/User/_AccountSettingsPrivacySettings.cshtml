@@ -1,0 +1,69 @@
+﻿@using GH.Lang
+<div ng-controller="PrivacySettingsController" collapse-base-on-route="/privacy-settings" class="collapse-item privacy-settings">
+    <div class="collapse-header">
+        <a href="#/privacy-settings" class="regit-color" data-toggle="collapse" aria-expanded="false" data-target="#privacySettingsCollapseContent">@Regit.Privacy_Settings_Title</a>
+    </div>
+    <div class="collapse-content">
+        <div class="collapse" id="privacySettingsCollapseContent">
+            <div class="row field">
+                <div class="col-md-8">
+                    <span class="field-title">@Regit.Privacies_FindMe_Message</span>
+                </div>
+                <div class="col-md-4 text-right">
+                    <switcher ng-model="privacies.FindMe" switcher-on-text="@Regit.YesText" switcher-off-text="@Regit.NoText" on-changed="savePrivacy('FindMe')"></switcher>
+                </div>
+            </div>
+            <hr />
+            <div class="row field">
+                <div class="col-md-8">
+                    <span class="field-title">@Regit.Privacies_ShareMyActivity_Message</span>
+                </div>
+                <div class="col-md-4 text-right">
+                    <switcher ng-model="privacies.ShareMyActivity" switcher-on-text="@Regit.YesText" switcher-off-text="@Regit.NoText" on-changed="savePrivacy('ShareMyActivity')"></switcher>
+                </div>
+            </div>
+            <hr />
+            <div class="row field">
+                <div class="col-md-8">
+                    <span class="field-title">@Regit.Privacies_ViewMyProfile_Message</span>
+                </div>
+                <div class="col-md-4 text-right">
+                    <switcher ng-model="privacies.ViewMyProfile" switcher-on-text="@Regit.YesText" switcher-off-text="@Regit.NoText" on-changed="savePrivacy('ViewMyProfile')"></switcher>
+                </div>
+            </div>
+            <hr />
+            <div class="row field">
+                <div class="col-md-8">
+                    <span class="field-title">@Regit.Privacies_NotFollowBusinessSendMeAds_Message</span>
+                </div>
+                <div class="col-md-4 text-right">
+                    <switcher ng-model="privacies.NotFollowBusinessSendMeAds" switcher-on-text="@Regit.YesText" switcher-off-text="@Regit.NoText" on-changed="savePrivacy('NotFollowBusinessSendMeAds')"></switcher>
+                </div>
+            </div>
+            <hr />
+            <div class="row field">
+                <div class="col-md-8">
+                    <span class="field-title h-34">@Regit.Privacies_SendMeMessage_Message</span>
+                </div>
+                <div class="col-md-4 text-right">
+                    <ui-select ng-model="privacies.SendMeMessage" theme="bootstrap" search-enabled="false" remove-selected="false">
+                        <ui-select-match placeholder="@Regit.Select_Privacy_Title.ToUpper()">{{$select.selected.Display}}</ui-select-match>
+                        <ui-select-choices repeat="opt.Value as opt in options.SendMeMessage">
+                            <span ng-bind-html="opt.Display"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                    <a ng-click="savePrivacy('SendMeMessage')" class="btn btn-blue">@Regit.Save</a>
+                </div>
+            </div>
+            <hr />
+            <div class="row field">
+                <div class="col-md-8">
+                    <span class="field-title">@Regit.Privacies_AutoDeleteMessage_Message</span>
+                </div>
+                <div class="col-md-4 text-right">
+                    <switcher ng-model="privacies.AutoDeleteMessage" switcher-on-text="@Regit.YesText" switcher-off-text="@Regit.NoText" on-changed="savePrivacy('AutoDeleteMessage')"></switcher>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

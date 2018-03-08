@@ -1,0 +1,54 @@
+﻿@if (ViewBag.ViewPreferences != null)
+{
+    <script>
+        regitGlobal.viewPreferences =
+        {
+            showIntroSlides: @ViewBag.ViewPreferences.ShowIntroSlides.ToString().ToLower(),
+            showBusinessIntroSlides: @ViewBag.ViewPreferences.ShowBusinessIntroSlides.ToString().ToLower(),
+            showIntroVault: @ViewBag.ViewPreferences.ShowIntroVault.ToString().ToLower(),
+            showIntroBusiness: @ViewBag.ViewPreferences.ShowIntroBusiness.ToString().ToLower()
+        }
+    </script>
+}
+<div ng-controller="ViewPreferencesController" id="viewprefs" class="account-viewprefs">
+
+
+    <div class="account-form-row">
+        <div class="account-form-label">
+            <span class="field-title">Homepage modal introductory screens</span>
+        </div>
+        <div class="account-form-control control-float-right">
+            <switcher ng-model="settings.viewprefs.showIntroSlides" switcher-on-text="Show" switcher-off-text="Hide"
+                      on-changed="updateViewPreference('introSlides')"></switcher>
+        </div>
+    </div>
+    <div class="account-form-row" ng-if="regitGlobal.activeAccount.isBusinessMember">
+        <div class="account-form-label">
+            <span class="field-title">Business homepage modal introductory screens</span>
+        </div>
+        <div class="account-form-control control-float-right">
+            <switcher ng-model="settings.viewprefs.showBusinessIntroSlides" switcher-on-text="Show" switcher-off-text="Hide"
+                      on-changed="updateViewPreference('businessIntroSlides')"></switcher>
+        </div>
+    </div>
+    <div class="account-form-row">
+        <div class="account-form-label">
+            <span class="field-title">Homepage introduction to Information Vault</span>
+        </div>
+        <div class="account-form-control control-float-right">
+            <switcher ng-model="settings.viewprefs.showIntroVault" switcher-on-text="Show" switcher-off-text="Hide"
+                      on-changed="updateViewPreference('introVault')"></switcher>
+        </div>
+    </div>
+    <div class="account-form-row">
+
+        <div class="account-form-label">
+            <span class="field-title">Homepage introduction to business discovery</span>
+        </div>
+        <div class="account-form-control control-float-right">
+            <switcher ng-model="settings.viewprefs.showIntroBusiness" switcher-on-text="Show" switcher-off-text="Hide"
+                      on-changed="updateViewPreference('introBusiness')"></switcher>
+        </div>
+    </div>
+
+</div>

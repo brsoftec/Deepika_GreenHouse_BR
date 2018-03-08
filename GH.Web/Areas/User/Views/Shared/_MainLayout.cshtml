@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html ng-app="myApp" ng-cloak>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta property="fb:app_id" content="@System.Configuration.ConfigurationManager.AppSettings["FACEBOOK_APP_ID"]" />
+    <meta property="og:type" content="@System.Configuration.ConfigurationManager.AppSettings["FACEBOOK_PUBLISH_REGIT_PHOTO_TYPE"]" />
+    <meta property="og:title" content="Regit" />
+    <title>Regit - @ViewBag.Title</title>
+    @Styles.Render("~/bundles/css/main")
+    @Styles.Render("~/bundles/css/individual")
+    @RenderSection("styles", required: false)
+</head>
+<body ng-controller="MainregitController">
+    @Html.Partial("_MainHeaderPartialApply")
+    <div class="main-body">
+        @RenderBody()
+    </div>
+
+    @Html.Partial("_MainFooterPartialApply")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/user-service")
+    @Scripts.Render("~/bundles/user-dashboard-service")
+    @Scripts.Render("~/bundles/user-activity-log-service")
+    @Scripts.Render("~/bundles/SMSauthencation")
+
+    <script src="~/Areas/User/Scripts/Services/BusinessAccountService.js"></script>
+    <script src="~/Areas/User/Scripts/Services/DataService.js"></script>
+    @Scripts.Render("~/Blue/highcharts")
+    @Scripts.Render("~/bundles/sweet-alert")
+    @Scripts.Render("~/bundles/AlertServices")
+    @Scripts.Render("~/bundles/CountryCityService")
+    @Scripts.Render("~/bundles/CommentService")
+    @Scripts.Render("~/bundles/draganddrop")
+    @Scripts.Render("~/bundles/comment")
+
+    <script src="~/Areas/User/Scripts/Controllers/main-regit-ctrl.js"></script>
+    <script src="~/Areas/Realtime/Scripts/jquery.signalR-2.2.1.js"></script>
+
+    <script src="/signalr/hubs"></script>
+    <!--SignalR Event Aggregator-->
+    @Scripts.Render("~/eventAggregation/events")
+    @Scripts.Render("~/scripts/jquery.signalR.eventAggregator-1.5.155.1.js")
+    @Scripts.Render("~/scripts/jquery.signalR.eventAggregator.angular-1.4.143.0.js")
+    <!--End Event Agreegator-->
+
+    @Scripts.Render("~/bundles/betatest");
+
+    <script src="~/Areas/User/Scripts/RegitApp.js"></script>
+    <script src="~/Areas/User/Scripts/Services/NotificationService.js"></script>
+    
+    @RenderSection("scripts", required: false)
+    @if (User.Identity.IsAuthenticated)
+    {
+        @Scripts.Render("~/bundles/user-post-new-feed")
+        <script src="~/Areas/User/Scripts/Controllers/social-posts-filter-ctrl.js"></script>
+        <script src="~/Areas/User/Scripts/Controllers/search-result-ctrl.js"></script>
+        <script src="~/Areas/User/Scripts/Controllers/user-layout-ctrl.js"></script>
+        <script src="~/Areas/User/Scripts/Controllers/notification-ctrl.js"></script>
+
+        <script src="~/Areas/regitUI/js/controllers/MsgCtrl.js"></script>
+    }
+    @Html.Partial("_GoogleAnalyticsScript")
+</body>
+</html>

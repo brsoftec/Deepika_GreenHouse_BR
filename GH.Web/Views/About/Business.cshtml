@@ -1,0 +1,352 @@
+﻿@{
+ViewBag.Page = "about-business";
+ViewBag.Title = "Regit for Business";
+Layout = "~/Areas/User/Views/Shared/_AboutNewLayout.cshtml";
+ViewBag.BodyClass = "about-business";
+ViewBag.AngularApp = "regitAbout";
+}
+
+@section styles {
+
+}
+
+@section initscripts {
+    <script>
+        angular.module('regitAbout',['ngCookies', 'UserModule']);
+    </script>
+}
+
+@section scripts {
+<script src="~/Areas/Beta/js/greenhouseApp.js"></script>
+<script src="~/Areas/User/Scripts/Services/UserModule.js"></script>
+<script src="~/Areas/User/Scripts/Services/AuthorizationService.js"></script>
+<script src="~/Areas/User/Scripts/Controllers/public-signin.js"></script>
+<script src="~/Areas/About/Content/js/main.js"></script>
+}
+
+<div class="about-intro about-intro-business">
+
+    <div class="about-content about-intro-content">
+        <div class="about-intro-head">Never Lose A Customer Due To Dirty Data Again!</div>
+        <div class="about-intro-text">Regit is a compliant data platform that helps your business keep customer data clean by automating the data collection and maintenance process. </div>
+        <div class="about-platform-head">
+            Simple, Secure, &amp; Compliant<br />
+        </div>
+        <a href="#more" class="about-intro-cta">Learn more</a>
+        @if (!User.Identity.IsAuthenticated) {
+        <div class="about-signin" ng-controller="PublicSigninController">
+            <form name="formSignin" ng-submit="signIn()">
+                <div class="signin-form-row">
+                    <input class="signin-input" ng-model="signModel.Email" placeholder="Email">
+                </div>
+                <div class="signin-form-row">
+                    <input class="signin-input" type="password" ng-model="signModel.Password"
+                           placeholder="Password">
+                </div>
+                <div class="signin-form-row signin-trouble">
+                    <a href="/User/Trouble">Forgot password?</a>
+                </div>
+                <div class="signin-form-row signin-message">
+                    <span class="signin-message-text"></span>
+                </div>
+                <div class="signin-form-row">
+                    <button class="signin-submit" ng-click="signin()">Sign in</button>
+                </div>
+            </form>
+            <div class="signin-signup">
+                <p>Don't have an account?</p>
+                <a class="signin-signup-action" href="/BusinessAccount/SignUp">Create a Business Account</a>
+            </div>
+        </div>
+        }
+    </div>
+
+    <div class="about-intro-overlay">
+
+    </div>
+</div>
+
+<div class="about-section alt about-customer-data">
+    <div class="about-content">
+        <h3>Dirty Data Is Costing Your Business</h3>
+        <div class="customer-data-illus">
+            <div class="customer-data-picture">
+                <img src="~/Areas/About/Content/img/about-customer-data.svg">
+            </div>
+            <div class="customer-data-text">
+                <ul>
+                    <li>Lost customers</li>
+                    <li>Wasted Resources</li>
+                    <li>Legal and Regulatory Penalties</li>
+                </ul>
+            </div>
+        </div>
+        <div class="customer-data-illus-responsive">
+            <div class="customer-data-picture-responsive">
+                <img src="~/Areas/About/Content/img/about-customer-data-vertical.svg">
+            </div>
+        </div>
+        <p class="important center">On average a dirty record will cost $100 because it is 10x more expensive to process than a clean record.</p>
+    </div>
+</div>
+
+<div class="about-section about-data-more">
+    <div class="about-content">
+        <h3>And It Only Gets Worst!</h3>
+        <div class="about-col">
+            <div class="full-picture">
+                <img src="~/Areas/About/Content/img/about-data-more-1.svg">
+            </div>
+            <div class="full-text">
+                <p>30% of customer data contains errors and that is deteriorating at a rate
+                    of 24% per year if not maintained.</p>
+            </div>
+        </div>
+        <div class="about-col about-data-more-2">
+            <div class="full-picture">
+                <img src="~/Areas/About/Content/img/about-data-more-2.svg">
+            </div>
+            <div class="full-text">
+                <p>On average, each customer has <b>200 accounts</b> and therefore unlikely to notify your business of a
+                    change in information.</p>
+            </div>
+        </div>
+        <p class="important center">Prevent DIRTY DATA by making it easy for customers share information and notify you when there is a change of information.</p>
+    </div>
+</div>
+
+*<div class="about-section alt about-platform">
+    <div class="about-content">
+        <h3>One Secure Platform For Your Customer Data Journey</h3>
+        <div class="about-narrow about-plaform-illus">
+            <div class="about-col">
+                <div class="full-picture">
+                    <img src="~/Areas/About/Content/img/about-platform-acquisition.svg">
+                </div>
+                <div class="full-text">
+                    Data Acquisition
+                </div>
+            </div>
+            <div class="about-col">
+                <div class="full-picture">
+                    <img src="~/Areas/About/Content/img/about-platform-maintenance.svg">
+                </div>
+                <div class="full-text">
+                    Data Maintenance
+                </div>
+            </div>
+        </div>
+        <div>
+            <p>
+                Regit isn't just for customers, it's for any relationships that
+                requires
+                personal information, employees, contractors, tenants, patient, students and more.
+            </p>
+        </div>
+      
+ 
+    </div>
+
+</div>*
+
+<div class="about-section about-works">
+    <div class="about-content">
+        <h3>A Customer Database That Automatically Updates</h3>
+        <h3>No data entry, no guessing</h3>
+
+        <div class="works-illus">
+            <div class="works-picture">
+                <img src="~/Areas/About/Content/img/about-works.svg">
+            </div>
+            <div class="works-text">
+                <div class="works-text-section">
+                    <p>The Regit handshakes automatically keeps your contact database up-to-date.</p>
+            
+                </div>
+                <div class="works-text-section">
+                    <p>
+                    <p>How does it work? </p>
+                         <p>Business create a handshake interaction and specify the information required. Send to customer. </p>
+                         <p>If the customer consent,any future relevant changes will automatically be sent to the business.
+                    </p>
+                </div>
+        </div>
+
+    </div>
+
+    <div class="about-section alt about-features">
+        <div class="about-content">
+            <h3>Integrated So You Can Do More</h3>
+
+            <p class="important center">Advanced functions to make it easy to engage with your customers</p>
+            <div class="feature-col">
+                <div class="feature-picture">
+                    <img src="~/Areas/About/Content/img/about-feature-notification.svg">
+                </div>
+                <div class="feature-text">
+                    Automated real-time notification of changes to your customer's information so you can
+                    act accordingly
+                </div>
+            </div>
+            <div class="feature-col">
+                <div class="feature-picture">
+                    <img src="~/Areas/About/Content/img/about-feature-form.svg">
+                </div>
+                <div class="feature-text">
+                    Eliminate data entry with fully forms                </div>
+            </div>
+            <div class="feature-col">
+                <div class="feature-picture">
+                    <img src="~/Areas/About/Content/img/about-feature-communication.svg">
+                </div>
+                <div class="feature-text">
+                    Send responsive and appealing communications that
+                    your customers will look at
+                </div>
+            </div>
+            <div class="feature-col">
+                <div class="feature-picture">
+                    <img src="~/Areas/About/Content/img/about-feature-protection.svg">
+                </div>
+                <div class="feature-text">
+                    Compliant with Personal Data Protection Requirements. All interactions are on a consent basis.
+
+                </div>
+
+            </div>
+
+            <div class="about-platform-text">
+                <p class="important center">Regit can work on a stand-alone basis or augment your existing solution.</p>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="about-section about-pricing">
+        <div class="about-content">
+            <h3>Simple &amp; Transparent Pricing</h3>
+
+            <p class="important center narrow">Regit offers a number of plans to suit your business, including a
+                free tier
+                to help you get started. At only pennies per customer per month, it's never been more affordable to take control of your customer data.</p>
+       
+            <div class="pricing-table">
+                <div class="pricing-tier pricing-tier-free">
+                    <div class="pricing-head">
+                        <div class="pricing-free">100%<br>Free</div>
+                    </div>
+                    <div class="pricing-desc">
+                        <ul class="pricing-features">
+                            <li>50 Handshakes Relationships</li>
+                            <li>1 Business Users</li>
+                            <li>Regit Business Page</li>
+                            <li>Technical Email Support</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pricing-tier pricing-tier-lite">
+                    <div class="pricing-head">
+                        <div class="pricing-tier-name">Lite</div>
+                        <div class="pricing-value">
+                            <div class="pricing-value-currency">
+                                US$
+                            </div>
+                            <div class="pricing-value-number">
+                                20
+                            </div>
+                            <div class="pricing-value-period">
+                                per month
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="pricing-desc">
+                        <ul class="pricing-features">
+                            <li><b>500</b> Handshakes Relationships</li>
+                            <li><b>2</b> Business Users</li>
+                            <li>Regit Business Page</li>
+                            <li>Technical Email Support</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pricing-tier pricing-tier-medium">
+                    <div class="pricing-head">
+                        <div class="pricing-tier-name">Medium</div>
+                        <div class="pricing-value">
+                            <div class="pricing-value-currency">
+                                US$
+                            </div>
+                            <div class="pricing-value-number">
+                                100
+                            </div>
+                            <div class="pricing-value-period">
+                                per month
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="pricing-desc">
+                        <ul class="pricing-features">
+                            <li><b>2,000</b> Handshakes Relationships</li>
+                            <li><b>5</b> Business Users</li>
+                            <li>Regit Business Page</li>
+                            <li>Technical Email Support</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pricing-tier pricing-tier-heavy">
+                    <div class="pricing-head">
+                        <div class="pricing-tier-name">Heavy</div>
+                        <div class="pricing-value">
+                            <div class="pricing-value-currency">
+                                US$
+                            </div>
+                            <div class="pricing-value-number">
+                                500
+                            </div>
+                            <div class="pricing-value-period">
+                                per month
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="pricing-desc">
+                        <ul class="pricing-features">
+                            <li><b>10,000</b> Handshakes Relationships</li>
+                            <li><b>10</b> Business Users</li>
+                            <li>Regit Business Page</li>
+                            <li>Technical Email Support</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="important center narrow">Not enough? Regit offers custom and enterprise plans to meet your business requirements. Contact our customer service team at <a href="mailto:info@regit.today">info@regit.today</a>. </p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="about-section alt about-security">
+        <div class="about-content">
+            <h3>Security &amp; Confidentiality</h3>
+            <div class="security-picture">
+                <img src="~/Areas/About/Content/img/about-security.svg">
+            </div>
+            <div class="security-text">
+                <p>Regit takes security very seriously which is why we have partnered with Microsoft Azure to host
+                    Regit. Microsoft Azure is known for its world class performance, resiliency, and security but we don't stop there. 
+                   </p>
+                <p>At the application level, Regit includes:</p>
+                <ul>
+                    <li>Multi-factor Authentication</li>
+                    <li>SSL for encryption of inflight data and AES-256 encryption for data at rest</li>
+                    <li>Complex password policy and robust password reset process</li>
+                    <li>Support customize security configuration</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>

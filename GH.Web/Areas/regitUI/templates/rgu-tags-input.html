@@ -1,0 +1,6 @@
+<ui-select multiple tagging tagging-label="{{label}}" ng-model="$parent.tags">
+    <ui-select-match placeholder="{{placeholder}}">{{$item}}</ui-select-match>
+    <ui-select-choices repeat="item in list | filter:$select.search">
+        {{item}}
+    </ui-select-choices>
+</ui-select>

@@ -1,0 +1,30 @@
+﻿<div ng-controller="CustomerManagementController" collapse-base-on-route="/customer-management" class="collapse-item">
+    <div class="collapse-header">
+        <a href="#/customer-management" class="regit-color" data-toggle="collapse" aria-expanded="false" data-target="#customerManagementCollapseContent">@GH.Lang.Regit.Customer_Management</a>
+    </div>
+    <div class="collapse-content">
+        <div class="collapse" id="customerManagementCollapseContent">
+            <div class="row field">
+                <div class="col-md-2">
+                    <span class="field-title">@GH.Lang.Regit.Master_Custom_List</span>
+                </div>
+                <div class="col-md-8">
+                </div>
+                <div class="col-md-2 text-right">
+                    <a class="field-action regit-color" href="/BusinessUserSystem/AnalyticsCustomerList">View</a>
+                </div>
+            </div>
+            <hr />
+            <div class="row field">
+                <div class="col-md-2">
+                    <span class="field-title">@GH.Lang.Regit.Customer_by_Campaign</span>
+                </div>
+                <div class="col-md-8">
+                </div>
+                <div class="col-md-2 text-right">
+                    <a class="field-action regit-color" href="#" ng-click="ActionToCampaignList();">View</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

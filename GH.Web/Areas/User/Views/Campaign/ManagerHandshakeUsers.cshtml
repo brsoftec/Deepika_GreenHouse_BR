@@ -1,0 +1,500 @@
+﻿﻿@{
+    Layout = "~/Areas/User/Views/Shared/_LayoutDefaultBusinessApply.cshtml";
+    ViewBag.Title = "Handshake Member Manager";
+     ViewBag.NgApp = "handshakeManager";
+ }
+@section styles{
+    <link rel="stylesheet" href="@Url.Versioned("~/Areas/Beta/css/interaction.css")">
+}
+
+@section initscripts {
+
+    <script>
+        var regitGlobal = regitGlobal || {};
+        regitGlobal.subscriptionPlan = {
+            name: "@ViewBag.SubscriptionPlan.Name",
+            label: "@(ViewBag.SubscriptionPlan.Name=="free" ? "Free Tier" : ViewBag.SubscriptionPlan.Name.ToLower()) subscription plan",
+            businessMembers: @Json.Encode(ViewBag.SubscriptionPlan.BusinessMembers),
+            handshakeRelationships: @Json.Encode(ViewBag.SubscriptionPlan.HandshakeRelationships)
+        }
+    </script>
+}
+@section scripts {
+    @Scripts.Render("~/bundles/CampaignService")
+    @Scripts.Render("~/bundles/dialog-confirm-ctrl")
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/InteractionFormController.js")"></script>
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/Campaign/ManagerHandshakeUserController.js")"></script>
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/Campaign/BusInviteHanshake-popup-controller.js")"></script>
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/NewFeeds/RegistrationHandshakeOnNewFeedController.js")"></script>
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/BillingQuotaController.js")"></script>
+    <script src="@Url.Versioned("~/Areas/regitUI/js/modules/social.js")"></script>
+    
+    <script>
+        angular.module('handshakeManager', ['myApp', 'interaction']);
+    </script>
+}
+@section body {
+    <div class="module module-main module-business module-interactions" ng-controller="ManagerHandshakeUserController as vm"
+         ng-init="vm.initializeController()">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/BusinessAccount">&laquo; Business Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="/Campaign/ManagerCampaign">Interaction Module</a>
+            </li>
+            <li class="breadcrumb-item active">Handshake Member Manager</li>
+        </ol>
+        <h1>Handshake Members</h1>
+        <div class="sync-members-header">Handshake Name: {{syncInfo.syncName}}</div>
+    <div class="interaction-dashboard sync-members-dashboard">
+        <button type="button" class="interaction-cta interaction-cta-add-user"
+                ng-disabled="view.showingReachedQuota" ng-click="vm.InviteMembers()">
+            Invite Member
+        </button>
+        <button type="button" class="interaction-cta interaction-cta-show-form"
+                ng-click="vm.openHandshakeFieldsViewer()">
+            View Form
+        </button>        
+@*        <button type="button" class="interaction-cta interaction-cta-show-form"
+                ng-click="vm.ShowFieldsHansahke()">
+            View Form
+        </button>*@
+        <button type="button" class="interaction-cta interaction-cta-export-all"
+                ng-click="vm.ExportAll()">
+            Export All
+        </button>
+        <button type="button" class="interaction-cta interaction-cta-email-notif"
+                popover-placement="bottom-center"
+                popovertitle="" uib-popover-template="'sync-email-notif.html'"
+                popover-is-open="view.showingEmailNotifPopover">
+            Email Notification
+        </button>
+        <button type="button" class="interaction-cta interaction-cta-sync-members-refresh last-in-row"
+                ng-click="refreshMembers();">
+            Refresh
+        </button>
+
+        <div class="dashboard-search handshake-search">
+            <input class="dashboard-search-input handshake-search-input" ng-model="search.query"
+                   placeholder="Search members">
+        </div>
+    </div>
+    
+    <div ng-if="view.showingReachedQuota" class="billing-quota-container">
+        <div class="billing-quota-alert">
+            <p>Your usage has reached limit of total {{subscription.plan.handshakeRelationships}} handshake relationships, as imposed by {{subscription.plan.label}}.</p>
+            <p><a href="/BusinessAccount/Billing">Upgrade your plan</a> to reach more.</p>
+        </div>
+    </div>
+
+    <script type="text/ng-template" id="sync-email-notif.html">
+            <div class="sync-email-notif form-popover" ng-controller="SyncEmailNotifController">
+                <div class="form-heading">Handshake Email Notification</div>
+                <div class="form-intro">Receive member updates of this handshake by email</div>
+                <form class="email-notif-form">
+                    <div class="form-row" ng-if="notif.option !== 'none'">
+                        <div class="form-label-col">Recipients</div>
+                        <div class="form-control-col">
+                            <rgu-checkbox class="form-input-control" ng-model="notif.sendMe"
+                                          label="Notify my account ({{myEmail}})"></rgu-checkbox>
+                            <rgu-checkbox class="form-input-control" ng-model="notif.sendMore"
+                                          label="Notify other recipients"></rgu-checkbox>
+                        </div>
+                    </div>
+
+                    <div class="form-row" ng-if="notif.option !== 'none' && notif.sendMore">
+                        <div class="form-label-col">Other Recipients</div>
+                        <div class="form-control-col">
+                            <textarea class="form-input-control" ng-model="notif.recipientsText" rows="5"
+                                      placeholder="List of email addresses, separated by comma, semicolon or space"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-message form-row-message" ng-if="notif.message">
+                        <div class="form-row-message-text" ng-bind="notif.message"></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-label-col">Option</div>
+                        <div class="form-control-col">
+                            <select rgu-select ng-model="notif.option"
+                                    ng-options="option.name as option.label for option in notif.options"></select>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-default  form-action" ng-click="close()">
+                            Cancel
+                        </button>
+                        <button type="button" class="btn btn-primary action-save form-action" ng-click="save()">
+                            Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </script>
+        <div class="campaigns-grid">
+            <table class="table table-striped interactions-grid">
+                <thead>
+                    <tr>
+                        <th>Member</th>
+                        <th>Last Sync</th>
+                        <th class="handshake-status-value">Status</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="" ng-repeat="h in vm.ListPostHandshakses  | filter:filterMembers(search.query)">
+                        <td ng-if="h.IsJoin" class="campaigns-name">
+                           <a ng-bind-html="h.UserName | searchHighlight:search.query"
+                               ng-click="vm.openHandshakeFormViewer(h.UserId)"></a>                   
+@*                            <a ng-bind-html="h.UserName | searchHighlight:search.query"
+                               ng-click="vm.ShowFieldsHansahkeOfUser(h.UserId)"></a>*@
+                        </td>
+                        <td ng-if="!h.IsJoin" class="campaigns-name"
+                            ng-bind-html="h.UserName | searchHighlight:search.query"></td>
+                        <td class="interaction-date">
+                            <span ng-if="h.isaccecpt">{{h.DateUpdateJson}}</span>
+                            <span ng-if="!h.IsJoin && !h.isaccecpt" class="handshake-status-text-pending">Pending</span>
+                            <span ng-if="!h.IsJoin && h.isaccecpt" class="handshake-status-text-paused"><br>Paused</span>
+
+                        </td>
+                        <td class="handshake-status-value">
+                            <handshake-status-badge model="h"></handshake-status-badge>
+                        </td>
+                        <td class="interaction-actions">
+                            <button class="interaction-action action-acknowledge"
+                                    ng-if="h.Status=='Not acknowledged' && h.IsChange && h.IsJoin"
+                                    ng-click="vm.AcknowledgeHandshake(h)">
+                                Acknowledge
+                            </button>
+
+                        </td>
+                        <td class="more-actions">
+                            <button class="grid-action action-more" ng-click="openMoreActions(h,$event)">More</button>
+                            <div class="more-actions-dropdown" ng-if="view.openingMoreActions===h.Id">
+                                <button ng-if="!h.IsJoin && !h.isaccecpt" class="more-action" ng-click="resent(h)">
+                                    Resend
+                                    Invitation
+                                </button>
+                                <button ng-if="h.IsChange && h.IsJoin" class="more-action" ng-click="vm.DownloadVaultchange(h)">
+                                    Download
+                                </button>
+                                <button class="more-action" ng-if="h.IsJoin" ng-click="vm.UnJoinOrJoin(h)">Pause</button>
+@*                                <button class="more-action" ng-if="!h.IsJoin && h.isaccecpt" ng-click="vm.UnJoinOrJoin(h)">
+                                    Resume
+                                </button>*@
+                                <button class="more-action" ng-click="vm.Remove(h)">Terminate</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="sync-members-pending-heading">Pending Email Invitations</div>
+            <table class="table table-striped interactions-grid">
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Last Sent</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class='campaign-status-Active' ng-repeat="userOutsite in listHandShakeOutSite">
+                        <td ng-if="userOutsite.Email" class="campaigns-name">
+                            {{userOutsite.Email}}
+                        </td>
+                        <td class="interaction-date">{{userOutsite.DateCreate | friendlyTime}}</td>
+                        <td class="more-actions">
+                            <button class="grid-action action-more" ng-click="openMoreActions(userOutsite,$event)">
+                                More
+                            </button>
+                            <div class="more-actions-dropdown" ng-if="view.openingMoreActions===userOutsite.Id">
+                                <button class="more-action" ng-click="resendOutside(userOutsite)">
+                                    Resend Invitation
+                                </button>
+                                <button class="more-action" ng-click="removeOutside(userOutsite)">
+                                    Remove
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="sync-members-pending-heading">Terminated Members</div>
+            <table class="table table-striped interactions-grid">
+                <thead>
+                    <tr>
+                        <th>Member</th>
+                        <th>Terminated</th>
+                        <th></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="hs in listHandShakeTerminate">
+                        <td class="hs-member-name">
+                            {{hs.UserName}}
+                        </td>
+                        <td class="interaction-date">{{hs.DateTerminate | friendlyTime}}</td>
+                        <td class="more-actions">
+                            <button class="grid-action action-more" ng-click="openMoreActions(hs,$event)">More</button>
+                            <div class="more-actions-dropdown" ng-if="view.openingMoreActions===hs.Id">
+                                <button class="more-action" ng-click="resentTerminate(hs)">
+                                    Re-invite
+                                </button>
+                                <button class="more-action" ng-click="deleteHandShake(hs)">
+                                    Remove
+                                </button>
+                            </div>
+
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+
+    <script type="text/ng-template" id="modal-open-invite-member.html">
+            <div class="modal-container">
+                <h3 class="reg-title">Invite Members</h3>
+                <div class="stamp-regit">Powered by Regit</div>
+                                <div ng-if="!showingMember && subscription.exceededQuota" class="billing-quota-container">
+                    <div class="billing-quota-alert">
+            <p>Your intended usage will exceed limit of total {{subscription.plan.handshakeRelationships}} handshake relationships, as imposed by {{subscription.plan.label}}.</p>
+            <p><a href="/BusinessAccount/Billing">Upgrade your plan</a> to reach more.</p>
+                    </div>
+                </div>
+                <form class="form-horizontal form-registration sync-invite-form">
+                    <fieldset>
+                        <legend>Members</legend>
+                        <div class="form-group form-row">
+                            <div class="col-sm-3">
+                                <label>Invite</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="radiogroup">
+                                    <div class="radio">
+                                        <input checked id="option-member" name="input-title" ng-click="showingmember=true;"
+                                               ng-model="pushtype" type="radio" value="member">
+                                        <label for="option-member">By Member</label>
+                                    </div>
+                                    <div class="radio">
+                                        <input id="option-email" name="input-title" ng-click="showingmember=false;"
+                                               ng-model="pushtype" type="radio" value="email">
+                                        <label for="option-email">By Email</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-show="showingmember" class="form-group form-row">
+                            <div class="col-sm-3">
+                                <label>Select Member</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <select ng-options="f as f.DisplayName for f in ListMemberBus" ng-model="memberBusSelected"
+                                        class="" id="select-delegate"></select>
+
+                                <div class="form-field-details-row" ng-if="memberBusSelected==null || !memberBusSelected">
+                                    <span class="form-field-message" style="color:red">
+                                        Please select a member
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div ng-show="!showingmember" class="form-group form-row">
+                            <div class="col-sm-3">
+                                <label>Send To</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="sync-invite-recipients">
+                                    <div class="form-notes">
+                                        <p>
+                                            Enter list of email addresses to receive invitation to join the handshake.
+                                            Separate multiple emails by comma, semicolon or space.
+                                        </p>
+                                        <p>
+                                            If an email address is found with a Regit user, the invitation is sent as
+                                            notification. Otherwise, an email is sent to invite the person to join
+                                            Regit.
+                                        </p>
+                                    </div>
+                                    <textarea ng-model="invite.recipientsText" rows="5" ng-change="parseRecipients()"
+                                              placeholder="Recipient email addresses"></textarea>
+                                    <div class="form-row-message" ng-if="invite.message">
+                                        <div class="form-message-text" ng-bind="invite.message"></div>
+                                    </div>
+                                    <div class="form-notes form-results">
+                                        <p ng-if="listEmailInsite.length">
+                                            Invitation sent to Regit users:
+                                            {{listEmailInsite.join(", ")}}
+                                        </p>
+                                        <p ng-if="listEmailOutsite.length">
+                                            Invitation email sent to people outside Regit:
+                                            {{listEmailOutsite.join(", ")}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row">
+                            <div class="col-sm-3">
+                                <label> Comment </label>
+                            </div>
+                            <div class="col-sm-9">
+                                <textarea rows="3" ng-model="posthandshakecomment"></textarea>
+                            </div>
+
+                        </div>
+                    </fieldset>
+                    <div ng-if="false && isshowplanupgrade" class="billing-quota-container">
+                        <div class="billing-quota-alert">
+                            <p>
+                                        <p>Your usage has reached limit of total {{maxnumber}} handshake relationships, as imposed by {{plan.label}}.</p>
+                                        <p><a href="/BusinessAccount/Billing">Upgrade your plan</a> to remove this limitation.</p>
+                        </div>
+                    </div>
+                    <div style="padding-top:20px;color:red;text-align:center">
+                        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+                            <div ng-bind-html="messageBox"></div>
+                        </uib-alert>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" ng-click="cancel()" class="btn btn-default">
+                            <span ng-if="closing">Close</span> <span ng-if="!closing"> Cancel </span>
+                        </button>
+                        <button ng-if="!closing" type="button" ng-disabled="showingMember && !memberBusSelected || !showingMember && subscription.exceededQuota" ng-click="RegisterCampaign()"
+                                class="btn btn-primary">
+                            Send Invitation
+                        </button>
+
+                    </div>
+                </form>
+            </div>
+        </script>
+
+
+        <script type="text/ng-template" id="modal-feed-open-reg-handshake.html">
+            <div class="modal-container">
+                <h3 class="reg-title">{{campaign.Name}} Handshake</h3>
+                <div class="stamp-regit">Powered by Regit</div>
+                <form class="form-horizontal form-registration">
+                    <fieldset>
+                        <legend>Personal Information</legend>
+                        <div class="form-group form-row" ng-repeat="field in dataregisterform">
+                            <div ng-bind-html="renderFieldGroup(field)"></div>
+                            <div class="col-sm-3">
+                                <label>{{field.displayName}}</label>
+                                <label ng-if="(!field.read && $parent.Iscustomrole && !field.write)"
+                                       style="color:chocolate;font-size:small">Don't Permission</label>
+                                <label ng-if="(field.read && $parent.Iscustomrole &&  !field.write)"
+                                       style="color:chocolate;font-size:small">Read</label>
+                                <label ng-if="(field.read && field.write && $parent.Iscustomrole )"
+                                       style="color:chocolate;font-size:small">Read And Write</label>
+                            </div>
+                            <div class="col-sm-9" ng-bind-html="field | fieldToText">
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row" ng-if="membershipFields.length">
+                            <div class="col-sm-12">
+                                <h5 class="form-optional-heading">Membership</h5>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row" ng-if="membershipFields.length"
+                             ng-repeat="field in membershipFields = (dataregisterform | filter: filterMembership)">
+                            <div class="col-sm-3">
+                                <label>{{field.displayName}}</label>
+                                <label ng-if="(!field.read && $parent.Iscustomrole && !field.write)"
+                                       style="color:chocolate;font-size:small">Don't Permission</label>
+                                <label ng-if="(field.read && $parent.Iscustomrole &&  !field.write)"
+                                       style="color:chocolate;font-size:small">Read</label>
+                                <label ng-if="(field.read && field.write && $parent.Iscustomrole )"
+                                       style="color:chocolate;font-size:small">Read And Write</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <rgu-control ng-disabled="true" ng-if="field.type==='static' " type="static"
+                                             value="{{field.model}}" ng-model="field.model"></rgu-control>
+
+                                <rgu-control ng-disabled="true"
+                                             ng-if="field.type!=='static' && field.type!=='numinput' && field.type!=='tagsinput'   "
+                                             type="{{field.type}}"
+                                             ng-model="field.model" options="field.options"></rgu-control>
+                                <rgu-control ng-disabled="true" ng-if="field.type==='numinput'  " type="{{field.type}}"
+                                             ng-model="field.model"
+                                             options="field.options"
+                                             unit-model="field.unitModel"></rgu-control>
+                                <rgu-control ng-disabled="true" ng-if="field.type==='tagsinput'" type="{{field.type}}"
+                                             ng-model="field.model"
+                                             options="field.options"
+                                             placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                                <input ng-if="false" disabled="disabled" type="password"
+                                       value="{{vaildfiled(field)?field.model:''}}" class="form-control" placeholder="">
+
+                                <div ng-if="false" class="form-field-details-row">
+                                    <span class="form-field-message" style="color:red">
+                                        Please enter value
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group form-row" ng-if="qaFields.length">
+                            <div class="col-sm-12">
+                                <h5 class="form-optional-heading">Answer Question</h5>
+                            </div>
+                        </div>
+                        <div class="form-group form-row" ng-if="qaFields.length"
+                             ng-repeat="field in qaFields = (dataregisterform | filter: filterQA)">
+                            <div class="col-sm-3">
+                                <label>{{field.displayName}}</label>
+                                <label ng-if="(!field.read && $parent.Iscustomrole && !field.write)"
+                                       style="color:chocolate;font-size:small">Don't Permission</label>
+                                <label ng-if="(field.read && $parent.Iscustomrole &&  !field.write)"
+                                       style="color:chocolate;font-size:small">Read</label>
+                                <label ng-if="(field.read && field.write && $parent.Iscustomrole )"
+                                       style="color:chocolate;font-size:small">Read And Write</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <rgu-control ng-disabled="true" ng-if="true" type="qa" choices="{{field.choices}}"
+                                             options="field.modelarrays"
+                                             ng-model="field.model"></rgu-control>
+                                <input ng-if="false" disabled="disabled" type="password"
+                                       value="{{ vaildfiled(field)?field.model:""}}" class="form-control" placeholder="">
+                                <div ng-if="false" class="form-field-details-row">
+                                    <span class="form-field-message" style="color:red">
+                                        Please enter value
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+
+                    <div style="padding-top:20px">
+                        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+                            <div ng-bind-html="messageBox"></div>
+                        </uib-alert>
+                    </div>
+                    <div class="form-group form-row">
+                        <div class="col-sm-3">
+                            <label></label>
+                        </div>
+                        <div class="col-sm-9">
+                            <button type="button" ng-click="cancel()" class="btn btn-default">Close</button>
+                         
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </script>
+    </div>
+
+}

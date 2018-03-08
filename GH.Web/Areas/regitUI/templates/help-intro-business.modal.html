@@ -1,0 +1,93 @@
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog help-intro-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="btn-modal-close" ng-click="closeIntro($hide)">Close</button>
+            </div>
+            <div class="modal-body">
+                <div class="help-intro-slides">
+                    <div class="help-intro-start help-intro-business-home">
+                        <div class="intro-home-heading">Hello, {{user.DisplayName}}</div>
+                        <div class="intro-home-heading">Welcome to Regit for Business</div>
+                        <div class="help-intro-text">Regit is a secure and powerful platform for businesses to manage
+                            personal data. Be it employee or customer personal data, Regit automates the data collection
+                            and keep data clean, while delivering an exceptional user experience. Saving you money and
+                            time so you can focus on other important things.
+                        </div>
+                        <div class="help-intro-picture">
+                            <img src="/Areas/Beta/img/help/intro-business-home.svg">
+                        </div>
+                        <button class="intro-home-cta" ng-click="gotoSlide(0)">Let's Go!</button>
+                        <button class="intro-home-cancel" ng-click="closeIntro($hide)">I got it.
+                            Skip this guide
+                        </button>
+                        <div class="intro-permanent-option">
+                            <rgu-checkbox ng-model="view.preferences.showBusinessIntroSlides" label="Show again next login"></rgu-checkbox>
+                        </div>
+                    </div>
+                    <div class="help-intro-slide">
+                        <h3 class="intro-slide-heading">Powerful tools to interact and WOW your customers</h3>
+                        <div class="help-intro-text">Regit interaction module is designed to support your all phases of
+                            your customer data journey, from customer acquisition to maintenance.
+                        </div>
+                        <div class="help-intro-picture">
+                            <img src="/Areas/Beta/img/help/intro-business-interactions.svg">
+                        </div>
+                        <div class="help-intro-text">New interactions time is being planned in the near future such as reservation, membership and public forms.</div>
+
+                    </div>
+                    <div class="help-intro-slide">
+                        <h3 class="intro-slide-heading">Creating interactions can be as little as 3 steps</h3>
+                        <div class="help-intro-text">Although each interactions can be different, they generally follow the same flow.
+                        </div>
+                        <div class="intro-slide-picture">
+                            <img src="/Areas/Beta/img/help/intro-business-interaction-create.svg">
+                        </div>
+                        <div class="help-intro-text">Once live, you can review real time statistics and progress of your campaign where relevant.
+                        </div>
+                    </div>
+                    <div class="help-intro-slide">
+                        <h3 class="intro-slide-heading">Additional integrated features and security so you can be more productive</h3>
+                        <div class="intro-slide-picture narrow">
+                            <img src="/Areas/Beta/img/help/intro-business-features.svg">
+                        </div>
+                    </div>
+
+                    <div class="help-intro-slide intro-ready">
+                        <div class="intro-ready-heading">Now you’re ready!</div>
+                        <div class="intro-ready-text">At Regit, we are constantly innovating with new features and enhancement.<br>
+                            Feel free to contact us with your feedback, good or bad. Regit is built for you. We are not happy unless you are!
+                        </div>
+                        <button class="intro-ready-cta" ng-click="closeIntro($hide)">Get Started!</button>
+                    </div>
+
+                </div>
+                <div class="help-intro-nav clearfix">
+
+                    <button class="help-intro-nav-adj help-intro-nav-prev" ng-if="currentSlide>0"
+                            ng-click="gotoSlide(currentSlide-1)">Back
+                    </button>
+                    <button class="help-intro-nav-adj help-intro-nav-next" ng-if="currentSlide<numSlides-1"
+                            ng-click="gotoSlide(currentSlide+1)">Next
+                    </button>
+                    <div class="help-intro-paging">
+                        <button class="help-intro-paging-item" ng-repeat="slide in slides"
+                                ng-click="gotoSlide($index)"></button>
+
+                    </div>
+                    <div class="help-intro-nav-skip">
+                        <button class="help-intro-nav-cancel" ng-if="currentSlide<numSlides-1"
+                                ng-click="closeIntro($hide)">
+                            I got it, Skip!
+                        </button>
+                        <div class="intro-permanent-option">
+                            <rgu-checkbox ng-model="view.preferences.showBusinessIntroSlides" label="Show again next login"></rgu-checkbox>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

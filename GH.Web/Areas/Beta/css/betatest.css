@@ -1,0 +1,109 @@
+.betatest-admin {
+    margin: 10px 0 30px 0 !important;
+}
+
+.betatest-button {
+    border: none;
+    background: none;
+    color: white;
+    text-transform: uppercase;
+}
+
+.betatest-guide {
+    padding: 10px;
+}
+
+.betatest-popover {
+    width: 300px;
+    color: #666;
+}
+
+.betatest-popover p {
+    margin: 2px;
+    padding: 0;
+}
+
+p.betatest-popover-heading {
+    color: black;
+    font-size: 120%;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px !important;
+    margin-bottom: 10px;
+}
+
+.betatest-popover a {
+}
+
+p.betatest-popover-instruction {
+    margin: 10px 0;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+}
+
+/*FEEDBACK*/
+
+.footer-feedback {
+    position: absolute;
+    right: 20px;
+    top: 8px;
+}
+
+.betatest-feedback-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 120%;
+    text-transform: uppercase;
+}
+
+.betatest-feedback {
+    width: 600px;
+    z-index: 20000;
+    color: black;
+}
+
+.betatest-feedback-form-row {
+    width: 100%;
+    vertical-align: top;
+    padding: 6px 0;
+    border-bottom: 1px solid #dedede;
+}
+
+.betatest-feedback-form-row:last-child {
+    border-bottom: none;
+}
+
+.betatest-feedback-form-label {
+    display: inline-block;
+    width: 160px;
+    vertical-align: middle;
+    font-weight: bold;
+    color: #999;
+}
+
+.betatest-feedback-form-value {
+    display: inline-block;
+    width: 400px;
+    vertical-align: top;
+}
+
+.betatest-feedback-form-value input, .betatest-feedback-form-value textarea, .betatest-feedback-form-value select {
+    width: 100% !important;
+}
+
+.inline-link {
+    /*margin-left: 10px;*/
+}
+
+img.betatest-feedback-attach-thumbnail {
+    height: 100px !important;
+}
+
+.betatest-feedback-actions {
+    text-align: center;
+}
+
+.betatest-feedback-action {
+    margin-left: 10px;
+}
+

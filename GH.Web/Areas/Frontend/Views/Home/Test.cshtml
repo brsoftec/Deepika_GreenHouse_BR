@@ -1,0 +1,235 @@
+﻿<div ng-app="myApp">
+    <div ng-controller="LoginController">
+        <h1>External Login Providers</h1>
+        <div class="table-responsive">
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>
+                            Provider
+                        </th>
+                        <th>
+                            Response
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="provider in providers">
+                        <td><a class="btn btn-primary" ng-click="externalLogin(provider)">{{provider.Name}}</a></td>
+                        <td>{{provider.Response}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr />
+        <div ng-if="loggedInTwitter">
+            <div>
+                <h2>Twitter Home Timeline</h2>
+                <div><a class="btn btn-primary" ng-click="getTwitterHomeTimeline()">Get news feed</a></div>
+                <div>
+                    <div ng-repeat="feed in twitterFeed">
+                        <h4 class="text-center">Tweet {{$index}}</h4>
+                        <div>
+                            <a class="btn btn-default" ng-click="toggleFeed($index)">{{showFeed[$index] ? 'Hide' : 'Show'}}</a>
+                            <a class="btn btn-danger" ng-if="feed.favorited" ng-click="unfavorite(feed, $index)">Un-favorite</a>
+                            <a class="btn btn-success" ng-if="!feed.favorited" ng-click="favorite(feed, $index)">Favorite</a>
+                            <a class="btn btn-danger" ng-if="feed.retweeted" ng-click="unretweet(feed, $index)">Unretweet</a>
+                            <a class="btn btn-info" ng-if="!feed.retweeted" ng-click="retweet(feed, $index)">Retweet</a>
+                        </div>
+                        <div ng-show="showFeed[$index]">
+                            <div ng-bind-html="getPrettyFeed(feed)"></div>
+                        </div>
+                        <hr />
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div>
+                <h2>Update Status</h2>
+                <div>
+                    <textarea class="form-control" rows="3" ng-model="newTwitterStatus.Status" placeholder="Status (140)"></textarea>
+                </div>
+                <div>
+                    <input type="text" class="form-control" ng-model="newTwitterStatus.InReplyToStatusId" placeholder="Reply to status id" />
+                </div>
+                <div>
+                    <a class="btn btn-success" ng-click="updateTwitterStatus()">Post</a>
+                </div>
+                <h4>Recent posted</h4>
+                <div>
+                    {{recentPostedTweet}}
+                </div>
+                <h5>Errors</h5>
+                <div>
+                    {{postTweetErrors}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/AngularJS/angular-sanitize.min.js"></script>
+    <script type="text/javascript">
+        var myApp = angular.module("myApp", ['ngSanitize']);
+        myApp.controller("LoginController", ['$scope', '$rootScope', '$http', function ($scope, $rootScope, $http) {
+            $scope.showFeed = [];
+            $scope.toggleFeed = function (index) {
+                $scope.showFeed[index] = $scope.showFeed[index] ? false : true;
+            }
+
+            $scope.getPrettyFeed = function (feed) {
+                if (feed == null) {
+                    return 'null';
+                }
+                if (typeof feed == 'string' || typeof feed == 'number' || typeof feed == 'boolean') {
+                    return feed
+                } else if (typeof feed == 'array') {
+                    for (var i = 0; i < feed.length; i++) {
+                        return $scope.getPrettyFeed(feed[i]);
+                    }
+                } else {
+                    var pretty = '<div class="fluid-container">';
+                    for (let k in feed) {
+                        pretty += '<div class="row"><div class="col-sm-3"><b>' + k + '</b></div><div class=col-sm-9>' + $scope.getPrettyFeed(feed[k]) + '</div></div>'
+                    }
+                    pretty += '</div>';
+                    return pretty;
+                }
+            }
+
+
+
+            $scope.providers = [];
+            $scope.provider = {};
+            $scope.facebookFeed = {};
+            $scope.newTwitterStatus = {};
+            $scope.twitterAuth = {};
+            $scope.facebookAuth = {};
+
+
+            $http.get('/api/Account/ExternalLogins', { params: { returnUrl: '/Home/ExternalLoginSuccess' } }).success(function (providers) {
+                $scope.providers = providers;
+            })
+
+            $scope.externalLogin = function (provider) {
+                $scope.provider = provider;
+                window.$windowScope = $scope;
+
+                var oauthWindow = window.open(provider.Url, "Authenticate Account", "location=0,status=0,width=600,height=750");
+            }
+
+            $scope.authCompletedCB = function (fragment) {
+                $scope.provider.AuthInfo = fragment
+                $scope.$apply(function () {
+                    // fragment: { access_token: ..., expires_in: ..., token_type: 'bearer' }
+                    $http.get('/api/Account/UserInfo', {
+                        headers: {
+                            Authorization: fragment.token_type + ' ' + fragment.access_token
+                        }
+                    }).success(function (response) {
+                        //todo: do sign in steps
+                        //for demo: get long live access token
+                        $scope.provider.Response = response;
+                        if (response.LoginProvider == 'Facebook') {
+                            $scope.facebookAuth = $scope.provider;
+                            $http.get('/api/Facebook/GetFacebookUserCodeFromServerLongLivedToken', {
+                                headers: {
+                                    Authorization: fragment.token_type + ' ' + fragment.access_token
+                                }
+                            }).success(function (code) {
+                                $scope.provider.Response.UserCode = code;
+                                $scope.facebookAuth = $scope.provider;
+                            });
+                            $scope.loggedInFacebook = true;
+                        }
+
+                        if (response.LoginProvider == 'Twitter') {
+                            $scope.loggedInTwitter = true;
+                            $scope.twitterAuth = $scope.provider;
+                        }
+                    })
+                });
+            }
+
+            $scope.getTwitterHomeTimeline = function () {
+                $scope.showFeed = [];
+                $http.get('/api/Twitter/HomeTimeline', {
+                    headers: {
+                        Authorization: $scope.twitterAuth.AuthInfo.token_type + ' ' + $scope.twitterAuth.AuthInfo.access_token
+                    }
+                }).success(function (timeline) {
+                    $scope.twitterFeed = timeline;
+                });
+            }
+
+            $scope.updateTwitterStatus = function () {
+                $scope.postTweetErrors = {};
+                $http.post('/api/Twitter/UpdateStatus', $scope.newTwitterStatus, {
+                    headers: {
+                        Authorization: $scope.twitterAuth.AuthInfo.token_type + ' ' + $scope.twitterAuth.AuthInfo.access_token
+                    }
+                }).success(function (status) {
+                    $scope.recentPostedTweet = status;
+                }).error(function (errors) {
+                    $scope.postTweetErrors = errors;
+                });
+            }
+
+            $scope.favorite = function (feed, idx) {
+                $http.post('/api/Twitter/FavoriteCreate', { Id: feed.id_str }, {
+                    headers: {
+                        Authorization: $scope.twitterAuth.AuthInfo.token_type + ' ' + $scope.twitterAuth.AuthInfo.access_token
+                    }
+                }).success(function (favFeed) {
+                    $scope.twitterFeed[idx] = favFeed;
+                }).error(function (errors) {
+                    alert(errors);
+                    console.log(errors);
+                });
+            }
+
+            $scope.unfavorite = function (feed, idx) {
+                $http.post('/api/Twitter/FavoriteDestroy', { Id: feed.id_str }, {
+                    headers: {
+                        Authorization: $scope.twitterAuth.AuthInfo.token_type + ' ' + $scope.twitterAuth.AuthInfo.access_token
+                    }
+                }).success(function (favFeed) {
+                    $scope.twitterFeed[idx] = favFeed;
+                }).error(function (errors) {
+                    alert(errors);
+                    console.log(errors);
+                });
+            }
+
+            $scope.retweet = function (feed, idx) {
+                $http.post('/api/Twitter/RetweetStatus', { Id: feed.id_str }, {
+                    headers: {
+                        Authorization: $scope.twitterAuth.AuthInfo.token_type + ' ' + $scope.twitterAuth.AuthInfo.access_token
+                    }
+                }).success(function (favFeed) {
+                    $scope.twitterFeed[idx] = favFeed;
+                }).error(function (errors) {
+                    alert(errors);
+                    console.log(errors);
+                });
+            }
+
+            $scope.unretweet = function (feed, idx) {
+                $http.post('/api/Twitter/UnretweetStatus', { Id: feed.id_str }, {
+                    headers: {
+                        Authorization: $scope.twitterAuth.AuthInfo.token_type + ' ' + $scope.twitterAuth.AuthInfo.access_token
+                    }
+                }).success(function (favFeed) {
+                    favFeed.retweeted = false;
+                    $scope.twitterFeed[idx] = favFeed;
+                }).error(function (errors) {
+                    alert(errors);
+                    console.log(errors);
+                });
+            }
+
+
+        }])
+    </script>
+}

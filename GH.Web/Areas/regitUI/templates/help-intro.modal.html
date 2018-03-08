@@ -1,0 +1,141 @@
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog help-intro-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="btn-modal-close" ng-click="closeIntro($hide)">Close</button>
+            </div>
+            <div class="modal-body">
+                <div class="help-intro-slides">
+                    <div class="help-intro-start help-intro-home">
+                        <div class="intro-home-heading">Hello, {{user.DisplayName}}</div>
+                        <div class="intro-home-text">You’re one step closer to taking control of your information and
+                            simplifying your life. Get started by learning how to use Regit.
+                        </div>
+                        <button class="intro-home-cta" ng-click="gotoSlide(0)">Let's Go!</button>
+                        <button class="intro-home-cancel" ng-click="closeIntro($hide)">I got it.
+                            Skip this guide
+                        </button>
+                        <div class="intro-permanent-option">
+                            <rgu-checkbox ng-model="view.preferences.showIntroSlides"
+                                          label="Show again next login"></rgu-checkbox>
+                        </div>
+                    </div>
+                    <div class="help-intro-slide" id="1">
+                        <h3 class="intro-slide-heading">What can you do with Regit?</h3>
+                        <div class="intro-cando-container">
+                            <div class="intro-cando-box">
+                                <div class="intro-cando-text"><span class="ord">1. </span>Organize and Access your
+                                    information anywhere
+                                </div>
+                                <div class="intro-cando-picture">
+                                    <img src="/Areas/Beta/img/help/intro-cando-access.svg">
+                                </div>
+                            </div>
+                            <div class="intro-cando-box">
+                                <div class="intro-cando-text"><span class="ord">2. </span>Delegate the information you
+                                    want to the people you trust
+                                </div>
+                                <div class="intro-cando-picture">
+                                    <img src="/Areas/Beta/img/help/intro-cando-delegate.svg">
+                                </div>
+                            </div>
+                            <div class="intro-cando-box">
+                                <div class="intro-cando-text"><span class="ord">3. </span>User can update their
+                                    information in one place.
+                                </div>
+                                <div class="intro-cando-picture">
+                                    <img src="/Areas/Beta/img/help/intro-cando-update.svg">
+                                </div>
+                            </div>
+                            <div class="intro-cando-box">
+                                <div class="intro-cando-text"><span class="ord">4. </span>Use Regit to get the things
+                                    you
+                                    want done that requires your information
+                                </div>
+                                <div class="intro-cando-picture">
+                                    <img src="/Areas/Beta/img/help/intro-cando-use.svg">
+                                </div>
+                            </div>
+
+                        </div>
+                        <h3 class="intro-slide-footing">Take control of your Information</h3>
+                    </div>
+                    <div class="help-intro-slide">
+                        <h3 class="intro-slide-heading">It’s never been more convenient to manage and access your
+                            information</h3>
+                        <div class="intro-slide-picture">
+                            <img src="/Areas/Beta/img/help/intro-access.svg">
+                        </div>
+                    </div>
+                    <div class="help-intro-slide">
+                        <h3 class="intro-slide-heading">It is easy to add information to the Vault!</h3>
+                        <div class="intro-slide-picture">
+                            <img src="/Areas/Beta/img/help/intro-add.svg">
+                        </div>
+                    </div>
+                    <div class="help-intro-slide">
+                        <h3 class="intro-slide-heading">It’s just as easy to search and edit your information</h3>
+                        <div class="intro-slide-picture">
+                            <img src="/Areas/Beta/img/help/intro-search.svg">
+                        </div>
+                    </div>
+                    <div class="help-intro-slide">
+                        <h3 class="intro-slide-heading">Delegate to the people you trust</h3>
+                        <div class="intro-slide-text">Delegation is a great tool to safely share your information for any
+                            purpose.
+                            Have peace of mind.
+                        </div>
+                        <div class="intro-slide-picture">
+                            <img src="/Areas/Beta/img/help/intro-delegate.svg">
+                        </div>
+                    </div>
+                    <div class="help-intro-slide">
+                        <h3 class="intro-slide-heading">A new way to interact with businesses without repeatedly filling
+                            in the same information</h3>
+                        <div class="intro-slide-text">Learn what’s happening with the businesses you follow on the
+                            discovery feed.
+                        </div>
+                        <div class="intro-slide-picture">
+                            <img src="/Areas/Beta/img/help/intro-interact.svg">
+                        </div>
+                    </div>
+                    <div class="help-intro-slide intro-ready">
+                        <div class="intro-ready-heading">Now you’re ready!</div>
+                        <div class="intro-ready-text">At Regit, we are constantly innovating with new features and
+                            enhancement so that you can “Take control of your information and simplify your life”.
+                            Feel free to contact us with your feedback, good or bad. Regit is built for you. We are not
+                            happy unless you are!
+                        </div>
+                        <button class="intro-ready-cta" ng-click="closeIntro($hide)">Get Started!</button>
+                    </div>
+
+                </div>
+                <div class="help-intro-nav clearfix">
+
+                    <button class="help-intro-nav-adj help-intro-nav-prev" ng-if="currentSlide>0"
+                            ng-click="gotoSlide(currentSlide-1)">Back
+                    </button>
+                    <button class="help-intro-nav-adj help-intro-nav-next" ng-if="currentSlide<numSlides-1"
+                            ng-click="gotoSlide(currentSlide+1)">Next
+                    </button>
+                    <div class="help-intro-paging">
+                        <button class="help-intro-paging-item" ng-repeat="slide in slides"
+                                ng-click="gotoSlide($index)"></button>
+
+                    </div>
+                    <div class="help-intro-nav-skip">
+                        <button class="help-intro-nav-cancel" ng-if="currentSlide<numSlides-1"
+                                ng-click="closeIntro($hide)">
+                            I got it, Skip!
+                        </button>
+                        <div class="intro-permanent-option">
+                            <rgu-checkbox ng-model="view.preferences.showIntroSlides" label="Show again next login"></rgu-checkbox>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,77 @@
+<div class="modal modal-box modal-form-box handshake-new-modal" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <button type="button" class="modal-box-close" ng-click="closeModal($hide)">Close</button>
+    <div class="modal-box-header">Edit Handshake</div>
+
+    <form class="modal-form modal-box-form handshake-edit-form">
+
+        <div class="modal-form-row">
+            <div class="modal-form-label">
+                <label>Recipient</label>
+            </div>
+            <div class="modal-form-control">
+                <div class="handshake-user-avatar" ng-if="handshake.toType==='user'">
+                    <img ng-src="{{handshake.toAvatar | avatarUrl}}">
+                </div>
+                <div class="handshake-user-email" ng-if="handshake.toType==='public'">
+                    {{handshake.toEmail}}
+                </div>
+            </div>
+        </div>
+        <div class="modal-form-row">
+            <div class="modal-form-label">
+                <label>Recipient Name</label>
+            </div>
+            <div class="modal-form-control">
+                <input class="modal-form-input" ng-model="handshake.toName">
+            </div>
+        </div>
+        <div class="modal-form-row" ng-repeat="field in handshake.fields">
+            <div class="modal-form-label">
+                <label ng-bind="field.label"></label>
+            </div>
+            <div class="modal-form-control handshake-field-select-control">
+                <rgu-checkbox ng-model="field.selected" class="handshake-field-select-switch"></rgu-checkbox>
+            </div>
+        </div>
+
+        <div class="modal-form-row">
+            <div class="modal-form-label">
+                <label>Expiry</label>
+            </div>
+            <div class="modal-form-control handshake-field-select-control">
+                <rgu-date-input ng-if="!handshake.expiry.indefinite" name="expires"
+                                ng-model="handshake.expiry.date" after="today">
+                </rgu-date-input>
+                <rgu-checkbox class="inline-control" ng-model="handshake.expiry.indefinite"
+                              label="Indefinite"></rgu-checkbox>
+            </div>
+        </div>
+
+        <div class="modal-form-row tall">
+            <div class="modal-form-label">
+                <label>Description</label>
+            </div>
+            <div class="modal-form-control">
+                <textarea class="modal-form-input" rows="3" ng-model="handshake.description"></textarea>
+            </div>
+        </div>
+        <div class="modal-form-row tall">
+            <div class="modal-form-label">
+                <label>Notify on change</label>
+            </div>
+            <div class="modal-form-control handshake-field-select-control">
+                <select rgu-select ng-options="option.value as option.label for option in handshakeConfig.notifyFormats" ng-model="handshake.notifyFormat"></select>
+            </div>
+        </div>
+
+        <div class="modal-form-actions">
+            <button type="button" ng-click="closeModal($hide)" class="modal-form-action form-action-cancel">Cancel
+            </button>
+            <button type="button" class="modal-form-action form-action-primary form-action-submit"
+                    ng-disabled2="!canAdd()" ng-click="saveHandshake($hide)">
+                Update
+            </button>
+        </div>
+    </form>
+</div>

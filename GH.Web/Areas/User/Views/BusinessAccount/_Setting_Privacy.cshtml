@@ -1,0 +1,29 @@
+﻿<div ng-controller="BusinessPrivacySettingsController" id="privacy">
+
+            <div class="account-form-row">
+                <div class="account-form-label">
+                    <span class="field-title">@GH.Lang.Regit.Who_can_view</span>
+                </div>
+                <div class="account-form-control control-float-right">
+                    <div class="dropdown privacy-drop-list">
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            {{privacyItems[Model.Privacy]}}
+                            <span class="dl-caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="Privacy in privacyItems" ng-if="$index!=Model.Privacy"><a ng-click="setprivacy($index)">{{Privacy}}</a></li>
+                        </ul>
+                    </div>
+                    <a class="btn btn-blue fix-width-mini" ng-click="Save()">@GH.Lang.Regit.Save</a>
+                </div>
+            </div>
+
+            <div class="account-form-row">
+                <div class="account-form-label">
+                    <span class="field-title">@GH.Lang.Regit.Allow_comment</span>
+                </div>
+                <div class="account-form-control control-float-right">
+                    <switcher ng-model="Model.AllowComment" switcher-on-text="Yes" switcher-off-text="No" on-changed="Save()"></switcher>
+                </div>
+            </div>
+        </div>

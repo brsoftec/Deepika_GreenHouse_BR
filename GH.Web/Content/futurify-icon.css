@@ -1,0 +1,142 @@
+﻿@charset "UTF-8";
+
+@font-face {
+  font-family: "r-font";
+  src:url("../fonts/Futurify/r-font.eot");
+  src:url("../fonts/Futurify/r-font.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/Futurify/r-font.woff") format("woff"),
+    url("../fonts/Futurify/r-font.ttf") format("truetype"),
+    url("../fonts/Futurify/r-font.svg#r-font") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "r-font" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  font-size: inherit;
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  vertical-align: middle;
+  margin-bottom: 3px;
+  display: inline-block;
+}
+
+[class^="r-"]:before,
+[class*=" r-"]:before {
+  font-family: "r-font" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  font-size: inherit;
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  vertical-align: middle;
+  margin-bottom: 3px;
+  display: inline-block;
+}
+
+.r-lg {
+    font-size: 1.33333333em;
+    line-height: 0.75em;
+    vertical-align: -15%;
+}
+
+.r-1-5x {
+    font-size: 1.5em;
+}
+
+.r-2x {
+    font-size: 2em;
+}
+
+.r-3x {
+    font-size: 3em;
+}
+
+.r-4x {
+    font-size: 4em;
+}
+
+.r-5x {
+    font-size: 5em;
+}
+
+.regit-color{
+    color: #00aeef;
+}
+
+.regit-color-disable{
+    color: #a8a9ae;
+}
+
+.regit-color-disable.active{
+    color: #00aeef;
+}
+
+a.regit-color:hover, a.regit-color-disable:hover{
+    color: #00aeef;
+}
+
+.r-add-network-cricle:before {
+  content: "a";
+}
+.r-add-user:before {
+  content: "b";
+}
+.r-broadcast:before {
+  content: "c";
+}
+.r-checked-cricle:before {
+  content: "d";
+}
+.r-edit:before {
+  content: "e";
+}
+.r-edit-cricle:before {
+  content: "f";
+}
+.r-like:before {
+  content: "g";
+}
+.r-regit-logo:before {
+  content: "h";
+}
+.r-regit-logo-cricle:before {
+  content: "i";
+}
+.r-regit-slogan:before {
+  content: "j";
+}
+.r-share:before {
+  content: "k";
+}
+.r-share-cricle:before {
+  content: "l";
+}
+.r-temp-cricle:before {
+  content: "m";
+}
+.r-comment:before {
+  content: "n";
+}
+.r-checked:before {
+  content: "o";
+}
+.r-friends:before {
+  content: "p";
+}
+.r-private:before {
+  content: "q";
+}
+.r-public:before {
+  content: "r";
+}

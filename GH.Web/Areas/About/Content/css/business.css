@@ -1,0 +1,256 @@
+.business-logo {
+    background-image: url(../img/regit-business.svg);
+}
+
+#home {
+    background: transparent url(../img/business-splash-bg.png) repeat top left;
+    /*overflow: hidden;*/
+}
+
+.business-splash {
+    position: absolute;
+    width: 100%;
+    height: 80%;
+    top: 0;
+    margin: 0;
+    min-height: 100px;
+}
+
+.business-splash-logo {
+    width: 340px;
+    height: 340px;
+    margin: 10% auto 0 auto;
+    position: relative;
+}
+
+.no-svg .business-splash-logo {
+    width: 260px;
+    height: 260px;
+    background: transparent url(../img/logo-t-m.png) no-repeat;
+}
+
+.business-splash-intro {
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    color: #00adef;
+    /*height: 50%;*/
+    padding: 50px 0;
+    top: 40%;
+}
+
+.splash-heading {
+    font-size: 350%;
+    font-weight: bold;
+    margin: 26px 0 0;
+    text-transform: uppercase;
+}
+
+.splash-subhead {
+    font-size: 155%;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.splash-text {
+    font-size: 160%;
+    margin: 50px 0 6px 0;
+}
+
+.splash-subtext {
+    font-size: 160%;
+    font-weight: lighter;
+
+}
+
+.section-one-platform {
+    border-top: 1px solid #00adef;
+}
+
+.section-one-platform h2 {
+    margin-bottom: 20px;
+}
+
+.business-one-platform-picture {
+    margin-top: 30px !important;
+}
+
+.business-signup {
+    background: transparent url(../img/business-bg.jpg) no-repeat center center;
+    background-size: cover;
+}
+
+.business-signup h2 {
+    font-size: 200%;
+}
+
+.business-one-platform-picture img {
+    width: 540px;
+}
+
+.business-integration-picture img {
+    width: 300px;
+}
+
+.section-business-solutions {
+    background-color: white;
+}
+
+.business-solutions-container {
+    width: 920px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.business-solutions-box {
+    display: inline-block;
+    margin: 0 -4px 0 0;
+    width: 140px;
+    vertical-align: top;
+}
+
+.business-solutions-picture {
+    height: 120px;
+}
+
+.business-solutions-picture img {
+    width: 140px;
+}
+
+.business-solutions-text {
+    background-color: #dff3fd;
+    font-size: 12px;
+    text-align: center;
+    border: 1px solid #00adef;
+    width: 100%;
+    height: 40px;
+    line-height: 1.2;
+    padding: 4px 2px;
+}
+
+.alt .business-solutions-text {
+    background-color: #00adef;
+    color: white;
+}
+
+.business-pricing-box {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.business-pricing-picture img {
+    width: 160px;
+}
+
+.business-pricing-text {
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.business-analytics-pictures img {
+    width: 100px;
+    margin-right: 30px !important;
+}
+
+#section-business-more {
+    padding-bottom: 0;
+}
+
+.business-more-container {
+    background: white;
+    width: 100%;
+    color: #00adef;
+    padding-bottom: 40px;
+}
+
+.business-signup .business-logo {
+    margin-top: -30px;
+}
+
+.beta-signup .button-signup {
+    margin-left: 0 !important;
+}
+
+.section-pictures {
+    margin: 40px 0;
+}
+
+.section-pictures img {
+    display: inline-block;
+    margin-right: 30px;
+
+}
+
+h2 {
+}
+
+h3 {
+
+    width: 800px;
+}
+
+@media only screen and (max-width: 840px) {
+
+    .section {
+        width: 100% !important;
+        padding: 30px 10px !important;
+    }
+    .section#home {
+        padding: 0 !important;
+    }
+    h3 {
+        width: 100%;
+    }
+
+    .business-splash {
+        position: relative;
+        width: 100%;
+        height: auto;
+
+    }
+
+    .business-splash-logo {
+        width: 200px;
+        height: 100px;
+        position: relative !important;
+    }
+
+    .business-splash-intro {
+        position: relative;
+        padding: 10px !important;
+    }
+
+    .splash-heading {
+        font-size: 220%;
+    }
+    .splash-subhead {
+        margin-top: 10px;
+        font-size: 140%;
+    }
+
+
+    .business-splash-intro {
+        position: relative;
+        padding: 0;
+        top: 0;
+    }
+
+    .business-one-platform-picture img {
+        width: 100%;
+    }
+
+    .business-solutions-container {
+        width: 100%;
+    }
+
+    .business-analytics-pictures img {
+        width: 80px !important;
+        margin: 10px !important;
+    }
+
+    .business-pricing-picture img {
+        width: 120px;
+    }
+}

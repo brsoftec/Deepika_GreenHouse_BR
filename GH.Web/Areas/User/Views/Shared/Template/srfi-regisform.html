@@ -1,0 +1,98 @@
+﻿
+
+<div class="modal-container">
+
+    <img class="thumbnail feed-profile-avatar" ng-src="{{profile.avatar | avatarUrl}}">
+    <div class="feed-profile-name">{{profile.displayName}} </div>
+    <h3 class="reg-title center">{{campaign.name}} - SRFI</h3>
+    <div class="stamp-regit">Powered by Regit</div>
+    <form class="form-horizontal form-registration">
+        <div class="form-group form-row" ng-if="campaign.comment">
+            <div class="col-sm-4 text-right interaction-form-label">
+                Comment
+                </div>
+            <div class="col-sm-8">
+                {{campaign.comment }}
+                </div>
+            </div>
+            <fieldset  >
+                <legend>Personal Information</legend>
+                <div ng-repeat="campaign in groupField">
+                    <div class="interaction-form-group-heading first-group"> {{campaign.name}} </div>
+                    <div class="form-group form-row" ng-repeat="field in campaign.fields">
+
+                        <div class="col-sm-4 text-right interaction-form-label">
+                            <label>{{field.displayName}}</label><span title="Required Field" ng-if="!field.optional && field.type !=='static'" style="color:red;"> *</span>
+                            <switch ng-if="field.optional" ng-model="field.selected" switcher-on-text="Send" switcher-off-text="N/A"></switch>
+                        </div>
+                        <div ng-if="campaign.name != 'Membership' && Mode=='Edit'" class="col-sm-8">
+                            <rgu-control ng-if="field.type!=='numinput' && field.type!=='tagsinput' && field.type!=='range' && field.type!=='history'"
+                                         type="{{field.type}}"
+                                         ng-model="field.model" options="field.options"></rgu-control>
+                            <rgu-control ng-if="field.type==='numinput'" type="{{field.type}}" ng-model="field.model"
+                                         options="field.options"
+                                         unit-model="field.unitModel"></rgu-control>
+                            <rgu-control ng-if="field.type==='tagsinput'" type="{{field.type}}" ng-model="field.model"
+                                         options="field.options"
+                                         placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                            <rgu-control ng-if="field.type==='range'" type="range" subtype="{{field.options}}"
+                                         ng-model="field.range" options="field.model"
+                                         unit-model="field.unitModel" ng-required="field.optional"
+                                         rules="{{field.rules}}"></rgu-control>
+                            <rgu-control ng-if="field.type==='history'" type="history" subtype="{{field.options}}"
+                                         ng-model="field.history" options="field.model"
+                                         ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+                            <div class="form-field-details-row" ng-if="vaildfiled(field) ==false">
+                                <span class="form-field-message" style="color:red">
+                                    Please enter value
+                                </span>
+                            </div>
+                        </div>
+                        <div ng-if="campaign.name == 'Membership' && Mode=='Edit'" class="col-sm-8">
+                            <rgu-control ng-if="field.type==='static'" type="static" value="{{field.value}}"
+                                         ng-model="field.model"></rgu-control>
+                            <rgu-control ng-if="field.type!=='static' && field.type!=='numinput' && field.type!=='tagsinput' "
+                                         type="{{field.type}}"
+                                         ng-model="field.model" options="field.options"></rgu-control>
+                            <rgu-control ng-if="field.type==='numinput'" type="{{field.type}}" ng-model="field.model"
+                                         options="field.options"
+                                         unit-model="field.unitModel"></rgu-control>
+                            <rgu-control ng-if="field.type==='tagsinput'" type="{{field.type}}" ng-model="field.model"
+                                         options="field.options"
+                                         placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                            <div class="form-field-details-row" ng-if="vaildfiled(field) ==false">
+                                <span class="form-field-message" style="color:red">
+                                    Please enter value
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <div class="form-group form-row">
+                <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+                    <div class="form-field-message">
+                        <div ng-bind-html="messageBox" class="form-field-message-text"></div>
+                    </div>
+                </uib-alert>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm-3">
+                    <label></label>
+                </div>
+                <div class="col-sm-9">
+                    <div ng-if="isAccept"><button type="button" ng-click="cancel()" class="btn btn-default">Close</button></div>
+                    <div ng-if="!isAccept">
+                        <button type="button" ng-click="cancel()" class="btn btn-default">Cancel</button>
+                        <button type="button" ng-click="RegisterCampaign()" class="btn btn-primary">Save</button>
+                    </div>
+
+                    </div>
+
+            </div>
+
+</form>
+</div>
+

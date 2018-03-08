@@ -1,0 +1,400 @@
+﻿<div ng-controller="EditBusinessPageController" id="profile" rgu-event-listener>
+   
+    <div class="account-form-row">
+        <div class="account-form-label">
+            <span class="field-title h-34">@GH.Lang.Regit.Display_Name</span>
+        </div>
+        <div class="account-form-control">
+            <div ng-if="profile.DisplayName && !editting.DisplayName" class="word-break">
+                <span class="field-value h-34" ng-bind-html="profile.DisplayName"></span>
+            </div>
+            <div class="field-editor" ng-if="editting.DisplayName">
+                <input type="text" class="fix-width-mini" ng-model="editor.DisplayName" />
+            </div>
+            <div class="field-tools" ng-if="editting.DisplayName">
+                <a class="btn btn-blue fix-width-mini" ng-click="save('DisplayName')">@GH.Lang.Regit.Save</a>
+                <a class="btn btn-white fix-width-mini" ng-click="cancel('DisplayName')">@GH.Lang.Regit.Cancel</a>
+            </div>
+        </div>
+        @if (ViewBag.CanWrite)
+        {
+            <div class="account-form-label text-right" ng-if="!editting.DisplayName">
+                <a class="field-action regit-color" ng-class="{'editting': editting.DisplayName}" ng-click="edit('DisplayName')"><i ng-if="editting.DisplayName" class="fa fa-pencil"></i> @GH.Lang.Regit.Edit</a>
+            </div>
+        }
+    </div>
+    <div class="account-form-row">
+        <div class="account-form-label">
+        @if (ViewBag.CanWrite)
+        {
+            <privacy-control ng-model="privacy.PhotoUrl" ng-change="updatePrivacy()"></privacy-control>
+        }
+            <span class="field-title">Profile Picture</span>
+        </div>
+        <div class="account-form-control">
+            <div class="profile-picture">
+                <img ng-if="!editting.PhotoUrl || !editor.NewProfilePicture" ng-src="{{profile.PhotoUrl ? profile.PhotoUrl : '/Areas/User/Content/Images/no-pic.png'}}" />
+                <img ng-if="editting.PhotoUrl && editor.NewProfilePicture" ng-src="{{editor.NewProfilePicture}}" />
+            </div>
+            <div class="field-editor" ng-if="editting.PhotoUrl">
+                <div upload-control class="upload-control upload-photo" on-file-selected="onProfilePictureSelected()" files-store="editor">
+                    <input type="file" /> <img src="/Content/Images/camera-icon.png" /> @GH.Lang.Regit.Upload_Photo
+                </div>
+            </div>
+            <div class="field-tools" ng-if="editting.PhotoUrl">
+                <a class="btn btn-blue fix-width-mini" ng-click="save('PhotoUrl')">@GH.Lang.Regit.Save</a>
+                <a class="btn btn-white fix-width-mini" ng-click="cancel('PhotoUrl')">@GH.Lang.Regit.Cancel</a>
+            </div>
+        </div>
+    @if (ViewBag.CanWrite)
+    {
+        <div class="account-form-label text-right" ng-if="!editting.PhotoUrl">
+            <a class="field-action regit-color" ng-class="{'editting': editting.PhotoUrl}" ng-click="edit('PhotoUrl')"><i ng-if="editting.PhotoUrl" class="fa fa-pencil"></i> @GH.Lang.Regit.Edit</a>
+        </div>
+    }
+    </div>
+
+    <div class="account-form-row">
+        <div class="account-form-label">
+        @if (ViewBag.CanWrite)
+        {
+            <privacy-control ng-model="privacy.PictureAlbum" ng-change="updatePrivacy()"></privacy-control>
+        }
+            <span class="field-title">@GH.Lang.Regit.Picture_Album</span>
+        </div>
+        <div class="account-form-control">
+            <div ng-if="editting.PictureAlbum">
+                <span class="field-value">@GH.Lang.Regit.Upload_picture_limited</span>
+            </div>
+            <div class="field-editor" ng-if="editting.PictureAlbum">
+                <div ng-repeat="store in pictureAlbum.__album" ng-show="currentAlbumPictureUploadIndex == $index" upload-control class="upload-control upload-photo" on-file-selected="onPictureAlbumSelected()" files-store="store">
+                    <input type="file" /> <img src="/Content/Images/camera-icon.png" /> @GH.Lang.Regit.Upload_Photo
+                </div>
+            </div>
+            <div class="picture-albums">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-2">
+                        <div class="picture-box">
+                            <img ng-if="!editting.PictureAlbum" ng-src="{{originalAlbum[0] ? originalAlbum[0] : '/Areas/User/Content/Images/no-pic.png'}}" />
+                            <img ng-if="editting.PictureAlbum" ng-src="{{pictureAlbum.Urls[0] ? pictureAlbum.Urls[0] : '/Areas/User/Content/Images/no-pic.png'}}" />
+                            <i ng-if="editting.PictureAlbum" ng-click="removePictureAlbum(0)" class="remove-icon"></i>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-2">
+                        <div class="picture-box">
+                            <img ng-if="!editting.PictureAlbum" ng-src="{{originalAlbum[1] ? originalAlbum[1] : '/Areas/User/Content/Images/no-pic.png'}}" />
+                            <img ng-if="editting.PictureAlbum" ng-src="{{pictureAlbum.Urls[1] ? pictureAlbum.Urls[1] : '/Areas/User/Content/Images/no-pic.png'}}" />
+                            <i ng-if="editting.PictureAlbum" ng-click="removePictureAlbum(1)" class="remove-icon"></i>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-2">
+                        <div class="picture-box">
+                            <img ng-if="!editting.PictureAlbum" ng-src="{{originalAlbum[2] ? originalAlbum[2] : '/Areas/User/Content/Images/no-pic.png'}}" />
+                            <img ng-if="editting.PictureAlbum" ng-src="{{pictureAlbum.Urls[2] ? pictureAlbum.Urls[2] : '/Areas/User/Content/Images/no-pic.png'}}" />
+                            <i ng-if="editting.PictureAlbum" ng-click="removePictureAlbum(2)" class="remove-icon"></i>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-2">
+                        <div class="picture-box">
+                            <img ng-if="!editting.PictureAlbum" ng-src="{{originalAlbum[3] ? originalAlbum[3] : '/Areas/User/Content/Images/no-pic.png'}}" />
+                            <img ng-if="editting.PictureAlbum" ng-src="{{pictureAlbum.Urls[3] ? pictureAlbum.Urls[3] : '/Areas/User/Content/Images/no-pic.png'}}" />
+                            <i ng-if="editting.PictureAlbum" ng-click="removePictureAlbum(3)" class="remove-icon"></i>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-2">
+                        <div class="picture-box">
+                            <img ng-if="!editting.PictureAlbum" ng-src="{{originalAlbum[4] ? originalAlbum[4] : '/Areas/User/Content/Images/no-pic.png'}}" />
+                            <img ng-if="editting.PictureAlbum" ng-src="{{pictureAlbum.Urls[4] ? pictureAlbum.Urls[4] : '/Areas/User/Content/Images/no-pic.png'}}" />
+                            <i ng-if="editting.PictureAlbum" ng-click="removePictureAlbum(4)" class="remove-icon"></i>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-2">
+                        <div class="picture-box">
+                            <img ng-if="!editting.PictureAlbum" ng-src="{{originalAlbum[5] ? originalAlbum[5] : '/Areas/User/Content/Images/no-pic.png'}}" />
+                            <img ng-if="editting.PictureAlbum" ng-src="{{pictureAlbum.Urls[5] ? pictureAlbum.Urls[5] : '/Areas/User/Content/Images/no-pic.png'}}" />
+                            <i ng-if="editting.PictureAlbum" ng-click="removePictureAlbum(5)" class="remove-icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field-tools" ng-if="editting.PictureAlbum">
+                <a class="btn btn-blue fix-width-mini" ng-click="savePictureAlbum()">@GH.Lang.Regit.Save</a>
+                <a class="btn btn-white fix-width-mini" ng-click="cancelPictureAlbum()">@GH.Lang.Regit.Cancel</a>
+            </div>
+        </div>
+    @if (ViewBag.CanWrite)
+    {
+        <div class="account-form-label text-right" ng-if="!editting.PictureAlbum">
+            <a class="field-action regit-color" ng-class="{'editting': editting.PictureAlbum}" ng-click="edit('PictureAlbum')"><i class="fa fa-pencil"></i> @GH.Lang.Regit.Edit</a>
+        </div>
+    }
+    </div>
+  
+    <!-- ///-->
+    <div class="account-form-row">
+        <div class="account-form-label">
+            <span class="field-title h-34">@GH.Lang.Regit.Business_Description</span>
+        </div>
+        <div class="account-form-control">
+            <div ng-if="profile.Description && !editting.Description" class="word-break">
+                <span class="field-value h-34" ng-bind-html="profile.DescriptionHtml"></span>
+            </div>
+            <div class="account-desc-input" ng-if="editting.Description">
+                <textarea rows="3" ng-model="editor.Description" style="width: 500px"></textarea>
+            </div>
+            <div class="field-tools" ng-if="editting.Description">
+                <a class="btn btn-blue fix-width-mini" ng-click="save('Description')">@GH.Lang.Regit.Save</a>
+                <a class="btn btn-white fix-width-mini" ng-click="cancel('Description')">@GH.Lang.Regit.Cancel</a>
+            </div>
+        </div>
+    @if (ViewBag.CanWrite)
+    {
+        <div class="account-form-label text-right" ng-if="!editting.Description">
+            <a class="field-action regit-color" ng-class="{'editting': editting.Description}" ng-click="edit('Description')"><i class="fa fa-pencil"></i> @GH.Lang.Regit.Edit</a>
+        </div>
+    }
+    </div>
+
+    <div class="account-form-row">
+        <div class="account-form-label">
+        @if (ViewBag.CanWrite)
+        {
+            <privacy-control hidable ng-model="privacy.Address" ng-change="updatePrivacy()"></privacy-control>
+        }
+            <span class="field-title h-34">@GH.Lang.Regit.Address </span>
+        </div>
+        <div class="account-form-control">
+            <div ng-if="profile.Street || profile.City || profile.Country || profile.ZipPostalCode">
+                <span class="field-value h-34">{{profile.Street}}{{profile.Street && (profile.City || profile.Country) ? ',' : ''}} {{profile.City}}{{profile.City && profile.Country ? ',' : ''}} {{profile.Country}} {{profile.ZipPostalCode}}</span>
+            </div>
+            <div class="field-editor" ng-if="editting.StreetCityRegionCountryZipPostalCode">
+                <div class="field-editor-child">
+                    <div class="row">
+                        <div class="col-md-2">
+
+                            <span class="h-34">@GH.Lang.Regit.Address</span>
+                        </div>
+                        <div class="col-md-10">
+
+                            <input type="text" class="form-control" ng-model="editor.Street" />
+                        </div>
+                    </div>
+                </div>
+                <div class="field-editor-child">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <span class="h-34">@GH.Lang.Regit.Country</span>
+                        </div>
+                        <div class="col-md-4">
+                            <ui-select class="full-width" ng-model="editor.Country" theme="bootstrap" remove-selected="false">
+                                <ui-select-match placeholder="@GH.Lang.Regit.Select_Country.ToUpper()">{{$select.selected.Name}}</ui-select-match>
+                                <ui-select-choices repeat="country.Name as country in countries | filter: $select.search">
+                                    <span ng-bind-html="country.Name | highlight: $select.search"></span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                      
+                       
+                    </div>
+                </div>
+                <div class="field-editor-child">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <span class="h-34">@GH.Lang.Regit.City</span>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="fix-width-mini" ng-model="editor.City" />
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="field-editor-child">
+                    <div class="row">
+                       
+                        <div class="col-md-2">
+                            <span class="h-34">Zip/Postal </span>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" ng-model="editor.ZipPostalCode" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field-tools" ng-if="editting.StreetCityRegionCountryZipPostalCode">
+                <a class="btn btn-blue fix-width-mini" ng-click="save('Street', 'City', 'Region', 'Country', 'ZipPostalCode')">@GH.Lang.Regit.Save</a>
+                <a class="btn btn-white fix-width-mini" ng-click="cancel('Street', 'City', 'Region', 'Country', 'ZipPostalCode')">@GH.Lang.Regit.Cancel</a>
+            </div>
+        </div>
+    @if (ViewBag.CanWrite)
+    {
+        <div class="account-form-control control-float-right" ng-if="!editting.StreetCityRegionCountryZipPostalCode">
+            <a class="field-action regit-color" ng-class="{'editting': editting.StreetCityRegionCountryZipPostalCode}" ng-click="edit('Street', 'City', 'Region', 'Country', 'ZipPostalCode')">@GH.Lang.Regit.Edit</a>
+        </div>
+    }
+    </div>
+
+    <!-- New Company Details-->
+    <div class="account-form-row">
+        <div class="account-form-label">
+        @if (ViewBag.CanWrite)
+        {
+            <privacy-control hidable ng-model="privacy.Phone" ng-change="updatePrivacy()"></privacy-control>
+        }
+            <span class="field-title h-34">Public Phone Number</span>
+        </div>
+        <div class="account-form-control">
+            <div ng-if="ValuePhone" class="word-break">
+                <span class="field-value h-34" ng-bind-html="ValuePhone"></span>
+            </div>
+            <div class="field-editor" ng-if="company.EditPhone">
+                <rgu-phone-input name="phoneCompany" ng-model="CompanyPhoneNumber.Value" phone-code="CompanyCodeCountry.Value">
+
+                </rgu-phone-input>
+                @*<rgu-phone-input ng-model="profile.PhoneCompany"></rgu-phone-input>*@
+            </div>
+            <div class="field-tools" ng-if="company.EditPhone">
+                <a class="btn btn-blue fix-width-mini" ng-click="CheckValidPhone()">@GH.Lang.Regit.Save</a>
+                <a class="btn btn-white fix-width-mini" ng-click="company.EditPhone =!company.EditPhone">@GH.Lang.Regit.Cancel</a>
+            </div>
+        </div>
+    @if (ViewBag.CanWrite)
+    {
+        <div class="account-form-label text-right" ng-if="!company.EditPhone">
+            <a class="field-action regit-color" ng-click="company.EditPhone =!company.EditPhone"><i class="fa fa-pencil"></i> @GH.Lang.Regit.Edit</a>
+        </div>
+    }
+    </div>
+
+    <div class="account-form-row">
+        <div class="account-form-label">
+        @if (ViewBag.CanWrite)
+        {
+            <privacy-control hidable ng-model="privacy.Email" ng-change="updatePrivacy()"></privacy-control>
+        }
+            <span class="field-title h-34">Email</span>
+        </div>
+        <div class="account-form-control">
+            <div ng-if="ValueEmail" class="word-break">
+                <span class="field-value h-34" ng-bind-html="ValueEmail"></span>
+            </div>
+            <div class="field-editor" ng-if="company.EditEmail">
+                <input type="text" class="fix-width-mini" ng-model="company.Email"  rules="email" />
+                <div class="error-text-color">{{company.ErrorEmail}}</div>
+            </div>
+            <div class="field-tools" ng-if="company.EditEmail">
+                <a class="btn btn-blue fix-width-mini" ng-click="CheckValidEmail()">@GH.Lang.Regit.Save</a>
+                <a class="btn btn-white fix-width-mini" ng-click="company.EditEmail = !company.EditEmail">@GH.Lang.Regit.Cancel</a>
+            </div>
+        </div>       
+        @if (ViewBag.CanWrite)
+                      {
+                          <div class="account-form-label text-right" ng-if="!company.EditEmail">
+                              <a class="field-action regit-color" ng-click="company.EditEmail = !company.EditEmail"><i class="fa fa-pencil"></i> @GH.Lang.Regit.Edit</a>
+                          </div>
+                      }
+    </div>
+
+    <div class="account-form-row">
+        <div class="account-form-label">
+        @if (ViewBag.CanWrite)
+        {
+            <privacy-control hidable ng-model="privacy.Website" ng-change="updatePrivacy()"></privacy-control>
+        }
+            <span class="field-title h-34">@GH.Lang.Regit.Website</span>
+        </div>
+        <div class="account-form-control">
+            <div ng-if="ValueWebsite" class="word-break">
+                <span class="field-value h-34" ng-bind-html="ValueWebsite"></span>
+            </div>
+            <div class="field-editor" ng-if="company.EditWebsite">
+                <input type="text" class="fix-width-mini" ng-model="company.Website" />
+                <div class="error-text-color">{{company.ErrorWebsite}}</div>
+            </div>
+            <div class="field-tools" ng-if="company.EditWebsite">
+                <a class="btn btn-blue fix-width-mini" ng-click="SaveCompanyDetails()">@GH.Lang.Regit.Save</a>
+                <a class="btn btn-white fix-width-mini" ng-click="company.EditWebsite = !company.EditWebsite">@GH.Lang.Regit.Cancel</a>
+            </div>
+        </div>
+    @if (ViewBag.CanWrite)
+    {
+        <div class="account-form-label text-right" ng-if="!company.EditWebsite">
+            <a class="field-action regit-color" ng-click="company.EditWebsite = !company.EditWebsite"><i class="fa fa-pencil"></i> @GH.Lang.Regit.Edit</a>
+        </div>
+    }
+    </div>
+
+    <div class="account-form-row">
+        <div class="account-form-label">
+        @if (ViewBag.CanWrite)
+        {
+            <privacy-control ng-model="privacy.WorkTime" ng-change="updatePrivacy()"></privacy-control>
+        }
+            <span class="field-title h-34">Business Hours</span>
+        </div>
+        <div class="account-form-control account-form-control-wide">
+            <div ng-bind-html="ValueWorkTime | workTime"></div>
+          
+            <div class="field-editor" ng-if="company.EditWorkTime">               
+                <rgu-work-time model="company.WorkTime"></rgu-work-time>
+                <div ng-bind-html="company.WorkTime | workTime"></div>
+                @*<pre>{{company.WorkTime | json}}</pre>*@
+
+            </div>
+            <div class="field-tools" ng-if="company.EditWorkTime">
+                <a class="btn btn-blue fix-width-mini" ng-click="SaveCompanyDetails()">@GH.Lang.Regit.Save</a>
+                <a class="btn btn-white fix-width-mini" ng-click="company.EditWorkTime =!company.EditWorkTime ">@GH.Lang.Regit.Cancel</a>
+            </div>
+        </div>
+    @if (ViewBag.CanWrite)
+    {
+        <div class="account-form-label text-right" ng-if="!company.EditWorkTime ">
+            <a class="field-action regit-color" ng-click="company.EditWorkTime =!company.EditWorkTime"><i class="fa fa-pencil"></i> @GH.Lang.Regit.Edit</a>
+        </div>
+    }
+    </div>
+
+
+
+    <!--End New Company Details-->
+
+    <div class="account-form-row">
+        <div class="account-form-label">
+            @if (ViewBag.CanWrite)
+            {
+                <privacy-control ng-model="privacy.Profile" ng-change="updatePrivacy()"></privacy-control>
+            }
+            <span class="field-title h-34">Public Profile Page</span>
+        </div>
+
+        <div class="account-form-control control-float-right">
+            <a class="account-form-link" href="/BusinessAccount/Profile/{{profile.Id}}" target="_blank">@GH.Lang.Regit.Preview</a>
+        </div>
+    
+    </div>
+
+
+
+</div>
+<div bs-modal bs-modal-on-hidden="onPinAuthenticateModalHidden()" bs-modal-show="configs.ShowPinAuthenticateModal" class="modal fade pin-authenticate-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-right">
+                <a ng-click="configs.ShowPinAuthenticateModal = false"><i class="close-icon"></i></a>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <div class="regit-color">@GH.Lang.Regit.Please_enter_PIN</div>
+                    <div><input type="text" ng-model="pinAuthenticate.PIN" placeholder="- - - -" /></div>
+                    <div>
+                        @GH.Lang.Regit.Your_PIN_waiting<br />
+                        @GH.Lang.Regit.Didnt_receive_PIN? <br />
+                        <a class="regit-color">@GH.Lang.Regit.Re_send_PIN</a> | <a class="regit-color">@GH.Lang.Regit.Send_By_Voice</a>
+                    </div>
+                    <div>
+                        <a class="btn btn-blue" ng-click="authenticatePin()">@GH.Lang.Regit.Submit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

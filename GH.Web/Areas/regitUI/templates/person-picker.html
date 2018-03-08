@@ -1,0 +1,9 @@
+<input ng-model="matchedPerson" placeholder="Type a name" autofocus class="person-picker-input"
+       typeahead-template-url="/Areas/regitUI/templates/person-picker-item.html"
+       uib-typeahead="person as people.DisplayName for person in people | filter:{DisplayName:$viewValue} | filter:filterMatches"
+       typeahead-on-select="pickMatchedPerson()" typeahead-show-hint="false" typeahead-min-length="0">
+
+<div class="person-picker-picked" ng-if="model.Id">
+    <div class="person-picker-avatar"><img class="person-picker-avatar-picture" ng-src="{{model.Avatar | avatarUrl}}"></div>
+    <div class="person-picker-name" ng-bind="model.DisplayName"></div>
+</div>

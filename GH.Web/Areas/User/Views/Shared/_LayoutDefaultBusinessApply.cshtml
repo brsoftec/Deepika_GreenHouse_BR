@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "~/Areas/User/Views/Shared/_MainBusinessLayoutApply.cshtml";
+}
+
+@section styles {
+    @RenderSection("styles", required: false) }
+
+@section initscripts {
+    @RenderSection("initscripts", required: false)
+}
+@section scripts {
+    @Scripts.Render("~/bundles/js/feedback-service")
+    @Scripts.Render("~/bundles/js/feedback-ctrl")
+    @RenderSection("scripts", required: false)
+}
+
+@*  TWO COLUMN LAYOUT   *@
+
+@section body {
+
+    <div class="body-cols body-cols-narrow">
+
+        <div class="body-col body-col-main">
+            <!-- MAIN COLUMN -->
+            @RenderBody()
+            @RenderSection("body", required: false)
+
+        </div>
+        <div class="body-col body-col-right">
+            <!-- RIGHT COLUMN (ASIDE)-->
+            @Html.Partial("_MainAsideBusinessPartial")
+        </div>
+
+    </div>
+}

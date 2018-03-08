@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "Business Account Settings";
+    Layout = "~/Areas/User/Views/Shared/_LayoutDefaultBusinessApply.cshtml";
+    var Settings = new[]
+{ new  { Name= "customers", Label= "Customer Management", Template = "_Setting_Customers" },
+     new  { Name= "profile", Label= "Business Profile", Template = "_Setting_BusinessProfile" },
+     new  { Name= "viewprefs", Label= "View Preferences", Template = "_Setting_ViewPreferences" },
+                    new  { Name= "activity-log", Label= "Activity Log", Template = "_Setting_ActivityLog" },
+                                        new  { Name= "access", Label= "Manage Access", Template = "_Setting_Access" }
+
+};
+}
+
+@section styles {
+@Styles.Render("~/bundles/css/phone-input")
+    @Styles.Render("~/bundles/user/account-settings/css")
+    <link href="@Url.Versioned("~/Areas/Beta/css/signin.css")" rel="stylesheet" />
+
+}
+
+@section scripts {
+    @*@Scripts.Render("~/bundles/user-activity-log-service")*@
+    @Scripts.Render("~/bundles/Campaign")
+    @Scripts.Render("~/bundles/BusinessUserSystem")
+    @Scripts.Render("~/bundles/sms-authencation-popup-ctrl")
+
+    <script src="~/Areas/User/Scripts/Controllers/business-settings-ctrl.js"></script>
+    <script src="~/Areas/User/Scripts/Controllers/access-workflow-role-ctrl.js"></script>
+    <script src="~/Areas/User/Scripts/Controllers/edit-business-page-ctrl.js"></script>
+    <script src="~/Areas/User/Scripts/Controllers/ba-manage-login-password-ctrl.js"></script>
+    @*<script src="~/Areas/User/Scripts/Controllers/ba-manage-one-regit-account-ctrl.js"></script>*@
+    <script src="~/Areas/User/Scripts/Controllers/activity-log-settings-ctrl.js"></script>
+    <script src="~/Areas/User/Scripts/Controllers/business-privacy-settings-ctrl.js"></script>
+
+<script src="~/Areas/User/Scripts/Controllers/BillingQuotaController.js"></script>
+
+}
+
+<div class="module module-main module-account account-settings-page" ng-controller="BusinessAccountSettingsController">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/BusinessAccount">&laquo; Business Home</a></li>
+        <li class="breadcrumb-item active">Account Settings</li>
+    </ol>
+    <h1>Business Account Settings</h1>
+
+    <div class="settings-container">
+        @foreach (var Setting in Settings)
+        {
+            <div class="account-accordion" ng-class="{open:accordionsOpen['@Setting.Name']}">
+                <div class="account-summary" ng-click="toggleAccordion('@Setting.Name')">@Setting.Label</div>
+                <div class="account-details" id="#@Setting.Name" ng-show="accordionsOpen['@Setting.Name']">
+                    @Html.Partial(Setting.Template)
+                </div>
+            </div>
+        }
+    </div>
+
+
+
+</div>

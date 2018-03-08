@@ -1,0 +1,64 @@
+@{
+    Layout = "~/Areas/User/Views/Shared/_MainLayoutApply.cshtml";
+    string id = "";
+    var controllername = "";
+    if (Request.RawUrl.ToLower().Contains("BusinessAccount/Profile".ToLower()))
+    {
+        var dynamicObj = (dynamic)Model;
+        id = dynamicObj.Id;
+        controllername = "BusinessProfileControllerNew";
+    }
+
+}
+
+@section styles {
+     @RenderSection("styles", required: false) 
+}
+@section prescripts {    @RenderSection("prescripts", required: false) }
+@section initscripts {    @RenderSection("initscripts", required: false) }
+@section scripts {
+    @RenderSection("scripts", required: false)
+}
+
+@if (string.IsNullOrEmpty(controllername))
+{
+    <div class="body-cols body-cols-wide">
+        <div class="body-col body-col-left">
+            <!-- LEFT COLUMN -->
+            @RenderSection("left", required: false)
+        </div>
+
+        <div class="body-col body-col-main">
+            <!-- MAIN COLUMN -->
+            @RenderBody()
+            @RenderSection("body", required: false)
+        </div>
+        <div class="body-col body-col-right">
+            <!-- RIGHT COLUMN (ASIDE)-->
+            @Html.Partial("_MainAsidePartialApply")
+        </div>
+
+    </div>
+}
+else
+{
+    <div ng-controller="BusinessProfileControllerNew" ng-init="loadProfile('@id')" class="body-cols body-cols-wide">
+        <div class="body-col body-col-left">
+            <!-- LEFT COLUMN -->
+            @RenderSection("left", required: false)
+        </div>
+
+        <div class="body-col body-col-main">
+            <!-- MAIN COLUMN -->
+            @RenderBody()
+            @RenderSection("body", required: false)
+        </div>
+        <div class="body-col body-col-right">
+            <!-- RIGHT COLUMN (ASIDE)-->
+            @Html.Partial("_MainAsidePartialApply")
+        </div>
+    </div>
+
+}
+
+

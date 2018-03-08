@@ -1,0 +1,116 @@
+﻿<div ng-controller="emergencyCurrentAddressController">
+    <div >
+        <div class="vault-row">
+            <div class="vault-label">
+              
+                <label></label>
+            </div>
+            <div class="vault-field-edit">
+                <strong> Current Address  </strong>   
+            </div>
+           
+        </div>
+
+        <div class="vault-row">
+            <div class="vault-label">
+                <label>Decription</label>
+            </div>
+            <div class="vault-field-edit">
+                <rgu-control type="textbox" ng-model="newForm.description">
+                </rgu-control>
+
+            </div>
+
+        </div>
+
+        <!--addressLine -->
+        <div class="vault-row">
+            <div class="vault-label">
+                <label>Address Line</label>
+            </div>
+            <div class="vault-field-edit">
+                <rgu-control type="textbox" ng-model="newForm.addressLine" placeholder="Street #, Street Name, Unit #"></rgu-control>
+            </div>
+        </div>
+        <div class="vault-row">
+
+            <div class="vault-label">
+
+            </div>
+            <div class="vault-field-edit">
+                <rgu-control type="location" ng-model="newForm.countryCity"></rgu-control>
+            </div>
+        </div>
+
+
+
+        <div class="vault-row">
+
+            <div class="vault-label">
+                <label>ZIP / Postal Code</label>
+            </div>
+            <div class="vault-field-edit">
+                <rgu-control type="textbox" ng-model="newForm.zipCode" />
+            </div>
+
+        </div>
+        <!--instruction -->
+        <div class="vault-row">
+            <div class="vault-label">
+                <label>Additional instructions</label>
+            </div>
+            <div class="vault-field-edit">
+                <rgu-control type="textbox" ng-model="newForm.instruction"></rgu-control>
+            </div>
+        </div>
+        <!--startDate -->
+
+        <div class="vault-row">
+            <div class="vault-label">
+                <label>From date</label>
+            </div>
+            <div class="vault-field-edit">
+                <!-- <rgu-control type="datedmy" ng-model="newForm.startDate"></rgu-control>-->
+                <rgu-date-input type="combo" ng-model="newForm.startDate"></rgu-date-input>
+            </div>
+        </div>
+        <div class="vault-row">
+            <div class="vault-label">
+                <label>Specify End Date </label>
+            </div>
+            <div class="vault-field-edit">
+                <label class="checkbox-square"><input type="checkbox" ng-model="newForm.checkEndDate" /><span></span></label>
+                <!--<rgu-control type="checkbox" ng-model="newForm.checkEndDate" />-->
+            </div>
+        </div>
+        <div class="vault-row" ng-show="newForm.checkEndDate">
+            <div class="vault-label">
+                <label>To date</label>
+            </div>
+            <div class="vault-field-edit">
+                <!-- <rgu-control type="datedmy" ng-model="newForm.endDate"></rgu-control>-->
+                <rgu-date-input type="combo" ng-model="newForm.endDate" after="newForm.startDate"></rgu-date-input>
+            </div>
+        </div>
+        <!-- note -->
+        <div class="vault-row">
+            <div class="vault-label">
+                <label>Note</label>
+            </div>
+            <div class="vault-field-edit">
+                <textarea ng-model="newForm.note"></textarea>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="vault-row">
+        <div class="vault-label">
+            <label></label>
+        </div>
+        <div class="vault-field-edit">
+            <button class="btn btn-default" ng-click="Cancel()" href="#">Cancel</button>
+            <button class="btn btn-primary " ng-disabled="newForm.description==''" ng-click="Save()"  href="#">Save</button>
+        </div>
+    </div>
+       </div>

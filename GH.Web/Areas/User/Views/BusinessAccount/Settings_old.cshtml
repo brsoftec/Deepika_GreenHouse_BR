@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Business Account Management";
+    Layout = "~/Areas/User/Views/Shared/_LayoutDefaultBusinessApply.cshtml";
+}
+
+@section scripts {
+    @*@Scripts.Render("~/bundles/user-activity-log-service")*@
+    @Scripts.Render("~/bundles/Campaign")
+    @Scripts.Render("~/bundles/BusinessUserSystem")
+    @Scripts.Render("~/bundles/sms-authencation-popup-ctrl")
+
+    <script src="~/Areas/User/Scripts/Controllers/business-settings-ctrl.js"></script>
+    <script src="~/Areas/User/Scripts/Controllers/access-workflow-role-ctrl.js"></script>
+    <script src="~/Areas/User/Scripts/Controllers/edit-business-page-ctrl.js"></script>
+    <script src="~/Areas/User/Scripts/Controllers/ba-manage-login-password-ctrl.js"></script>
+    <script src="~/Areas/User/Scripts/Controllers/ba-manage-one-regit-account-ctrl.js"></script>
+    <script src="~/Areas/User/Scripts/Controllers/activity-log-settings-ctrl.js"></script>
+    <script src="~/Areas/User/Scripts/Controllers/business-privacy-settings-ctrl.js"></script>
+}
+
+@section styles {
+    @Styles.Render("~/bundles/user/account-settings/css")
+
+}
+
+<div class="module module-main module-account account-settings-page" ng-controller="BusinessAccountSettingsController">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/BusinessAccount">&laquo; Business Home</a></li>
+        <li class="breadcrumb-item active">Account Management</li>
+    </ol>
+    <h1>Account Management</h1>
+
+    <div ng-view></div>
+    <div class="collapse-list">
+        @Html.Partial("_CustomerManagementPartial")
+        @Html.Partial("_AccessWorkflowRolePartial")
+        @*@Html.Partial("_BillingPartial")*@
+        @Html.Partial("_EditBusinessPagePartial")
+        @Html.Partial("_PrivacyPartial")
+        @Html.Partial("_ActivityLogSettingsPartial")
+        @*          @Html.Partial("_ApiSettingsPartial")*@
+        @Html.Partial("_ManageLoginPassword")
+        @Html.Partial("_ManageRegitOneAccount")
+    </div>
+
+</div>

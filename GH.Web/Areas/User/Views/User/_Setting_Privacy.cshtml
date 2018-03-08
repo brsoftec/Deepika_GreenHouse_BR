@@ -1,0 +1,63 @@
+﻿@using GH.Lang
+<div ng-controller="PrivacySettingsController" id="privacy" class="privacy-settings">
+
+    <div class="account-form-row">
+        <div class="account-form-label wide">
+            <span class="field-title">@Regit.Privacies_FindMe_Message</span>
+        </div>
+        <div class="account-form-control control-float-right text-right">
+            <switcher ng-model="privacies.FindMe" switcher-on-text="@Regit.YesText" switcher-off-text="@Regit.NoText" on-changed="savePrivacy('FindMe')"></switcher>
+        </div>
+    </div>
+
+    <div class="account-form-row">
+        <div class="account-form-label wide">
+            <span class="field-title">@Regit.Privacies_ShareMyActivity_Message</span>
+        </div>
+        <div class="account-form-control control-float-right text-right">
+            <switcher ng-model="privacies.ShareMyActivity" switcher-on-text="@Regit.YesText" switcher-off-text="@Regit.NoText" on-changed="savePrivacy('ShareMyActivity')"></switcher>
+        </div>
+    </div>
+
+    <div class="account-form-row">
+        <div class="account-form-label wide">
+            <span class="field-title">@Regit.Privacies_ViewMyProfile_Message</span>
+        </div>
+        <div class="account-form-control control-float-right text-right">
+            <switcher ng-model="privacies.ViewMyProfile" switcher-on-text="@Regit.YesText" switcher-off-text="@Regit.NoText" on-changed="savePrivacy('ViewMyProfile')"></switcher>
+        </div>
+    </div>
+
+    <div class="account-form-row">
+        <div class="account-form-label wide">
+            <span class="field-title">@Regit.Privacies_NotFollowBusinessSendMeAds_Message</span>
+        </div>
+        <div class="account-form-control control-float-right text-right">
+            <switcher ng-model="privacies.NotFollowBusinessSendMeAds" switcher-on-text="@Regit.YesText" switcher-off-text="@Regit.NoText" on-changed="savePrivacy('NotFollowBusinessSendMeAds')"></switcher>
+        </div>
+    </div>
+
+    @*<div class="account-form-row">
+            <div class="account-form-label">
+                <span class="field-title h-34">@Regit.Privacies_SendMeMessage_Message</span>
+            </div>
+            <div class="account-form-control control-float-right">
+                <ui-select ng-model="privacies.SendMeMessage" theme="bootstrap" search-enabled="false" remove-selected="false">
+                    <ui-select-match placeholder="@Regit.Select_Privacy_Title.ToUpper()">{{$select.selected.Display}}</ui-select-match>
+                    <ui-select-choices repeat="opt.Value as opt in options.SendMeMessage">
+                        <span ng-bind-html="opt.Display"></span>
+                    </ui-select-choices>
+                </ui-select>
+                <a ng-click="savePrivacy('SendMeMessage')" class="btn btn-blue">@Regit.Save</a>
+            </div>
+        </div>*@
+
+    @*<div class="account-form-row">
+            <div class="account-form-label wide">
+                <span class="field-title">@Regit.Privacies_AutoDeleteMessage_Message</span>
+            </div>
+            <div class="account-form-control text-right">
+                <switcher ng-model="privacies.AutoDeleteMessage" switcher-on-text="@Regit.YesText" switcher-off-text="@Regit.NoText" on-changed="savePrivacy('AutoDeleteMessage')"></switcher>
+            </div>
+        </div>*@
+</div>

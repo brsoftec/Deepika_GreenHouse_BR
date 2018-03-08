@@ -1,0 +1,12 @@
+<div class="modal interaction-preview-modal" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <div class="interaction-messages">
+    <div class="interaction-message message-info">
+        <p>This is only a preview of how the interaction will be shown on the feed<span ng-if="!isBroadcast">, as well as how the user interacts by opening the registration form</span>.</p>
+    </div>
+    </div>
+
+    <div class="module module-main module-interaction">
+        <interaction ng-model="interaction" participate="previewForm()"></interaction>
+    </div>
+</div>

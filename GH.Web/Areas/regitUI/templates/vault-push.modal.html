@@ -1,0 +1,150 @@
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="btn-modal-close" ng-click="cancelPushForm();$hide();">Close</button>
+                <h4 class="modal-title">Push to Vault</h4>
+            </div>
+            <div class="modal-body">
+                <form name="vaultPushForm" class="vault-push-form" novalidate>
+                    <fieldset>
+                        <legend ng-bind="formLabel"></legend>
+
+                        <div class="vault-push-adder" ng-if="pushedCount < fieldCount">
+                            <button class="global-action action-add vault-push-adder-cta" bs-tooltip
+                                    data-title="Add more from {{group.label}}" data-placement="auto"
+                                    popover-placement="bottom-right" popover-trigger="'outsideClick'"
+                                    popovertitle="" uib-popover-template="'adder.popover.html'"
+                                    popover-is-open="view.adding"
+                            >Add field
+                            </button>
+                            <script type="text/ng-template" id="adder.popover.html">
+                                <div class="vault-push-adder-list">
+                                    <div class="vault-push-adder-item"
+                                         ng-repeat="field in fields"
+                                         ng-if="!isPushed(field)"
+                                         ng-click="addField(field)">
+                                        <div class="vault-push-adder-item-label" ng-bind="field.label"></div>
+                                        <div class="vault-push-adder-item-value" ng-if="field.value && field.type==='textbox'"
+                                             ng-bind="field.value"></div>
+                                        <div class="vault-push-adder-item-value" ng-if="field.value && field.type!=='textbox'"
+                                             ng-bind="field.value | vaultValue"></div>
+                                    </div>
+                                </div>
+                            </script>
+                        </div>
+
+                        <div class="vault-push-form-row" ng-repeat="field in pushedFields">
+                            <div class="vault-push-field-label" ng-bind="field.label">
+                            </div>
+                            <div class="vault-push-field-value">
+                                <div class="vault-push-field-value-static" ng-if="!field.editing && field.type==='textbox'"
+                                     ng-bind-html="field.value"></div>
+                                <div class="vault-push-field-value-static" ng-if="!field.editing && field.type!=='textbox'"
+                                     ng-bind-html="field.value | vaultValue"></div>
+
+                                <div class="vault-push-field-value-input" ng-if="field.editing">
+
+                                    <rgu-control
+                                            ng-if="field.type!=='numinput' && field.type!=='tagsinput' && field.type!=='range' && field.type!=='history'"
+                                            type="{{field.type}}" autofocus
+                                            ng-model="field.value" options="field.options"></rgu-control>
+                                    <rgu-control ng-if="field.type==='numinput'" type="{{field.type}}"
+                                                 ng-model="field.value"
+                                                 options="field.options"
+                                                 unit-model="field.unitModel"></rgu-control>
+                                    <rgu-control ng-if="field.type==='tagsinput'" type="{{field.type}}"
+                                                 ng-model="field.value"
+                                                 options="field.options"
+                                                 placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+
+
+                                </div>
+                            </div>
+                            <div class="vault-push-field-actions">
+                                <div class="row-actions" ng-if="!field.editing && !view.editing">
+                                    <button type="button" class="row-action action-edit vault-push-field-action-edit"
+                                            ng-click="editField(field)"
+                                            bs-tooltip data-title="Edit value" data-placement="auto">Edit
+                                    </button>
+                                    <!--<button type="button"-->
+                                            <!--class="row-action action-delete vault-push-field-action-delete"-->
+                                            <!--ng-click="removeField(field)"-->
+                                            <!--bs-tooltip data-title="Remove from form" data-placement="auto">Remove-->
+                                    <!--</button>             -->
+                                    <button type="button"
+                                            class="row-action action-delete vault-push-field-action-delete"
+                                            ng-click="removeField(field)">Remove
+                                    </button>
+                                </div>
+                                <div class="edit-actions" ng-if="field.editing">
+                                    <button class="edit-action action-ok" ng-click="saveEdit(field)">Save</button>
+                                    <button class="edit-action action-cancel" ng-click="cancelEdit(field)">Cancel
+                                    </button>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                        <div class="vault-push-message" ng-if="view.showingMessage && messages.fields"
+                             ng-bind="messages.fields"></div>
+                    </fieldset>
+
+                    <fieldset class="vault-push-send">
+                        <legend>Push To Vault</legend>
+                        <div class="vault-push-form-row">
+                            <div class="vault-push-field-label">Select recipient
+                            </div>
+                            <div class="vault-push-field-value">
+                                <div class="vault-push-send-option-switch">
+                                    <rgu-radio-group type="boolean" values="sendOptions.optionLabels"
+                                                     ng-model="sendOptions.sendEmail"
+                                                     on-change="clearMessages()"></rgu-radio-group>
+                                </div>
+                                <div class="vault-push-send-option" ng-if="!sendOptions.sendEmail">
+
+                                    <rgu-person-picker ng-model="sendOptions.sendToPerson" people="network"
+                                                       class="vault-push-send-input"
+                                                       on-change="clearMessages()"></rgu-person-picker>
+                                    <div class="vault-push-message" ng-if="view.showingMessage && messages.user"
+                                         ng-bind="messages.user"></div>
+
+                                </div>
+                                <div class="vault-push-send-option" ng-if="sendOptions.sendEmail">
+                                    <rgu-control name="sendToEmail" placeholder="Enter email"
+                                                 ng-model="sendOptions.sendToEmail"
+                                                 class="vault-push-send-input" required rules="email"
+                                                 rule-fails="sendOptions.emailFails"
+                                                 on-change="clearMessages()"></rgu-control>
+                                    <div class="vault-push-message" ng-if="view.showingMessage && messages.email"
+                                         ng-bind="messages.email"></div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="vault-push-form-row">
+                            <div class="vault-push-field-label">Comment
+                            </div>
+                            <div class="vault-push-field-value vault-push-send-comment">
+                                <textarea class="vault-push-send-comment-input" rows="3" ng-model="sendOptions.comment"
+                                          placeholder="Type a message for recipient"></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div class="vault-push-form-actions">
+                        <button type="button" class="btn btn-default" ng-click="cancelPushForm();$hide()">Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary vault-push-form-submit"
+                                ng-click="sendPushForm($hide);">Send
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,25 @@
+﻿@using GH.Lang
+<div ng-controller="CloseSuspendSettingsController" id="account" class="account-account">
+
+    @*<p> {{profileUser | json}} </p>
+    <p>{{currentDisableUser | json}}</p>*@
+    <div class="account-form-row" ng-if="profileUser.Status !== 'Close'">
+        <div class="account-form-label">
+            <span class="field-title">@Regit.Close_Your_Account_Title</span>
+        </div>
+        <div class="account-form-control control-float-right">
+            <a ng-click="disabled()" class="btn btn-primary account-form-action"> Close </a>
+        </div>
+    </div>
+
+    <div class="account-form-row" ng-if="profileUser.Status === 'Close'">
+        <div class="account-form-label">
+            <span class="field-title">Your account is scheduled to be closed at {{currentDisableUser.EffectiveDate | vaultValue}} </span>
+        </div>
+        <div class="account-form-control control-float-right">
+            <a ng-click="unclose(currentDisableUser)" class="btn btn-primary account-form-action"> Unclose </a>
+        </div>
+    </div>
+</div>
+
+   

@@ -1,0 +1,65 @@
+﻿<div ng-controller="ActivityLogSettingsController" collapse-base-on-route="/acitivity-log-settings" class="collapse-item">
+    <div class="collapse-header">
+        <a href="#/acitivity-log-settings" class="regit-color" data-toggle="collapse" aria-expanded="false" data-target="#activityLogSettingsCollapseContent">Activity Log Settings</a>
+    </div>
+
+    <div class="collapse-content">
+        <div class="collapse" id="activityLogSettingsCollapseContent">
+            <div class="row field">
+                <div class="col-md-8">
+                    <span class="field-title">Keep a record of your logging in/out Regit</span>
+                </div>
+                <div class="col-md-4 text-right">
+                    <switcher ng-model="activityLogSettings.RecordAccess" switcher-on-text="Yes" switcher-off-text="No" on-changed="saveActivityLogSetting('RecordAccess')"></switcher>
+                </div>
+            </div>
+            <hr />
+            <div class="row field">
+                <div class="col-md-8">
+                    <span class="field-title">Keep a record of business page editing</span>
+                </div>
+                <div class="col-md-4 text-right">
+                    <switcher ng-model="activityLogSettings.RecordProfileBusiness" switcher-on-text="Yes" switcher-off-text="No" on-changed="saveActivityLogSetting('RecordProfileBusiness')"></switcher>
+                </div>
+            </div>
+            <hr />
+            <div class="row field">
+                <div class="col-md-8">
+                    <span class="field-title">Keep a record of business account management changes</span>
+                </div>
+                <div class="col-md-4 text-right">
+                    <switcher ng-model="activityLogSettings.RecordAccountBusiness" switcher-on-text="Yes" switcher-off-text="No" on-changed="saveActivityLogSetting('RecordAccountBusiness')"></switcher>
+                </div>
+            </div>
+            <hr />
+            <div class="row field">
+                <div class="col-md-8">
+                    <span class="field-title">Keep a record of customer management activities</span>
+                </div>
+                <div class="col-md-4 text-right">
+                    <switcher ng-model="activityLogSettings.RecordBusinessSystem" switcher-on-text="Yes" switcher-off-text="No" on-changed="saveActivityLogSetting('RecordBusinessSystem')"></switcher>
+                </div>
+            </div>
+            <hr />
+         
+                <div class="row field">
+                    <div class="col-md-8">
+                        <span class="field-title">Keep a record of campaign operations</span>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <switcher ng-model="activityLogSettings.RecordCampaign" switcher-on-text="Yes" switcher-off-text="No" on-changed="saveActivityLogSetting('RecordCampaign')"></switcher>
+                    </div>
+                </div>
+                <hr />              
+                <div class="row field">
+                    <div class="col-md-8">
+                        <span class="field-title">Keep a record of your business social activities</span>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <switcher ng-model="activityLogSettings.RecordWorkflow" switcher-on-text="Yes" switcher-off-text="No" on-changed="saveActivityLogSetting('RecordWorkflow')"></switcher>
+                    </div>
+                </div>
+                            
+            </div>
+    </div>
+</div>

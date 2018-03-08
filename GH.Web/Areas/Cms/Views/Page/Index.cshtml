@@ -1,0 +1,16 @@
+﻿@model GH.Web.Areas.Cms.ViewModels.CmsPagePublishedContentModel
+@{
+    ViewBag.Title = Model.MetaTitle;
+    ViewBag.MetaDescription = Model.MetaDescription;
+    Layout = Model.LayoutPath;
+}
+
+@Html.Raw(Model.Content)
+
+@foreach (var item in Model.Zones)
+{
+    DefineSection(item.Zone.Name, () =>
+    {
+        WriteLiteral(item.Content);
+    });
+}

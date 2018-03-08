@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "Notification Manager";
+    if (Session["ViewTier"] == "business")
+    {
+        Layout = "~/Areas/User/Views/Shared/_LayoutDefaultBusinessApply.cshtml";
+    }
+    else
+    {
+        Layout = "~/Areas/User/Views/Shared/_LayoutDefaultApply.cshtml";
+    }
+}
+
+<!--
+@section scripts {
+<script src="~/Areas/Beta/js/vendor/xlsx.core.min.js"></script>
+
+    <script src="~/Areas/Beta/js/vendor/alasql.min.js"></script>
+    <script src = "@Url.Versioned("/Areas/User/Scripts/Controllers/notification-ctrl.js")"> </script>
+}
+-->
+
+<div class="module module-main module-notifications">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">&laquo; Home</a></li>
+        <li class="breadcrumb-item active">Notification Center</li>
+    </ol>
+    <h1>Notifications</h1>
+
+
+    <form class="form-horizontal form-notifications">
+        @*
+            <header>
+                <!--<a href="#" id="btn-notifications-mark-all-read">Mark All as Read</a>-->
+                <a href="/User/Settings#notifications" id="btn-notifications-settings">Settings</a>
+            </header>
+
+            <table class="table table-striped">
+                <tbody>
+                    <tr ng-repeat="notif in notifications">
+
+                        <td class="notifications-details">
+                            <div class="notifications-desc">{{notif.Title}}</div>
+                            <div class="notification-when">{{notif.DateTime | friendlyTime }}</div>
+                        </td>
+                        <td class="notifications-actions">
+                            <div ng-if="notif.Type==='Delegation Request'" >
+                                <a href="#" ng-click="ViewPopup((notif.PreserveBag+''))">View</a>
+                            </div>
+                            <div ng-if="notif.Type==='Notify Missing Information Vault For Registration'">
+                                <a ng-click="ViewReistrationForm(notif.PreserveBag)">View</a>
+                            </div>
+                            <div ng-if="notif.Type==='Push To Vault'" >
+                                <a href="#" ng-click="ViewReistrationFormPushVault(notif.PreserveBag)">View</a>
+                            </div>
+                            <div ng-if="notif.Type==='HandShake Vault Changed'" >
+
+                                <a href="#" ng-click="DownloadFormHandshake(notif.PreserveBag,notif)">Download</a>
+                            </div>
+                            <div ng-if="notif.Type==='Invited Handshake'" >
+                                <a href="#" ng-click="RedirectHandshake(notif.PreserveBag,notif)">View</a>
+                            </div>
+                            <div ng-if="notif.Type==='Invite Friend'">
+                                <a href="/User/Network#personal">View</a>
+                            </div>
+                            <div ng-if="notif.Type==='Invite Emergency'" class="notifications-actions">
+                                <a href="/User/Network#personal">View</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <div class="notifications-footer">
+                <button type="button" class="feed-load-more" ng-click="pullMoreNotification()">See more...</button>
+            </div>
+
+        *@
+        <div notification-group view="full"></div>
+    </form>
+</div>
+

@@ -1,0 +1,72 @@
+<div class="modal request-modal handshake-request-modal" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <div class="request-form-header hsr-form-header">
+
+        <div class="request-form-avatar" ng-if="business.AvatarUrl">
+            <img ng-src="{{business.AvatarUrl | avatarUrl:true}}">
+        </div>
+        <div class="header-business-name" ng-bind="business.DisplayName"></div>
+        <h3 class="request-form-heading">Request for Handshake</h3>
+    </div>
+
+    <form class="request-form hsr-form">
+        <div class="modal-form-row">
+            <div class="modal-form-label">
+                <label>First Name</label>
+            </div>
+            <div class="modal-form-control">
+                <input class="modal-form-input" ng-model="hsr.form.firstName">
+            </div>
+        </div>
+        <div class="modal-form-row">
+            <div class="modal-form-label">
+                <label>Last Name</label>
+            </div>
+            <div class="modal-form-control">
+                <input class="modal-form-input" ng-model="hsr.form.lastName">
+            </div>
+        </div>
+        <div class="modal-form-row">
+            <div class="modal-form-label">
+                <label>Mobile Phone</label>
+            </div>
+            <div class="modal-form-control">
+                <input class="modal-form-input" ng-model="hsr.form.phone">
+            </div>
+        </div>
+        <div class="modal-form-row">
+            <div class="modal-form-label">
+                <label>Personal Email</label>
+            </div>
+            <div class="modal-form-control">
+                <input class="modal-form-input" ng-model="hsr.form.email">
+            </div>
+        </div>
+        <div class="modal-form-row tall">
+            <div class="modal-form-label">
+                <label>Message</label>
+            </div>
+            <div class="modal-form-control">
+                <textarea class="modal-form-input" rows="4" ng-model="hsr.form.message"></textarea>
+            </div>
+        </div>
+        <div class="modal-form-row modal-form-agree tall">
+            <div class="modal-form-label modal-form-agree-switch">
+                <rgu-checkbox ng-model="hsrView.agreed"></rgu-checkbox>
+            </div>
+            <div class="modal-form-control">
+                <div class="modal-form-agree-label">By checking the box I consent that the business may contact me using the information provided for the purpose of completing the handshake.</div>
+                </div>
+        </div>
+
+        <div class="interaction-form-actions">
+
+            <button type="button" ng-click="closeHsr($hide)" class="interaction-form-action request-form-action form-action-cancel">Cancel</button>
+            <button type="button" class="interaction-form-action request-form-action form-action-primary form-action-submit"
+                    ng-disabled="!canSendHsr()" ng-click="sendHsr($hide)">
+                Send
+            </button>
+
+        </div>
+    </form>
+</div>

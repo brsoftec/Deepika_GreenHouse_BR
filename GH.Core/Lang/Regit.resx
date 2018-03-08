@@ -1,0 +1,1338 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About_Us" xml:space="preserve">
+    <value>About us</value>
+    <comment>Giới thiệu</comment>
+  </data>
+  <data name="Authenticated" xml:space="preserve">
+    <value>Authenticated</value>
+    <comment>Đã xác thực</comment>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Authentication</value>
+    <comment>Xác thực</comment>
+  </data>
+  <data name="Authentication_Sign_Up_Caption_1" xml:space="preserve">
+    <value>To authenticate your account,&lt;br /&gt; please enter PIN sent to your phone.</value>
+    <comment>Để xác thực tài khoản,&lt;br/&gt;vui lòng nhập mã PIN đã gửi tới điện thoại của bạn</comment>
+  </data>
+  <data name="Authentication_Sign_Up_Caption_2" xml:space="preserve">
+    <value>Your PIN may take a few moments to arrive.</value>
+    <comment>Cần một ít thời gian để gửi mã PIN tới bạn</comment>
+  </data>
+  <data name="Authentication_Sign_Up_Caption_3" xml:space="preserve">
+    <value>Didn’t receive a PIN?</value>
+    <comment>Không nhận được mã PIN?</comment>
+  </data>
+  <data name="Birthday_Day_Error_Required" xml:space="preserve">
+    <value>Please enter your day of birthday</value>
+    <comment>Xin nhập vào ngày sinh</comment>
+  </data>
+  <data name="Birthday_Month_Error_Required" xml:space="preserve">
+    <value>Please enter your month of birthday</value>
+    <comment>Xin nhập vào tháng sinh</comment>
+  </data>
+  <data name="Birthday_Year_Error_Required" xml:space="preserve">
+    <value>Please enter your year of birthday</value>
+    <comment>Xin nhập vào năm sinh</comment>
+  </data>
+  <data name="BoldRegit_Account" xml:space="preserve">
+    <value>&lt;b&gt;regit&lt;/b&gt; account</value>
+    <comment>tài khoản &lt;b&gt;regit&lt;/b&gt;</comment>
+  </data>
+  <data name="Careers" xml:space="preserve">
+    <value>Careers</value>
+    <comment>Tuyển dụng</comment>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>City</value>
+    <comment>Thành phố</comment>
+  </data>
+  <data name="City_Error_Required" xml:space="preserve">
+    <value>Please select city</value>
+    <comment>Xin chọn thành phố</comment>
+  </data>
+  <data name="Congratulations" xml:space="preserve">
+    <value>Congratulations</value>
+    <comment>Chúc mừng</comment>
+  </data>
+  <data name="Congratulations_Sign_Up_Caption" xml:space="preserve">
+    <value>You have successfully signed up as a Regit user.</value>
+    <comment>Bạn đã đăng ký thành công</comment>
+  </data>
+  <data name="Congratulations_Sign_Up_More_Info_Caption" xml:space="preserve">
+    <value>Please help us serve you better. Tell us a bit more about yourself.&amp;lt;br /&amp;gt;You can choose to do this now or later</value>
+    <comment>Xin giúp chúng tôi phục vụ bạn tốt hơn. Co chúng tôi biết sơ lược về bạn.&lt;br/&gt;Bạn có thể thực hiện bây giờ hoặc sau này</comment>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Country</value>
+    <comment>Quốc gia</comment>
+  </data>
+  <data name="Country_Error_Required" xml:space="preserve">
+    <value>Please select country</value>
+    <comment>Xin chọn quốc gia</comment>
+  </data>
+  <data name="Create_A_New" xml:space="preserve">
+    <value>Create a new</value>
+    <comment>Tạo mới một</comment>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Day</value>
+    <comment>Ngày</comment>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+    <comment>Email</comment>
+  </data>
+  <data name="Email_Error_Invalid" xml:space="preserve">
+    <value>Invalid email</value>
+    <comment>Email không hợp lệ</comment>
+  </data>
+  <data name="Email_Error_Not_Available" xml:space="preserve">
+    <value>The email address has already been taken by another user</value>
+    <comment>Email đã được sử dụng bởi tài khoản khác</comment>
+  </data>
+  <data name="Email_Error_Required" xml:space="preserve">
+    <value>Please enter your email</value>
+    <comment>Xin nhập vào email</comment>
+  </data>
+  <data name="First_Name" xml:space="preserve">
+    <value>First name</value>
+    <comment>Tên</comment>
+  </data>
+  <data name="First_Name_Error_Required" xml:space="preserve">
+    <value>Please enter your first name</value>
+    <comment>Xin nhập vào tên</comment>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Gender</value>
+    <comment>Giới tính</comment>
+  </data>
+  <data name="Gender_Error_Required" xml:space="preserve">
+    <value>Please select gender</value>
+    <comment>Xin chọn giới tính</comment>
+  </data>
+  <data name="Having_Trouble" xml:space="preserve">
+    <value>Having Trouble?</value>
+    <comment>Quên mật khẩu?</comment>
+  </data>
+  <data name="Incorrect_Login" xml:space="preserve">
+    <value>The email or password is incorrect.</value>
+    <comment>Email hoặc mật khẩu không đúng</comment>
+  </data>
+  <data name="Invalid_Email" xml:space="preserve">
+    <value>Invalid email</value>
+    <comment>Email không hợp lệ</comment>
+  </data>
+  <data name="Invalid_Password" xml:space="preserve">
+    <value>Invalid password</value>
+    <comment>Mật khẩu không hợp lệ</comment>
+  </data>
+  <data name="Last_Name" xml:space="preserve">
+    <value>Last name</value>
+    <comment>Họ</comment>
+  </data>
+  <data name="Last_Name_Error_Required" xml:space="preserve">
+    <value>Please enter your last name</value>
+    <comment>Xin nhập vào họ</comment>
+  </data>
+  <data name="Later" xml:space="preserve">
+    <value>Later</value>
+    <comment>Để sau</comment>
+  </data>
+  <data name="Legal_AndSign_Privacy" xml:space="preserve">
+    <value>Legal &amp; privacy</value>
+    <comment>Luật &amp; chính sách</comment>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+    <comment>Đăng nhập</comment>
+  </data>
+  <data name="Login_With_Social_Account_Instead" xml:space="preserve">
+    <value>Login with Social Account instead</value>
+    <comment>Đăng nhập bằng tài khoản mạng xã hội</comment>
+  </data>
+  <data name="Mobile_Number" xml:space="preserve">
+    <value>Mobile number</value>
+    <comment>Số điện thoại di động</comment>
+  </data>
+  <data name="Mobile_Number_Sign_Up_Caption" xml:space="preserve">
+    <value>We need your phone number for security (text to explain why we need users phone number)</value>
+    <comment>Chúng tôi cần số di động của bạn để bảo mật (lý do tại sao chúng tôi cần số điện thoại của bạn)</comment>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+    <comment>Tháng</comment>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+    <comment>Mật khẩu</comment>
+  </data>
+  <data name="Password_Error_Invalidated" xml:space="preserve">
+    <value>Password minimum length is 8 characters</value>
+    <comment>Mật khẩu gồm 8 ký tự trở lên, ít nhất 1 chữ in hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt</comment>
+  </data>
+  <data name="Password_Error_Required" xml:space="preserve">
+    <value>Please enter password</value>
+    <comment>Xin nhập vào mật khẩu</comment>
+  </data>
+  <data name="Phone_Number_Error_Country_Code_Required" xml:space="preserve">
+    <value>Please select country of your phone number</value>
+    <comment>Xin chọn quốc gia của số điện thoại bạn xài</comment>
+  </data>
+  <data name="Phone_Number_Error_Invalid" xml:space="preserve">
+    <value>Invalid phone number</value>
+    <comment>Số điện thoại không hợp lệ</comment>
+  </data>
+  <data name="Phone_Number_Error_Mobile_Required" xml:space="preserve">
+    <value>We accept only mobile number</value>
+    <comment>Chúng tôi chỉ chấp nhận số di động</comment>
+  </data>
+  <data name="Phone_Number_Error_Required" xml:space="preserve">
+    <value>Please enter your phone number</value>
+    <comment>Xin nhập vao số điện thoại</comment>
+  </data>
+  <data name="PIN_Error_Incorrect" xml:space="preserve">
+    <value>Incorrect PIN. Please re-enter</value>
+    <comment>Sai mã PIN. Xin nhập lại</comment>
+  </data>
+  <data name="PIN_Error_Required" xml:space="preserve">
+    <value>Please enter your PIN</value>
+    <comment>Xin nhập vào PIN</comment>
+  </data>
+  <data name="Please_Fill_In_Below_To_Create_Your_Account" xml:space="preserve">
+    <value>Please fill in below to &lt;b&gt;create your account&lt;/b&gt;</value>
+    <comment>Điền vào các thông tin dưới để &lt;b&gt;tạo tài khoản của bạn&lt;/b&gt;</comment>
+  </data>
+  <data name="Regit_For_Business" xml:space="preserve">
+    <value>Regit for business</value>
+    <comment>Regit cho doanh nghiệp</comment>
+  </data>
+  <data name="Regit_For_Developers" xml:space="preserve">
+    <value>Regit for developers</value>
+    <comment>Regit cho lập trình viên</comment>
+  </data>
+  <data name="Re_send_PIN" xml:space="preserve">
+    <value>Re-send PIN</value>
+    <comment>Gửi lại PIN</comment>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+    <comment>Lưu</comment>
+  </data>
+  <data name="Security_Questions" xml:space="preserve">
+    <value>Security questions</value>
+    <comment>Câu hỏi bảo mật</comment>
+  </data>
+  <data name="Security_Questions_Sign_Up_Caption" xml:space="preserve">
+    <value>For your safety please enter your answers to three questions below. You will be prompted for these answers when we need to verify you as the illegible owner of your account, possibly if you lost your phone.</value>
+    <comment>Để an toàn, vui lòng trả lời 3 câu hỏi dưới đây. Bạn cần trả lời những câu hỏi này khi chúng tôi kiểm tra tính hợp lệ của chủ sở hữu tài khoản, có thể trong trường hợp bạn mất điện thoại</comment>
+  </data>
+  <data name="Security_Question_Answer_Error_Required" xml:space="preserve">
+    <value>Please answer the question</value>
+    <comment>Xin trả lời câu hỏi bảo mật</comment>
+  </data>
+  <data name="Security_Question_Error_Required" xml:space="preserve">
+    <value>Please select question</value>
+    <comment>Xin chọn câu hỏi bảo mật</comment>
+  </data>
+  <data name="Select_Country" xml:space="preserve">
+    <value>SELECT COUNTRY</value>
+    <comment>Chọn quốc gia</comment>
+  </data>
+  <data name="Select_The_Security_Question" xml:space="preserve">
+    <value>Select the security question</value>
+    <comment>Chọn câu hỏi bảo mật</comment>
+  </data>
+  <data name="Send_By_Voice" xml:space="preserve">
+    <value>Send by voice</value>
+    <comment>Gửi bằng cuộc gọi</comment>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>Sign up</value>
+    <comment>Đăng ký</comment>
+  </data>
+  <data name="Sign_In_Failed" xml:space="preserve">
+    <value>Sign in failed</value>
+    <comment>Không thể đăng nhập</comment>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+    <comment>Gửi</comment>
+  </data>
+  <data name="The_User_Was_Disabled" xml:space="preserve">
+    <value>The user was disabled.</value>
+    <comment>Tài khoản đã bị vô hiệu hóa</comment>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Year</value>
+    <comment>Năm</comment>
+  </data>
+  <data name="Your_Answer" xml:space="preserve">
+    <value>Your answer</value>
+    <comment>Câu trả lời của bạn</comment>
+  </data>
+  <data name="Birthdate_Error_Invalid" xml:space="preserve">
+    <value>Invalid birthdate</value>
+    <comment>Ngày sinh không hợp lệ</comment>
+  </data>
+  <data name="PIN_Error_Invalid_Request" xml:space="preserve">
+    <value>Invalid request. Maybe your Authentication has been verified or termniated</value>
+    <comment>Yêu cầu không hợp lệ. Có thể bạn đã được xác thực hoặc phiên này đã bị hủy.</comment>
+  </data>
+  <data name="PIN_Error_Wrong_Many_Times" xml:space="preserve">
+    <value>Wrong PIN code was provided too many times. Your authentication has been terminated.</value>
+    <comment>Mã PIN không hợp lệ sử dụng quá nhiều lần. Phiên xác thực của bạn đã bị hủy.</comment>
+  </data>
+  <data name="Access_Workflow_Roles" xml:space="preserve">
+    <value>Access &amp; Workflow Roles</value>
+  </data>
+  <data name="Activity_Log_Settings" xml:space="preserve">
+    <value>Activity Log Settings</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+    <comment>Địa chỉ</comment>
+  </data>
+  <data name="Add_new_people" xml:space="preserve">
+    <value>Add new people</value>
+  </data>
+  <data name="Allow_comment" xml:space="preserve">
+    <value>Allow comment</value>
+  </data>
+  <data name="Apply_all_days" xml:space="preserve">
+    <value>Apply to all days</value>
+  </data>
+  <data name="Approver" xml:space="preserve">
+    <value>Approver</value>
+  </data>
+  <data name="Authenticate" xml:space="preserve">
+    <value>Authenticate</value>
+  </data>
+  <data name="Avatar" xml:space="preserve">
+    <value>Avatar</value>
+  </data>
+  <data name="BUSINESS_ACCOUNT_MANAGEMENT" xml:space="preserve">
+    <value>BUSINESS ACCOUNT MANAGEMENT</value>
+  </data>
+  <data name="BUSINESS_ACCOUNT_MANAGEMENT_MESAGE" xml:space="preserve">
+    <value>Central area to manage your account related management</value>
+  </data>
+  <data name="Business_Description" xml:space="preserve">
+    <value>Business Description</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Change_Email" xml:space="preserve">
+    <value>Change Email</value>
+  </data>
+  <data name="Change_Login_Password" xml:space="preserve">
+    <value>Change Login Password</value>
+  </data>
+  <data name="Confirm_New_Password" xml:space="preserve">
+    <value>Confirm New Password</value>
+  </data>
+  <data name="Connect" xml:space="preserve">
+    <value>Connect</value>
+  </data>
+  <data name="CONNECT_TO_A_FACEBOOK_PAGE" xml:space="preserve">
+    <value>CONNECT TO A FACEBOOK PAGE</value>
+  </data>
+  <data name="Customer_by_Campaign" xml:space="preserve">
+    <value>Customer by Campaign</value>
+  </data>
+  <data name="Customer_Management" xml:space="preserve">
+    <value>Customer Management</value>
+  </data>
+  <data name="Didnt_receive_PIN" xml:space="preserve">
+    <value>Didn’t receive a PIN</value>
+  </data>
+  <data name="Display_Name" xml:space="preserve">
+    <value>Display name</value>
+    <comment>Tên hiển thị</comment>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Editor" xml:space="preserve">
+    <value>Editor</value>
+  </data>
+  <data name="Edit_Business_Page" xml:space="preserve">
+    <value>Edit Business Page</value>
+  </data>
+  <data name="example" xml:space="preserve">
+    <value>example</value>
+  </data>
+  <data name="find_your_member" xml:space="preserve">
+    <value>find your member</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Hours</value>
+  </data>
+  <data name="Manage_Login_and_Password_Settings" xml:space="preserve">
+    <value>Manage Login and Password Settings</value>
+  </data>
+  <data name="Manage_Regit_One_Account_Settings" xml:space="preserve">
+    <value>Manage Regit One Account Settings</value>
+  </data>
+  <data name="Master_Custom_List" xml:space="preserve">
+    <value>Master Custom List</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="New_Email" xml:space="preserve">
+    <value>New Email</value>
+  </data>
+  <data name="New_Password" xml:space="preserve">
+    <value>New Password</value>
+  </data>
+  <data name="New_Phone_number" xml:space="preserve">
+    <value>New Phone number</value>
+  </data>
+  <data name="No_Results_Found" xml:space="preserve">
+    <value>No Results Found</value>
+  </data>
+  <data name="Old_Password" xml:space="preserve">
+    <value>Old Password</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>Page</value>
+  </data>
+  <data name="Phone_number" xml:space="preserve">
+    <value>Phone number</value>
+  </data>
+  <data name="Picture_Album" xml:space="preserve">
+    <value>Picture Album</value>
+  </data>
+  <data name="Please_enter_PIN" xml:space="preserve">
+    <value>Please enter PIN sent to your phone.</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="Preview_Business_Page" xml:space="preserve">
+    <value>Preview Business Page</value>
+  </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Privacy</value>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>Region</value>
+  </data>
+  <data name="SELECT_CITY" xml:space="preserve">
+    <value>SELECT CITY</value>
+  </data>
+  <data name="SELECT_REGION" xml:space="preserve">
+    <value>SELECT REGION</value>
+  </data>
+  <data name="Street" xml:space="preserve">
+    <value>Street</value>
+  </data>
+  <data name="Upload_Photo" xml:space="preserve">
+    <value>Upload Photo</value>
+  </data>
+  <data name="Upload_picture_limited" xml:space="preserve">
+    <value>You can upload 6 pictures</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="Website" xml:space="preserve">
+    <value>Website</value>
+    <comment>Website</comment>
+  </data>
+  <data name="Who_can_view" xml:space="preserve">
+    <value>Who can view?</value>
+  </data>
+  <data name="Your_PIN_waiting" xml:space="preserve">
+    <value>Your PIN may take a few moments to arrive.</value>
+  </data>
+  <data name="You_must_be_authenticated" xml:space="preserve">
+    <value>You must be authenticated before you can change your log in password setting.</value>
+  </data>
+  <data name="Zip_Postal_Code" xml:space="preserve">
+    <value>Zip/Postal Code</value>
+  </data>
+  <data name="Address_Error_Required" xml:space="preserve">
+    <value>Please enter address</value>
+    <comment>Xin nhập vào địa chỉ</comment>
+  </data>
+  <data name="Address_Error_Too_Long" xml:space="preserve">
+    <value>Address is too long. Maximum 255 charactesr.</value>
+    <comment>Địa chỉ quá dài. Tối đa 255 ký tự.</comment>
+  </data>
+  <data name="Agree" xml:space="preserve">
+    <value>Agree</value>
+    <comment>Đồng ý</comment>
+  </data>
+  <data name="Authentication_Sign_Up_Bus_Caption_1" xml:space="preserve">
+    <value>To authenticate your business account,&lt;br /&gt; please enter PIN sent to your phone.</value>
+    <comment>Để xác thực tài khoản doanh nghiệp,&lt;br/&gt; xin nhập vào mã PIN gửi tới điện thoại của bạn</comment>
+  </data>
+  <data name="Business_Dashboard" xml:space="preserve">
+    <value>Business dashboard</value>
+    <comment>Trang doanh nghiệp</comment>
+  </data>
+  <data name="Choose_One_Industry" xml:space="preserve">
+    <value>Choose one industry</value>
+    <comment>Chọn một lĩnh vực</comment>
+  </data>
+  <data name="Company_Details" xml:space="preserve">
+    <value>Company details</value>
+    <comment>Chi tiết công ty</comment>
+  </data>
+  <data name="Company_Name" xml:space="preserve">
+    <value>Company name</value>
+    <comment>Tên công ty</comment>
+  </data>
+  <data name="Company_Name_Error_Required" xml:space="preserve">
+    <value>Please enter company name</value>
+    <comment>Xin nhập vào tên công ty</comment>
+  </data>
+  <data name="Company_Name_Error_Too_Long" xml:space="preserve">
+    <value>Company name is too long. Maximum 255 characters.</value>
+    <comment>Tên công ty quá dài. Tối đa 255 ký tự.</comment>
+  </data>
+  <data name="Congratulations_Sign_Up_Bus_Caption" xml:space="preserve">
+    <value>You have successfully signed up a Business account.</value>
+    <comment>Bạn đã đăng ký thành công tài khoản doanh nghiệp.</comment>
+  </data>
+  <data name="Contact_Details" xml:space="preserve">
+    <value>Contact details</value>
+    <comment>Chi tiết liên lạc</comment>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+    <comment>Mô tả</comment>
+  </data>
+  <data name="Disagree" xml:space="preserve">
+    <value>Disagree</value>
+    <comment>Không đồng ý</comment>
+  </data>
+  <data name="Display_Name_Error_Required" xml:space="preserve">
+    <value>Please enter display name</value>
+    <comment>Xin nhập vào tên hiển thị</comment>
+  </data>
+  <data name="Display_Name_Error_Too_Long" xml:space="preserve">
+    <value>Display name is too long. Maximum 255 charactesr.</value>
+    <comment>Tên hiển thị quá dài. Tối đa 255 ký tự.</comment>
+  </data>
+  <data name="Industry_Error_Required" xml:space="preserve">
+    <value>Please select an industry</value>
+    <comment>Xin chọn một lĩnh vực</comment>
+  </data>
+  <data name="Link_With_Personal" xml:space="preserve">
+    <value>Link with personal</value>
+    <comment>Liên kết tài khoản cá nhân</comment>
+  </data>
+  <data name="Terms_And_Condition" xml:space="preserve">
+    <value>Terms and condition</value>
+    <comment>Điều khoản và điều kiện</comment>
+  </data>
+  <data name="Website_Error_Invalid" xml:space="preserve">
+    <value>Invalid website url</value>
+    <comment>Địa chỉ website không hợp lệ</comment>
+  </data>
+  <data name="Website_Error_Required" xml:space="preserve">
+    <value>Please enter website URL</value>
+    <comment>Xin nhập vào website</comment>
+  </data>
+  <data name="Website_Error_Too_Long" xml:space="preserve">
+    <value>Website is too long. Maximum 255 characters.</value>
+    <comment>Địa chỉ website quá dài. Tối đa 255 ký tự.</comment>
+  </data>
+  <data name="Account_Settings_Sub_Title" xml:space="preserve">
+    <value>All Account Related Settings</value>
+  </data>
+  <data name="Account_Settings_Title" xml:space="preserve">
+    <value>Account Settings</value>
+  </data>
+  <data name="Broadcast_Status_Title" xml:space="preserve">
+    <value>Broadcast Status</value>
+  </data>
+  <data name="City_And_Country_Title" xml:space="preserve">
+    <value>City And Country</value>
+  </data>
+  <data name="Profile_Picture_Title" xml:space="preserve">
+    <value>Profile Picture</value>
+  </data>
+  <data name="Change_Security_Questions_Title" xml:space="preserve">
+    <value>Change security questions</value>
+  </data>
+  <data name="Confirm_New_Phone_Number_Title" xml:space="preserve">
+    <value>Confirm new phone number</value>
+  </data>
+  <data name="Manage_Business_Relationship_Title" xml:space="preserve">
+    <value>Manage Business Relationship</value>
+  </data>
+  <data name="Phone_Number_For_OTP_Title" xml:space="preserve">
+    <value>Phone number for OTP</value>
+  </data>
+  <data name="Privacies_AutoDeleteMessage_Message" xml:space="preserve">
+    <value>Auto delete messages after 10 days</value>
+  </data>
+  <data name="Privacies_FindMe_Message" xml:space="preserve">
+    <value>Whether people can find you</value>
+  </data>
+  <data name="Privacies_NotFollowBusinessSendMeAds_Message" xml:space="preserve">
+    <value>Whether business you don’t follow can send you promotions/ads/events/messages</value>
+  </data>
+  <data name="Privacies_SendMeMessage_Message" xml:space="preserve">
+    <value>Who can send you message</value>
+  </data>
+  <data name="Privacies_ShareMyActivity_Message" xml:space="preserve">
+    <value>Whether your activities are shared</value>
+  </data>
+  <data name="Privacies_ViewMyProfile_Message" xml:space="preserve">
+    <value>Whether people can view your profile</value>
+  </data>
+  <data name="UnFollowBtn" xml:space="preserve">
+    <value>UnFollow</value>
+  </data>
+  <data name="Whether_People_Can_Find_You_Message" xml:space="preserve">
+    <value>Whether people can find you</value>
+  </data>
+  <data name="Your_Transactions_With_Message" xml:space="preserve">
+    <value>Your Transactions With</value>
+  </data>
+  <data name="ActivityLogSettings_RecordInteraction" xml:space="preserve">
+    <value>Keep a record of your interactions</value>
+  </data>
+  <data name="ActivityLogSettings_RecordSocialActivity" xml:space="preserve">
+    <value>Keep a record of your social activities</value>
+  </data>
+  <data name="Activity_Log_Settings_Title" xml:space="preserve">
+    <value>Activity Log Settings</value>
+  </data>
+  <data name="CloseBtn" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Close_Or_Suspend_Account_Title" xml:space="preserve">
+    <value>Close/Suspend Account</value>
+  </data>
+  <data name="Close_Your_Account_Title" xml:space="preserve">
+    <value>Close your account</value>
+  </data>
+  <data name="Event_And_Reminders_Title" xml:space="preserve">
+    <value>Event &amp; Reminders</value>
+  </data>
+  <data name="Facebook_Title" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="Interactions_Title" xml:space="preserve">
+    <value>Interactions</value>
+  </data>
+  <data name="Invite_Title" xml:space="preserve">
+    <value>Invite</value>
+  </data>
+  <data name="Manage_Your_Network_Title" xml:space="preserve">
+    <value>Manage Your Network</value>
+  </data>
+  <data name="Network_Request_Title" xml:space="preserve">
+    <value>Network Request</value>
+  </data>
+  <data name="Network_Title" xml:space="preserve">
+    <value>Network</value>
+  </data>
+  <data name="Notification_Settings_Title" xml:space="preserve">
+    <value>Notification Settings</value>
+  </data>
+  <data name="Pending_Invitations_Title" xml:space="preserve">
+    <value>Pending Invitations</value>
+  </data>
+  <data name="SuspendBtn" xml:space="preserve">
+    <value>Suspend</value>
+  </data>
+  <data name="Suspend_Your_Account_Title" xml:space="preserve">
+    <value>Suspend your account</value>
+  </data>
+  <data name="To_Normal_Message" xml:space="preserve">
+    <value>To Normal</value>
+  </data>
+  <data name="To_Trusted_Message" xml:space="preserve">
+    <value>To Trusted</value>
+  </data>
+  <data name="Twitter_Title" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="Workflow_Title" xml:space="preserve">
+    <value>Workflow</value>
+  </data>
+  <data name="Privacy_Settings_Title" xml:space="preserve">
+    <value>Privacy Settings</value>
+  </data>
+  <data name="NoText" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="YesText" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Example_Mobile_Message" xml:space="preserve">
+    <value>Example: 099 98 88 777</value>
+  </data>
+  <data name="Find_Your_Friends_Message" xml:space="preserve">
+    <value>find your friends</value>
+  </data>
+  <data name="Select_Privacy_Title" xml:space="preserve">
+    <value>Select Privacy</value>
+  </data>
+  <data name="Select_The_Security_Question_One" xml:space="preserve">
+    <value>Select The Question 1</value>
+  </data>
+  <data name="Select_The_Security_Question_Three" xml:space="preserve">
+    <value>Select The Question 3</value>
+  </data>
+  <data name="Select_The_Security_Question_Two" xml:space="preserve">
+    <value>Select The Question 2</value>
+  </data>
+  <data name="CloseSuspendSettings_CloseConfirmMessage" xml:space="preserve">
+    <value>Closing your account will permanently delete all your account details, including your activities, information vault, account linkage,Are you sure you want to close your account?</value>
+  </data>
+  <data name="CloseSuspendSettings_SuspendConfirmMessage" xml:space="preserve">
+    <value>Suspending your account means you are remove from the network community. You won’t get any content, no messages, people cannot find you, and you cannot use your accounts for anything, except viewing your accountAre you sure you want to suspend  your account?</value>
+  </data>
+  <data name="EditProfileSettings_DisplayName_MaxLength" xml:space="preserve">
+    <value>Display Name length cannot exceed 128 characters</value>
+  </data>
+  <data name="EditProfileSettings_DisplayName_Required" xml:space="preserve">
+    <value>Please enter display name</value>
+  </data>
+  <data name="EditProfileSettings_NewProfilePicture_Required" xml:space="preserve">
+    <value>Please choose an image file.</value>
+  </data>
+  <data name="EditProfileSettings_PhotoUrl_Required" xml:space="preserve">
+    <value>Please choose an image</value>
+  </data>
+  <data name="EditProfileSettings_Status_MaxLength" xml:space="preserve">
+    <value>Status length cannot exceed 128 characters</value>
+  </data>
+  <data name="ConfirmBtn" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="Edit_Profile_Title" xml:space="preserve">
+    <value>Edit Profile</value>
+  </data>
+  <data name="Error_Title" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Warning_Title" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="Ok_Title" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Change_Security_Questions_Success_Message" xml:space="preserve">
+    <value>Change security questions success</value>
+  </data>
+  <data name="Confirm_Country_Required_Message" xml:space="preserve">
+    <value>Please select confirm country</value>
+  </data>
+  <data name="Confirm_New_Password_Invalid_Message" xml:space="preserve">
+    <value>Confirm password does not match with new password</value>
+  </data>
+  <data name="Confirm_New_Phone_Number_Error_Required" xml:space="preserve">
+    <value>New phone number does not match with confirm new phone number</value>
+  </data>
+  <data name="Authentication_Expired_Message" xml:space="preserve">
+    <value>Your phone authentication has been expired. Please re-authenticate.</value>
+  </data>
+  <data name="Incorrect_Password_Message" xml:space="preserve">
+    <value>Incorrect password</value>
+  </data>
+  <data name="Account_Not_Found_Message" xml:space="preserve">
+    <value>Account not found!</value>
+  </data>
+  <data name="Invalid_Request_Message" xml:space="preserve">
+    <value>Invalid request</value>
+  </data>
+  <data name="Invalid_Gender_Message" xml:space="preserve">
+    <value>Invalid gender</value>
+  </data>
+  <data name="Permission_Denied_Message" xml:space="preserve">
+    <value>Permission denied</value>
+  </data>
+  <data name="AcceptBtn" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="Link_Facebook_Success_Message" xml:space="preserve">
+    <value>Link facebook successfully!</value>
+  </data>
+  <data name="Link_Twitter_Success_Message" xml:space="preserve">
+    <value>Link twitter successfully!</value>
+  </data>
+  <data name="UnLink_Facebook_Success_Message" xml:space="preserve">
+    <value>Unlink facebook successfully!</value>
+  </data>
+  <data name="UnLink_Twitter_Success_Message" xml:space="preserve">
+    <value>Unlink twitter successfully!</value>
+  </data>
+  <data name="Connect_To_Page_Feature_Not_Supported_Message" xml:space="preserve">
+    <value>Connect to page feature is not supported for your account</value>
+  </data>
+  <data name="Your_Account_Does_Not_Link_With_Facebook_Message" xml:space="preserve">
+    <value>Your account does not link with a facebook account</value>
+  </data>
+  <data name="Are_You_Sure_Message" xml:space="preserve">
+    <value>Are you sure?</value>
+  </data>
+  <data name="A_Request_Has_Been_Sent_To_Message" xml:space="preserve">
+    <value>A request has been sent to</value>
+  </data>
+  <data name="Deny_Pending_Invitation" xml:space="preserve">
+    <value>You will deny this pending invitation!</value>
+  </data>
+  <data name="You_Become_Friend_With_Message" xml:space="preserve">
+    <value>You become friend with</value>
+  </data>
+  <data name="Please_Choose_Friend_Message" xml:space="preserve">
+    <value>Please choose your friend</value>
+  </data>
+  <data name="Has_Been_Moved_To_Message" xml:space="preserve">
+    <value>has been moved to</value>
+  </data>
+  <data name="Approve_successfully" xml:space="preserve">
+    <value>Approve successfully</value>
+  </data>
+  <data name="Business" xml:space="preserve">
+    <value>Business</value>
+  </data>
+  <data name="Change_password_success" xml:space="preserve">
+    <value>Change password success</value>
+  </data>
+  <data name="Change_phone_number_success" xml:space="preserve">
+    <value>Change phone number success</value>
+  </data>
+  <data name="Comment_is_required_for_rejection" xml:space="preserve">
+    <value>Comment is required for rejection</value>
+  </data>
+  <data name="Confirm_password_do_not_match" xml:space="preserve">
+    <value>Confirm password does not match with new password</value>
+  </data>
+  <data name="Connect_facebook_page_successfully" xml:space="preserve">
+    <value>Connect facebook page successfully</value>
+  </data>
+  <data name="DELETE" xml:space="preserve">
+    <value>DELETE</value>
+  </data>
+  <data name="Disconnect_facebook_page_successfully" xml:space="preserve">
+    <value>Disconnect  facebook page successfully</value>
+  </data>
+  <data name="Display_Name_length_cannot_exceed_128_characters" xml:space="preserve">
+    <value>Display Name length cannot exceed 128 characters</value>
+  </data>
+  <data name="Email_is_not_available" xml:space="preserve">
+    <value>Email is not available</value>
+  </data>
+  <data name="has_been_added" xml:space="preserve">
+    <value> has been added</value>
+  </data>
+  <data name="Invalid_website_url" xml:space="preserve">
+    <value>Invalid website url</value>
+  </data>
+  <data name="New_password_invalid" xml:space="preserve">
+    <value>New password invalid</value>
+  </data>
+  <data name="New_phone_number_does_not_match" xml:space="preserve">
+    <value>New phone number does not match with confirm new phone number</value>
+  </data>
+  <data name="New_PIN_has_been_sent" xml:space="preserve">
+    <value>New PIN has been sent to your phone number</value>
+  </data>
+  <data name="Old_password_invalid" xml:space="preserve">
+    <value>Old password invalid</value>
+  </data>
+  <data name="Please_choose_an_image" xml:space="preserve">
+    <value>Please choose an image</value>
+  </data>
+  <data name="Please_choose_an_image_file" xml:space="preserve">
+    <value>Please choose an image file</value>
+  </data>
+  <data name="Please_choose_at_least_one_social_network" xml:space="preserve">
+    <value>Please choose at least one social network that you want to share.</value>
+  </data>
+  <data name="Please_choose_a_page_to_connect" xml:space="preserve">
+    <value>Please choose a page to connect</value>
+  </data>
+  <data name="Please_choose_your_member" xml:space="preserve">
+    <value>Please choose your member</value>
+  </data>
+  <data name="Please_enter_display_name" xml:space="preserve">
+    <value>Please enter display name</value>
+  </data>
+  <data name="Please_enter_new_phone_number" xml:space="preserve">
+    <value>Please enter new phone number</value>
+  </data>
+  <data name="Please_enter_website_url" xml:space="preserve">
+    <value>Please enter website url</value>
+  </data>
+  <data name="Please_select_confirm_country" xml:space="preserve">
+    <value>Please select confirm country</value>
+  </data>
+  <data name="Post_Detail" xml:space="preserve">
+    <value>Post Detail</value>
+  </data>
+  <data name="Reject_successfully" xml:space="preserve">
+    <value>Reject successfully</value>
+  </data>
+  <data name="success" xml:space="preserve">
+    <value>success</value>
+  </data>
+  <data name="Successful" xml:space="preserve">
+    <value>Successful</value>
+  </data>
+  <data name="This_message_is_not_empty" xml:space="preserve">
+    <value>This message is not empty.</value>
+  </data>
+  <data name="Twitter_allow_1_photo_in_post" xml:space="preserve">
+    <value>Twitter allow 1 photo in post!</value>
+  </data>
+  <data name="Twitter_message_length_not_valid" xml:space="preserve">
+    <value>Twitter message length not valid!</value>
+  </data>
+  <data name="UPDATE" xml:space="preserve">
+    <value>UPDATE</value>
+  </data>
+  <data name="Update_is_not_completely_success" xml:space="preserve">
+    <value>Update is not completely success</value>
+  </data>
+  <data name="You_must_choose_at_least_one_social_network" xml:space="preserve">
+    <value>You must choose at least one social network.</value>
+  </data>
+  <data name="You_must_enter_in_message_before_posting" xml:space="preserve">
+    <value>You must enter in message before posting.</value>
+  </data>
+  <data name="You_will_deny_this_pending_invitation" xml:space="preserve">
+    <value>You will deny this pending invitation!</value>
+  </data>
+  <data name="Are_You_Sure_To_Remove" xml:space="preserve">
+    <value>Are you sure to remove</value>
+  </data>
+  <data name="ACCOUNT_SETTINGS" xml:space="preserve">
+    <value>ACCOUNT SETTINGS</value>
+  </data>
+  <data name="ACTIVITY_LOG" xml:space="preserve">
+    <value>ACTIVITY LOG</value>
+  </data>
+  <data name="EDIT_PROFILE" xml:space="preserve">
+    <value>EDIT PROFILE</value>
+  </data>
+  <data name="LOG_OUT" xml:space="preserve">
+    <value>LOG OUT</value>
+  </data>
+  <data name="MESSAGING" xml:space="preserve">
+    <value>MESSAGING</value>
+  </data>
+  <data name="NETWORK" xml:space="preserve">
+    <value>NETWORK</value>
+  </data>
+  <data name="NEW_FEEDS" xml:space="preserve">
+    <value>NEW FEEDS</value>
+  </data>
+  <data name="NOTIFICATIONS" xml:space="preserve">
+    <value>NOTIFICATIONS</value>
+  </data>
+  <data name="Type_your_message_here" xml:space="preserve">
+    <value>Type your message here...</value>
+  </data>
+  <data name="VAULT" xml:space="preserve">
+    <value>VAULT</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Re-Enter Password</value>
+  </data>
+  <data name="ConfirmPassword_Error_Invalidated" xml:space="preserve">
+    <value>Confirm Password minimum length is 8 characters</value>
+    <comment>Mật khẩu gồm 8 ký tự trở lên, ít nhất 1 chữ in hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt</comment>
+  </data>
+  <data name="ConfirmPassword_Error_Required" xml:space="preserve">
+    <value>Please confirm password</value>
+    <comment>Xin nhập vào mật khẩu</comment>
+  </data>
+  <data name="Re_Enter_Password" xml:space="preserve">
+    <value>Re-enter password</value>
+    <comment>Nhập lại mật khẩu</comment>
+  </data>
+  <data name="About_Me" xml:space="preserve">
+    <value>About me</value>
+  </data>
+  <data name="Avatar_Profile" xml:space="preserve">
+    <value>Avatar profile</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="Living_In" xml:space="preserve">
+    <value>I'm living in</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="My_Birthday" xml:space="preserve">
+    <value>My birthday</value>
+  </data>
+  <data name="Birthday_Error_Required" xml:space="preserve">
+    <value>Please selected birthday</value>
+  </data>
+  <data name="The_Email_Not_Verify" xml:space="preserve">
+    <value>The email is have been not verify.</value>
+  </data>
+  <data name="Birthday_Error_Less_Today" xml:space="preserve">
+    <value>Birthday must be less today</value>
+  </data>
+  <data name="Check_Mail_Button" xml:space="preserve">
+    <value>CHECK EMAIL!</value>
+  </data>
+  <data name="Send_Link_Verify_Again_Button" xml:space="preserve">
+    <value>Send link again</value>
+  </data>
+  <data name="Send_Link_Verify_Message" xml:space="preserve">
+    <value>&lt;h1&gt;WE HAVE SENT YOU A LINK TO AUTHETICATION.&lt;/h1&gt;&lt;br /&gt;
+                        If you don’t see our email, check your spam folder.&lt;br /&gt;
+                        Still don’t see your email? &lt;a ng-click="resendVerifyEmail()" class="regit-color"&gt;Send link again&lt;/a&gt;&lt;br /&gt;
+                        &lt;a class="btn btn-blue"&gt;CHECK EMAIL!&lt;/a&gt;</value>
+  </data>
+  <data name="Additional_Info" xml:space="preserve">
+    <value>Additional Information</value>
+  </data>
+  <data name="Finished_Title" xml:space="preserve">
+    <value>Finished</value>
+  </data>
+  <data name="Registered_Completed_Login_Message" xml:space="preserve">
+    <value>Please sign in to continue.</value>
+  </data>
+  <data name="Registered_Completed_Message" xml:space="preserve">
+    <value>Account registration is complete.</value>
+  </data>
+  <data name="Verifing_Email_Message" xml:space="preserve">
+    <value>&lt;h3 class="signup-verifiying-email-heading"&gt;Please check your inbox for verification email.&lt;/h3&gt;
+          &lt;p&gt;If you don’t see it, check your spam folder.&lt;/p&gt;&lt;p&gt; Still have trouble?&lt;/p&gt;</value>
+  </data>
+  <data name="Account_Is_Verified" xml:space="preserve">
+    <value>Account is verified</value>
+  </data>
+  <data name="Registered_Not_Completed_Message" xml:space="preserve">
+    <value>Registration not completed</value>
+  </data>
+  <data name="Session_Verify_Is_Expired" xml:space="preserve">
+    <value>Session verify is expired</value>
+  </data>
+  <data name="Start_App_Message" xml:space="preserve">
+    <value>Please sign in to continue.</value>
+  </data>
+  <data name="Verify_Is_Completed" xml:space="preserve">
+    <value>Verification completed. Your account is now activated.</value>
+  </data>
+  <data name="Send_Email_Verify_Is_Completed" xml:space="preserve">
+    <value>Verify email sent</value>
+  </data>
+  <data name="Are_you_sure_remove_this_post" xml:space="preserve">
+    <value>Are you sure remove this post?</value>
+  </data>
+  <data name="Cannot_upload_more_than_1_picture" xml:space="preserve">
+    <value>Cannot upload more than 1 picture!</value>
+  </data>
+  <data name="Facebook_Cannot_post_on_Facebook_now" xml:space="preserve">
+    <value>Facebook: Cannot post on Facebook now!</value>
+  </data>
+  <data name="Facebook_posted_successfully" xml:space="preserve">
+    <value>Facebook: posted successfully</value>
+  </data>
+  <data name="Regit_Cannot_post_on_Regit_now" xml:space="preserve">
+    <value>Regit: Cannot post on Regit now!</value>
+  </data>
+  <data name="Regit_posted_successfully" xml:space="preserve">
+    <value>Regit: posted successfully</value>
+  </data>
+  <data name="Twitter_Cannot_post_on_Twitter_now" xml:space="preserve">
+    <value>Twitter: Cannot post on Twitter now!</value>
+  </data>
+  <data name="Twitter_message_lenght_is_not_greater_than_140" xml:space="preserve">
+    <value>Twitter message lenght is not greater than 140 letters!</value>
+  </data>
+  <data name="Twitter_posted_successfully" xml:space="preserve">
+    <value>Twitter: posted successfully</value>
+  </data>
+  <data name="Your_account_didnt_link_with_Twitter" xml:space="preserve">
+    <value>Your account didn't link with Twitter account.</value>
+  </data>
+  <data name="Addtional_Info" xml:space="preserve">
+    <value>Addtional info</value>
+    <comment>Thông tin thêm</comment>
+  </data>
+  <data name="Addtional_Info_Sign_Up_Caption" xml:space="preserve">
+    <value>You can continue to create your business page in the background.&lt;br /&gt;Page is not public until verified.</value>
+    <comment>Bạn có thể tiếp tục tạo trang doanh nghiệp.&lt;br/&gt;Trang của bạn sẽ ko được công khai đến khi xác thực thành công.</comment>
+  </data>
+  <data name="Agree_Term_Condition_Required" xml:space="preserve">
+    <value>Please read and agree our terms and condition before go to next step of registration</value>
+    <comment>Vui lòng đọc và chấp nhận điều khoản và điều kiện của chúng tôi trước khi đến bước tiếp theo</comment>
+  </data>
+  <data name="Resend_Verify_Email_Success" xml:space="preserve">
+    <value>Verify email resent successfully</value>
+    <comment>Gửi lại email xác thực thành công</comment>
+  </data>
+  <data name="Terms_AndSign_Conditions" xml:space="preserve">
+    <value>Terms &amp; Conditions</value>
+    <comment>Điều khoản &amp; điều kiện</comment>
+  </data>
+  <data name="Understand_Risks_And_Agree_Terms_Sentence" xml:space="preserve">
+    <value>I understand the risks of delegation and agree to the</value>
+    <comment>Tôi hiểu những nguy cơ của sự ủy thác và đồng ý với</comment>
+  </data>
+  <data name="Business_account_does_not_exist" xml:space="preserve">
+    <value>Business account does not exist</value>
+  </data>
+  <data name="Invalid_work_days" xml:space="preserve">
+    <value>Invalid work days</value>
+  </data>
+  <data name="Work_hours_is_required" xml:space="preserve">
+    <value>Work hours is required</value>
+  </data>
+  <data name="Reason_Title" xml:space="preserve">
+    <value>Reason: </value>
+  </data>
+  <data name="Until_Title" xml:space="preserve">
+    <value>Until: </value>
+  </data>
+  <data name="Please_Contact_Admin" xml:space="preserve">
+    <value>Please contact Regit administrator for support.</value>
+  </data>
+  <data name="Please_Check_Email_Again" xml:space="preserve">
+    <value>Please check email again.</value>
+  </data>
+  <data name="ConfirmPassword_Error_Not_Same_Password" xml:space="preserve">
+    <value>Confirm password is not same with password.</value>
+  </data>
+  <data name="New_Verification_Email_Sent" xml:space="preserve">
+    <value>New verification email has been sent</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="BROADCAST" xml:space="preserve">
+    <value>BROADCAST!</value>
+  </data>
+  <data name="CAMPAIGN_MODULE" xml:space="preserve">
+    <value>INTERACTION MODULE</value>
+  </data>
+  <data name="Delete_normal" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="Filter_your_search" xml:space="preserve">
+    <value>Filter your search</value>
+  </data>
+  <data name="Friends" xml:space="preserve">
+    <value>Friends</value>
+  </data>
+  <data name="INDIVIDUAL_DASHBOARD" xml:space="preserve">
+    <value>INDIVIDUAL DASHBOARD</value>
+  </data>
+  <data name="Invalid_filters" xml:space="preserve">
+    <value>Invalid filters</value>
+  </data>
+  <data name="Last_10_days" xml:space="preserve">
+    <value>Last 10 days</value>
+  </data>
+  <data name="Please_type_keyword_to_search" xml:space="preserve">
+    <value>Please type keyword to search</value>
+  </data>
+  <data name="Posted" xml:space="preserve">
+    <value>Posted</value>
+  </data>
+  <data name="Post_to" xml:space="preserve">
+    <value>Post to</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>Private</value>
+  </data>
+  <data name="Public" xml:space="preserve">
+    <value>Public</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>Report</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="STATISTICS" xml:space="preserve">
+    <value>STATISTICS</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>MESSAGING</value>
+  </data>
+  <data name="String2" xml:space="preserve">
+    <value>BUSINESS ACCOUNT MANAGEMENT</value>
+  </data>
+  <data name="This_month" xml:space="preserve">
+    <value>This month</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Welcome!</value>
+  </data>
+  <data name="WORKFLOW" xml:space="preserve">
+    <value>WORKFLOW</value>
+  </data>
+  <data name="Business_Hours" xml:space="preserve">
+    <value>Business hours</value>
+    <comment>Giờ làm việc</comment>
+  </data>
+  <data name="Set_PIN" xml:space="preserve">
+    <value>Set PIN Code</value>
+    <comment>Cài đặt mã bảo mật</comment>
+  </data>
+  <data name="Update_PIN" xml:space="preserve">
+    <value>Update PIN Code</value>
+    <comment>Cập nhật mã bảo mật</comment>
+  </data>
+  <data name="Confirm_New_Pin_Code_Error_Required" xml:space="preserve">
+    <value>New PIN code does not match with confirm new PIN code</value>
+  </data>
+  <data name="Confirm_PIN_Code" xml:space="preserve">
+    <value>Re-Enter PIN code</value>
+  </data>
+  <data name="New_PIN_Code" xml:space="preserve">
+    <value>New PIN code</value>
+  </data>
+  <data name="Change_PIN_Code_Success_Message" xml:space="preserve">
+    <value>Changed PIN code</value>
+  </data>
+  <data name="PIN_Error_Format_Incorrect" xml:space="preserve">
+    <value>Personal PIN must include 4 to 6 digits, no other character allowed.</value>
+  </data>
+  <data name="DOB" xml:space="preserve">
+    <value>Date of Birth</value>
+  </data>
+  <data name="ConfirmStaticPIN" xml:space="preserve">
+    <value>Re-enter PIN</value>
+    <comment>Xác nhận mã PIN tĩnh</comment>
+  </data>
+  <data name="StaticPIN" xml:space="preserve">
+    <value>Personal PIN</value>
+    <comment>Mã PIN tĩnh</comment>
+  </data>
+</root>

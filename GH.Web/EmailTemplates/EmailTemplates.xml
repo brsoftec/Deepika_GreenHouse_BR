@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Templates>
+  <Template>
+    <Code>VERIFY_EMAIL</Code>
+    <Name>Verify email</Name>
+    <Description>Template email for send verify email message</Description>
+    <OpenPlaceHolder>{{</OpenPlaceHolder>
+    <ClosePlaceHolder>}}</ClosePlaceHolder>
+    <Title>Confirmation registration at Green House</Title>
+    <BodyTemplatePath>~/EmailTemplates/verify-email.html</BodyTemplatePath>
+  </Template>
+  <Template>
+    <Code>RESET_PASSWORD_EMAIL</Code>
+    <Name>Reset password email</Name>
+    <Description>Template email for send reset password token to user</Description>
+    <OpenPlaceHolder>{{</OpenPlaceHolder>
+    <ClosePlaceHolder>}}</ClosePlaceHolder>
+    <Title>Reset your Regit account's password</Title>
+    <BodyTemplatePath>~/EmailTemplates/reset-password-email.html</BodyTemplatePath>
+  </Template>
+  <Template>
+    <Code>RESET_PASSWORD_SMS</Code>
+    <Name>Reset password sms</Name>
+    <Description>Template sms for send reset password token to user</Description>
+    <OpenPlaceHolder>{{</OpenPlaceHolder>
+    <ClosePlaceHolder>}}</ClosePlaceHolder>
+    <Title>Reset your Regit account's password</Title>
+    <BodyTemplatePath>~/EmailTemplates/reset-password-sms.html</BodyTemplatePath>
+  </Template>
+  <Template>
+    <Code>CODE_AUTHENTICATION_SMS</Code>
+    <Name>code authentication sms</Name>
+    <Description>Template sms for code authentication to user</Description>
+    <OpenPlaceHolder>{{</OpenPlaceHolder>
+    <ClosePlaceHolder>}}</ClosePlaceHolder>
+    <Title>Regit authentication PIN</Title>
+    <BodyTemplatePath>~/EmailTemplates/code-authentication-sms.html</BodyTemplatePath>
+  </Template>
+  <Template>
+    <Code>CODE_AUTHENTICATION_EMAIL</Code>
+    <Name>Code Authentication</Name>
+    <Description>Template email for code authentication to user</Description>
+    <OpenPlaceHolder>{{</OpenPlaceHolder>
+    <ClosePlaceHolder>}}</ClosePlaceHolder>
+    <Title>Regit authentication PIN</Title>
+    <BodyTemplatePath>~/EmailTemplates/code-authentication-email.html</BodyTemplatePath>
+  </Template>
+</Templates>

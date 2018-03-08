@@ -1,0 +1,87 @@
+﻿<div class="access-workflow-roles" ng-controller="AccessWorkflowRoleController" id="workflow">
+
+    <div class="network-add-panel" ng-controller="BillingQuotaController">
+
+        <div ng-if="false" class="billing-quota-container">
+            <div class="billing-quota-alert" ng-if="billing.reachedWorkflowMembers">
+                <p>Important: As imposed by {{billing.plan.label}}, you can have a maximum of
+                    {{billingInfo.maxWorkflowMembers}} users in your workflow. You have reached that limitation.</p>
+                <p><a href="/BusinessAccount/Billing">Upgrade your plan</a> to invite more.</p>
+            </div>
+        </div>
+        <div ng-if="!billing.reachedWorkflowMembers">
+            <a ng-click="showInviteControl = !showInviteControl" class="network-add-cta">Add member</a>
+            <div ng-if="showInviteControl" class="network-add-form">
+                <div class="network-invitation">
+                    <span class="no-result" ng-show="searchMemberNoResult">@GH.Lang.Regit.No_Results_Found</span>
+                    <div class="search-friend-input-wrapper">
+                        <input type="text" ng-model="invitation" placeholder="Find in Regit"
+                               uib-typeahead="member as member.DisplayName for member in findMembers($viewValue)"
+                               typeahead-no-results="searchMemberNoResult" typeahead-wait-ms="500"
+                               typeahead-editable="false" typeahead-template-url="searchMembersTemplate.html"/></div>
+                    <a class="btn btn-blue"
+                       ng-click="invite(invitation);updateBillingUsage({workflowMembers:billingInfo.workflowMembers+1})">@GH.Lang.Regit.Add</a>
+                    <script type="text/ng-template" id="searchMembersTemplate.html">
+                        <div class="search-friend-item">
+                            <div class="search-friend-avatar">
+                                <img ng-src="{{match.model.Avatar ? match.model.Avatar : '/Areas/User/Content/Images/no-pic.png'}}">
+                            </div>
+                            <div class="search-friend-name">
+                                <span ng-bind-html="match.model.DisplayName | uibTypeaheadHighlight:query"></span>
+                            </div>
+                        </div>
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row account-form-row">
+        <div class="col-xs-4">
+            @GH.Lang.Regit.Name
+        </div>
+        <div class="col-xs-2 text-center">
+            Admin
+        </div>
+        <div class="col-xs-2 text-center">
+            @GH.Lang.Regit.Editor
+        </div>
+        <div class="col-xs-2 text-center">
+            @GH.Lang.Regit.Approver
+        </div>
+        <div class="col-xs-2">
+        </div>
+    </div>
+
+    <div ng-repeat-start="member in members" class="row field">
+        <div class="col-xs-4 field-col" ng-class="{'temp-delete':tempDeleteMembers.indexOf(member) >= 0}">
+            <img class="avatar" ng-src="{{member.Avatar ? member.Avatar : '/Areas/User/Content/Images/no-pic.png'}}"/>
+            {{member.DisplayName}}
+        </div>
+        <div class="col-xs-2 field-col text-center">
+            <label class="checkbox-square"><input ng-disabled="tempDeleteMembers.indexOf(member) >= 0" type="checkbox"
+                                                  ng-model="member.IsAdmin"/><span></span></label>
+        </div>
+        <div class="col-xs-2 field-col text-center">
+            <label class="checkbox-square"><input ng-disabled="tempDeleteMembers.indexOf(member) >= 0" type="checkbox"
+                                                  ng-model="member.IsEditor"/><span></span></label>
+        </div>
+        <div class="col-xs-2 field-col text-center">
+            <label class="checkbox-square"><input ng-disabled="tempDeleteMembers.indexOf(member) >= 0" type="checkbox"
+                                                  ng-model="member.IsReviewer"/><span></span></label>
+        </div>
+        <div class="col-xs-2 field-col text-right">
+            <a ng-click="removeMember(member)" ng-class="{'active-color':tempDeleteMembers.indexOf(member) >= 0}"
+               class="network-item-delete"></a>
+        </div>
+    </div>
+    <hr ng-repeat-end class="half"/>
+    <div class="row field">
+        <div class="col-md-12 text-right">
+            <div class="field-tools">
+                <a ng-click="saveModifyMembers()" class="btn btn-blue fix-width-mini">@GH.Lang.Regit.Save</a>
+                <a ng-click="GetMembersInBusiness()" class="btn btn-white fix-width-mini">@GH.Lang.Regit.Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>

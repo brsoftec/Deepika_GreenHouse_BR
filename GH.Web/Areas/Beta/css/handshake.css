@@ -1,0 +1,61 @@
+
+.handshake-new-modal {
+    width: 470px;
+    height: 780px;
+    margin: auto;
+    overflow: visible !important;
+}
+
+.form-action-primary {
+    background-color: #00adef;
+    color: white;
+}
+
+.form-action-cancel {
+    background-image: url(../img/form-cancel.svg);
+}
+
+.form-action-submit {
+    background-image: url(../img/send-lite.svg);
+}
+
+.handshake-new-form .modal-form-label {
+    width: 35%;
+}.handshake-new-form .modal-form-control {
+    width: 60%;
+    position: relative;
+}
+
+.handshake-user-select-control {
+    height: 40px;
+}
+
+ .handshake-user-select {
+     left: 0; top: -10px;
+     width: 100%;
+     height: 40px;
+ }
+
+.handshake-field-select-control {
+    text-align: right;
+}.handshake-field-select-switch {
+    width: 40px;
+}
+
+ .handshake-user-avatar {
+     /*max-width: 300px;*/
+     width: 80px;
+     height: auto;
+     max-height: 200px;
+     background: white;
+     border: 1px solid #ddd;
+     border-radius: 3px;
+     padding:5px;
+ }
+.handshake-user-avatar img {
+    width: 100%;
+}
+.modal-form-disclaimer {
+    font-size: 90%;
+    padding: 10px 40px;
+}

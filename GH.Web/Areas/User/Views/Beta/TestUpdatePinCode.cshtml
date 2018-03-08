@@ -1,0 +1,29 @@
+﻿@using GH.Lang
+@{
+    ViewBag.Title = "Account Settings";
+    Layout = "~/Areas/User/Views/Shared/_LayoutDefaultApply.cshtml";
+  
+
+}
+@section styles {
+    @Styles.Render("~/bundles/user/account-settings/css")
+}
+@section scripts {
+    <script src="~/Areas/User/Scripts/Services/BusinessAccountService.js"></script>
+    @Scripts.Render("~/bundles/user/account-settings-ctrl")
+    @Scripts.Render("~/bundles/BusinessUserSystem")
+    @Scripts.Render("~/bundles/sms-authencation-popup-ctrl")
+}
+
+<div class="module module-main module-account" ng-controller="AccountSettingsController">
+
+    <div class="col-md-12">
+       
+            <h2 class="regit-color">@Regit.Account_Settings_Sub_Title</h2>
+            <div ng-view></div>
+            <div class="collapse-list">
+                @Html.Partial("~/Areas/User/Views/User/_AccountSettingsManageLoginPassword.cshtml")
+            </div>
+     
+    </div>
+ </div>

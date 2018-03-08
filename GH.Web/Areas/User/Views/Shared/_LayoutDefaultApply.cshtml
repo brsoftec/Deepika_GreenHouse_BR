@@ -1,0 +1,25 @@
+@{
+Layout = "~/Areas/User/Views/Shared/_MainLayoutApply.cshtml";
+}
+
+@section styles {    @RenderSection("styles", required: false) }
+@section prescripts {    @RenderSection("prescripts", required: false) }
+@section initscripts {    @RenderSection("initscripts", required: false) }
+@section scripts {    @RenderSection("scripts", required: false) }
+
+@*  TWO COLUMN LAYOUT   *@
+
+<div class="body-cols body-cols-narrow">
+
+    <div class="body-col body-col-main">
+        <!-- MAIN COLUMN -->
+        @RenderBody()
+        @RenderSection("body", required: false)
+    </div>
+    <div class="body-col body-col-right">
+        <!-- RIGHT COLUMN (ASIDE)-->
+        @Html.Partial("_MainAsidePartialApply")
+    </div>
+
+</div>
+

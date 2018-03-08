@@ -1,0 +1,9 @@
+
+<!-- saved from url=(0088)file:///C:/Users/son/AppData/Roaming/Skype/My%20Skype%20Received%20Files/date-input.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"></head><body><input ng-if="!type || type===&#39;datepicker&#39;" bs-datepicker="" name="{{name}}Input" ng-model="$parent.model" ng-required="required" data-date-format="yyyy-MM-dd" data-date-type="date" data-min-date="today" data-placement="auto" data-autoclose="1">
+
+<div ng-if="type===&#39;combo&#39;">
+    <rgu-picker class="picker-day" ng-model="rdate.day" items="days" placeholder="Day"></rgu-picker>
+    <rgu-picker class="picker-month" ng-model="rdate.month" items="months" placeholder="Month" filter="monthName"></rgu-picker>
+    <rgu-picker class="picker-year" ng-model="rdate.year" items="years" placeholder="Year"></rgu-picker>
+</div></body></html>

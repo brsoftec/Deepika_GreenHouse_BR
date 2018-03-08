@@ -1,0 +1,76 @@
+.support-actions {
+    height: 50px;
+}
+
+.support-action-create {
+    background: none;
+    background-color: #00adef;
+    color: white;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 20px;
+    margin: 10px;
+    font-weight: 500;
+    float: right;
+}
+
+.support-cases-grid {
+}
+
+
+.support-cases-grid th, .support-cases-grid td {
+    padding: 4px;
+    cursor: pointer;
+}
+
+.support-cases-grid th {
+    font-weight: 400;
+}
+
+.support-cases-grid td {
+    font-size: 80%;
+}
+
+.support-case-form {
+    text-align: left;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.support-case-form-row {
+    padding: 8px 4px;
+}
+
+.support-case-form-label {
+    display: inline-block;
+    width: 30%;
+    vertical-align: top;
+}
+
+.support-case-form-control {
+    display: inline-block;
+    width: 65%;
+    vertical-align: top;
+}
+
+.support-case-form-control input {
+    border: 1px solid #ddd;
+    height: 30px;
+    padding: 4px 6px;
+    width: 100%;
+}
+
+.support-case-form-control textarea {
+    border: 1px solid #ddd;
+    padding: 4px 6px;
+    width: 100%;
+}
+
+.support-case-actions {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.support-case-action {
+    margin-right: 10px;
+}

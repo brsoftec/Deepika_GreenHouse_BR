@@ -1,0 +1,92 @@
+﻿.gallery-item {
+    margin-bottom: 20px;
+}
+
+.gallery-item-display-wrapper {
+    cursor: pointer;
+}
+
+.gallery-item-preview {
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    border: 1px solid #808080;
+    background: #dddddd;
+    position: relative;
+}
+
+    .gallery-item-preview img, .gallery-item-preview video {
+        max-width: 100%;
+        max-height: 100%;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+    }
+
+.gallery-item-caption {
+    background: #dddddd;
+    border: 1px solid #808080;
+    padding: 10px;
+    text-align: center;
+}
+
+.caption-title {
+    font-weight: bold;
+}
+
+.caption-description {
+    font-style: italic;
+}
+
+.gallery-item-ck-tools {
+    text-align: center;
+    border: 1px solid #808080;
+}
+
+    .gallery-item-ck-tools .btn {
+        border-radius: 0;
+    }
+
+.gallery-item-tools {
+    position: absolute;
+    width: 100%;
+    text-align: right;
+    top: 0;
+    left: 0;
+    padding: 10px;
+}
+
+    .gallery-item-tools > a {
+        margin-left: 10px;
+    }
+
+        .gallery-item-tools > a:hover {
+            font-size: larger;
+        }
+
+.edit-icon {
+    color: #0071d1;
+}
+
+.delete-icon {
+    color: #bd3232;
+}
+
+.preview-image-uploader {
+    max-width: 200px;
+}
+
+.photo-uploader .photo-uploader-wrapper .photo-uploader-tool .upload-btn {
+    background: rgba(128, 128, 128, 0.5);
+    padding: 5px;
+    color: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    display: block;
+}

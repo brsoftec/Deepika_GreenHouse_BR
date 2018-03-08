@@ -1,0 +1,62 @@
+@{
+
+    ViewBag.NgApp = "interactionEditor";
+    ViewBag.BaseUrl = Request.Url.GetLeftPart(UriPartial.Authority);
+    Layout = "~/Areas/User/Views/Shared/_MainBusinessLayoutApply.cshtml";
+}
+
+@section styles {
+
+    @RenderSection("styles", required: false)
+    <link rel="stylesheet" href="@Url.Versioned("~/Areas/Beta/css/interaction.css")">
+    <link rel="stylesheet" href="@Url.Versioned("~/Areas/Beta/css/business-interaction.css")">
+    <link rel="stylesheet" href="@Url.Versioned("~/Areas/Beta/css/social.css")">
+}
+
+
+@section prescripts {
+    
+    <script>
+        var regitGlobal = regitGlobal || {};
+        regitGlobal.ngApp = 'interactionEditor';
+    </script>
+    
+
+    @RenderSection("prescripts", required: false)
+}
+@section initscripts {
+
+
+    <script>
+        angular.module('interactionEditor', ['dndLists', 'myApp', 'interaction', 'businessInteraction']);
+    </script>
+
+
+    @RenderSection("initscripts", required: false)
+}
+
+@section scripts {
+
+    <script src="@Url.Versioned("~/Areas/regitUI/js/modules/interaction.js")"></script>
+    <script src="@Url.Versioned("~/Areas/regitUI/js/modules/social.js")"></script>
+    <script src="@Url.Versioned("~/Areas/regitUI/js/modules/businessInteraction.js")"></script>
+    
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/InteractionEditorController.js")"></script>
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/InteractionFormController.js")"></script>
+
+    @RenderSection("scripts", required: false)
+
+}
+
+@*  FULL WIDTH LAYOUT   *@
+
+<div class="body-cols body-cols-full">
+
+    <div class="body-col body-col-full">
+        <!-- MAIN COLUMN -->
+        @RenderBody()
+        @RenderSection("body", required: false)
+    </div>
+
+
+</div>

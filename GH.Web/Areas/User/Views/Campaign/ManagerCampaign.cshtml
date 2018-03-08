@@ -1,0 +1,224 @@
+﻿@{
+    Layout = "~/Areas/User/Views/Shared/_LayoutDefaultBusinessApply.cshtml";
+    ViewBag.Title = "Interactions Manager";
+}
+@section scripts {
+
+    @Scripts.Render("~/bundles/BusinessUserSystem")
+    @Scripts.Render("~/bundles/Campaign")
+    @Scripts.Render("~/bundles/CampaignService")
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/dialog-confirm-ctrl.js")"></script>
+}
+
+<div class="module module-main module-business module-interactions" ng-controller="ManagerCampaignController as vm" ng-init="vm.initializeController()">
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="/BusinessAccount">&laquo; Business Home</a>
+    </li>
+    <li class="breadcrumb-item active">Interactions Manager</li>
+</ol>
+<h1>Interactions Manager</h1>
+<div class="dashboard-prefix">New Interaction</div>
+
+<div class="interaction-dashboard">
+    <a href="/Interactions/New/Broadcast" class="interaction-cta interaction-cta-ad">Broadcast</a>
+    <a href="/Interactions/New/Event" class="interaction-cta interaction-cta-evt">Event</a>
+    <a href="/Interactions/New/Registration" class="interaction-cta interaction-cta-reg last-in-row">Registration</a>
+    <div class="dashboard-divider"></div>
+    <a href="/Interactions/New/SRFI" class="interaction-cta interaction-cta-srfi">Static Form (SRFI)</a>
+
+    <a href="/Interactions/New/Handshake" class="interaction-cta interaction-cta-sync">Handshake</a>
+    <a href="/Interactions/New/PushToVault" class="interaction-cta interaction-cta-push last-in-row">Push Form</a>
+
+
+</div>
+<div class="interaction-manager clearfix">
+    <form class="form-horizontal form-campaigns">
+        <div class="campaigns-grid">
+            <div class="input-group-btn btn-filter-campaigns btn-filter-campaigns-type">
+                <button type="button" class="btn btn-default dropdown-toggl btn-filter-campaigns"
+                        data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    {{vm.CampaignTypeSelect}}<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li>
+                        <a ng-click="vm.ChangeCampaignType('All Interactions')" href="#">All Interactions</a>
+                    </li>
+                    <li>
+                        <a ng-click="vm.ChangeCampaignType('Advertising')" href="#">Ads</a>
+                    </li>
+                    <li>
+                        <a ng-click="vm.ChangeCampaignType('Registration')" href="#">Registrations</a>
+                    </li>
+                    <li>
+                        <a ng-click="vm.ChangeCampaignType('Event')" href="#">Events</a>
+                    </li>
+                    <li>
+                        <a ng-click="vm.ChangeCampaignType('SRFI')" href="#">SRFI</a>
+                    </li>
+                    <li>
+                        <a ng-click="vm.ChangeCampaignType('PushToVault')" href="#">Push Forms</a>
+                    </li>
+                    <li>
+                        <a ng-click="vm.ChangeCampaignType('Handshake')" href="#">Sync Forms</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="input-group-btn btn-filter-campaigns btn-filter-campaigns-status">
+                <button type="button" class="btn btn-default dropdown-toggl"
+                        data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    {{vm.CampaignStatusSelect}}<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li>
+                        <a ng-click="vm.ChangeCampaignstatus('All Status')" href="#">All Status</a>
+                    </li>
+                    <li>
+                        <a ng-click="vm.ChangeCampaignstatus('Active')" href="#">Active</a>
+                    </li>
+                    <li>
+                        <a ng-click="vm.ChangeCampaignstatus('Inactive')" href="#">Inactive</a>
+                    </li>
+                    <li>
+                        <a ng-click="vm.ChangeCampaignstatus('Pending')" href="#">Pending</a>
+                    </li>
+                    <li>
+                        <a ng-click="vm.ChangeCampaignstatus('Saved')" href="#">Saved</a>
+                    </li>
+                    <li>
+                        <a ng-click="vm.ChangeCampaignstatus('Expired')" href="#">Expired</a>
+                    </li>
+                </ul>
+            </div>
+
+            <table class="table table-striped interactions-grid">
+                <thead>
+                <tr>
+                    <th>Interaction</th>
+                    <th>Date</th>
+                    <th class="interaction-number">Participants</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-init="status=c.Status.toLowerCase();" class="interaction-status-{{c.Status.toLowerCase()}}"
+                    ng-repeat="c in vm.ListCampaignNodraff">
+                    <td class="interaction-key">
+                        <interaction-badge model="c"></interaction-badge>
+                        <span class="interaction-name">{{c.Name}}</span>
+                    </td>
+                    <td class="interaction-date" ng-class="vm.GetClassStatusCampaign(c.Status)">
+                        <div ng-if="c.Type!=='PushToVault'">
+                            Launch: {{c.SpendEffectDate|date:'yyyy-MM-dd'}}<br>
+                            Expire: {{c.TimeType==='Daily' ? 'Indefinite' : c.EnDate|date:'yyyy-MM-dd'}}
+                        </div>
+                    </td>
+
+                    <td class="interaction-number campaigns-participants">
+                        {{(c.Type!=='Advertising' && c.Type!=='PushToVault')?c.Participants:''}}
+                        <span class="sync-pending-count" ng-if="c.Type==='Handshake' && c.CountUserInvitedHandshake">
+                            <br>({{c.CountUserInvitedHandshake}} pending)
+                        </span>
+                    </td>
+                    <td class="interaction-boost">
+                        <button class="interaction-action action-approve" ng-if="(vm.Isviewapproved && (c.Status=='Pending'))" ng-click="vm.review($index);closeMoreActions(c)">Approve</button>
+                        <button class="interaction-action action-boost" ng-if="c.Status === 'Active' && !(c.Type=='SRFI') && !(c.Type=='PushToVault') && !(c.Type=='Handshake')" ng-click="vm.Boost(c)">Boost</button>
+
+                    </td>
+                    <td class="interaction-actions">
+                        <button class="grid-action action-more" ng-click="openMoreActions(c,$event)">More</button>
+                        <div class="more-actions-dropdown" ng-if="view.openingMoreActions===c.Id">
+                            <button class="more-action" ng-if="c.Type!=='Advertising'" ng-click="vm.ManageCustomers(c.Id)">Manage Customers</button>
+                            <button class="more-action" ng-if="(c.Type=='Handshake') && (c.Status=='Active') " ng-click="vm.ViewCustomer(c.Id)">Manage Handshakes</button>
+                            <button class="more-action" ng-if="vm.Isviewedit" ng-click="vm.edit($index);closeMoreActions(c)">Edit</button>
+                            @*<button class="more-action" ng-if="!c.Participants" ng-click="vm.DeleteCampaign(c)">Delete</button>*@
+                            <button class="more-action" ng-click="vm.DeleteCampaign(c)">Delete</button>
+                            <button class="more-action" ng-if="!(c.Type=='PushToVault') && !(c.Type=='Handshake')"
+                                    ng-click="vm.ActionAnalytics(c.Id,c.Name);closeMoreActions(c)">
+                                View Analytics
+                            </button>
+
+
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <ul items-per-page="10" boundary-links="true" ng-change="vm.pageChanged()" uib-pagination total-items="vm.totalCampaigns" ng-model="vm.currentPageNumber"
+                ng-if="vm.totalCampaigns>10" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;"
+                first-text="&laquo;" last-text="&raquo;">
+            </ul>
+        </div>
+
+        <div class="grid-heading">
+        @*        <button class="btn grid-tab-btn" ng-class="{'btn-primary':!showTemplates}"
+                ng-click="$event.preventDefault();showTemplates=false;">
+            Drafts
+        </button>*@
+        <button class="btn grid-tab-btn" ng-class="{'btn-primary':showTemplates}"
+                ng-click="$event.preventDefault();showTemplates=true;">
+            Templates
+        </button>
+        </div>
+
+        <div class="campaigns-grid campaigns-templates templates-grid" ng-if="showTemplates">
+            <table class="table table-striped">
+                <tbody>
+                @*            <tr class="campaign-template" ng-repeat="c in vm.ListCampaigntemplate track by $index">
+                <td class="campaigns-name">
+                    <campaign-indicator type="{{c.Type}}" namecampaign="{{c.Name}}"/>
+                </td>
+                <td class="campaigns-type">{{c.Description}}</td>
+
+                <td class="campaigns-actions">
+                    <a href="#" class="btn-campaigns-edit" ng-click="vm.CloneTemplate($index)">New Campaign</a>
+                    <a href="#" class="btn-campaigns-edit" ng-click="vm.EditTemplate($index)">Edit Template</a>
+                    <a href="#" class="btn-campaigns-edit" ng-click="vm.DeleteTemplate($index)">Delete</a>
+                </td>
+            </tr>*@
+
+                <tr class="interaction-status-template" ng-repeat="c in vm.ListCampaigntemplate track by $index">
+                    <td class="interaction-key">
+                        <interaction-badge model="c"></interaction-badge>
+                        <span class="interaction-name">{{c.Name}}</span>
+                    </td>
+
+                    <td class="interaction-actions">
+                        <button class="grid-action action-more" ng-click="openMoreActions(c,$event)">More</button>
+                        <div class="more-actions-dropdown" ng-if="view.openingMoreActions===c.Id">
+                            <button class="more-action" ng-click="vm.newFromTemplate(c);closeMoreActions(c)">New Interaction</button>
+                            <button class="more-action" ng-click="vm.editInteraction(c);closeMoreActions(c)">Edit Template</button>
+
+                            <button class="more-action" ng-click="vm.DeleteCampaign(c)">Delete Template</button>
+                        </div>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+            <div uib-pagination items-per-page="10" ng-change="pageChangedtemplate()" boundary-links="true"
+                 total-items="vm.totalCampaignstemplate" ng-model="vm.currentPageNumbertemplate"
+                 ng-if="vm.totalCampaignstemplate>10" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;"
+                 first-text="&laquo;" last-text="&raquo;">
+            </div>
+        </div>
+    </form>
+    <script type="text/ng-template" id="modal-boost.html">
+            <div class="modal-container modal-alert">
+                <h3 class="">Boost Campaign</h3>
+                <div class="modal-alert-text">
+                    <h4>Boost your interaction: <span class="campaign-name">{{campaign.Name}}</span></h4>
+                    <p>Push to top of feed for more visibility.</p>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="btn btn-primary btn-lg" ng-click="submit()">Yes, Boost It</button>
+                    <button type="button" class="btn btn-default btn-lg" ng-click="cancel()">No</button>
+                </div>
+            </div>
+        </script>
+</div>
+</div>

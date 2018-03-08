@@ -1,0 +1,46 @@
+﻿<div class="vault-group">
+    <div class="vault-panel" ng-controller="GroupAddressController">
+        <div class="vault-panel-header">
+            <button class="btn-vault-panel-header btn-vault-panel-back" ng-click="vm.AlphaRedirectTask('main_form.html')" href="#"> Back</button>
+            <button class="btn-vault-panel-header btn-vault-panel-close" ng-click="vm.AlphaRedirectTask('main_form.html')" href="#"> Close</button>
+            <h4 class="vault-panel-title">
+                Add a new address
+
+            </h4>
+        </div>
+
+        <div class="vault-panel-body" ng-if="list_group !=''">
+            <form name="formGroup" class="vault-panel-form" novalidate>
+
+                <div class="vault-panel-row">
+
+                    <select rgu-select class="short" ng-model="_select._value" ng-options="address for address in list_group">
+                        <option value="" class="select-heading">{{_select._value}}</option>
+                    </select>
+
+                    <!-- Current  Address -->
+                    <div ng-if="_select._value == 'Current Address'">
+                        <div ng-include="vm.current_address"></div>
+                    </div>
+                    <!-- Delivery Address -->
+                    <div ng-if="_select._value == 'Delivery Address'">
+                        <div ng-include="vm.delivery_address"></div>
+                    </div>
+                    <!-- Billing Address -->
+                    <div ng-if="_select._value == 'Billing Address'">
+                        <div ng-include="vm.billing_address"></div>
+                    </div>
+                    <!-- Mailing Address -->
+                    <div ng-if="_select._value == 'Mailing Address'">
+                        <div ng-include="vm.mailing_address"></div>
+                    </div>
+                    <!-- Pobox -->
+                    <div ng-if="_select._value == 'Pobox'">
+                        <div ng-include="vm.pobox"></div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

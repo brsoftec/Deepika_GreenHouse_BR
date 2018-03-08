@@ -1,0 +1,445 @@
+{
+    "industries":
+    [{
+        "name": "Accounting",
+        "cats": "corp, fin"
+    }, {
+        "name": "Airlines/Aviation",
+        "cats": "man, tech, tran"
+    }, {
+        "name": "Alternative Dispute Resolution",
+        "cats": "leg, org"
+    }, {
+        "name": "Alternative Medicine",
+        "cats": "hlth"
+    }, {
+        "name": "Animation",
+        "cats": "art, med"
+    }, {
+        "name": "Apparel & Fashion",
+        "cats": "good"
+    }, {
+        "name": "Architecture & Planning",
+        "cats": "cons"
+    }, {
+        "name": "Arts and Crafts",
+        "cats": "art, med, rec"
+    }, {
+        "name": "Automotive",
+        "cats": "man"
+    }, {
+        "name": "Aviation & Aerospace",
+        "cats": "gov, man"
+    }, {
+        "name": "Banking",
+        "cats": "fin"
+    }, {
+        "name": "Biotechnology",
+        "cats": "gov, hlth, tech"
+    }, {
+        "name": "Broadcast Media",
+        "cats": "med, rec"
+    }, {
+        "name": "Building Materials",
+        "cats": "cons"
+    }, {
+        "name": "Business Supplies and Equipment",
+        "cats": "corp, man"
+    }, {
+        "name": "Capital Markets",
+        "cats": "fin"
+    }, {
+        "name": "Chemicals",
+        "cats": "man"
+    }, {
+        "name": "Civic & Social Organization",
+        "cats": "org, serv"
+    }, {
+        "name": "Civil Engineering",
+        "cats": "cons, gov"
+    }, {
+        "name": "Commercial Real Estate",
+        "cats": "cons, corp, fin"
+    }, {
+        "name": "Computer & Network Security",
+        "cats": "tech"
+    }, {
+        "name": "Computer Games",
+        "cats": "med, rec"
+    }, {
+        "name": "Computer Hardware",
+        "cats": "tech"
+    }, {
+        "name": "Computer Networking",
+        "cats": "tech"
+    }, {
+        "name": "Computer Software",
+        "cats": "tech"
+    }, {
+        "name": "Construction",
+        "cats": "cons"
+    }, {
+        "name": "Consumer Electronics",
+        "cats": "good, man"
+    }, {
+        "name": "Consumer Goods",
+        "cats": "good, man"
+    }, {
+        "name": "Consumer Services",
+        "cats": "org, serv"
+    }, {
+        "name": "Cosmetics",
+        "cats": "good"
+    }, {
+        "name": "Dairy",
+        "cats": "agr"
+    }, {
+        "name": "Defense & Space",
+        "cats": "gov, tech"
+    }, {
+        "name": "Design",
+        "cats": "art, med"
+    }, {
+        "name": "Education Management",
+        "cats": "edu"
+    }, {
+        "name": "E-Learning",
+        "cats": "edu, org"
+    }, {
+        "name": "Electrical/Electronic Manufacturing",
+        "cats": "good, man"
+    }, {
+        "name": "Entertainment",
+        "cats": "med, rec"
+    }, {
+        "name": "Environmental Services",
+        "cats": "org, serv"
+    }, {
+        "name": "Events Services",
+        "cats": "corp, rec, serv"
+    }, {
+        "name": "Executive Office",
+        "cats": "gov"
+    }, {
+        "name": "Facilities Services",
+        "cats": "corp, serv"
+    }, {
+        "name": "Farming",
+        "cats": "agr"
+    }, {
+        "name": "Financial Services",
+        "cats": "fin"
+    }, {
+        "name": "Fine Art",
+        "cats": "art, med, rec"
+    }, {
+        "name": "Fishery",
+        "cats": "agr"
+    }, {
+        "name": "Food & Beverages",
+        "cats": "rec, serv"
+    }, {
+        "name": "Food Production",
+        "cats": "good, man, serv"
+    }, {
+        "name": "Fund-Raising",
+        "cats": "org"
+    }, {
+        "name": "Furniture",
+        "cats": "good, man"
+    }, {
+        "name": "Gambling & Casinos",
+        "cats": "rec"
+    }, {
+        "name": "Glass, Ceramics & Concrete",
+        "cats": "cons, man"
+    }, {
+        "name": "Government Administration",
+        "cats": "gov"
+    }, {
+        "name": "Government Relations",
+        "cats": "gov"
+    }, {
+        "name": "Graphic Design",
+        "cats": "art, med"
+    }, {
+        "name": "Health, Wellness and Fitness",
+        "cats": "hlth, rec"
+    }, {
+        "name": "Higher Education",
+        "cats": "edu"
+    }, {
+        "name": "Hospital & Health Care",
+        "cats": "hlth"
+    }, {
+        "name": "Hospitality",
+        "cats": "rec, serv, tran"
+    }, {
+        "name": "Human Resources",
+        "cats": "corp"
+    }, {
+        "name": "Import and Export",
+        "cats": "corp, good, tran"
+    }, {
+        "name": "Individual & Family Services",
+        "cats": "org, serv"
+    }, {
+        "name": "Industrial Automation",
+        "cats": "cons, man"
+    }, {
+        "name": "Information Services",
+        "cats": "med, serv"
+    }, {
+        "name": "Information Technology and Services",
+        "cats": "tech"
+    }, {
+        "name": "Insurance",
+        "cats": "fin"
+    }, {
+        "name": "International Affairs",
+        "cats": "gov"
+    }, {
+        "name": "International Trade and Development",
+        "cats": "gov, org, tran"
+    }, {
+        "name": "Internet",
+        "cats": "tech"
+    }, {
+        "name": "Investment Banking",
+        "cats": "fin"
+    }, {
+        "name": "Investment Management",
+        "cats": "fin"
+    }, {
+        "name": "Judiciary",
+        "cats": "gov, leg"
+    }, {
+        "name": "Law Enforcement",
+        "cats": "gov, leg"
+    }, {
+        "name": "Law Practice",
+        "cats": "leg"
+    }, {
+        "name": "Legal Services",
+        "cats": "leg"
+    }, {
+        "name": "Legislative Office",
+        "cats": "gov, leg"
+    }, {
+        "name": "Leisure, Travel & Tourism",
+        "cats": "rec, serv, tran"
+    }, {
+        "name": "Libraries",
+        "cats": "med, rec, serv"
+    }, {
+        "name": "Logistics and Supply Chain",
+        "cats": "corp, tran"
+    }, {
+        "name": "Luxury Goods & Jewelry",
+        "cats": "good"
+    }, {
+        "name": "Machinery",
+        "cats": "man"
+    }, {
+        "name": "Management Consulting",
+        "cats": "corp"
+    }, {
+        "name": "Maritime",
+        "cats": "tran"
+    }, {
+        "name": "Market Research",
+        "cats": "corp"
+    }, {
+        "name": "Marketing and Advertising",
+        "cats": "corp, med"
+    }, {
+        "name": "Mechanical or Industrial Engineering",
+        "cats": "cons, gov, man"
+    }, {
+        "name": "Media Production",
+        "cats": "med, rec"
+    }, {
+        "name": "Medical Devices",
+        "cats": "hlth"
+    }, {
+        "name": "Medical Practice",
+        "cats": "hlth"
+    }, {
+        "name": "Mental Health Care",
+        "cats": "hlth"
+    }, {
+        "name": "Military",
+        "cats": "gov"
+    }, {
+        "name": "Mining & Metals",
+        "cats": "man"
+    }, {
+        "name": "Motion Pictures and Film",
+        "cats": "art, med, rec"
+    }, {
+        "name": "Museums and Institutions",
+        "cats": "art, med, rec"
+    }, {
+        "name": "Music",
+        "cats": "art, rec"
+    }, {
+        "name": "Nanotechnology",
+        "cats": "gov, man, tech"
+    }, {
+        "name": "Newspapers",
+        "cats": "med, rec"
+    }, {
+        "name": "Non-Profit Organization Management",
+        "cats": "org"
+    }, {
+        "name": "Oil & Energy",
+        "cats": "man"
+    }, {
+        "name": "Online Media",
+        "cats": "med"
+    }, {
+        "name": "Outsourcing/Offshoring",
+        "cats": "corp"
+    }, {
+        "name": "Package/Freight Delivery",
+        "cats": "serv, tran"
+    }, {
+        "name": "Packaging and Containers",
+        "cats": "good, man"
+    }, {
+        "name": "Paper & Forest Products",
+        "cats": "man"
+    }, {
+        "name": "Performing Arts",
+        "cats": "art, med, rec"
+    }, {
+        "name": "Pharmaceuticals",
+        "cats": "hlth, tech"
+    }, {
+        "name": "Philanthropy",
+        "cats": "org"
+    }, {
+        "name": "Photography",
+        "cats": "art, med, rec"
+    }, {
+        "name": "Plastics",
+        "cats": "man"
+    }, {
+        "name": "Political Organization",
+        "cats": "gov, org"
+    }, {
+        "name": "Primary/Secondary Education",
+        "cats": "edu"
+    }, {
+        "name": "Printing",
+        "cats": "med, rec"
+    }, {
+        "name": "Professional Training & Coaching",
+        "cats": "corp"
+    }, {
+        "name": "Program Development",
+        "cats": "corp, org"
+    }, {
+        "name": "Public Policy",
+        "cats": "gov"
+    }, {
+        "name": "Public Relations and Communications",
+        "cats": "corp"
+    }, {
+        "name": "Public Safety",
+        "cats": "gov"
+    }, {
+        "name": "Publishing",
+        "cats": "med, rec"
+    }, {
+        "name": "Railroad Manufacture",
+        "cats": "man"
+    }, {
+        "name": "Ranching",
+        "cats": "agr"
+    }, {
+        "name": "Real Estate",
+        "cats": "cons, fin, good"
+    }, {
+        "name": "Recreational Facilities and Services",
+        "cats": "rec, serv"
+    }, {
+        "name": "Religious Institutions",
+        "cats": "org, serv"
+    }, {
+        "name": "Renewables & Environment",
+        "cats": "gov, man, org"
+    }, {
+        "name": "Research",
+        "cats": "edu, gov"
+    }, {
+        "name": "Restaurants",
+        "cats": "rec, serv"
+    }, {
+        "name": "Retail",
+        "cats": "good, man"
+    }, {
+        "name": "Security and Investigations",
+        "cats": "corp, org, serv"
+    }, {
+        "name": "Semiconductors",
+        "cats": "tech"
+    }, {
+        "name": "Shipbuilding",
+        "cats": "man"
+    }, {
+        "name": "Sporting Goods",
+        "cats": "good, rec"
+    }, {
+        "name": "Sports",
+        "cats": "rec"
+    }, {
+        "name": "Staffing and Recruiting",
+        "cats": "corp"
+    }, {
+        "name": "Supermarkets",
+        "cats": "good"
+    }, {
+        "name": "Telecommunications",
+        "cats": "gov, tech"
+    }, {
+        "name": "Textiles",
+        "cats": "man"
+    }, {
+        "name": "Think Tanks",
+        "cats": "gov, org"
+    }, {
+        "name": "Tobacco",
+        "cats": "good"
+    }, {
+        "name": "Translation and Localization",
+        "cats": "corp, gov, serv"
+    }, {
+        "name": "Transportation/Trucking/Railroad",
+        "cats": "tran"
+    }, {
+        "name": "Utilities",
+        "cats": "man"
+    }, {
+        "name": "Venture Capital & Private Equity",
+        "cats": "fin, tech"
+    }, {
+        "name": "Veterinary",
+        "cats": "hlth"
+    }, {
+        "name": "Warehousing",
+        "cats": "tran"
+    }, {
+        "name": "Wholesale",
+        "cats": "good"
+    }, {
+        "name": "Wine and Spirits",
+        "cats": "good, man, rec"
+    }, {
+        "name": "Wireless",
+        "cats": "tech"
+    }, {
+        "name": "Writing and Editing",
+        "cats": "art, med, rec"
+    }]
+}

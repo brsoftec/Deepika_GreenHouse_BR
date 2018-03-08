@@ -1,0 +1,36 @@
+﻿@using GH.Core.Models
+
+<script>
+
+    var regitGlobal = regitGlobal || {};
+    regitGlobal.workflowAccount = {};
+
+    @{
+        if (ViewBag.IsBusinessMaster == true)
+        {
+            @:regitGlobal.workflowAccount.isBusinessMaster = true;
+        }
+        else if (ViewBag.AsBusinessMember == true)
+        {
+            @:regitGlobal.workflowAccount.roles = [];
+            if (ViewBag.IsRole != null)
+            {
+                if (ViewBag.IsRole.IsAdmin == true)
+                {
+                    @:regitGlobal.workflowAccount.roles.push('admin');
+                }
+                if (ViewBag.IsRole.IsEditor == true)
+                {
+                    @:regitGlobal.workflowAccount.roles.push('editor');
+                }
+                if (ViewBag.IsRole.IsApprover == true)
+                {
+                    @:regitGlobal.workflowAccount.roles.push('approver');
+                }
+            }
+        }
+        @:regitGlobal.workflowAccount.canRead = @Json.Encode(ViewBag.CanRead);
+        @:regitGlobal.workflowAccount.canWrite = @Json.Encode(ViewBag.CanWrite);
+    }
+
+</script>

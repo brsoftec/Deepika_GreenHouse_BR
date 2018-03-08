@@ -1,0 +1,263 @@
+﻿
+@{
+    ViewBag.Title = "Account Troubleshooting";
+    Layout = "~/Areas/User/Views/Shared/_PublicLayout.cshtml";
+    ViewBag.BodyClass = "trouble";
+}
+@section styles{
+    @Styles.Render("~/User/trouble-css")
+    <link href="@Url.Versioned("~/Areas/Beta/css/signin.css")" rel="stylesheet" />
+}
+@section scripts {
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/TroubleController.js")"></script>
+    @Scripts.Render("~/bundles/login-ctrl")
+}
+
+<div class="section section-public section-trouble">
+    <div class="public-container trouble-container" ng-controller="TroubleController">
+
+                <div class="box-header">
+                    Regit Support 
+                </div>
+                <div class="trouble-body">
+                    <div ng-if="progress.Step == 'FIND_ACCOUNT'" class="trouble-step trouble-step-1">
+                        <div class="trouble-row step-title">Troubleshoot your Regit account</div>
+                        <div class="trouble-row">
+                            <input type="email" ng-model="resetFor.Email" class="form-control" placeholder="ENTER YOUR EMAIL" ng-enter="findAccount()" />
+                        </div>
+                        <div class="trouble-row step-action">
+                            <a class="btn btn-blue btn-full-width" ng-click="findAccount()">CONTINUE</a>
+                        </div>
+
+                    </div>
+                    <div ng-if="progress.Step == 'CLOCK_RESET'" class="trouble-step trouble-step-2">
+                        
+                    </div>
+                    <div ng-if="progress.Step == 'SECURITY'" class="trouble-step trouble-step-2">
+                        <div class="trouble-row-group">
+                            <div class="trouble-row step-title text-center">Enter answer to this security question</div>
+                            <div class="trouble-row trouble-security-question">
+                                {{security.question1.question}}
+
+                            </div>
+                            <div class="trouble-row">
+                                <input ng-model="security.question1.userAnswer" type="text" class="form-control" placeholder="YOUR ANSWER" ng-enter="matchAccountWithSecurity()" />
+                            </div>
+                        </div>
+                        <div class="trouble-row-group">
+                            <div class="trouble-row step-title text-center">Enter answer to this security question</div>
+                            <div class="trouble-row trouble-security-question">
+                                {{security.question2.question}}
+
+                            </div>
+                            <div class="trouble-row">
+                                <input ng-model="security.question2.userAnswer" type="text" class="form-control" placeholder="YOUR ANSWER" ng-enter="matchAccountWithSecurity()" />
+                            </div>
+                        </div>
+                        <div class="trouble-row step-action">
+
+                            <a class="btn btn-blue" ng-click="matchAccountWithSecurity()">CONTINUE</a>
+                        </div>
+                    </div>
+                    <div ng-if="unverified && progress.Step == 'RESET_OPTION'" class="trouble-step trouble-step-3">
+                        <div class="trouble-row step-title text-center">You have not verified your email address. 
+                            Remember to check your inbox and do it to fully activate your account.</div>
+                        <p class="trouble-row text-center" ng-if="resentVerifyEmail">Verification email resent</p>
+                        <p class="trouble-row text-center">Did not receive it? <a href="#" ng-click="resendVerifyEmail();$event.preventDefault()">Resend</a></p>
+
+                        <div class="trouble-row">
+                            <div class="reset-options-account-info">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td width="66%" class="left-cell cell-1">
+                                                <label class="nice-radio">
+                                                    <input name="RESET_OPTIONS" type="radio" ng-model="resetOption.Option" value="EMAIL" /><span class="nice-radio-check"></span> 
+                                                    Send an email with code to reset password
+                                                </label>
+                                            </td>
+                                            <td width="34%" class="right-cell" rowspan="2">
+                                                <div class="forgeter-avatar">
+                                                    <img ng-src="{{accountInfo.Avatar ? accountInfo.Avatar: '/Content/Images/no-pic.png'}}" />
+                                                </div>
+                                                <div class="forgeter-name">
+                                                    {{accountInfo.DisplayName}}
+                                                </div>
+                                                <div class="forgeter-address">
+                                                    {{accountInfo.Address}}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="trouble-row step-action">
+                            <a class="btn btn-blue btn-full-width" ng-click="selectResetWay()">CONTINUE</a>
+                        </div>
+                    </div>
+                    <div ng-if="!unverified && progress.Step == 'RESET_OPTION'" class="trouble-step trouble-step-3">
+                        <div class="trouble-row step-title text-center">How would you like to change your password?</div>
+                        <div class="trouble-row">
+                            <div class="reset-options-account-info">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td width="66%" class="left-cell cell-1">
+                                                <label class="nice-radio">
+                                                    <input name="RESET_OPTIONS" type="radio" ng-model="resetOption.Option" value="EMAIL" /><span class="nice-radio-check"></span> Send me an email
+                                                </label>
+                                            </td>
+                                            <td width="34%" class="right-cell" rowspan="2">
+                                                <div class="forgeter-avatar">
+                                                    <img ng-src="{{accountInfo.Avatar ? accountInfo.Avatar: '/Content/Images/no-pic.png'}}" />
+                                                </div>
+                                                <div class="forgeter-name">
+                                                    {{accountInfo.DisplayName}}
+                                                </div>
+                                                <div class="forgeter-address">
+                                                    {{accountInfo.Address}}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left-cell cell-2">
+                                                <label class="nice-radio">
+                                                    <input name="RESET_OPTIONS" type="radio" ng-model="resetOption.Option" value="SMS" /><span class="nice-radio-check"></span> Text my phone number ending in {{accountInfo.Last2PhoneDigits}}
+                                                </label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left-cell cell-2">
+                                                <label class="nice-radio">
+                                                    <input name="RESET_OPTIONS" type="radio" ng-model="resetOption.Option" value="QUESTION" /><span class="nice-radio-check"></span> Answer security question
+                                                </label>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="trouble-row step-action">
+                            <a class="btn btn-blue btn-full-width" ng-click="selectResetWay()">CONTINUE</a>
+                        </div>
+                    </div>
+                    <div ng-if="progress.Step == 'VERIFY'" class="trouble-step trouble-step-4">
+                        <div ng-if="resetOption.Option !== 'QUESTION'">
+                            <div class="trouble-row text-center">
+                                We've sent your code to:<br />
+                                <span class="weight-6">{{resetOption.Option == 'EMAIL' ? resetFor.Email : 'Phone number ending in ' + accountInfo.Last2PhoneDigits}}</span><br /><br />
+                                Please check your {{resetOption.Option == 'EMAIL' ? 'email' : 'sms'}} for a message with your code.<br />
+                                Your code is 4 digits long.
+                            </div>
+                            <!--check phone-->
+@*
+                            <div ng-if="!unverified" class="sms-auth-content signin-auth">
+                                <div class="sms-auth-intro">
+                                    <button class="otp-send-action" ng-disabled="disableSend" ng-click="GetConfirmSMS()">{{otpButtonLabel}}</button>
+                                    <p ng-if="!sentOtp">
+                                        To log in, click the button above to receive security code
+                                    </p>
+                                    <p ng-if="sentOtp">
+                                        ENTER SECURITY CODE
+                                    </p>
+                                </div>
+                                <div class="sms-auth-input-row" ng-if="sentOtp">
+                                    <input ng-model="verify.Token" type="password" autofocus class="input-pin sms-auth-input" placeholder="_ _ _ _"
+                                           ng-enter="checkPinSMS(verify.Token)">
+                                </div>
+
+                                <div class="button-group sms-auth-actions">
+                                    <button type="button" ng-click="cancelOtp()" class="btn btn-default sms-auth-btn">
+                                        Cancel
+                                    </button>
+                                    <button type="submit" ng-click="checkPinSMS(verify.Token);" class="btn btn-primary sms-auth-btn" ng-disabled="">
+                                        Authenticate
+                                    </button>
+                                </div>
+                                <div style="padding-top:20px">
+                                    <span>{{errors.PIN}}</span>
+                                    <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+                                        <div ng-bind-html="messageBox"></div>
+                                    </uib-alert>
+                                </div>
+                            </div>*@
+
+                            <!--end check phone-->
+                            <div class="trouble-row step-title text-center">ENTER SECURITY CODE</div>
+                            <div class="trouble-row text-center">
+                                <input ng-model="verify.Token" type="text" class="fix-width-mini" placeholder="- - - -" ng-enter="verifyCode()" />
+                            </div>
+                            <div class="trouble-row text-center">
+                                <a class="regit-color" ng-click="resendToken()">Re-send via {{resetOption.Option == 'EMAIL' ? 'email' : 'sms'}}</a>
+                            </div>
+                            <div class="trouble-row step-action">
+                                <a class="btn btn-blue" ng-click="verifyCode()">CONTINUE</a>
+                            </div>
+                        </div>
+                            <div ng-if="resetOption.Option == 'QUESTION'">
+                            
+                                <div class="trouble-row-group">
+                                    <div class="trouble-row step-title text-center">Enter answer to these security question</div>
+                                    <div class="trouble-row trouble-security-question">
+                                        {{security.question1.question}}
+
+                                    </div>
+                                    <div class="trouble-row">
+                                        <input ng-model="security.question1.userAnswer" type="text" class="form-control" placeholder="YOUR ANSWER"  />
+                                    </div>
+                                </div>
+                                <div class="trouble-row-group">
+                                  
+                                    <div class="trouble-row trouble-security-question">
+                                        {{security.question2.question}}
+
+                                    </div>
+                                    <div class="trouble-row">
+                                        <input ng-model="security.question2.userAnswer" type="text" class="form-control" placeholder="YOUR ANSWER"  />
+                                    </div>
+                                </div>
+
+                           
+                                    <div class="trouble-row step-action">
+
+                                        <a class="btn btn-blue" ng-click="CheckSecurityQuestion()">CONTINUE</a>
+                                    </div>
+                                
+                            </div>
+
+
+                           
+                        </div>
+                    <div ng-if="progress.Step == 'RESET_PASSWORD'" class="trouble-step trouble-step-5">
+                        <div class="trouble-row step-title text-center">CHANGE YOUR PASSWORD</div>
+                        <div class="trouble-row">
+                            <input ng-model="resetPasswordModel.Password" type="password" class="form-control" placeholder="PASSWORD" ng-enter="resetPassword()" />
+                        </div>
+                        <div class="trouble-row">
+                            <input ng-model="resetPasswordModel.ConfirmPassword" type="password" class="form-control" placeholder="RE-ENTER PASSWORD" ng-enter="resetPassword()" />
+                        </div>
+                        <div class="trouble-row step-action">
+                            <a class="btn btn-blue btn-full-width" ng-click="resetPassword()">CONTINUE</a>
+                        </div>
+                    </div>
+                    <div ng-if="progress.Step == 'DONE'" class="trouble-step trouble-step-6">
+                        <div class="trouble-row step-title text-center">
+                            PASSWORD CHANGED
+
+                        </div>
+                        <div class="trouble-row step-action">
+                            <a class="btn btn-blue btn-full-width trouble-finish-signin" href="/User/SignIn">SIGN IN AGAIN</a>
+                        </div>
+                    </div>
+                    <div ng-class="{'has-error': progress.Errors}" class="trouble-box-error-wrapper">
+                        
+                        <div class="box trouble-box-error">
+                            {{progress.Errors}}
+                        </div>
+                       
+                        
+                    </div>
+                </div>
+            </div>
+        </div>

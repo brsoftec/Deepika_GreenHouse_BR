@@ -1,0 +1,19 @@
+<form>
+    <label class="form-field-details-label" ng-if="type==='currency'">Currency unit</label>
+    <rgu-picker ng-if="type==='currency'" ng-model="$parent.unitModel" items="['USD','SGD','VND']"></rgu-picker>
+    <table class="range-input-grid table table-striped">
+        <tr ng-repeat="range in model">
+            <td><input type="number" class="range-input" ng-model="range[0]" placeholder="From" min="1" ng-blur="checkRange()"></td>
+            <td><input type="number" class="range-input" ng-model="range[1]" placeholder="To" min="{{range[0]}}" ng-blur="checkRange()"></td>
+            <td class="range-actions">
+                <button type="button" class="range-action range-delete" ng-if="$index>0" ng-click="removeRange($index)">Remove range
+                </button>
+                <button type="button" class="range-action range-add" ng-if="$last" ng-click="addRange()" ng-disabled="validate.invalid">Add range
+                </button>
+            </td>
+        </tr>
+    </table>
+    <div class="interaction-message message-alert message-small" ng-if="validate.invalid">
+       Invalid range
+    </div>
+</form>

@@ -1,0 +1,366 @@
+﻿<div ng-controller="EditBusinessPageController" collapse-base-on-route="/edit-business-page" class="collapse-item">
+    <div class="collapse-header">
+        <a href="#/edit-business-page" class="regit-color" data-toggle="collapse" aria-expanded="false" data-target="#editBusinessPageCollapseContent">@GH.Lang.Regit.Edit_Business_Page</a>
+    </div>
+    <div class="collapse-content">
+        <div class="collapse" id="editBusinessPageCollapseContent">
+            <div class="row field">
+                <div class="col-md-2">
+                    <span class="field-title h-34">@GH.Lang.Regit.Display_Name</span>
+                </div>
+                <div class="col-md-8">
+                    <div ng-if="profile.DisplayName" class="word-break">
+                        <span class="field-value h-34" ng-bind-html="profile.DisplayName"></span>
+                    </div>
+                    <div class="field-editor" ng-if="editting.DisplayName">
+                        <input type="text" class="fix-width-mini" ng-model="editor.DisplayName" />
+                    </div>
+                    <div class="field-tools" ng-if="editting.DisplayName">
+                        <a class="btn btn-blue fix-width-mini" ng-click="save('DisplayName')">@GH.Lang.Regit.Save</a>
+                        <a class="btn btn-white fix-width-mini" ng-click="cancel('DisplayName')">@GH.Lang.Regit.Cancel</a>
+                    </div>
+                </div>
+                <div class="col-md-2 text-right">
+                    <a class="field-action regit-color" ng-class="{'editting': editting.DisplayName}" ng-click="edit('DisplayName')"><i ng-if="editting.DisplayName" class="fa fa-pencil"></i> @GH.Lang.Regit.Edit</a>
+                </div>
+            </div>
+            <hr />
+            <div class="row field">
+                <div class="col-md-2">
+                    <span class="field-title">@GH.Lang.Regit.Avatar</span>
+                </div>
+                <div class="col-md-8">
+                    <div class="profile-picture">
+                        <img ng-if="!editting.PhotoUrl || !editor.NewProfilePicture" ng-src="{{profile.PhotoUrl ? profile.PhotoUrl : '/Areas/User/Content/Images/no-pic.png'}}" />
+                        <img ng-if="editting.PhotoUrl && editor.NewProfilePicture" ng-src="{{editor.NewProfilePicture}}" />
+                    </div>
+                    <div class="field-editor" ng-if="editting.PhotoUrl">
+                        <div upload-control class="upload-control upload-photo" on-file-selected="onProfilePictureSelected()" files-store="editor">
+                            <input type="file" /> <img src="/Content/Images/camera-icon.png" /> @GH.Lang.Regit.Upload_Photo
+                        </div>
+                    </div>
+                    <div class="field-tools" ng-if="editting.PhotoUrl">
+                        <a class="btn btn-blue fix-width-mini" ng-click="save('PhotoUrl')">@GH.Lang.Regit.Save</a>
+                        <a class="btn btn-white fix-width-mini" ng-click="cancel('PhotoUrl')">@GH.Lang.Regit.Cancel</a>
+                    </div>
+                </div>
+                <div class="col-md-2 text-right">
+                    <a class="field-action regit-color" ng-class="{'editting': editting.PhotoUrl}" ng-click="edit('PhotoUrl')"><i ng-if="editting.PhotoUrl" class="fa fa-pencil"></i> @GH.Lang.Regit.Edit</a>
+                </div>
+            </div>
+            <hr />
+            <div class="row field">
+                <div class="col-md-2">
+                    <span class="field-title">@GH.Lang.Regit.Picture_Album</span>
+                </div>
+                <div class="col-md-8">
+                    <div ng-if="editting.PictureAlbum">
+                        <span class="field-value">@GH.Lang.Regit.Upload_picture_limited</span>
+                    </div>
+                    <div class="field-editor" ng-if="editting.PictureAlbum">
+                        <div ng-repeat="store in pictureAlbum.__album" ng-show="currentAlbumPictureUploadIndex == $index" upload-control class="upload-control upload-photo" on-file-selected="onPictureAlbumSelected()" files-store="store">
+                            <input type="file" /> <img src="/Content/Images/camera-icon.png" /> @GH.Lang.Regit.Upload_Photo
+                        </div>
+                    </div>
+                    <div class="picture-albums">
+                        <div class="row">
+                            <div class="col-xs-4 col-sm-2">
+                                <div class="picture-box">
+                                    <img ng-if="!editting.PictureAlbum" ng-src="{{originalAlbum[0] ? originalAlbum[0] : '/Areas/User/Content/Images/no-pic.png'}}" />
+                                    <img ng-if="editting.PictureAlbum" ng-src="{{pictureAlbum.Urls[0] ? pictureAlbum.Urls[0] : '/Areas/User/Content/Images/no-pic.png'}}" />
+                                    <i ng-if="editting.PictureAlbum" ng-click="removePictureAlbum(0)" class="remove-icon"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-2">
+                                <div class="picture-box">
+                                    <img ng-if="!editting.PictureAlbum" ng-src="{{originalAlbum[1] ? originalAlbum[1] : '/Areas/User/Content/Images/no-pic.png'}}" />
+                                    <img ng-if="editting.PictureAlbum" ng-src="{{pictureAlbum.Urls[1] ? pictureAlbum.Urls[1] : '/Areas/User/Content/Images/no-pic.png'}}" />
+                                    <i ng-if="editting.PictureAlbum" ng-click="removePictureAlbum(1)" class="remove-icon"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-2">
+                                <div class="picture-box">
+                                    <img ng-if="!editting.PictureAlbum" ng-src="{{originalAlbum[2] ? originalAlbum[2] : '/Areas/User/Content/Images/no-pic.png'}}" />
+                                    <img ng-if="editting.PictureAlbum" ng-src="{{pictureAlbum.Urls[2] ? pictureAlbum.Urls[2] : '/Areas/User/Content/Images/no-pic.png'}}" />
+                                    <i ng-if="editting.PictureAlbum" ng-click="removePictureAlbum(2)" class="remove-icon"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-2">
+                                <div class="picture-box">
+                                    <img ng-if="!editting.PictureAlbum" ng-src="{{originalAlbum[3] ? originalAlbum[3] : '/Areas/User/Content/Images/no-pic.png'}}" />
+                                    <img ng-if="editting.PictureAlbum" ng-src="{{pictureAlbum.Urls[3] ? pictureAlbum.Urls[3] : '/Areas/User/Content/Images/no-pic.png'}}" />
+                                    <i ng-if="editting.PictureAlbum" ng-click="removePictureAlbum(3)" class="remove-icon"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-2">
+                                <div class="picture-box">
+                                    <img ng-if="!editting.PictureAlbum" ng-src="{{originalAlbum[4] ? originalAlbum[4] : '/Areas/User/Content/Images/no-pic.png'}}" />
+                                    <img ng-if="editting.PictureAlbum" ng-src="{{pictureAlbum.Urls[4] ? pictureAlbum.Urls[4] : '/Areas/User/Content/Images/no-pic.png'}}" />
+                                    <i ng-if="editting.PictureAlbum" ng-click="removePictureAlbum(4)" class="remove-icon"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-2">
+                                <div class="picture-box">
+                                    <img ng-if="!editting.PictureAlbum" ng-src="{{originalAlbum[5] ? originalAlbum[5] : '/Areas/User/Content/Images/no-pic.png'}}" />
+                                    <img ng-if="editting.PictureAlbum" ng-src="{{pictureAlbum.Urls[5] ? pictureAlbum.Urls[5] : '/Areas/User/Content/Images/no-pic.png'}}" />
+                                    <i ng-if="editting.PictureAlbum" ng-click="removePictureAlbum(5)" class="remove-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field-tools" ng-if="editting.PictureAlbum">
+                        <a class="btn btn-blue fix-width-mini" ng-click="savePictureAlbum()">@GH.Lang.Regit.Save</a>
+                        <a class="btn btn-white fix-width-mini" ng-click="cancelPictureAlbum()">@GH.Lang.Regit.Cancel</a>
+                    </div>
+                </div>
+                <div class="col-md-2 text-right">
+                    <a class="field-action regit-color" ng-class="{'editting': editting.PictureAlbum}" ng-click="edit('PictureAlbum')"><i ng-if="editting.PictureAlbum" class="fa fa-pencil"></i> @GH.Lang.Regit.Edit</a>
+                </div>
+            </div>
+            <hr />
+            <div class="row field">
+                <div class="col-md-2">
+                    <span class="field-title h-34">@GH.Lang.Regit.Business_Description</span>
+                </div>
+                <div class="col-md-8">
+                    <div ng-if="profile.Description" class="word-break">
+                        <span class="field-value h-34" ng-bind-html="profile.DescriptionHtml"></span>
+                    </div>
+                    <div class="field-editor" ng-if="editting.Description">
+                        <textarea rows="3" class="form-control" ng-model="editor.Description"></textarea>
+                    </div>
+                    <div class="field-tools" ng-if="editting.Description">
+                        <a class="btn btn-blue fix-width-mini" ng-click="save('Description')">@GH.Lang.Regit.Save</a>
+                        <a class="btn btn-white fix-width-mini" ng-click="cancel('Description')">@GH.Lang.Regit.Cancel</a>
+                    </div>
+                </div>
+                <div class="col-md-2 text-right">
+                    <a class="field-action regit-color" ng-class="{'editting': editting.Description}" ng-click="edit('Description')"><i ng-if="editting.Description" class="fa fa-pencil"></i> @GH.Lang.Regit.Edit</a>
+                </div>
+            </div>
+            <hr />
+            <div class="row field">
+                <div class="col-md-2">
+                    <span class="field-title h-34">@GH.Lang.Regit.Address</span>
+                </div>
+                <div class="col-md-8">
+                    <div ng-if="profile.Street || profile.City || profile.Country || profile.ZipPostalCode">
+                        <span class="field-value h-34">{{profile.Street}}{{profile.Street && (profile.City || profile.Country) ? ',' : ''}}{{profile.City}}{{profile.City && profile.Country ? ',' : ''}} {{profile.Country}} {{profile.ZipPostalCode}}</span>
+                    </div>
+                    <div class="field-editor" ng-if="editting.StreetCityRegionCountryZipPostalCode">
+                        <div class="field-editor-child">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <span class="h-34">@GH.Lang.Regit.Street</span>
+                                </div>
+                                <div class="col-md-11">
+                                    <input type="text" class="form-control" ng-model="editor.Street" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field-editor-child">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <span class="h-34">@GH.Lang.Regit.Country</span>
+                                </div>
+                                <div class="col-md-5">
+                                    <ui-select class="full-width" ng-model="editor.Country" theme="bootstrap" remove-selected="false" on-select="onCountrySelect($item)">
+                                        <ui-select-match placeholder="@GH.Lang.Regit.Select_Country.ToUpper()">{{$select.selected.Name}}</ui-select-match>
+                                        <ui-select-choices repeat="country.Name as country in countries | filter: $select.search">
+                                            <span ng-bind-html="country.Name | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <div class="col-md-1">
+                                    <span class="h-34">@GH.Lang.Regit.Region</span>
+                                </div>
+                                <div class="col-md-5">
+                                    <ui-select class="full-width" ng-model="editor.Region" theme="bootstrap" remove-selected="false">
+                                        <ui-select-match placeholder="@GH.Lang.Regit.SELECT_REGION">{{$select.selected.Name}}</ui-select-match>
+                                        <ui-select-choices repeat="region.Name as region in regions | filter: $select.search">
+                                            <span ng-bind-html="region.Name | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field-editor-child">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <span class="h-34">@GH.Lang.Regit.City</span>
+                                </div>
+                                <div class="col-md-5">
+                                    <ui-select class="full-width" ng-model="editor.City" theme="bootstrap" remove-selected="false">
+                                        <ui-select-match placeholder="@GH.Lang.Regit.SELECT_CITY">{{$select.selected.Name}}</ui-select-match>
+                                        <ui-select-choices repeat="city.Name as city in cities | propsFilter: {Name: $select.search}: 100: editor.City">
+                                            <span ng-bind-html="city.Name | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <div class="col-md-2">
+                                    <span class="h-34">@GH.Lang.Regit.Zip_Postal_Code</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="editor.ZipPostalCode" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field-tools" ng-if="editting.StreetCityRegionCountryZipPostalCode">
+                        <a class="btn btn-blue fix-width-mini" ng-click="save('Street', 'City', 'Region', 'Country', 'ZipPostalCode')">@GH.Lang.Regit.Save</a>
+                        <a class="btn btn-white fix-width-mini" ng-click="cancel('Street', 'City', 'Region', 'Country', 'ZipPostalCode')">@GH.Lang.Regit.Cancel</a>
+                    </div>
+                </div>
+                <div class="col-md-2 text-right">
+                    <a class="field-action regit-color" ng-class="{'editting': editting.StreetCityRegionCountryZipPostalCode}" ng-click="edit('Street', 'City', 'Region', 'Country', 'ZipPostalCode')"><i ng-if="editting.StreetCityRegionCountryZipPostalCode" class="fa fa-pencil"></i> @GH.Lang.Regit.Edit</a>
+                </div>
+            </div>
+            <hr />
+            <div class="row field">
+                <div class="col-md-2">
+                    <span class="field-title h-34">@GH.Lang.Regit.Hours</span>
+                </div>
+                <div class="col-md-8">
+                    <div class="word-break">
+                        <span class="field-value h-34">{{formatedWorkHours}}&nbsp;</span> <br />
+                        <span class="field-value h-34">{{formatedWorkDays}}&nbsp;</span>
+                    </div>
+                    <div class="field-editor" ng-if="editting.WorkTime">
+                        <div class="work-hours-picker from-picker">
+                            <span class="h-34">From:</span>
+                            <div class="dropdown timepicker-dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown">{{formatedWorkHourFrom}}</a>
+                                <ul prevent-inside-click-close class="dropdown-menu">
+                                    <li>
+                                        <div>
+                                            <div ng-change="changeWorkHours()" uib-timepicker ng-model="workHours.From" hour-step="1" minute-step="1" show-meridian="true"></div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="work-hours-picker to-picker">
+                            <span class="h-34">To:</span>
+                            <div class="dropdown timepicker-dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown">{{formatedWorkHourTo}}</a>
+                                <ul prevent-inside-click-close class="dropdown-menu">
+                                    <li>
+                                        <div>
+                                            <div ng-change="changeWorkHours()" uib-timepicker ng-model="workHours.To" hour-step="1" minute-step="1" show-meridian="true"></div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="work-days-picker">
+                            <div class="work-days">
+                                <a ng-repeat="workday in workdays" ng-click="selectWorkDay(workday)" ng-class="{'selected': workday.Selected}" class="work-day">{{workday.Name}}</a>
+                            </div>
+                            <div class="picker-tool">
+                                <label class="checkbox-square"><input type="checkbox" ng-model="workdaysOption.SelectAll" ng-change="selectAllWorkdays()" /><span></span> <span>@GH.Lang.Regit.Apply_all_days</span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field-tools" ng-if="editting.WorkTime">
+                        <a class="btn btn-blue fix-width-mini" ng-click="saveWorkTime()">@GH.Lang.Regit.Save</a>
+                        <a class="btn btn-white fix-width-mini" ng-click="cancelWorkTime()">@GH.Lang.Regit.Cancel</a>
+                    </div>
+                </div>
+                <div class="col-md-2 text-right">
+                    <a class="field-action regit-color" ng-class="{'editting': editting.WorkTime}" ng-click="edit('WorkTime')"><i ng-if="editting.WorkTime" class="fa fa-pencil"></i> @GH.Lang.Regit.Edit</a>
+                </div>
+            </div>
+            <hr />
+            <div class="row field">
+                <div class="col-md-2">
+                    <span class="field-title h-34">@GH.Lang.Regit.Phone_number</span>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-horizontal">
+                        <div class="form-group" ng-if="encodedPhoneNumber">
+                            <label class="col-md-12 control-label long-spacing">{{encodedPhoneNumber}}</label>
+                        </div>
+                        <div ng-if="editting.PhoneNumber" class="form-group">
+                            <label class="col-md-3 control-label">@GH.Lang.Regit.New_Phone_number</label>
+                            <div class="col-md-9">
+                                <ui-select ng-model="changePhoneNumberModel.NewPhoneNumberCountryCallingCode" theme="bootstrap" search-enabled="true" remove-selected="false">
+                                    <ui-select-match placeholder="@GH.Lang.Regit.Select_Country.ToUpper()">{{$select.selected.name.common}} (+{{$select.selected.callingCode[0]}})</ui-select-match>
+                                    <ui-select-choices repeat="country.callingCode as country in countryCodes | filter: $select.search">
+                                        <span>{{country.name.common}} (+{{country.callingCode[0]}})</span>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <input type="text" class="fix-width-mini" ng-model="changePhoneNumberModel.NewPhoneNumber" placeholder="@GH.Lang.Regit.example: 099 98 88 777" />
+                            </div>
+                        </div>
+                        <div ng-if="editting.PhoneNumber" class="form-group">
+                            <label class="col-md-3 control-label"></label>
+                            <div class="col-md-9">
+                                <a class="btn btn-blue fix-width-mini" ng-click="changePhoneNumber()">@GH.Lang.Regit.Save</a>
+                                <a class="btn btn-white fix-width-mini" ng-click="cancelChangePhoneNumber()"> @GH.Lang.Regit.Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 text-right">
+                    <a class="field-action regit-color" ng-class="{'editting': editting.PhoneNumber}" ng-click="edit('PhoneNumber')"><i ng-if="editting.PhoneNumber" class="fa fa-pencil"></i> @GH.Lang.Regit.Edit</a>
+                </div>
+            </div>
+            <hr />
+            <div class="row field">
+                <div class="col-md-2">
+                    <span class="field-title h-34">@GH.Lang.Regit.Website</span>
+                </div>
+                <div class="col-md-8">
+                    <div ng-if="company.Website" class="word-break">
+                        <span class="field-value h-34" ng-bind-html="company.Website"></span>
+                    </div>
+                    <div class="field-editor" ng-if="editting.Website">
+                        <input type="text" class="fix-width-mini" ng-model="company.EditWebsite" />
+                        <div class="error-text-color">{{company.ErrorWebsite}}</div>
+                    </div>
+                    <div class="field-tools" ng-if="editting.Website">
+                        <a class="btn btn-blue fix-width-mini" ng-click="saveWebsite()">@GH.Lang.Regit.Save</a>
+                        <a class="btn btn-white fix-width-mini" ng-click="cancelSaveWebsite()">@GH.Lang.Regit.Cancel</a>
+                    </div>
+                </div>
+                <div class="col-md-2 text-right">
+                    <a class="field-action regit-color" ng-class="{'editting': editting.Website}" ng-click="edit('Website')"><i ng-if="editting.Website" class="fa fa-pencil"></i> @GH.Lang.Regit.Edit</a>
+                </div>
+            </div>
+            <hr />
+            <div class="row field">
+                <div class="col-md-2">
+                    <span class="field-title h-34">@GH.Lang.Regit.Preview_Business_Page</span>
+                </div>
+                <div class="col-md-8">
+                </div>
+                <div class="col-md-2 text-right">
+                    <a class="field-action regit-color" href="/BusinessAccount/Profile/{{profile.Id}}" target="_blank">@GH.Lang.Regit.Preview</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div bs-modal bs-modal-on-hidden="onPinAuthenticateModalHidden()" bs-modal-show="configs.ShowPinAuthenticateModal" class="modal fade pin-authenticate-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-right">
+                    <a ng-click="configs.ShowPinAuthenticateModal = false"><i class="close-icon"></i></a>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <div class="regit-color">@GH.Lang.Regit.Please_enter_PIN</div>
+                        <div><input type="text" ng-model="pinAuthenticate.PIN" placeholder="- - - -" /></div>
+                        <div>
+                            @GH.Lang.Regit.Your_PIN_waiting<br />
+                            @GH.Lang.Regit.Didnt_receive_PIN? <br />
+                            <a class="regit-color">@GH.Lang.Regit.Re_send_PIN</a> | <a class="regit-color">@GH.Lang.Regit.Send_By_Voice</a>
+                        </div>
+                        <div>
+                            <a class="btn btn-blue" ng-click="authenticatePin()">@GH.Lang.Regit.Submit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,103 @@
+﻿@{
+    ViewBag.Title = "Support - FAQ";
+    Layout = "~/Areas/User/Views/Shared/_SupportLayout.cshtml";
+}
+@section styles {
+
+    <link rel="stylesheet" href="@Url.Versioned("~/Areas/Beta/css/support.css")">
+    <link rel="stylesheet" href="@Url.Versioned("~/Areas/Beta/css/faq.css")">
+}
+@section scripts {
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/FAQController.js")"></script>
+
+
+}
+
+<div class="module module-main module-account" ng-controller="FAQController">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/">&laquo; Home</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="/Support">Support</a>
+        </li>
+        <li class="breadcrumb-item active">FAQ</li>
+    </ol>
+    <div class="faq">
+
+            <div class="help-centre-img img-responsive">
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6" id="header-content">
+                    <div class="header-regit-logo"></div>
+                    <div class="search-header">Welcome to Regit Help Center</div>
+                    <div class="search-header-content">Find what you're looking for by browsing through the FAQs page or type your questions directly below.</div>
+
+                    <input type="text" class="header-search-bar" ng-model="searchString" placeholder="How can we help you?">
+                    <div class="header-search-link">
+                        <a href="#">How do I change my password?</a>
+                        <a href="#">Where can I manage my account?</a>
+                        <a href="#">How can I add my information?</a>
+                        <a href="#">Why do I need security questions?</a>
+                        <a href="#">How to join an event?</a>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tabbable-panel">
+                    <div class="tabbable-line">
+                        <ul class="nav nav-tabs navbar-wrapper">
+                            <li ng-repeat="x in tabs" id="tab{{x.id}}" class="tabpills" ng-class="{active: $index == 0}">
+                                <a href="#{{x.id}}" data-toggle="tab">{{x.display}}</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content container">
+                            <div class="title">
+                                <div ng-repeat="i in items | searchFor:searchString" @*style="float:left"*@>
+                                    <a data-toggle="collapse" data-parent="#accordion{{i.tab}}" href="#{{i.tab}}{{i.id}}" ng-click="openTab(i.tab); ScrollTo('parent'+i.tab+i.id);">
+                                        <p>{{i.title}}&nbsp;&nbsp;</p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="nav tab-pane" ng-class="{active: $index == 0}" id="{{x.id}}" ng-repeat="x in tabs">
+                                <div id="main">
+                                    <ul class="list-unstyled nav">
+                                        <li ng-repeat="x in categories | filter: { 'tab': x.id}" data-parent="#accordion{{x.tab}}{{x.id}}" ng-class="{active: $index == 0}" ng-click="ScrollTo('parent'+x.tab+x.id);">
+                                            <a href="#{{x.tab}}{{x.id}}" data-toggle="collapse">{{x.catTitle}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="sidebar">
+                                    <div class="panel-group" id="accordion{{x.id}}">
+                                        <img ng-src="{{x.image}}"/>
+                                        <div class="panel panel-default" ng-repeat="i in items | filter: { 'tab': x.id}" id="parent{{x.id}}{{i.id}}">
+                                            <div class="panel-heading">
+                                                <div class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion{{x.id}}" href="#{{x.id}}{{i.id}}">
+                                                        {{i.title}}
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div id="{{x.id}}{{i.id}}" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <span ng-bind-html-unsafe="i.long_description"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>

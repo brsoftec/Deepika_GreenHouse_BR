@@ -1,0 +1,34 @@
+.profile-page-private {
+    padding: 40px;
+}
+
+.profile-page-private-heading {
+    height: 120px;
+    background: transparent url(../img/profile-page-private.svg) no-repeat center top;
+    background-size: 60px;
+    padding-top: 80px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 160%;
+    color: #ccc;
+}
+
+.profile-page-private-text {
+    text-align: center;
+    color: #ccc;
+    font-size: 120%;
+}
+
+.feed-profile-tags {
+    margin-top: 8px;
+}
+
+.feed-profile-action {
+    background: white url(../img/profile-action-invite-network.svg) no-repeat 96% center;
+    background-size: 16px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: 4px 24px 4px 10px;
+    
+}
+

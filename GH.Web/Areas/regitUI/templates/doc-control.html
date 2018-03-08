@@ -1,0 +1,19 @@
+<div class="doc-control-manager">
+
+    <table class="doc-control-grid">
+        <tr ng-repeat="doc in docs">
+            <td>
+                {{doc.fname}}
+            </td>
+            <td class="doc-control-actions">
+                <button class="doc-control-delete" ng-click="$event.preventDefault();deleteDoc(doc)">Delete</button>
+            </td>
+        </tr>
+    </table>
+    <div class="upload-group doc-control-upload">
+        <input type="file" id="upload-doc" class="input-file" on-change="addDoc()">
+    </div>
+
+</div>
+
+

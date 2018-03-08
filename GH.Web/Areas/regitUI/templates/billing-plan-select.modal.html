@@ -1,0 +1,50 @@
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog billing-plan-select-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="btn-modal-close" ng-click="$hide()">Close</button>
+                <h4 class="modal-title">Upgrade Your Plan</h4></div>
+        </div>
+        <div class="modal-body">
+            <div class="billing-plan-select">
+                <div class="billing-plan-select-list">
+                    <div class="billing-plan-select-item {{plan.name}}" ng-repeat="plan in billingConfig.plans"
+                         ng-class="{active:plan===planSelect.selectedPlan, current:plan===billing.plan, disabled: billing.currentBilling.isPending}"
+                         ng-click="selectPlan(plan)" ng-bind-html="renderPlanInfo(plan)">
+                    </div>
+
+                    <div class="billing-plan-select-notes billing-plan-quota">
+                        <p>Included with every plan</p>
+                        <ul>
+                            <li>Regit Business Page</li>
+                            <li>Technical Email Support</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="billing-plan-message" >
+                    <p>You are currently subscribing to <em>{{billing.plan.label}}</em> Plan.
+                        <span ng-if="billing.plan.name !== 'free' && !billing.currentBilling.promocode">Your next billing cycle is due <strong>{{billing.nextCharge | date:'dd MMMM yyyy'}}</strong>.</span>
+                        <span ng-if="billing.plan.name !== 'free' && billing.currentBilling.promocode">Your subscription will expire <strong>{{billing.nextCharge | date:'dd MMMM yyyy'}}</strong>.</span></p>
+                    <p ng-if="billing.currentBilling.isPending">Your first payment is pending until next cycle. As a result you cannot change plan.</p>
+                    <p ng-if="planSelect.selectedPlan && planSelect.selectedPlan.name !== 'free' && billing.plan.name !== 'free' && !billing.currentBilling.promocode">
+                        If you change plan now without a promo code, you can start using the new benefits immediately without payment. You will only be charged for the new plan starting at the next cycle.
+                    During that time, you won't be able to change plan again.</p>
+                    <p ng-if="planSelect.selectedPlan && billing.currentBilling.promocode">
+                        Warning: Your subscription is based on a promo code. If you change plan now, your promo code will expire immediately and cannot be redeemed.</p>
+                </div>
+                <div class="billing-plan-promo" ng-if="planSelect.selectedPlan && planSelect.selectedPlan.name !== 'free'">
+                    <p ng-if="!payment.methods.length">You have not added any payment method. A promo code is required to subscribe to a paid plan.</p>
+                    <p>Enter promo code</p>
+                    <input class="billing-plan-promo-code-input" name="promocode" ng-model="billing.promoCode">
+                </div>
+                <div class="billing-plan-select-actions modal-actions">
+                    <button class="btn btn-default modal-action" ng-click="$hide()">Cancel</button>
+                    <button class="btn btn-primary modal-action" ng-if="!billing.currentBilling.isPending" ng-class="{disabled:!canChangePlan()}"
+                            ng-click="savePlan($hide)" ng-disabled="!canChangePlan()">Change to Selected Plan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

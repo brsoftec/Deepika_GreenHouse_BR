@@ -1,0 +1,336 @@
+﻿.h-34, .field-title.h-34, .field-value.h-34 {
+    line-height: 34px;
+}
+
+.sign-up-business-page {
+    padding-bottom: 30px;
+    font-size: 16px;
+}
+
+    .sign-up-business-page > .container {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+
+    .sign-up-business-page .page-title {
+        color: #00aeef;
+        font-size: 40px;
+        padding: 50px 100px;
+    }
+
+        .sign-up-business-page .page-title .welcome-to {
+            line-height: 35px;
+        }
+
+        .sign-up-business-page .page-title .regit-title {
+            font-size: 120px;
+            line-height: 50px;
+            font-family: 'swing';
+            padding-left: 70px;
+        }
+
+        .sign-up-business-page .page-title .for-business {
+            padding-left: 130px;
+            padding-top: 30px;
+            line-height: 25px;
+        }
+
+            .sign-up-business-page .page-title .for-business .text-gray {
+                color: #888;
+            }
+
+        .sign-up-business-page .page-title small {
+            font-size: 20px;
+            font-weight: 300;
+        }
+
+    .sign-up-business-page .form-title {
+        color: #6d6e71;
+        font-size: 20px;
+        margin-bottom: 30px;
+    }
+
+    .sign-up-business-page .field {
+        margin-bottom: 15px;
+    }
+
+        .sign-up-business-page .field input {
+            font-weight: 300;
+        }
+
+    .sign-up-business-page .field-caption {
+        margin-top: 5px;
+        color: #00aeef;
+        font-weight: 300;
+    }
+
+    .sign-up-business-page .form-tools {
+        margin-top: 20px;
+    }
+
+        .sign-up-business-page .form-tools a.btn {
+            padding: 5px 50px;
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+.custom-box {
+    max-width: 640px;
+    margin: auto;
+    padding: 40px;
+    margin-top: 50px;
+}
+
+    .custom-box.addtional-info-box {
+        max-width: 680px;
+    }
+
+    .custom-box .btn-submit {
+        width: 150px;
+        font-weight: 600;
+    }
+
+.box-header {
+    font-size: 25px;
+    margin-bottom: 20px;
+    color: #6D6E71;
+    font-weight: bold;
+}
+
+    .box-header img {
+        margin-right: 15px;
+        height: 60px;
+    }
+
+.custom-box .field {
+    margin-bottom: 15px;
+}
+
+.box-footer {
+    margin-top: 20px;
+}
+
+.terms-condition-box {
+    border: 1px solid #00aeef;
+}
+
+    .terms-condition-box .box-footer .btn-blue {
+        width: 120px;
+    }
+
+    .terms-condition-box .box-footer .btn-disagree {
+        background: rgba(0, 174, 239, 0.5);
+        border-color: #aae8ff;
+    }
+
+    .terms-condition-box .box-content {
+        padding: 5px 15px 5px 0;
+        overflow-y: auto;
+        max-height: 300px;
+    }
+
+.company-details-box textarea {
+    resize: none;
+}
+
+.authentication-box .field-caption {
+    font-weight: 200;
+    margin-bottom: 10px;
+}
+
+.authentication-box .field {
+    text-align: center;
+}
+
+    .authentication-box .field .field-error {
+        padding-top: 30px;
+        padding-bottom: 30px;
+        color: #ef4036;
+    }
+
+    .authentication-box .field input {
+        text-align: center;
+        max-width: 200px;
+        margin: auto;
+    }
+
+.authentication-box .form-caption {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    color: #6D6E71;
+}
+
+    .authentication-box .form-caption .regit-color {
+        font-weight: 200;
+    }
+
+.congratulation-box {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    text-align: center;
+}
+
+    .congratulation-box h2 {
+        font-family: 'swing';
+        font-size: 50px;
+        color: #00aeef;
+        margin-bottom: 5px;
+    }
+
+        .congratulation-box h2 + h2 {
+            margin-top: 5px;
+            margin-bottom: 50px;
+            font-family: inherit;
+            font-weight: bold;
+            font-size: 35px;
+        }
+
+    .congratulation-box .btn-blue {
+        font-size: 30px;
+        font-weight: bold;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+.timepicker-dropdown {
+    margin-left: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+    .timepicker-dropdown .dropdown-toggle {
+        display: block;
+        padding: 0 5px;
+        width: 80px;
+        height: 34px;
+        line-height: 34px;
+        border: 1px solid #ccc;
+        text-align: center;
+        color: #00aeef;
+        font-weight: 300;
+    }
+
+    .timepicker-dropdown .dropdown-menu li > div {
+        padding: 15px;
+    }
+
+.work-hours-picker {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+    .work-hours-picker.from-picker {
+        margin-right: 20px;
+    }
+
+.work-days-picker {
+    margin-top: 10px;
+}
+
+    .work-days-picker .work-day {
+        margin-right: 1px;
+        height: 34px;
+        width: 60px;
+        line-height: 34px;
+        display: inline-block;
+        vertical-align: middle;
+        border: 1px solid #ccc;
+        text-align: center;
+        color: #888;
+        font-weight: 300;
+    }
+
+        .work-days-picker .work-day.selected {
+            color: #fff;
+            background: #00aeef;
+            border: none;
+        }
+
+    .work-days-picker .picker-tool {
+        margin-top: 10px;
+    }
+
+.sign-up-business-page .box-caption {
+    margin-bottom: 40px;
+}
+
+.sign-up-business-page .profile-picture {
+    margin-bottom: 10px;
+}
+
+    .sign-up-business-page .profile-picture img {
+        width: 100px;
+        height: 100px;
+    }
+
+.sign-up-business-page .btn-blue.btn-fix-width, .sign-up-business-page .btn-gray.btn-fix-width {
+    font-weight: 500;
+    font-size: 18px;
+    width: 150px;
+}
+
+.verifying-email-container {
+    margin-top: 50px;
+    font-weight: 200;
+    color: #666;
+    text-align: center;
+    font-size: 16px;
+}
+
+    .verifying-email-container h1 {
+        font-weight: 600;
+        font-size: 30px;
+    }
+
+    .verifying-email-container .btn {
+        font-weight: 600;
+        font-size: 30px;
+        padding: 6px 30px;
+        margin-top: 30px;
+        width: auto;
+    }
+
+.sign-up-business-page .profile-picture {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 15px;
+}
+
+    .sign-up-business-page .profile-picture img {
+        width: 60px;
+        height: 60px;
+    }
+
+.upload-img-control {
+    display: inline-block;
+    vertical-align: top;
+    height: 60px;
+    padding: 5px 20px;
+    line-height: 40px;
+    font-size: 18px;
+    border: 1px solid #a7a9ac;
+    cursor: pointer;
+    width: 325px;
+}
+
+    .upload-img-control.has-photo {
+        max-width: 250px;
+    }
+
+    .upload-img-control input[type=file] {
+        display: none;
+    }
+
+    .upload-img-control.upload-photo > img {
+        height: 40px;
+        margin-right: 15px;
+    }
+
+    .upload-img-control.upload-photo:before {
+        content: '';
+        width: 0;
+        height: 100%;
+        display: inline-block;
+        vertical-align: middle;
+    }

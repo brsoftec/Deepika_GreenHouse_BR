@@ -1,0 +1,475 @@
+
+.billing-page {
+    color: #222;
+    font-weight: 300;
+    width: 100%;
+    padding: 10px;
+}
+
+.billing-details {
+    width: 100%;
+}
+
+.billing-overview {
+    display: inline-block;
+    width: 60%;
+    vertical-align: top;
+}
+
+.billing-overview-row {
+    clear: both;
+}
+
+.billing-overview-label {
+    display: inline-block;
+    width: 34%;
+    font-weight: 400;
+    vertical-align: top;
+}
+
+.billing-overview-value {
+    width: 60%;
+    display: inline-block;
+}
+
+.billing-overview-notes {
+    font-size: 90% !important;
+}
+
+.billing-overview-address {
+    font-size: 90%;
+}
+
+.billing-overview-plan {
+    display: inline-block;
+    width: 220px;
+    text-align: center;
+}
+
+.billing-usage {
+    margin-bottom: 20px;
+}
+.billing-usage .billing-overview {
+    width: 80%;
+}
+
+.billing-plan {
+    vertical-align: top;
+    text-align: center;
+}
+
+.billing-plan-heading {
+    font-weight: 500;
+    color: #00adef;
+    font-size: 140%;
+}
+
+.active .billing-plan-heading {
+    color: #3cb371;
+    font-size: 140%;
+}
+
+.billing-plan-quota ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.billing-plan-quota li {
+    margin: 0;
+    padding: 0;
+    font-size: 90%;
+}
+
+.billing-plan-quota-value {
+    color: #00adef;
+    font-weight: 500;
+    font-size: 120%;
+}
+
+.billing-plan-price-value {
+    color: #00adef;
+    font-weight: 500;
+    font-size: 200%;
+}
+
+.billing-plan-upgrade-action {
+    background: none;
+    background-color: #00adef;
+    color: white;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 20px;
+    margin: 10px;
+    font-weight: 500;
+}
+
+.billing-plan-select-modal {
+    min-width: 820px;
+}
+
+.billing-plan-select-item {
+    display: inline-block;
+    padding: 10px 20px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.billing-plan-select-item.enterprise {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+
+}
+
+.billing-plan-select-item.active {
+    border: 2px solid mediumseagreen;
+    background: transparent url(../img/billing-plan-selected.svg) no-repeat 95% 10px;
+    background-size: 30px;
+    transition: none;
+}
+.billing-plan-select-item.current {
+    border: 1px solid #ddd;
+    background: #f9f9f9;
+    transition: none;
+    cursor: default;
+}.billing-plan-select-item.disabled {
+    cursor: default;
+}
+
+.billing-plan-select-notes {
+    clear: both;
+    margin: 10px 0;
+}
+.billing-plan-select-notes ul {
+    margin-top: 4px;
+}
+.billing-plan-promo-code-input {
+    text-align: center;
+}
+.billing-plan-select-actions {
+    margin-bottom: 20px;
+}
+.modal-actions {
+    clear: both;
+    margin-top: 20px;
+}
+
+.modal-action {
+    margin-right: 10px;
+}
+
+.billing-notes-info {
+    margin: 20px 0;
+    background: #fffcd5;
+    border: 1px solid #ffdf4f;
+    padding: 10px 20px;
+}
+
+.billing-section {
+    margin-top: 20px;
+}
+
+.billing-section-heading {
+    font-size: 140%;
+    color: #aaa;
+}
+
+.billing-paypal-logo {
+    width: 120px;
+    float: right;
+}
+
+.payment-method-add-action {
+    background: none;
+    border: none;
+    color: #00adef;
+    margin-top: 10px;
+}
+
+.payment-methods-list {
+    margin: 10px 0;
+}
+
+.payment-method-item {
+    border: 1px solid #ddd;
+    padding: 20px 0;
+
+}
+
+.payment-method-item > div {
+    display: inline-block;
+    padding: 0 20px;
+    vertical-align: top;
+
+}
+
+.payment-method-icon {
+    width: 60px;
+}
+
+.payment-method-icon img {
+    height: 30px;
+}
+
+.payment-method-info {
+}
+
+.payment-method-number {
+    letter-spacing: .2em;
+}
+
+.payment-method-expires {
+    font-size: 90%;
+}
+
+.payment-method-isdefault {
+    color: #00adef;
+    font-variant: all-small-caps;
+    padding: 0 4px;
+    border: 1px solid #00adef;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1;
+    margin-top: 4px;
+}
+
+.payment-method-actions {
+    float: right;
+    position: relative;
+}
+
+.payment-card-form {
+    text-align: left;
+    width: 300px;
+    margin: 0 auto;
+}
+
+.payment-card-form-row {
+    padding: 4px;
+}
+
+.payment-card-form-control input {
+    border: 1px solid #ddd;
+    height: 30px;
+    padding: 4px 6px;
+}
+
+.payment-card-form-control.fullsize input {
+    width: 100%;
+}
+
+.payment-card-form-col {
+    display: inline-block;
+    width: 50%;
+}
+
+.payment-card-form-col.right {
+    float: right;
+    text-align: right;
+}
+
+.payment-card-form-col input {
+    width: 6em;
+}
+
+.card-expires input {
+    text-align: center !important;
+}
+
+.input-month {
+    width: 3em !important;
+}
+
+.card-type-select-item {
+    width: 80px;
+    display: inline-block;
+    padding: 8px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.card-type-select-item.active {
+    border-color: mediumseagreen;
+}
+
+.card-type-select-item img {
+    max-width: 100%;
+}
+
+.billing-history-grid {
+}
+
+.billing-history-grid th, .billing-history-grid td {
+    padding: 4px;
+}
+
+.billing-history-grid th {
+    font-weight: 400;
+}
+
+.billing-history-grid td {
+    font-size: 80%;
+}
+
+.payment-method-badge .payment-method-icon {
+    display: inline-block;
+    width: 36px;
+}
+
+.payment-method-badge .payment-method-icon img {
+    height: 20px;
+}
+
+.payment-method-badge .payment-method-number {
+    display: inline-block;
+}
+
+.billing-plan-promo {
+    margin: 20px 0;
+}
+
+promocode-generate-modal {
+    width: 300px;
+}
+
+promocode-generate-form {
+    text-align: left;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.promocode-generate-form-row {
+    padding: 8px 4px;
+}
+
+.promocode-generate-form-label {
+    display: inline-block;
+    width: 30%;
+    vertical-align: top;
+}
+
+.promocode-generate-form-control {
+    display: inline-block;
+    width: 65%;
+    vertical-align: top;
+}
+
+.promocode-generate-form-control input {
+    border: 1px solid #ddd;
+    height: 30px;
+    padding: 4px 6px;
+    width: 100%;
+}
+
+.promocode-generate-value {
+    background: #eee;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 200%;
+    height: 60px;
+    vertical-align: middle;
+    text-align: center;
+    padding: 10px;
+}
+
+.promocode-generate-actions {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.promocode-generate-action {
+    margin-right: 10px;
+}
+
+.card-input {
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    padding: 5px;
+    width: 100%;
+}
+
+.card-input::placeholder {
+    color: #CFD7E0;
+}
+
+#card-number {
+
+}
+
+#card-expiry {
+    width: 80px;
+    /*float: left;*/
+}
+
+#card-cvc {
+    width: 40px;
+    float: right;
+}
+
+.card-error {
+    color: darkorange;
+    text-align: center;
+}
+.card-brand-logo {
+    height: 40px;
+
+}
+
+.billing-accept-cards {
+    float: right;
+}
+
+.billing-accept-cards .card-brand-logo {
+    height: 30px;
+    margin-right: 10px;
+}
+
+.billing-plan-message {
+    background: rgba(16, 168, 245, 0.13);
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 90%;
+    padding: 10px;
+    margin: 0 auto;
+    font-size: 90%;
+}
+.billing-plan-message p {
+    margin: 4px 0;
+    padding: 0;
+}
+.promocode-panel {
+    margin-top: 20px;
+}
+
+.promocode-edit-opener {
+    background: none;
+    border: none;
+    color: #00adef;
+}
+
+.promocode-edit p {
+    font-size: 90%;
+}
+
+.promocode-edit-input {
+    text-align: center;
+    margin-right: 10px;
+}
+
+.promocode-edit-action {
+    background: none;
+    border: none;
+    color: #00adef;
+    margin-left: 10px;
+}
+
+.promocode-edit-message {
+    color: crimson;
+}

@@ -1,0 +1,118 @@
+﻿@{
+ViewBag.Title = "Information Vault";
+Layout = "~/Areas/User/Views/Shared/_LayoutDefaultApply.cshtml";
+}
+@section styles {
+@Styles.Render("~/bundles/css/phone-input")
+}
+
+@section scripts {
+
+@Scripts.Render("~/bundles/js/phone-input")
+@Scripts.Render("~/bundles/InformationVaultService")
+@Scripts.Render("~/bundles/information-vault-ctrl")
+@Scripts.Render("~/bundles/search-vault")
+
+<script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/VaultPushController.js")">
+</script>
+<script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/PushToVault/RegistrationOnPushToVaultUserController.js")"></script>
+@Scripts.Render("~/bundles/country-city-ctrl")
+@Scripts.Render("~/bundles/sms-authencation-popup-ctrl")
+@Scripts.Render("~/bundles/dialog-confirm-ctrl")
+}
+
+<div ng-controller="InformationVaultController as vm" ng-init="vm.initializeController()">
+
+    <!--NEW LAYOUT-->
+    <div class="module module-main module-vault-dashboard">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/#/home">&laquo; Home</a>
+            </li>
+            <li ng-if="!vm.showVaultMain" class="breadcrumb-item">
+                <a ng-click="vm.AlphaRedirectTask('main_form.html')" href="#"> Information Vault</a>
+            </li>
+            <li ng-if="vm.showVaultMain" class="breadcrumb-item active"> Information Vault</li>
+        </ol>
+
+        <div ng-if="vm.showVaultMain">
+            <div class="vault-intro">
+                <p>Make your vault strong by adding information.</p>
+                <a class="btn-vault-add" ng-click="vm.showVaultMain=false; vm.AlphaRedirectTask('categories.html')"
+                   href="#">Add more information</a>
+            </div>
+
+           <div ng-controller="SearchVaultController">
+                <div class="vault-search" ng-class="{'vault-search-empty':!vaultSearch.query.length}">
+                    <input class="search-vault" placeholder="Search vault for information"
+                           ng-disabled="vaultEdit.editingField"
+                           ng-model="vaultSearch.query" ng-change="onVaultSearchInput()">
+                    <button type="button" class="search-clear" ng-click="UpdateVaultData(); clearSearch(); ">Clear search</button>
+                </div>
+                <div class="vault-search-results" ng-if="vaultSearch.searching">
+                    <form name="formVaultSearch">
+                        <div ng-repeat="entry in matchedEntries = (vaultEntries | filter: filterEntriesByQuery)" class="vault-search-row">
+                            <div class="vault-entry-path" ng-bind-html="entry.path"></div>
+                            <div ng-if="!entry.leaf" class="vault-entry vault-entry-group vault-entry-level-{{entry.level}}"
+                                 ng-class="{'vault-entry-form':entry.list}">
+                                <span class="vault-entry-label"
+                                      ng-bind-html="entry.label || entry.path | vaultHighlightMatch:vaultSearch.query"></span>
+                                <a href="#" ng-if="entry.list && entry.label !=='Contact'" class="vault-entry-action"
+                                   ng-click="$event.preventDefault(); SearchResult(view.selectedDelegation, entry.jsPath, entry.label, entry);">Edit form</a>
+                            </div>
+
+                            <div ng-if="!entry.leaf && entry.list && editForm.value && editingForm.value === entry"
+                                 class="vault-entry-form-edit">
+                                <div class="form-group">
+                                    <div ng-include="query.pathForm"></div>
+                                </div>
+                                <div class="vault-entry-form-edit-actions">
+                                    <button type="button"
+                                            class="btn btn-default vault-entry-form-edit-action btn-edit-vault-field-cancel"
+                                            ng-click="cancelForm()">
+                                        Close view
+                                    </button>
+                                </div>
+                            </div>
+                         
+                            <div ng-if="entry.leaf" class="vault-entry vault-entry-level-{{entry.level}}"
+                                 ng-class="{'vault-entry-editing': vaultEdit.editingField===entry}">
+                                <label class="vault-entry-label"
+                                       ng-bind-html="entry.label | vaultHighlightMatch:vaultSearch.query">
+                                </label>
+                                <button ng-if="!vaultEdit.editingField" type="button"
+                                        class="btn-edit-vault-field"
+                                        ng-click="editField(entry); SearchResult(view.selectedDelegation, entry.jsPath, entry.label, entry)">
+                                    Edit field
+                                </button>
+
+                                <div ng-if="vaultEdit.editingField!==entry" class="vault-entry-value"
+                                     ng-bind-html="entry.value | vaultValue | vaultHighlightMatch:vaultSearch.query">
+                                </div>                             
+                                <div ng-if="vaultEdit.editingField===entry" class="vault-entry-form-edit">
+                                    <div class="form-group" ng-include="query.pathForm"></div>
+
+                                </div>
+                              
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+           
+             <div class="vault-forms">
+                <form name="formVault" class="vault-form" novalidate>
+                    <div ng-include="vm.teamplateVault"></div>
+                </form>
+            </div>
+        </div>
+        <div ng-if="!vm.showVaultMain">
+            <div ng-include="vm.teamplateVault"></div>
+        </div>
+    </div>
+    <!--END NEW LAYOUT-->
+
+</div>
+
+

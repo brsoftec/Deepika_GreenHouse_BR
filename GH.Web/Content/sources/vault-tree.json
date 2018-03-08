@@ -1,0 +1,1044 @@
+{
+  "_id" : "58e73ca4e66cbf50082fdf4e",
+  "userId" : "330a0209-ee51-40be-8809-03cbc709634b",
+  "dateCreate" : "",
+  "basicInformation" : {
+    "_id" : "",
+    "label" : "Basic Information",
+    "name" : "Basic Information",
+    "privacy" : true,
+    "default" : "",
+    "value" : {
+      "title" : {
+        "value" : "Mrs.",
+        "label" : "Title",
+        "privacy" : true
+      },
+      "firstName" : {
+        "value" : "Vu Normalsdasdf",
+        "label" : "First Name",
+        "privacy" : true
+      },
+      "middleName" : {
+        "value" : "Hoang",
+        "label" : "Middle Name",
+        "privacy" : true
+      },
+      "lastName" : {
+        "value" : "Nguyen",
+        "label" : "Last Name",
+        "privacy" : true
+      },
+      "alias" : {
+        "value" : "Coder",
+        "label" : "Alias",
+        "privacy" : true
+      },
+      "dob" : {
+        "value" : "2000-07-03T10:49:04.832Z",
+        "label" : "Date Of Birth",
+        "privacy" : true
+      },
+      "gender" : {
+        "label" : "Gender",
+        "value" : "Female",
+        "privacy" : true
+      },
+      "location" : {
+        "_id" : "",
+        "label" : "Location",
+        "value" : "",
+        "type" : "location",
+        "rules" : ""
+      },
+      "sexuality" : {
+        "_id" : "",
+        "label" : "Sexuality",
+        "value" : "",
+        "privacy" : true,
+        "rules" : "",
+        "type" : "textbox"
+      },
+      "languages" : {
+        "_id" : "",
+        "label" : "Languages",
+        "value" : [],
+        "privacy" : true,
+        "options" : "language",
+        "type" : "smartinput",
+        "rules" : ""
+      },
+      "country" : {
+        "_id" : "",
+        "label" : "Country",
+        "value" : "Viet Nam",
+        "privacy" : true
+      },
+      "state" : {
+        "_id" : "",
+        "label" : "State/ Province/ Region",
+        "value" : "",
+        "privacy" : true
+      },
+      "city" : {
+        "_id" : "",
+        "label" : "City",
+        "value" : "Dong Nai",
+        "privacy" : true
+      },
+      "ethnicity" : {
+        "_id" : "",
+        "label" : "Ethnicity",
+        "value" : "",
+        "privacy" : true,
+        "type" : "smartinput",
+        "rules" : ""
+      },
+      "religion" : {
+        "_id" : "",
+        "label" : "Religion",
+        "value" : "",
+        "privacy" : true,
+        "type" : "smartinput"
+      },
+      "disability" : {
+        "_id" : "",
+        "label" : "Disability",
+        "value" : "",
+        "privacy" : true,
+        "type" : "smartinput"
+      },
+      "note" : {
+        "_id" : "",
+        "label" : "Note",
+        "value" : "",
+        "privacy" : true,
+        "type" : "textarea"
+      },
+      "relationshipStatus" : {
+        "label" : "Relationship status",
+        "value" : "Single",
+        "privacy" : true
+      }
+    }
+  },
+  "contact" : {
+    "_id" : "",
+    "label" : "Contact",
+    "name" : "Contact",
+    "privacy" : true,
+    "default" : "",
+    "sublist": true,
+    "value" : {
+      "profileEmail" : {
+        "_id" : "",
+        "label" : "Email",
+        "value" : "vu@normal.com",
+        "privacy" : true,
+        "type" : "textbox",
+        "rules" : "mail",
+        "nosearch" : true
+      },
+      "profilePhone" : {
+        "_id" : "",
+        "label" : "Phone",
+        "value" : "+84979888227",
+        "privacy" : true,
+        "type" : "textbox",
+        "rules" : "phone",
+        "nosearch" : true
+      },
+      "mobile" : {
+        "_id" : "",
+        "label" : "Mobile",
+        "name" : "Mobile",
+        "default" : "+84979888227",
+        "value" : [
+          {
+            "id" : 0,
+            "value" : "+84979888227"
+          }
+        ],
+        "privacy" : true,
+        "rules" : "phone",
+        "type" : "textbox"
+      },
+      "home" : {
+        "_id" : "",
+        "label" : "Home phone",
+        "name" : "",
+        "default" : "",
+        "value" : [],
+        "privacy" : true,
+        "rules" : "phone",
+        "type" : "textbox"
+      },
+      "office" : {
+        "_id" : "",
+        "label" : "Office",
+        "name" : "",
+        "default" : "",
+        "value" : [],
+        "privacy" : true,
+        "rules" : "phone",
+        "type" : "textbox"
+      },
+      "fax" : {
+        "_id" : "",
+        "label" : "Fax",
+        "name" : "",
+        "value" : [],
+        "default" : "",
+        "privacy" : true,
+        "rules" : "phone",
+        "nosearch" : true,
+        "type" : "textbox"
+      },
+      "email" : {
+        "_id" : "",
+        "label" : "Email",
+        "name" : "Email",
+        "default" : "vu2@normal.com",
+        "value" : [
+          {
+            "id" : 1,
+            "value" : "vu@normal.com"
+          },
+          {
+            "id" : 2,
+            "value" : "vu2@normal.com"
+          }
+        ],
+        "privacy" : true
+      },
+      "note" : {
+        "_id" : "",
+        "label" : "Note",
+        "name" : "",
+        "value" : "",
+        "privacy" : true
+      },
+      "officeEmail" : {
+        "label" : "Office email",
+        "name" : "Office email",
+        "privacy" : "Office email",
+        "default" : "vuoffice2@normal.com",
+        "value" : [
+          {
+            "id" : 1,
+            "value" : "vuoffice@normal.com"
+          },
+          {
+            "id" : 2,
+            "value" : "vuoffice2@normal.com"
+          }
+        ]
+      }
+    }
+  },
+  "groupAddress" : {
+    "_id" : "",
+    "label" : "Address",
+    "name" : "Address",
+    "default" : "",
+    "privacy" : true,
+    "value" : {
+      "currentAddress" : {
+        "_id" : "",
+        "label" : "Current address",
+        "name" : "Current address",
+        "default" : "Current Test Vu Normalewr",
+        "privacy" : true,
+        "value" : [
+          {
+            "privacy" : "",
+            "description" : "Current Test Vu Normalewr",
+            "_default" : true,
+            "startDate" : "2003-04-07T10:49:30.732Z",
+            "endDate" : "",
+            "addressLine" : "209 Nguyen Dinh Chieu",
+            "addressLine_lat" : "",
+            "addressLine_lng" : "",
+            "instruction" : "",
+            "country" : "Viet Nam",
+            "city" : "Ho Chi Minh City",
+            "state" : "",
+            "zipCode" : "",
+            "note" : ""
+          },
+          {
+            "privacy" : "",
+            "description" : "Current Test T2 Vu Normal",
+            "_default" : false,
+            "startDate" : "2017-04-07T10:49:30.771Z",
+            "endDate" : "",
+            "addressLine" : "29 Nguy?n Ðình Chi?u, Ho Chi Minh City, Ho Chi Minh, Vietnam",
+            "addressLine_lat" : "",
+            "addressLine_lng" : "",
+            "instruction" : "",
+            "country" : "",
+            "city" : "",
+            "state" : "",
+            "zipCode" : "",
+            "note" : ""
+          }
+        ]
+      },
+      "deliveryAddress" : {
+        "_id" : "",
+        "label" : "Delivery address",
+        "name" : "",
+        "default" : "",
+        "privacy" : true,
+        "value" : []
+      },
+      "billingAddress" : {
+        "_id" : "",
+        "label" : "Billing address",
+        "name" : "Billing address",
+        "default" : "aaa Building Address",
+        "privacy" : true,
+        "value" : [
+          {
+            "privacy" : "",
+            "description" : "aaa Building Address",
+            "_default" : true,
+            "startDate" : "2017-04-19T04:43:43.533Z",
+            "endDate" : "",
+            "addressLine" : "aaa Building Address",
+            "addressLine_lat" : "",
+            "addressLine_lng" : "",
+            "instruction" : "",
+            "country" : "",
+            "city" : "",
+            "state" : "",
+            "zipCode" : "",
+            "note" : "aaa Building Address"
+          }
+        ]
+      },
+      "mailingAddress" : {
+        "_id" : "",
+        "label" : "Mailing Address",
+        "name" : "",
+        "default" : "",
+        "privacy" : true,
+        "value" : []
+      },
+      "pobox" : {
+        "_id" : "",
+        "label" : "P.O Box",
+        "name" : "",
+        "default" : "",
+        "privacy" : true,
+        "value" : []
+      }
+    }
+  },
+  "groupFinancial" : {
+    "_id" : "",
+    "label" : "Financial",
+    "name" : "Financial",
+    "default" : "",
+    "privacy" : true,
+    "note" : "",
+    "value" : {
+      "bankAccount" : {
+        "_id" : "",
+        "label" : "Bank account",
+        "name" : "Bank account",
+        "default" : "aasfaas",
+        "privacy" : true,
+        "value" : [
+          {
+            "privacy" : "",
+            "description" : "aasfaas",
+            "accountNumber" : "",
+            "bankName" : "dfsasfa",
+            "bankBranch" : "dfas",
+            "accountType" : "Checking",
+            "bankAdress" : "",
+            "city" : "",
+            "country" : "",
+            "state" : "",
+            "zipCode" : "",
+            "issuedDate" : "2000-01-01T00:00:00Z",
+            "expiryDate" : "",
+            "nonExpiry" : "",
+            "note" : "",
+            "_default" : true
+          }
+        ]
+      },
+      "investment" : {
+        "_id" : "",
+        "label" : "Investment",
+        "name" : "",
+        "default" : true,
+        "privacy" : true,
+        "value" : []
+      },
+      "insurance" : {
+        "_id" : "",
+        "label" : "Insurance",
+        "name" : "",
+        "default" : true,
+        "privacy" : true,
+        "value" : []
+      },
+      "masterCard" : {
+        "_id" : "",
+        "label" : "Master card",
+        "name" : "",
+        "default" : true,
+        "privacy" : true,
+        "value" : []
+      },
+      "visaCard" : {
+        "_id" : "",
+        "label" : "Visa card",
+        "name" : "",
+        "default" : true,
+        "privacy" : true,
+        "value" : []
+      },
+      "bankCard" : {
+        "_id" : "",
+        "label" : "Bank card",
+        "name" : "",
+        "default" : true,
+        "privacy" : true,
+        "value" : []
+      },
+      "paypal" : {
+        "_id" : "",
+        "label" : "Paypal",
+        "name" : "",
+        "default" : true,
+        "privacy" : true,
+        "value" : []
+      }
+    }
+  },
+  "groupGovernmentID" : {
+    "_id" : "",
+    "label" : "Government ID",
+    "name" : "GovernmentID",
+    "default" : "",
+    "privacy" : true,
+    "note" : "",
+    "hasDoc" : true,
+    "value" : {
+      "birthCertificate" : {
+        "_id" : "",
+        "label" : "Birthday Certificate",
+        "name" : "",
+        "default" : true,
+        "privacy" : true,
+        "hasDoc" : true,
+        "value" : []
+      },
+      "driverLicenseCard" : {
+        "_id" : "",
+        "label" : "Driver License Card",
+        "name" : "",
+        "default" : true,
+        "privacy" : true,
+        "hasDoc" : true,
+        "value" : []
+      },
+      "healthCard" : {
+        "_id" : "",
+        "label" : "Health Card",
+        "name" : "",
+        "default" : true,
+        "privacy" : true,
+        "hasDoc" : true,
+        "value" : []
+      },
+      "medicalBenefitCard" : {
+        "_id" : "",
+        "label" : "Medical Benefit Card",
+        "name" : "",
+        "default" : true,
+        "privacy" : true,
+        "hasDoc" : true,
+        "value" : []
+      },
+      "passportID" : {
+        "_id" : "",
+        "label" : "Passport ID",
+        "name" : "",
+        "default" : true,
+        "privacy" : true,
+        "hasDoc" : true,
+        "value" : []
+      },
+      "CustomGovernmentID" : {
+        "_id" : "",
+        "label" : "Custom ID",
+        "name" : "Custom ID",
+        "default" : "dsfas",
+        "privacy" : true,
+        "note" : "",
+        "hasDoc" : true,
+        "value" : [
+          {
+            "_id" : 1,
+            "privacy" : "",
+            "description" : "dsfas",
+            "firstName" : "fdfsfasf",
+            "middleName" : "dfsafda",
+            "lastName" : "dfsafd",
+            "nationality" : "dfsafd",
+            "cardNumber" : "dfas",
+            "dob" : "00-00-0000",
+            "countryOB" : "Algeria",
+            "issuedDate" : "1960-01-01T00:00:00Z",
+            "expiryDate" : "",
+            "issuedBy" : "",
+            "issuedIn" : "",
+            "note" : "dfas",
+            "_default" : true
+          }
+        ]
+      },
+      "permanentResidenceCard" : {
+        "_id" : "",
+        "label" : "Permanent Residence Card",
+        "name" : "",
+        "default" : true,
+        "privacy" : true,
+        "value" : []
+      },
+      "socialInsuranceCard" : {
+        "_id" : "",
+        "label" : "Social Insurance Card",
+        "name" : "",
+        "default" : true,
+        "privacy" : true,
+        "hasDoc" : true,
+        "value" : []
+      },
+      "taxID" : {
+        "_id" : "",
+        "label" : "Tax ID",
+        "name" : "",
+        "default" : true,
+        "privacy" : true,
+        "hasDoc" : true,
+        "value" : []
+      },
+      "nationalID" : {
+        "label" : "National Identity Card",
+        "name" : "nationalID",
+        "default" : "Vu Test",
+        "privacy" : true,
+        "value" : [
+          {
+            "_id" : 1,
+            "privacy" : "",
+            "description" : "National Identity Card Test",
+            "firstName" : "Vu",
+            "lastName" : "Nguyen",
+            "nationality" : "Viet nam",
+            "nationalID" : "2900093222",
+            "race" : "Yellow",
+            "country" : "Australia",
+            "address" : "209 Nguyen Dinh Chieu",
+            "issuedDate" : "1946-01-01T00:00:00.000Z",
+            "expiryDate" : "",
+            "note" : "Update",
+            "_default" : false
+          },
+          {
+            "_id" : 2,
+            "privacy" : "",
+            "description" : "Vu Test",
+            "firstName" : "dfsafd",
+            "lastName" : "Vu Test Last Name",
+            "nationality" : "dfasfda",
+            "nationalID" : "dfsas",
+            "race" : "dfsaf",
+            "country" : "Argentina",
+            "address" : "",
+            "issuedDate" : "1960-01-01T00:00:00.000Z",
+            "expiryDate" : "2018-04-07T17:00:00.000Z",
+            "note" : "",
+            "_default" : true
+          }
+        ]
+      }
+    }
+  },
+  "family" : {
+    "_id" : "",
+    "label" : "Relationship",
+    "name" : "Relationship",
+    "default" : true,
+    "privacy" : true,
+    "nosearch": true,
+    "value" : [
+      {
+        "privacy" : {
+          "label" : "Privacy",
+          "value" : ""
+        },
+        "description" : {
+          "label" : "Description",
+          "value" : "sadfasdf"
+        },
+        "firstName" : {
+          "label" : "First name",
+          "value" : "dfassf"
+        },
+        "middleName" : {
+          "label" : "Middle name",
+          "value" : "das"
+        },
+        "lastName" : {
+          "label" : "Last name",
+          "value" : "dfaf"
+        },
+        "dob" : {
+          "label" : "D.O.B",
+          "value" : "2000-01-01T00:00:00Z"
+        },
+        "gender" : {
+          "label" : "Gender",
+          "value" : ""
+        },
+        "email" : {
+          "label" : "Email",
+          "value" : ""
+        },
+        "relationship" : {
+          "label" : "Relationship",
+          "value" : ""
+        },
+        "note" : {
+          "label" : "Note",
+          "value" : ""
+        },
+        "emergencyUserId" : {
+          "label" : "Emergency UserId",
+          "value" : "",
+          "controlType" : ""
+        }
+      },
+      {
+        "privacy" : {
+          "label" : "Privacy",
+          "value" : ""
+        },
+        "description" : {
+          "label" : "Description",
+          "value" : "dsfdsa"
+        },
+        "firstName" : {
+          "label" : "First name",
+          "value" : "dfsaf"
+        },
+        "middleName" : {
+          "label" : "Middle name",
+          "value" : "dfasdf"
+        },
+        "lastName" : {
+          "label" : "Last name",
+          "value" : "dasf"
+        },
+        "dob" : {
+          "label" : "D.O.B",
+          "value" : "2000-01-01T00:00:00Z"
+        },
+        "gender" : {
+          "label" : "Gender",
+          "value" : ""
+        },
+        "email" : {
+          "label" : "Email",
+          "value" : "vu@nomdl.com"
+        },
+        "relationship" : {
+          "label" : "Relationship",
+          "value" : "In-law"
+        },
+        "note" : {
+          "label" : "Note",
+          "value" : "dfa"
+        },
+        "emergencyUserId" : {
+          "label" : "Emergency UserId",
+          "value" : "",
+          "controlType" : ""
+        }
+      }
+    ]
+  },
+  "pet" : {
+    "_id" : "",
+    "label" : "Pet",
+    "name" : "",
+    "default" : true,
+    "privacy" : true,
+    "value" : []
+  },
+  "membership" : {
+    "_id" : "",
+    "label" : "Membership",
+    "name" : "Membership",
+    "default" : true,
+    "privacy" : true,
+    "hasDoc" : true,
+    "value" : [
+      {
+        "_id" : 1,
+        "privacy" : "",
+        "description" : "dsfasd",
+        "businessName" : "dfsadf",
+        "membershipProgramName" : "dfafa",
+        "holder" : "",
+        "membershipClass" : "",
+        "membershipNumber" : "",
+        "expiryDate" : "",
+        "note" : "",
+        "loginId" : "",
+        "password" : "",
+        "loginSite" : "",
+        "serviceProvider" : "",
+        "noteOnline" : ""
+      }
+    ]
+  },
+  "employment" : {
+    "_id" : "",
+    "label" : "Employment",
+    "name" : "",
+    "default" : true,
+    "privacy" : true,
+    "hasDoc" : true,
+    "value" : []
+  },
+  "education" : {
+    "_id" : "",
+    "label" : "Education",
+    "name" : "",
+    "default" : "",
+    "privacy" : true,
+    "hasDoc" : true,
+    "value" : []
+  },
+  "others" : {
+    "_id" : "",
+    "label" : "Others",
+    "name" : "",
+    "default" : "",
+    "privacy" : true,
+    "value" : {
+      "preference" : {
+        "_id" : "",
+        "label" : "Preference",
+        "name" : "",
+        "default" : true,
+        "privacy" : true,
+        "value" : {
+          "interests" : {
+            "_id" : "",
+            "label" : "interests",
+            "value" : [],
+            "options" : "interest",
+            "type" : "smartinput"
+          },
+          "sports" : {
+            "_id" : "",
+            "label" : "sports",
+            "value" : [],
+            "options" : "sports",
+            "type" : "smartinput"
+          },
+          "food" : {
+            "_id" : "",
+            "label" : "Food",
+            "value" : [],
+            "options" : "food",
+            "type" : "smartinput"
+          },
+          "seat" : {
+            "_id" : "",
+            "label" : "Seat (plan/train/boat/ect",
+            "value" : [],
+            "options" : "seat",
+            "type" : "smartinput"
+          },
+          "season" : {
+            "_id" : "",
+            "label" : "Season",
+            "value" : [],
+            "options" : "season",
+            "type" : "smartinput"
+          },
+          "note" : {
+            "_id" : "",
+            "label" : "Note",
+            "value" : "",
+            "type" : "textarea"
+          },
+          "sexuality" : {
+            "label" : "Sexuality",
+            "value" : ""
+          },
+          "languages" : {
+            "label" : "Languages",
+            "value" : []
+          },
+          "ethnicity" : {
+            "label" : "Ethnicity",
+            "value" : ""
+          },
+          "religion" : {
+            "label" : "Religion",
+            "value" : ""
+          },
+          "disability" : {
+            "label" : "Disability",
+            "value" : ""
+          },
+          "allergies" : {
+            "label" : "Allergies",
+            "value" : []
+          }
+        }
+      },
+      "favourite" : {
+        "_id" : "",
+        "label" : "Favourite",
+        "name" : "",
+        "default" : true,
+        "privacy" : true,
+        "value" : {
+          "colour" : {
+            "_id" : "",
+            "label" : "Clour",
+            "value" : [],
+            "options" : "color",
+            "type" : "smartinput"
+          },
+          "holiday" : {
+            "_id" : "",
+            "label" : "Holiday",
+            "value" : [],
+            "options" : "holiday",
+            "type" : "smartinput"
+          },
+          "movie" : {
+            "_id" : "",
+            "label" : "Movie",
+            "value" : [],
+            "options" : "movie",
+            "type" : "smartinput"
+          },
+          "music_type" : {
+            "_id" : "",
+            "label" : "Music type",
+            "value" : [],
+            "options" : "musicGenre",
+            "type" : "smartinput"
+          },
+          "song" : {
+            "_id" : "",
+            "label" : "Song",
+            "value" : [],
+            "options" : "song",
+            "type" : "smartinput"
+          },
+          "tv_show" : {
+            "_id" : "",
+            "label" : "TV Show",
+            "value" : [],
+            "options" : "tvShow",
+            "type" : "smartinput"
+          },
+          "personality" : {
+            "_id" : "",
+            "label" : "Personality",
+            "value" : [],
+            "options" : "personality",
+            "type" : "smartinput"
+          },
+          "preferred_time" : {
+            "_id" : "",
+            "label" : "Preferred time of day",
+            "value" : "",
+            "type" : "textbox"
+          },
+          "note" : {
+            "_id" : "",
+            "label" : "Note",
+            "value" : "",
+            "type" : "textarea"
+          }
+        }
+      },
+      "body" : {
+        "_id" : "",
+        "label" : "Body",
+        "name" : "",
+        "default" : true,
+        "privacy" : true,
+        "value" : {
+          "hair_colour" : {
+            "_id" : "",
+            "label" : "Hair Clour",
+            "value" : [],
+            "options" : "color",
+            "type" : "smartinput"
+          },
+          "eye_colour" : {
+            "_id" : "",
+            "label" : "Eye colour",
+            "value" : [],
+            "options" : "color",
+            "type" : "smartinput"
+          },
+          "height" : {
+            "_id" : "",
+            "label" : "Height",
+            "value" : "",
+            "unit" : "",
+            "options" : "length",
+            "type" : "numinput"
+          },
+          "weight" : {
+            "_id" : "",
+            "label" : "Weight",
+            "value" : "",
+            "unit" : "",
+            "options" : "weight",
+            "type" : "numinput"
+          },
+          "type" : {
+            "_id" : "",
+            "label" : "Body type",
+            "value" : [],
+            "type" : "smartinput"
+          },
+          "note_body" : {
+            "_id" : "",
+            "label" : "Note",
+            "value" : "",
+            "controlType" : "textarea"
+          },
+          "neck" : {
+            "_id" : "",
+            "label" : "Neck circumference",
+            "value" : "",
+            "unit" : "",
+            "options" : "length",
+            "type" : "numinput"
+          },
+          "chest" : {
+            "_id" : "",
+            "label" : "Chest circumference",
+            "value" : "",
+            "unit" : "",
+            "options" : "length",
+            "type" : "numinput"
+          },
+          "arm" : {
+            "_id" : "",
+            "label" : "Length of arm",
+            "value" : "",
+            "unit" : "",
+            "options" : "length",
+            "type" : "numinput"
+          },
+          "leg" : {
+            "_id" : "",
+            "label" : "Length of leg",
+            "value" : "",
+            "unit" : "",
+            "options" : "length",
+            "type" : "numinput"
+          },
+          "inner" : {
+            "_id" : "",
+            "label" : "Inner thigh circumference",
+            "value" : "",
+            "unit" : "",
+            "options" : "length",
+            "type" : "numinput"
+          },
+          "bicep" : {
+            "_id" : "",
+            "label" : "Bicep circumference",
+            "value" : "",
+            "unit" : "",
+            "options" : "length",
+            "type" : "numinput"
+          },
+          "shoes" : {
+            "_id" : "",
+            "label" : "Shoes size",
+            "value" : "",
+            "unit" : "",
+            "options" : "shoesize",
+            "type" : "numinput"
+          },
+          "ring" : {
+            "_id" : "",
+            "label" : "Ring size",
+            "value" : "",
+            "unit" : "",
+            "options" : "length",
+            "type" : "numinput"
+          },
+          "note_tailor" : {
+            "_id" : "",
+            "label" : "Note",
+            "value" : "",
+            "type" : "textarea"
+          },
+          "right_eye" : {
+            "_id" : "",
+            "label" : "Right eye prescription",
+            "value" : "",
+            "type" : "textbox"
+          },
+          "left_eye" : {
+            "_id" : "",
+            "label" : "Left eye prescription",
+            "value" : "",
+            "type" : "textbox"
+          },
+          "note_eye" : {
+            "_id" : "",
+            "label" : "Note",
+            "value" : "",
+            "type" : "textarea"
+          }
+        }
+      }
+    }
+  },
+  "document" : {
+    "_id" : "",
+    "label" : "Document",
+    "name" : "Document",
+    "default" : true,
+    "privacy" : true,
+    "value" : [
+      {
+        "_id" : 1,
+        "privacy" : true,
+        "name" : "2000px-Linkedin_icon.svg.png",
+        "description" : "fadasas",
+        "type" : "image/png",
+        "category" : "Document",
+        "uploadDate" : "2017-04-20T09:58:37.815Z",
+        "expiryDate" : "",
+        "jsPath" : "/Government ID/National ID/2",
+        "nosearch" : true
+      }
+    ]
+  }
+}

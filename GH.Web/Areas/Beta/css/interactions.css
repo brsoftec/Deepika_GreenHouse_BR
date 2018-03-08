@@ -1,0 +1,1008 @@
+h3 {
+    clear: both;
+}
+
+.delegation-grid table *, .campaigns-grid table * {
+    border: none;
+}
+
+.campaigns-grid {
+    width: 100%;
+}
+
+.campaigns-grid th {
+    font-weight: normal;
+    color: #00adef;
+    /*text-align: center;*/
+}
+
+.delegation-grid th {
+    color: #666;
+}
+
+.delegation-grid td {
+    text-align: center;
+}
+
+.grid-tab-btn {
+    border: none;
+}
+
+.campaign-indicator {
+    display: inline-block;
+    color: #00adef;
+    border: 1px solid #00adef !important;
+    border-radius: 4px;
+    font-variant: all-small-caps;
+    width: 2em;
+    height: 22px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.campaign-indicator-inner {
+    width: 80%;
+    height: 18px;
+    line-height: 16px;
+    display: inline-block;
+    margin: auto;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+.campaign-indicator.campaign-status-pending .campaign-indicator-inner {
+    border-color: mediumseagreen !important;
+}
+
+.campaign-indicator.campaign-status-expired {
+    border-color: #aaa !important;
+    color: #aaa;
+}
+
+.campaign-status-active .campaign-indicator-inner {
+    background-color: #00adef;
+    color: white;
+}
+
+.campaign-status-pending .campaign-indicator-inner {
+    background-color: mediumseagreen;
+    color: white;
+}
+
+.campaign-draft .campaign-indicator {
+    border-color: #666 !important;
+    color: #666;
+}
+
+.campaign-template .campaign-indicator {
+    border-color: #760f1c !important;
+    color: #760f1c;
+    background-color: white;
+}
+
+.campaign-template .campaign-indicator-inner {
+}
+
+[uib-pagination] {
+    top: 0;
+    display: block !important;
+    margin: 0 auto 10px !important;
+    max-width: 50%;
+}
+
+.pagination > li > a, .pagination > li > span {
+    border: none;
+}
+
+/*  CAMPAIGNE MODULE */
+.form-campaigns {
+    margin: 0;
+}
+
+.form-campaign fieldset {
+    padding-bottom: 0;
+}
+
+.ad-name .field-value {
+    font-weight: bold;
+    font-size: 110%;
+}
+
+.grid-dropdown-filters {
+    float: right;
+}
+
+.dropdown-filter-btn {
+    background: none;
+    border: none;
+    box-shadow: none !important;
+    font-size: 90%;
+    margin-bottom: 4px;
+    color: #888;
+}
+
+.btn-filter-campaigns {
+    float: right;
+    width: auto;
+}
+
+.btn-filter-campaigns button {
+    border: none;
+}
+
+.campaigns-name {
+    text-align: left !important;
+}
+
+.campaign-status-active .campaigns-name {
+    font-weight: bold;
+}
+
+.campaign-status-pending .campaigns-name {
+    font-weight: bold;
+    color: mediumseagreen;
+}
+
+.campaign-status-expired td {
+    color: #999;
+}
+
+.grid-heading {
+    background-color: #e3f4fd;
+    padding: 8px 0 0 8px;
+    margin: 10px 0 0 0;
+    clear: both;
+}
+
+.grid-actions a, .campaigns-actions a {
+    margin-right: 14px;
+}
+
+.grid-status, .campaigns-status {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background: transparent url(../img/campaigns-status-active.png) no-repeat center center;
+    text-indent: -999999px;
+    vertical-align: middle;
+}
+
+.grid-status-inactive, .campaigns-status-inactive {
+    background-image: url(../img/campaigns-status-inactive.png);
+}
+
+.grid-status-pending, .campaigns-status-pending {
+    background-image: url(../img/campaigns-status-pending.png);
+}
+
+.grid-status-expired, .campaigns-status-expired {
+    background-image: none;
+}
+
+.grid-status table, .campaigns-grid table {
+    border: 1px solid #ccc;
+    font-size: 90%;
+}
+
+.delegation-expires-soon, .campaigns-expires-soon {
+    color: red;
+}
+
+.campaigns-exceeds-target {
+    color: green !important;
+}
+
+.campaigns-row-expired {
+    color: #aaa !important;
+}
+
+.pagination {
+    margin: 0;
+}
+
+.pagination-page.active a {
+    background: #00adef;
+}
+
+.cta-heading {
+    color: #00adef;
+}
+
+.cta {
+    display: inline-block;
+    width: 80px;
+    height: 72px;
+    background: #00adef url(../img/campaign-new-ad.png) no-repeat center 6px;
+    padding: 54px 0 0 0;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    margin-right: 10px;
+}
+
+.cta:hover {
+    color: white;
+}
+
+.cta-reg {
+    background-image: url(../img/campaign-new-reg.png);
+}
+
+.cta-evt {
+    background-image: url(../img/campaign-new-event.png);
+}
+
+.cta-srfi {
+    background-image: url(../img/campaign-srfi.png);
+    background-color: #EF4136;
+}
+
+.campaign-role-indicator {
+    border-radius: 6px;
+    padding: 2px 4px;
+    position: absolute;
+    top: 70px;
+    left: 10px;
+    color: #999;
+    border: 1px solid #999;
+    z-index: 100;
+    font-variant: all-small-caps;
+    background-color: white;
+}
+
+.top-buttons {
+    float: right;
+    z-index: 1200;
+}
+
+.steps {
+    padding: 0 0 20px 0;
+    width: 50%;
+}
+
+.steps ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.steps li {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: #d0d0d0;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    font-weight: bold;
+    line-height: 30px;
+    margin-right: 32px;
+    z-index: 100;
+}
+
+.steps li.active, .steps li.passed {
+    background: #00adef;
+}
+
+.steps li::after {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 6px;
+    background: #d0d0d0;
+    margin: -18px 0 0 30px;
+    z-index: -1;
+}
+
+.steps li.last::after {
+    content: normal;
+}
+
+.steps li.passed::after {
+    background: #00adef;
+}
+
+.step {
+    width: 120px;
+    height: 24px;
+    background: transparent url(../img/step1.png) no-repeat;
+    text-indent: -99999px;
+}
+
+.step2 {
+    background-image: url(../img/step2.png);
+}
+
+.step3 {
+    background-image: url(../img/step3.png);
+}
+
+.budget-input-group input {
+    width: 8em !important;
+}
+
+.qr-export-btn {
+    margin-top: -24px;
+}
+
+.preview-form-full {
+    border: 2px dashed #00adef;
+    padding: 30px;
+    position: relative;
+    margin-top: 20px;
+}
+
+.campaign-comment {
+    border-radius: 6px;
+    background-color: #E3F4FD;
+    padding: 10px;
+}
+
+.campaign-agree-cost {
+}
+
+.campaign-user-cost {
+    font-size: 140%;
+    font-weight: bold;
+}
+
+.terms-conditions-full {
+    max-height: 10em;
+    overflow-y: auto;
+    font-size: 80%;
+    border: 1px solid #eee;
+    padding: 10px;
+}
+
+.preview-form-list {
+    padding: 10px;
+}
+
+/* FORM EDITOR */
+.form-form-editor {
+    margin-top: 20px;
+}
+
+#label-select-template {
+    text-align: right;
+    font-weight: normal;
+}
+
+.select-template {
+    /*width: 12em !important;*/
+}
+
+.form-editor-container {
+    width: 100%;
+    min-height: 400px;
+}
+
+.form-editor-pane {
+    border: 1px solid #eee;
+    background: #fafafa;
+    padding-bottom: 20px;
+}
+
+.form-editor-pane-heading {
+    background: #00adef;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    font-size: 120%;
+    margin-top: 10px;
+}
+
+.form-editor-source {
+}
+
+.form-editor-source .vault-tree {
+    max-height: 500px;
+    overflow-y: auto;
+    padding: 4px;
+}
+
+.form-editor-target {
+    min-height: 300px;
+}
+
+.form-editor-vault-search .search-vault {
+    width: 100%;
+    background: white url(../img/search-input.png) no-repeat 4px center;
+    padding: 4px;
+    padding-left: 22px;
+    border: 1px solid #aaa;
+    margin-bottom: 4px;
+}
+
+.vault-entry {
+    display: block;
+    color: black;
+    margin-left: 10px;
+    padding-left: 20px;
+    background: transparent url(../img/vault-entry-type-textbox.png) no-repeat left center;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.vault-entry.active {
+    color: white;
+    background-color: #00adef;
+}
+
+.vault-entry.disabled {
+    color: #999;
+    cursor: default;
+}
+
+.form-entry {
+    display: block;
+    position: relative;
+    color: black;
+    margin-left: 10px;
+    padding-left: 20px;
+    background: transparent url(../img/vault-entry-type-textbox.png) no-repeat left center;
+
+    border-bottom: 1px dashed #aaa;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.form-entry.active {
+    color: white;
+    background-color: #00adef;
+}
+
+.active.draggable.enabled .vault-entry-label:after {
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-left: 6px;
+    background: #00adef url(../img/vault-entry-active.png) no-repeat center right;
+}
+
+.vault-entry-group {
+    font-size: 130%;
+    font-weight: bold !important;
+    margin-left: 0;
+    margin-top: 4px;
+    padding-left: 18px;
+    color: #00adef !important;
+    background: url(../img/vault-search-item-group.png) no-repeat left center;
+}
+
+.vault-entry-group.vault-entry-level-1 {
+}
+
+.vault-entry-group.vault-entry-level-2 {
+    margin-left: 4px;
+    font-size: 110%;
+}
+
+.vault-entry-group.vault-entry-level-3 {
+    text-indent: 2px;
+    font-size: 100%;
+}
+
+.vault-entry-path {
+    color: #aaa;
+    float: right;
+    font-size: 90%;
+    text-indent: 14px;
+    margin-left: 20px;
+    margin-right: 4px;
+    background: transparent url(../img/vault-search-item-path.png) no-repeat left center;
+}
+
+.vault-tree.showfull .vault-entry-path {
+    display: none;
+}
+
+.vault-entry-group.active, .active .vault-entry-path {
+    color: white !important;
+}
+
+.vault-entry-group.active {
+    background-image: url(../img/vault-search-item-group-hi.png);
+}
+
+.active .vault-entry-path {
+    background-image: url(../img/vault-search-item-path-hi.png);
+}
+
+.vault-entry-type-textarea {
+    background-image: url(../img/vault-entry-type-textarea.png);
+}
+
+.vault-entry-type-checkbox {
+    background-image: url(../img/vault-entry-type-checkbox.png);
+}
+
+.vault-entry-type-radio {
+    background-image: url(../img/vault-entry-type-radio.png);
+}
+
+.vault-entry-type-date, .vault-entry-type-datecombo, .vault-entry-type-datedmy {
+    background-image: url(../img/vault-entry-type-date.png);
+}
+
+.vault-entry-type-tagsinput, .vault-entry-type-smartinput {
+    background-image: url(../img/vault-entry-type-tagsinput.png);
+}
+
+.vault-entry-type-select {
+    background-image: url(../img/vault-entry-type-select.png);
+}
+
+.vault-entry-type-numinput {
+    background-image: url(../img/vault-entry-type-numinput.png);
+}
+
+.vault-entry-type-location {
+    background-image: url(../img/vault-entry-type-location.png);
+}
+
+.vault-entry-type-address {
+    background-image: url(../img/vault-entry-type-address.png);
+}
+
+.vault-entry-type-static {
+    background-image: url(../img/vault-entry-type-static.png);
+}
+
+.vault-entry-type-range {
+    background-image: url(../img/vault-entry-type-range.png);
+}
+
+.vault-entry-type-history {
+    background-image: url(../img/vault-entry-type-history.png);
+}
+
+.vault-entry-type-qa {
+    background-image: url(../img/vault-entry-type-qa.png);
+}
+
+.vault-entry-type-doc {
+    background-image: url(../img/vault-entry-type-doc.png);
+}
+.vault-entry-type-contact {
+    background-image: url(../img/contact.svg);
+    background-size: 14px;
+}
+
+.form-tree .popover {
+    max-width: 50em !important;
+}
+
+.qa-add-btn {
+    margin-top: 10px;
+}
+
+.form-field-popup {
+    padding: 20px;
+    width: 480px;
+}
+
+.form-field-popup-header h4 {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 140%;
+    width: 100%;
+}
+
+.form-field-popup-actions {
+    padding: 10px;
+}
+
+.form-field-popup-actions a {
+    display: block;
+    text-align: center;
+    font-size: 120%;
+}
+
+.form-field-details-row {
+    border-bottom: 1px solid #ddd;
+    padding: 4px;
+}
+
+.form-field-details-row > div {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.form-field-details-label {
+    width: 25%;
+    text-align: right;
+    margin-right: 20px;
+    color: #999;
+}
+
+.form-field-details-value {
+    width: 65%;
+}
+
+.form-field-popup-actions {
+    width: 20em;
+    margin: 0 20%;
+}
+
+.form-field-popup-actions a {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.form-field-details-value input[type=text] {
+    width: 100%;
+}
+
+.field-name {
+    font-weight: bold;
+}
+
+.btn-delete-field {
+    width: 20px;
+    height: 20px;
+    background: transparent url(../img/delete.png) no-repeat right center;
+    text-indent: -99999px;
+    border: none;
+    position: absolute;
+    right: 0;
+    bottom: 3px;
+}
+
+.form-tree h5 {
+    text-transform: uppercase;
+    font-size: 110%;
+    font-weight: bold;
+    color: #999;
+    margin: 20px 0 10px 10px;
+}
+
+textarea {
+    width: 100%;
+}
+
+.form-optional-heading {
+    /*border-top: 1px solid #ddd !important;*/
+    font-weight: bold;
+    font-size: 120%;
+    margin: 30px 0 20px 0;
+    padding: 10px;
+    color: #999;
+}
+
+.form-field-preview-header h5 {
+    text-align: center;
+    color: #aaa;
+}
+
+.form-field-preview .form-field-details-value {
+    max-width: 10em;
+}
+
+.form-field-preview input[type=text] {
+    width: 100% !important;
+}
+
+.form-field-preview input[type=number] {
+    width: 6em !important;
+}
+
+.form-field-preview .control-col {
+    width: 100% !important;
+}
+
+.form-field-preview .control-label {
+    text-align: left !important;
+}
+
+.feed-entry .interaction-qr {
+    float: right;
+}
+
+.interaction-form-url {
+    display: block;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    width: 500px;
+    /*text-overflow: ellipsis;*/
+
+}
+
+/*INTERACTION MODULE*/
+
+.interaction-cta-prefix {
+    text-transform: uppercase;
+    color: #999;
+}
+
+.interactions-grid td {
+    vertical-align: middle;
+}
+
+.interactions-grid thead th {
+    font-weight: normal;
+    color: black;
+}
+
+.interaction-editor-actions {
+    padding: 20px 0;
+    clear: both;
+}
+
+.interaction-date {
+    font-size: 80%;
+    text-align: left;
+}
+
+.interaction-action {
+    display: inline-block;
+    border: 1px solid #ddd !important;
+    border-radius: 4px;
+    color: #1B75BC;
+    /*font-weight: 500;*/
+    background-color: white;
+    background-repeat: no-repeat;
+    background-position: 6px center;
+    background-size: auto 16px;
+    padding: 4px 8px 4px 24px;
+    margin-right: 8px;
+}
+
+.action-boost {
+    background-image: url(../img/action-boost.svg);
+}
+
+.action-approve {
+    background-image: url(../img/action-approve.svg);
+    padding-left: 28px;
+}
+
+.action-acknowledge {
+    background-image: url(../img/action-acknowledge.svg);
+    background-size: 12px;
+}
+
+.interaction-actions {
+    width: 30px;
+    position: relative;
+}
+
+.interaction-key {
+    text-align: left !important;
+    vertical-align: middle;
+}
+
+.interaction-name {
+    font-weight: 500;
+}
+
+.interaction-badge {
+    display: inline-block;
+    font-variant: all-small-caps;
+    width: 2em;
+    text-align: center;
+    border: 1px solid #ddd !important;
+    border-radius: 3px;
+}
+
+.interaction-status-active .interaction-badge {
+    color: #00adef !important;
+    border-color: #00adef !important;
+}
+
+.interaction-status-pending .interaction-badge {
+    color: mediumseagreen !important;
+    border-color: mediumseagreen !important;
+}
+
+.interaction-status-expired td {
+    color: #999;
+}
+
+.interaction-date {
+    text-align: left;
+}
+
+.interaction-number {
+    text-align: center;
+}
+
+.sync-members-dashboard .interaction-cta {
+    width: 130px;
+}
+.interaction-cta-add-user {
+    background-image: url(../img/person-add.svg);
+}
+
+.interaction-cta-show-form {
+    background-image: url(../img/form.svg);
+}
+
+.interaction-cta-export-all {
+    background-image: url(../img/export-all.svg);
+}
+
+.interaction-cta-email-notif {
+    background-image: url(../img/email-notif.svg);
+}
+.interaction-cta-sync-members-refresh {
+    background-image: url(../img/sync-members-refresh.svg);
+}
+
+.handshake-status-value {
+    text-align: center;
+}
+
+.handshake-status-badge {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 1px solid black !important;
+    border-radius: 50%;
+    background: white !important;
+    text-align: center;
+    padding: 0;
+    vertical-align: middle;
+}
+
+.handshake-status {
+    display: inline-block;
+    top: -3px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #bbb;
+}
+
+.handshake-status-pending {
+    background-color: orange;
+}
+.handshake-status-paused {
+    background-color: #aaa;
+}
+
+.handshake-status-ack {
+    background-color: green;
+}
+
+.handshake-status-nak {
+    background-color: orangered;
+}
+
+.handshake-status-text-pending {
+    font-size: 120%;
+    color: orange;
+}
+
+.handshake-status-text-paused {
+    font-size: 120%;
+    color: #999;
+}
+
+.form-notes {
+    margin-bottom: 20px;
+}
+
+.sync-pending-count {
+    font-size: 80%;
+}
+
+.sync-invite-recipients {
+}
+
+.form-popover {
+    width: 600px;
+}
+
+.form-heading {
+    font-size: 200%;
+    color: #00adef;
+    margin: 20px 0 10px 20%;
+    padding: 0;
+    /*text-align: center;*/
+
+}
+
+.form-intro {
+    margin: 10px 0 20px 20%;
+}
+
+.form-row {
+    display: block;
+}
+
+.form-label-col {
+    float: left;
+    width: 20%;
+}
+
+.form-control-col {
+    margin-left: 20%;
+}
+
+.form-input-control {
+    width: 100%;
+}
+
+input.form-input-control, textarea.form-input-control {
+    border: 1px solid #ddd;
+    padding: 4px 8px;
+}
+
+rgu-checkbox.form-input-control {
+    display: block;
+}
+
+rgu-checkbox.form-input-control input {
+}
+
+.form-message {
+    width: 70%;
+    margin: 0 0 20px 20%;
+}
+
+.form-actions {
+    display: block;
+    clear: both;
+    margin: 20px 0 10px 20%;
+}
+
+.form-action {
+    margin-right: 10px;
+
+}
+
+.show-map-switch {
+    display: block;
+    margin-top: 10px;
+}
+
+
+.sync-members-header {
+    font-size: 160%;
+    margin: -20px 0 20px 0;
+    color: #999;
+}
+.sync-members-pending-heading {
+    font-size: 140%;
+    margin: 10px 0 10px 0;
+    color: #999;
+}
+.dragon-law-referral {
+    margin-top: -20px;
+    padding: 0 0 20px 13em;
+}
+.dragon-law-logo {
+    display: inline-block;
+    width: 60px;
+}
+.dragon-law-logo img {
+    width: 100%;
+}
+.dragon-law-text {
+   display: inline-block;
+    font-size: 90%;
+    margin-left: 20px;
+}
+
+.interaction-status-saved .interaction-key, .interaction-status-saved .interaction-date  {
+    color: #999 !important;
+}
+
+.hsr-status-complete, .hsr-status-read {
+    color: #999;
+}
+
+
+.hsr-viewer-modal {
+    width: 360px;
+    height: 400px;
+    margin: auto;
+    overflow: hidden;
+}
+
+.form-action-cancel {
+    background-image: url(../img/form-cancel.svg);
+
+}

@@ -1,0 +1,446 @@
+﻿﻿﻿<!-- BASIC INFORMATION GROUP -->
+<div class="vault-group" ng-controller="BasicController">
+  
+    <div class="vault-group-header">
+        <h4>{{label}}</h4>
+        <vault-push group="vaultGroup" result="result" on-send="sendPush()" network="network"></vault-push>
+        <div class="vault-group-actions">
+            <button ng-hide="IsEdit" type="button" class="btn-vault-action btn-vault-edit" ngclipboard data-clipboard-target="#basic">
+                Copy text
+            </button>
+            <button ng-hide="IsEdit" type="button" class="btn-vault-action btn-vault-edit" ng-click="IsEdit = !IsEdit">
+                Edit
+            </button>
+            <button ng-hide="!IsEdit" type="button" class="btn-vault-action btn-vault-save" ng-click="Save()">
+                Save
+            </button>
+            <button ng-hide="!IsEdit" type="button" class="btn-vault-action btn-vault-cancel btn-cancel"
+                    ng-click="Cancel()">
+                Cancel
+            </button>
+        </div>
+    </div>
+
+    <div class="vault-group-content" id="basic">
+
+        <div ng-if="!IsEdit">
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>{{title.label}}</label>
+                </div>
+                <div class="vault-field">
+                    <div class="vault-field-value">
+                        {{title.value}}
+                    </div>
+                    <div class="vault-privacy-indicator" ng-class="{'privacy-on': edit_title.privacy}"
+                         bs-tooltip
+                         data-title="{{edit_title.privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                         data-placement="bottom-left">
+
+                    </div>
+                </div>
+            </div>
+            <!--First Name-->
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>{{firstName.label}}</label>
+                </div>
+
+                <div class="vault-field">
+                    <div class="vault-field-value">
+                        {{firstName.value}}
+                    </div>
+
+                    <div class="vault-privacy-indicator" ng-class="{'privacy-on': firstName.privacy}"
+                         bs-tooltip
+                         data-title="{{firstName.privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                         data-placement="bottom-left">
+
+                    </div>
+                </div>
+            </div>
+
+            <!--Middle Name-->
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>{{middleName.label}}</label>
+                </div>
+
+                <div class="vault-field">
+                    <div class="vault-field-value">
+                        {{middleName.value}}
+                    </div>
+
+                    <div class="vault-privacy-indicator" ng-class="{'privacy-on': middleName.privacy}"
+                         bs-tooltip
+                         data-title="{{middleName.privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                         data-placement="bottom-left">
+
+                    </div>
+                </div>
+            </div>
+
+            <!--Last Name-->
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>{{lastName.label}}</label>
+                </div>
+                <div class="vault-field">
+                    <div class="vault-field-value">
+                        {{lastName.value}}
+                    </div>
+
+                    <div class="vault-privacy-indicator" ng-class="{'privacy-on': lastName.privacy}"
+                         bs-tooltip
+                         data-title="{{lastName.privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                         data-placement="bottom-left">
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Alias -->
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>{{alias.label}}</label>
+                </div>
+                <div class="vault-field">
+                    <div class="vault-field-value">
+                        {{alias.value}}
+                    </div>
+
+                    <div class="vault-privacy-indicator" ng-class="{'privacy-on': alias.privacy}"
+                         bs-tooltip
+                         data-title="{{alias.privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                         data-placement="bottom-left">
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- D.O.B -->
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>{{dob.label}}</label>
+                </div>
+                <div class="vault-field">
+                 
+                    <div class="vault-field-value" ng-if="dob.value">
+                    {{dob.value | date:'fullDate'}}
+                    </div>
+
+                    <div class="vault-privacy-indicator" ng-class="{'privacy-on': dob.privacy}"
+                         bs-tooltip
+                         data-title="{{dob.privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                         data-placement="bottom-left">
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- Gender -->
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>{{gender.label}}</label>
+                </div>
+                <div class="vault-field">
+                    <div class="vault-field-value">
+                        {{gender.value}}
+                    </div>
+
+                    <div class="vault-privacy-indicator" ng-class="{'privacy-on': gender.privacy}"
+                         bs-tooltip
+                         data-title="{{gender.privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                         data-placement="bottom-left">
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- relationshipStatus -->
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>{{relationshipStatus.label}}</label>
+                </div>
+                <div class="vault-field">
+                    <div class="vault-field-value">
+                        {{relationshipStatus.value}}
+                    </div>
+
+                    <div class="vault-privacy-indicator" ng-class="{'privacy-on': relationshipStatus.privacy}"
+                         bs-tooltip
+                         data-title="{{relationshipStatus.privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                         data-placement="bottom-left">
+
+                    </div>
+                </div>
+            </div>
+                <!-- country -->
+
+                <div class="vault-row">
+                    <div class="vault-label">
+                        Country
+                    </div>
+
+                    <div class="vault-field">
+                        <div class="vault-field-value">
+                            {{country.value}}
+                        </div>
+
+                        <div class="vault-privacy-indicator" ng-class="{'privacy-on': country.privacy}"
+                             bs-tooltip
+                             data-title="{{country.privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                             data-placement="bottom-left">
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="vault-row">
+                    <div class="vault-label">
+                        City
+                    </div>
+
+                    <div class="vault-field">
+                        <div class="vault-field-value">
+                            {{city.value}}
+                        </div>
+
+                        <div class="vault-privacy-indicator" ng-class="{'privacy-on': city.privacy}"
+                             bs-tooltip
+                             data-title="{{city.privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                             data-placement="bottom-left">
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        <!-- EndIsEdit-->
+        <!--title-->
+        <div ng-if="IsEdit">
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>{{edit_title.label}}</label>
+                </div>
+
+                <div class="vault-field">
+                    <div class="vault-field-edit">
+                           <!--   <rgu-control type="smartselect" class="short" options="title" ng-model="edit_title.value">
+                        </rgu-control>-->
+                        <div class="public-form-row">
+                            <ui-select ng-model="edit_title.value" theme="bootstrap" search-enabled="true" remove-selected="false">
+                                <ui-select-match placeholder="TITLE">{{$select.selected}} </ui-select-match>
+                                <ui-select-choices repeat="editTitle in listTitle | filter: $select.search">
+                                    <span>{{editTitle}}</span>
+                                </ui-select-choices>
+                            </ui-select>
+                           
+                        </div>
+
+                    </div>
+
+                    <button class="btn-vault-privacy" ng-class="{'privacy-on': edit_title.privacy}"
+                            ng-click="edit_title.privacy = !edit_title.privacy"
+                            bs-tooltip
+                            data-title="{{edit_title.privacy?'Click to set public (shared to friends)':' Click to set private (shared to nobody)'}}"
+                            data-placement="bottom-left"></button>
+                </div>
+            </div>
+
+            <!--First Name-->
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>{{edit_firstName.label}}</label>
+                </div>
+
+                <div class="vault-field">
+
+                    <div class="vault-field-edit">
+                        <input ng-model="edit_firstName.value" rules="name"/>
+                        <!--<rgu-control type="textbox" ng-model="firstName_value" rules="name"  />-->
+
+                    </div>
+
+                    <button class="btn-vault-privacy" ng-class="{'privacy-on': edit_firstName.privacy}"
+                            ng-click="edit_firstName.privacy = !edit_firstName.privacy"
+                            bs-tooltip
+                            data-title="{{edit_firstName.privacy?'Click to set public (shared to friends)':' Click to set private (shared to nobody)'}}"
+                            data-placement="bottom-left"></button>
+                </div>
+            </div>
+
+            <!--Middle Name-->
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>{{edit_middleName.label}}</label>
+                </div>
+
+                <div class="vault-field">
+
+                    <div class="vault-field-edit">
+                       
+                        <input placeholder="" ng-model="edit_middleName.value" rules="name"/>
+                    </div>
+
+                    <button class="btn-vault-privacy" ng-class="{'privacy-on': edit_middleName.privacy}"
+                            ng-click="edit_middleName.privacy = !edit_middleName.privacy"
+                            bs-tooltip
+                            data-title="{{edit_middleName.privacy?'Click to set public (shared to friends)':' Click to set private (shared to nobody)'}}"
+                            data-placement="bottom-left"></button>
+                </div>
+            </div>
+
+            <!--Last Name-->
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>{{edit_lastName.label}}</label>
+                </div>
+
+                <div class="vault-field">
+                    <div class="vault-field-edit">
+                        <input id="input-lastName_value" placeholder="" ng-model="edit_lastName.value" rules="name"/>
+                     
+                    </div>
+
+                    <button class="btn-vault-privacy" ng-class="{'privacy-on': edit_lastName.privacy}"
+                            ng-click="edit_lastName.privacy = !edit_lastName.privacy"
+                            bs-tooltip
+                            data-title="{{edit_lastName.privacy?'Click to set public (shared to friends)':' Click to set private (shared to nobody)'}}"
+                            data-placement="bottom-left"></button>
+                </div>
+            </div>
+
+            <!-- Alias -->
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>{{edit_alias.label}}</label>
+                </div>
+
+                <div class="vault-field">
+                    <div class="vault-field-edit">
+                        <rgu-control type="textbox" id="input-alias_value" placeholder="" ng-model="edit_alias.value"/>
+                    </div>
+
+                    <button class="btn-vault-privacy" ng-class="{'privacy-on': edit_alias.privacy}"
+                            ng-click="edit_alias.privacy = !edit_alias.privacy"
+                            bs-tooltip
+                            data-title="{{edit_alias.privacy?'Click to set public (shared to friends)':' Click to set private (shared to nobody)'}}"
+                            data-placement="bottom-left"></button>
+                </div>
+            </div>
+
+            <!-- D.O.B -->
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>{{edit_dob.label}}</label>
+                </div>
+
+                <div class="vault-field">
+                    <div class="vault-field-edit">
+                        <div class="row">
+                           <rgu-date-input type="combo" id="dobBasic" ng-model="edit_dob.value"> </rgu-date-input>
+                        </div>
+                    </div>
+                    <button class="btn-vault-privacy" ng-class="{'privacy-on': edit_dob.privacy}"
+                            ng-click="edit_dob.privacy = !edit_dob.privacy"
+                            bs-tooltip
+                            data-title="{{edit_dob.privacy?'Click to set public (shared to friends)':' Click to set private (shared to nobody)'}}"
+                            data-placement="bottom-left"></button>
+                </div>
+            </div>
+            <!-- Gender -->
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>{{edit_gender.label}}</label>
+                </div>
+
+                <div class="vault-field">
+                    <div class="vault-field-edit">
+                        <rgu-radio-group values="['Male','Female']" ng-model="edit_gender.value"></rgu-radio-group>
+
+
+                    </div>
+
+                    <button class="btn-vault-privacy" ng-class="{'privacy-on': edit_gender.privacy}"
+                            ng-click="edit_gender.privacy = !edit_gender.privacy"
+                            bs-tooltip
+                            data-title="{{edit_gender.privacy?'Click to set public (shared to friends)':' Click to set private (shared to nobody)'}}"
+                            data-placement="bottom-left"></button>
+                </div>
+            </div>
+
+            <!-- relationshipStatus -->
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>{{edit_relationshipStatus.label}}</label>
+                </div>
+                <div class="vault-field">
+                    <div class="vault-field-edit">
+
+                        <rgu-control type="select" class="short" options="['Single', 'Married', 'In-a-Relationship', 'Common-Law', 'Divorced', 'Widowed']" ng-model="edit_relationshipStatus.value" />
+
+                    </div>
+                    <button class="btn-vault-privacy" ng-class="{'privacy-on': edit_relationshipStatus.privacy}"
+                            ng-click="edit_relationshipStatus.privacy = !edit_relationshipStatus.privacy"
+                            bs-tooltip
+                            data-title="{{edit_relationshipStatus.privacy?'Click to set public (shared to friends)':' Click to set private (shared to nobody)'}}"
+                            data-placement="bottom-left"></button>
+                </div>
+                </div>
+            <!-- country -->
+            <div class="vault-row">
+                <div class="vault-label">
+                    Country
+                </div>
+
+
+                <div class="vault-field-edit">
+                    <div class="vault-field-edit">
+                        <select rgu-select class="short" ng-change="changeCity()" ng-model="_country.value"
+                                ng-options="c as c.Name for c in listCountries">
+                            <option value="">
+                                Select Country
+                            </option>
+
+                        </select>
+                    </div>
+                    <button class="btn-vault-privacy" ng-class="{'privacy-on': edit_country.privacy}"
+                            ng-click="edit_country.privacy= !edit_country.privacy"
+                            bs-tooltip
+                            data-title="{{edit_country.privacy?'Click to set public (shared to friends)':' Click to set private (shared to nobody)'}}"
+                            data-placement="bottom-left"></button>
+                </div>
+            </div>
+
+            <div class="vault-row">
+                <div class="vault-label">
+                    City
+                </div>
+
+                <div class="vault-field-edit">
+                    <div class="vault-field-edit">
+                        <select rgu-select class="short" ng-model="_city.value"
+                                ng-options="a as a.Name for a in listcities">
+                            <option value="">
+                                Select City
+                            </option>
+                        </select>
+                    </div>
+                    <button class="btn-vault-privacy" ng-class="{'privacy-on': edit_city.privacy}"
+                            ng-click="edit_city.privacy= !edit_city.privacy"
+                            bs-tooltip
+                            data-title="{{edit_city.privacy?'Click to set public (shared to friends)':' Click to set private (shared to nobody)'}}"
+                            data-placement="bottom-left"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

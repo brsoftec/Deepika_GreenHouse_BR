@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Business Workflow";
+    ViewBag.NgApp = "regitBusinessWorkflow";
+    Layout = "~/Areas/User/Views/Shared/_LayoutDefaultBusinessApply.cshtml";
+}
+@section styles {
+
+<link rel="stylesheet" href="@Url.Versioned("~/Areas/Beta/css/workflow.css")">
+}
+@section initscripts {
+
+    <script>
+        angular.module('regitBusinessWorkflow', ['myApp', 'workflow']);
+        var regitGlobal = regitGlobal || {};
+        regitGlobal.subscriptionPlan = {
+            name: "@ViewBag.SubscriptionPlan.Name",
+            label: "@(ViewBag.SubscriptionPlan.Name=="free" ? "Free Tier" : ViewBag.SubscriptionPlan.Name.ToLower()) subscription plan",
+            businessMembers: @Json.Encode(ViewBag.SubscriptionPlan.BusinessMembers),
+            handshakeRelationships: @Json.Encode(ViewBag.SubscriptionPlan.HandshakeRelationships)
+        }
+    </script>
+}
+
+@section scripts {
+    <script src="@Url.Versioned("~/Areas/regitUI/js/modules/workflow.js")"></script>
+}
+
+    <div class="module module-main module-workflow">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/BusinessAccount">&laquo; Business Home</a></li>
+            <li class="breadcrumb-item active">Business Workflow</li>
+        </ol>
+        <h1>Workflow Manager</h1>
+        <div class="workflow-page">
+            <h3 class="workflow-heading">Workflow Members</h3>
+
+            <workflow-grid></workflow-grid>
+        </div>
+
+
+    </div>

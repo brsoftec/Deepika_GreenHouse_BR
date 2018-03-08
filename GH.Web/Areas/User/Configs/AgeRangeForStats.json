@@ -1,0 +1,34 @@
+﻿[
+  {
+    "FromAge": 13,
+    "ToAge": 17
+  },
+  {
+    "FromAge": 18,
+    "ToAge": 24
+  },
+  {
+    "FromAge": 25,
+    "ToAge": 34
+  },
+  {
+    "FromAge": 35,
+    "ToAge": 44
+  },
+  {
+    "FromAge": 45,
+    "ToAge": 54
+  },
+  {
+    "FromAge": 55,
+    "ToAge": 64
+  },
+  {
+    "FromAge": 65,
+    "ToAge": null
+  },
+  {
+    "FromAge": null,
+    "ToAge": null
+  }
+]

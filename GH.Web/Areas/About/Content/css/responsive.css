@@ -1,0 +1,200 @@
+body {
+
+    margin: 0;
+    padding: 0 ;
+    overflow: auto;
+}
+body.chrome.responsive {
+    /*overflow: auto;
+    height: 100%;*/
+
+}
+
+header {
+    position: relative;
+    height: 60px !important;
+    /*overflow: hidden;*/
+}
+
+.header-logo {
+  left: 38%;
+}
+
+.user-sign-in, .user-sign-up {
+    display: none;
+}
+
+footer {
+    position: relative;
+    /*bottom: 0;*/
+    /*border: 1px solid red;*/
+    /*top: 0; bottom: auto;*/
+    /*height: 100px !important;*/
+    /*height: auto;*/
+    /*padding-bottom: 20px;*/
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.footer-nav {
+    width: auto;
+    margin-left: auto;
+}
+
+.chrome.responsive footer {
+    /*padding-bottom: 20px;*/
+}
+
+.footer-nav {
+    top: 0;
+    width: 100%;
+    margin-left: -5%;
+}
+
+
+.qudy-stamp {
+    display: none;
+}
+
+.footer-logo {
+    display: none;
+}
+
+.page {
+    /*height: 600px;*/
+    /*padding-top: 60px;*/
+}
+
+#intro {
+    margin-top: 0;
+    height: 0;
+}
+h2, h3 {
+    width: 100% !important;
+}
+
+.sections {
+    width: 100%;
+    /*height: auto;*/
+    padding: 0;
+    /*padding-bottom: 132px;*/
+    overflow: auto;
+    /*height: 2000px;*/
+}
+
+.section {
+    width: 100% !important;
+    padding: 30px 10px;
+}
+
+.section#home {
+    padding: 0 0 30px 0 !important;
+}
+
+.splash {
+    position: relative;
+    top: 0;
+    width: 100%;
+
+
+}
+
+.splash-logo {
+    height: 180px;
+
+}
+
+.splash-logo svg {
+    width: 100% !important;
+    margin-top: 3%;
+    /*height: 90%;*/
+}
+
+.countdown {
+    /*display: none;*/
+    position: relative;
+    width: 100%;
+    margin: 20px auto 0 auto;
+}
+.splash-intro {
+    position: relative;
+    top: 0;
+    padding: 10px;
+}
+
+.splash-heading {
+    font-size: 280%;
+    font-weight: bold;
+    margin: 20px 0 16px 0;
+}
+
+.splash-subhead {
+/*    font-size: 150%;
+    margin-bottom: 20px;
+    text-transform: uppercase;*/
+}
+
+
+
+.works-sections {
+    width: 100%;
+}
+
+.security-section {
+    width: 100%;
+}
+.beta-signup {
+    width: auto;
+}
+
+.form-subscribe input {
+}
+.button-signup {
+    margin-left: 10px !important;
+}
+.flash {
+    margin-top: 20px;
+}
+.social-links {
+    width: 100%;
+}
+
+.business-splash {
+    position: relative;
+    width: 100%;
+    height: 120px;
+    top: 0;
+}
+
+.business-splash-logo {
+    width: 200px;
+    height: 100px;
+}
+
+.business-splash-intro {
+    position: relative;
+    padding: 0;
+    top: 0;
+}
+
+.business-one-platform-picture img {
+    width: 100%;
+}
+
+.business-solutions-container {
+    width: 100%;
+}
+
+.business-analytics-pictures img {
+    width: 80px !important;
+    margin: 10px !important;
+}
+
+.business-pricing-picture img {
+    width: 120px;
+}
+
+
+.cms .section {
+    width: 100% !important;
+}

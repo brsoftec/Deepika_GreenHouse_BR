@@ -1,0 +1,62 @@
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog support-case-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="btn-modal-close" ng-click="$hide()">Close</button>
+                <h4 class="modal-title">View Case</h4></div>
+        </div>
+        <div class="modal-body">
+            <form class="modal-form support-case-form">
+                <div class="support-case-form-row">
+                    <div class="support-case-form-label">Created</div>
+                    <div class="support-case-form-control" ng-bind="support.editCase.created | date:'d MMMM yyyy'">
+                    </div>
+                </div>
+                <div class="support-case-form-row">
+                    <div class="support-case-form-label">Status</div>
+                    <div class="support-case-form-control" ng-bind="support.editCase.status">
+                    </div>
+                </div>
+                <div class="support-case-form-row">
+                    <div class="support-case-form-label">Regarding</div>
+                    <div class="support-case-form-control" ng-bind="support.editCase.type">
+                    </div>
+                </div>
+                <div class="support-case-form-row">
+                    <div class="support-case-form-label">Category</div>
+                    <div class="support-case-form-control" ng-bind="support.editCase.category.label">
+                    </div>
+                </div>
+                <div class="support-case-form-row">
+                    <div class="support-case-form-label">Subject</div>
+                    <div class="support-case-form-control" ng-bind="support.editCase.subject">
+                    </div>
+                </div>
+                <div class="support-case-form-row">
+                    <div class="support-case-form-label">Description</div>
+                    <div class="support-case-form-control" ng-bind="support.editCase.description">
+                    </div>
+                </div>
+                <div class="support-case-form-row">
+                    <div class="support-case-form-label">Severity</div>
+                    <div class="support-case-form-control" ng-bind="support.editCase.severity">
+                    </div>
+                </div>
+                <div class="support-case-form-row">
+                    <div class="support-case-form-label">Support language</div>
+                    <div class="support-case-form-control" ng-bind="support.editCase.lang">
+                    </div>
+                </div>
+                <div class="support-case-form-row">
+                    <div class="support-case-form-label">Contact method</div>
+                    <div class="support-case-form-control" ng-bind="support.editCase.contactBy + (support.editCase.contactBy==='Phone' ? ': ' + support.editCase.phone : '')">
+                    </div>
+                </div>
+                <div class="support-case-actions modal-actions">
+                    <button class="btn btn-default modal-action support-case-action" ng-click="$hide()">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

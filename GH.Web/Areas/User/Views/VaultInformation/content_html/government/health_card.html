@@ -1,0 +1,108 @@
+﻿ <!-- content Health Card -->
+    <div ng-controller="HealthCardController">
+        <div class="vault-panel-row">
+            <div class="vault-panel-row">
+                <label>Description</label>
+                <input ng-model="_new.description">
+            </div>
+            <div class="vault-panel-row">
+                <div class="vault-panel-col third">
+                    <label>First name</label>
+                    <div class="form-panel-control">
+                        <input ng-model="_new.firstName" rules="name" />
+                    </div>
+                </div>
+                <div class="vault-panel-col third">
+                    <label>Middle name</label>
+                    <div class="form-panel-control">
+                        <input ng-model="_new.middleName" rules="name" />
+                    </div>
+                </div>
+                <div class="vault-panel-col third">
+                    <label>Last name</label>
+                    <div class="form-panel-control">
+                        <input ng-model="_new.lastName" rules="name" />
+                    </div>
+                </div>
+            </div>
+            <div class="vault-panel-row">
+                <label>Card number</label>
+                <input ng-model="_new.cardNumber">
+            </div>
+            <div class="vault-panel-row">
+                <label>Blood type</label>
+                <rgu-control type="select" class="short" options="['A','B', 'AB', 'O']" ng-model="_new.bloodType" />
+            </div>
+            <div class="vault-panel-row">
+                <label>Issued date </label>
+                <rgu-date-input type="combo" ng-model="_new.issuedDate"></rgu-date-input>
+            </div>
+            <!-- Indefinite -->
+            <div class="vault-panel-row">
+                <label class="checkbox-square"><input type="checkbox" ng-model="_new.indefiniteDate" /><span></span>Indefinite</label>
+            </div>
+
+            <div class="vault-panel-row" ng-show="!_new.indefiniteDate">
+                <label>Expiry Date </label>
+                <rgu-date-input type="combo" ng-model="_new.expiryDate" after="_new.issuedDate"></rgu-date-input>
+            </div>
+            <div class="vault-panel-row">
+                <rgu-control type="location" ng-model="_new.countryCity"></rgu-control>
+            </div>
+            <!-- End Indefinite-->
+
+            <!--document-->
+            <div class="vault-panel-row">
+                <label><strong> --- Document Files --- </strong> <br /></label>
+            </div>
+            <div class="vault-panel-row form-doc-manager">
+
+                <div class="vault-form-doc-manager" ng-controller="DocumentController">
+                    <button type="button" class="vault-doc-upload btn btn-default" ng-click="$event.preventDefault(); uploadDocForm( _newJspath)">
+                        Add file
+                    </button>
+
+                    <div ng-repeat="doc in _listdoc">
+                        <div ng-if="doc.jsPath == _newJspath">
+                            <div class="vault-doc-grid vault-form-doc-grid">
+                                <div class="vault-panel-col third">
+                                    <span class="vault-doc-type-icon vault-doc-type-{{GenerateFileType(doc.type)}}"></span>
+                                    <span>
+                                        <a href="#" class="vault-doc-fname" ng-click="$event.preventDefault();openDocEditorForm(doc)"
+                                           ng-bind="doc.name"></a>
+                                    </span>
+                                    <span>
+                                        <a href="#" class="vault-doc-name" ng-click="$event.preventDefault();openDocEditorForm(doc)"
+                                           ng-bind="doc.description"></a>
+                                    </span>
+                                </div>
+                                <div class="vault-panel-col third">
+                                    <span class="vault-doc-cat" ng-bind="doc.category"></span>
+                                </div>
+                                <div class="vault-panel-col third">
+                                    <span class="vault-doc-actions" ng-init="">
+                                        <button class="vault-doc-delete" ng-click="$event.preventDefault();DeleteFile(doc)">Delete</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!--end document-->
+            <div class="vault-panel-row">
+                <label>Note</label>
+                <textarea ng-model="_new.note"></textarea>
+            </div>
+            <div class="vault-panel-row vault-panel-row-tall">
+                <!--<input type="checkbox" ng-model="_new._default">
+                <label>Set as default</label>-->
+                <label class="checkbox-square"><input type="checkbox" ng-model="_new._default" /><span></span>Set as default</label>
+            </div>
+        </div>
+
+        <div class="vault-panel-actions">
+            <button class="btn btn-primary vault-panel-action vault-panel-save" ng-disabled="_new.description==''" ng-click="addNewForm(_new); Save(); vm.AlphaRedirectTask('main_form.html')" href="#">Save</button>
+        </div>
+    </div>

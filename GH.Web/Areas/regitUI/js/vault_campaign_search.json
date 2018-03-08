@@ -1,0 +1,2244 @@
+﻿{
+  "_id": "",
+  "userId": "",
+  "dateCreate": "",
+  "basicInformation": {
+    "_id": "576187da9e9e822f503fd871",
+    "hiddenForm": false,
+    "undraggable":true, 
+    "label": "Basic Information",
+    "name": "",
+    "privacy": true,
+    "default": "",
+    
+    "value": {
+      "title": {
+        "_id": "576187da9e9e822f503fd875",
+        "label": "Title",
+        "value": "",
+        "privacy": true,
+        "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable":false
+      },
+      "fullName": {
+        "_id": "576187da9e9e822f503fd878",
+        "label": "Full Name",
+        "value": "",
+        "privacy": true,
+        "controlType": "textbox",
+        "hiddenForm": false,
+        "undraggable":false
+      },
+      "firstName": {
+        "_id": "576187da9e9e822f503fd870",
+        "label": "First Name",
+        "value": "",
+        "privacy": true,
+        "controlType": "textbox",
+         "hiddenForm": false,
+        "undraggable":false
+      },
+      "middleName": {
+        "_id": "576187da9e9e822f503fd879",
+        "label": "Middle Name",
+        "value": "",
+        "privacy": true,
+         "controlType": "textbox",
+        "hiddenForm": false,
+        "undraggable":false
+      },
+      "lastName": {
+        "_id": "57676f6fe66cc00e847a7cb7",
+        "label": "Last Name",
+        "value": "",
+        "privacy": true,
+        "controlType": "textbox",
+        "hiddenForm": false,
+        "undraggable":false
+      },
+      "alias": {
+        "_id": "57676fb0e66cc00e847a7cb8",
+        "value": "",
+        "label": "Alias",
+        "privacy": true,
+        "controlType": "textbox",
+        "hiddenForm": false,
+        "undraggable":false
+      },
+      "dob": {
+        "_id": "57676fb9e66cc00e847a7cb9",
+        "label": "Date Of Birth",
+        "value": "",
+        "privacy": true,
+        "controlType": "date",
+        "hiddenForm": false,
+        "undraggable":false
+      },
+      "gender": {
+        "_id": "57676fc3e66cc00e847a7cba",
+        "label": "Gender",
+        "value": "",
+        "privacy": true,
+         "controlType": "radio",
+        "hiddenForm": false,
+        "undraggable":false
+      },
+      "sexuality": {
+        "_id": "57676fc3e66cc00e847a7cba",
+        "label": "Sexuality",
+        "value": "",
+        "privacy": true,
+        "controlType": "textbox",
+        "hiddenForm": false,
+        "undraggable":false
+      },
+      "languages": {
+        "_id": "57676fcde66cc00e847a7cbb",
+        "label": "Languages",
+        "value": "language",
+        "privacy": true,
+        "controlType": "smartinput",
+        "hiddenForm": false,
+        "undraggable": false
+         
+      },
+      "ethnicity": {
+        "_id": "576187da9e9e822f503fd87c",
+        "label": "Ethnicity",
+        "value": "",
+        "privacy": true,
+         "controlType": "textbox",
+        "hiddenForm": false,
+        "undraggable": false
+      },
+      "religion": {
+        "_id": "576187da9e9e822f503fd87d",
+        "label": "Religion",
+        "value": "",
+        "privacy": true,
+        "controlType": "textbox",
+        "hiddenForm": false,
+        "undraggable": false
+      },
+      "disability": {
+        "_id": "576187da9e9e822f503fd87e",
+        "label": "Disability",
+        "value": "",
+        "privacy": true,
+        "controlType": "textbox",
+        "hiddenForm": false,
+        "undraggable": false
+
+      },
+      "note": {
+        "_id": "576187da9e9e822f503fd87f",
+        "label": "Note",
+        "value": "",
+        "privacy": true,
+        "controlType": "textbox",
+        "hiddenForm": false,
+        "undraggable": false
+      }
+    }
+  },
+  "contact": {
+    "_id": "576187da9e9e822f503fd880",
+     "hiddenForm": false,
+        "undraggable": true,
+    "label": "Contact",
+    "name": "",
+    "privacy": true,
+    "default": "",
+    "value": {
+      "mobile": {
+        "_id": "576187da9e9e822f503fd881",
+        "label": "Mobile",
+        "name": "",
+        "value": "",
+        "privacy": true,
+          "controlType": "textbox",
+        "hiddenForm": false,
+        "undraggable": false
+      },
+      "home": {
+        "_id": "576187da9e9e822f503fd8a0",
+        "label": "Home phone",
+        "name": "",
+        "value": "",
+        "privacy": true,
+         "controlType": "textbox",
+        "hiddenForm": false,
+        "undraggable": false
+      },
+      "office": {
+        "_id": "576187da9e9e822f503fd884",
+        "label": "Office",
+        "name": "",
+        "value":"",
+        "privacy": true,
+         "controlType": "textbox",
+        "hiddenForm": false,
+        "undraggable": false
+      },
+      "fax": {
+        "_id": "576187da9e9e822f503fd885",
+        "label": "Fax",
+        "name": "",
+        "value": "",
+        "privacy": true,
+         "controlType": "textbox",
+        "hiddenForm": false,
+        "undraggable": false
+      },
+      "email": {
+        "_id": "576187da9e9e822f503fd885",
+        "label": "Email",
+        "name": "",
+        "value": "",
+        "default": "quaydo@regitsocial.com",
+        "privacy": true,
+          "controlType": "textbox",
+        "hiddenForm": false,
+        "undraggable": false
+      },
+      "note": {
+        "_id": "576187da9e9e822f503fd886",
+        "label": "Note",
+        "name": "",
+        "value": "",
+        "privacy": true,
+         "controlType": "textbox",
+        "hiddenForm": false,
+        "undraggable": false
+      }
+    }
+  },
+  "address": {
+    "hiddenForm": false,
+    "undraggable": true,
+    "_id": "576187da9e9e822f503fd887",
+    "label": "Address",
+    "name": "Address",
+    "default": "Living Address",
+    "privacy": true,
+    "value": {
+      "livingAddress": {
+        "_id": "576187da9e9e822f503fd888",
+        "label": "Living Address",
+        "name": "Living Address",
+        "default": true,
+        "privacy": true,
+          "controlType": "textbox",
+        "hiddenForm": false,
+        "undraggable": true,
+        "value": {
+          "description": {
+            "_id": "5767c5c0e66cc0309c3ed613",
+            "label": "Description",
+            "value": "",
+              "controlType": "textbox",
+           "hiddenForm": false,
+             "undraggable": true
+          },
+          "addressLine1": {
+            "_id": "576187da9e9e822f503fd889",
+            "label": "Address line 1",
+            "value": "",
+              "controlType": "textbox",
+           "hiddenForm": false,
+             "undraggable": false
+          },
+
+          "addressLine1_lat": {
+            "_id": "576187da9e9e822f503fd88a",
+            "label": "Latitude address line 1",
+            "value": "",
+               "controlType": "textbox",
+           "hiddenForm": true,
+             "undraggable": true
+          },
+          "addressLine1_lng": {
+            "_id": "",
+            "label": "Longitude address line 1",
+            "value": "",  
+            "hiddenForm": true,
+             "undraggable": true
+          },
+          "addressLine2": {
+            "_id": "576187da9e9e822f503fd88b",
+            "label": "Address line 2",
+            "value": "",
+             "controlType": "textbox",
+           "hiddenForm": false,
+             "undraggable": false
+          },
+          "addressLine2_lat": {
+            "_id": "",
+            "label": "Latitude address line 2",
+            "value": ""
+          },
+          "addressLine2_lng": {
+            "_id": "",
+            "label": "Longitude address line 2",
+            "value": ""
+          },
+          "country": {
+            "_id": "",
+            "label": "Country",
+            "value": "",
+              "controlType": "textbox",
+           "hiddenForm": true,
+             "undraggable": true
+          },
+          "state": {
+            "_id": "",
+            "label": "State/ Province/ Region",
+            "value": "",
+                 "controlType": "textbox",
+           "hiddenForm": true,
+             "undraggable": true
+          },
+          "city": {
+            "_id": "",
+            "label": "City",
+            "value": "",
+                 "controlType": "textbox",
+           "hiddenForm": true,
+             "undraggable": true
+          },
+          "zipCode": {
+            "_id": "576187da9e9e822f503fd88c",
+            "label": "ZIP / Postal Code",
+            "value": "",
+             "controlType": "textbox",
+           "hiddenForm": false,
+             "undraggable": false
+
+          },
+          "startDate": {
+            "_id": "576187da9e9e822f503fd88d",
+            "label": "Since",
+            "value": "",
+            "controlType": "date",
+           "hiddenForm": false,
+             "undraggable": false
+          },
+          "endDate": {
+            "_id": "576187da9e9e822f503fd88e",
+            "label": "Moving date",
+            "value": "",
+              "controlType": "date",
+           "hiddenForm": false,
+             "undraggable": false
+          },
+          "note": {
+            "_id": "576187da9e9e822f503fd88f",
+            "label": "Note",
+            "value": "",
+              "controlType": "textbox",
+           "hiddenForm": false,
+             "undraggable": false
+          }
+        }
+      },
+      "temporaryAddress": {
+        "_id": "576187da9e9e822f503fd890",
+        "label": "Temporary Address",
+        "name": "Temporary Address",
+         "hiddenForm": false,
+         "undraggable": true,
+        "default": true,
+        "privacy": true,
+        "value": {
+          "description": {
+            "_id": "576187da9e9e822f503fd891",
+            "label": "Description",
+            "value": "",
+            "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          },
+          "addressLine1": {
+            "_id": "576187da9e9e822f503fd892",
+            "label": "Address line 1",
+            "value": "",
+              "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          },
+
+          "addressLine1_lat": {
+            "_id": "",
+            "label": "Latitude address line 1",
+            "value": "",
+               "hiddenForm": true,
+            "undraggable": true
+          },
+          "addressLine1_lng": {
+            "_id": "",
+            "label": "Longitude address line 1",
+            "value": "",
+              "hiddenForm": true,
+            "undraggable": true
+          },
+          "addressLine2": {
+            "_id": "",
+            "label": "Address line 2",
+            "value": "",
+              "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          },
+          "addressLine2_lat": {
+            "_id": "",
+            "label": "Latitude address line 2",
+            "value": ""
+          },
+          "addressLine2_lng": {
+            "_id": "",
+            "label": "Longitude address line 2",
+            "value": ""
+          },
+          "country": {
+            "_id": "",
+            "label": "Country",
+            "value": "",
+              "hiddenForm": true,
+            "undraggable": true
+          },
+          "state": {
+            "_id": "",
+            "label": "State/ Province/ Region",
+            "value": "",
+              "hiddenForm": true,
+            "undraggable": true
+          },
+          "city": {
+            "_id": "",
+            "label": "City",
+            "value": "",
+              "hiddenForm": true,
+            "undraggable": true
+          },
+          "zipCode": {
+            "_id": "576187da9e9e822f503fd893",
+            "label": "ZIP / Postal Code",
+            "value": "",
+              "hiddenForm": true,
+            "undraggable": true,
+             "controlType": "textbox"
+          },
+          "startDate": {
+            "_id": "576187da9e9e822f503fd894",
+            "label": "Since",
+            "value": "",
+              "controlType": "date",
+             "hiddenForm": false,
+            "undraggable": false
+          },
+          "endDate": {
+            "_id": "576187da9e9e822f503fd895",
+            "label": "Moving date",
+            "value": "",
+            "controlType": "date",
+             "hiddenForm": false,
+            "undraggable": false
+          },
+          "note": {
+            "_id": "576187da9e9e822f503fd896",
+            "label": "Note",
+            "value": "",
+             "controlType": "textbox",
+             "hiddenForm": false,
+            "undraggable": false
+          }
+        }
+      },
+      "mailingAddress": {
+        "_id": "576187da9e9e822f503fd897",
+        "label": "Mailing Address",
+        "name": "Mailing Address",
+        "default": true,
+        "privacy": true,
+         "hiddenForm": false,
+            "undraggable": true,
+        "value": {
+          "description": {
+            "_id": "576187da9e9e822f503fd898",
+            "label": "Description",
+            "value": "",
+               "controlType": "textbox",
+             "hiddenForm": false,
+            "undraggable": false
+          },
+          "addressLine1": {
+            "_id": "576187da9e9e822f503fd899",
+            "label": "Address line 1",
+            "value": "",
+            "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+
+          "addressLine1_lat": {
+            "_id": "",
+            "label": "Latitude address line 1",
+            "value": ""
+          },
+          "addressLine1_lng": {
+            "_id": "",
+            "label": "Longitude address line 1",
+            "value": ""
+          },
+          "addressLine2": {
+            "_id": "576187da9e9e822f503fd89a",
+            "label": "Address line 2",
+            "value": "",
+               "controlType": "textbox",
+             "hiddenForm": false,
+            "undraggable": false
+          },
+          "addressLine2_lat": {
+            "_id": "",
+            "label": "Latitude address line 2",
+            "value": ""
+          },
+          "addressLine2_lng": {
+            "_id": "",
+            "label": "Longitude address line 2",
+            "value": ""
+          },
+          "country": {
+            "_id": "",
+            "label": "Country",
+            "value": "",
+            "hiddenForm": true,
+            "undraggable": true
+          },
+          "state": {
+            "_id": "",
+            "label": "State/ Province/ Region",
+            "value": "",
+            "hiddenForm": true,
+            "undraggable": true
+          },
+          "city": {
+            "_id": "",
+            "label": "City",
+            "value": "",
+              "hiddenForm": true,
+            "undraggable": true
+          },
+          "zipCode": {
+            "_id": "576187da9e9e822f503fd89b",
+            "label": "ZIP / Postal Code",
+            "value": "",
+              "controlType": "textbox",
+              "hiddenForm": false,
+            "undraggable": false
+          },
+          "startDate": {
+            "_id": "576187da9e9e822f503fd89c",
+            "label": "Since",
+            "value": "",
+              "controlType": "date",
+             "hiddenForm": false,
+            "undraggable": false
+          },
+          "endDate": {
+            "_id": "576187da9e9e822f503fd8a3",
+            "label": "Moving date",
+            "value": "",
+               "controlType": "date",
+             "hiddenForm": false,
+            "undraggable": false
+          },
+          "note": {
+            "_id": "576187da9e9e822f503fd8a4",
+            "label": "Note",
+            "value": "",
+              "controlType": "textbox",
+              "hiddenForm": false,
+            "undraggable": false
+          }
+        }
+      },
+      "pobox": {
+        "_id": "576187da9e9e822f503fd8a5",
+        "label": "P.O Box",
+        "name": "P.O Box",
+        "default": true,
+        "privacy": true,
+         "hiddenForm": true,
+            "undraggable": true,
+        "value": {
+          "description": {
+            "_id": "576187da9e9e822f503fd8a6",
+            "label": "Description",
+            "value": "",
+              "controlType": "textbox",
+              "hiddenForm": false,
+            "undraggable": false
+          },
+          "address": {
+            "_id": "576187da9e9e822f503fd8a7",
+            "label": "Address",
+            "value": "",
+             "controlType": "textbox",
+              "hiddenForm": false,
+            "undraggable": false
+          },
+
+          "address_lat": {
+            "_id": "",
+            "label": "Latitude address",
+            "value": ""
+          },
+          "address_lng": {
+            "_id": "",
+            "label": "Longitude address",
+            "value": ""
+          },
+
+          "note": {
+            "_id": "576187da9e9e822f503fd8a8",
+            "label": "Note",
+            "value": "",
+            "controlType": "textbox",
+              "hiddenForm": false,
+            "undraggable": false
+          }
+        }
+      }
+    }
+  },
+  "financial": {
+    "_id": "576187da9e9e822f503fd8a9",
+    "label": "Financial",
+    "name": "financial",
+    "default": "",
+    "privacy": true,
+     "hiddenForm": false,
+    "undraggable": true,
+    "note": "",
+    "value": {
+      "bankAccount": {
+        "hiddenForm": false,
+         "undraggable": true,
+        "_id": "",
+        "label": "Bank account",
+        "name": "",
+        "default": true,
+        "privacy": true,
+        "value": {
+          "_id": "576187da9e9e822f503fd8aa",
+          "description": {
+            "_id": "",
+            "label": "Description",
+            "value": "",
+            "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": true
+
+          },
+          "bankName": {
+            "_id": "576187da9e9e822f503fd8ac",
+            "label": "Bank name",
+            "value": "",
+            "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "bankBranch": {
+            "_id": "576187da9e9e822f503fd8ad",
+            "label": "Bank branch",
+            "value": "",
+
+            "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+
+
+          },
+          "accountType": {
+            "_id": "576187da9e9e822f503fd8ae",
+            "label": "Account type",
+            "value": "",
+            "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "bankAddress": {
+            "_id": "576187da9e9e822f503fd8af",
+            "label": "Bank address",
+            "value": "",
+            "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+
+          },
+          "bankAddress_lat": {
+            "_id": "",
+            "label": "Latitude Bank address",
+            "value": "",
+            "hiddenForm": true,
+            "undraggable": true
+
+          },
+          "bankAddress_lng": {
+            "_id": "",
+            "label": "Longitude Bank address",
+            "value": "",
+            "hiddenForm": true,
+            "undraggable": true
+          },
+          "country": {
+            "_id": "",
+            "label": "Country",
+            "value": "",
+            "hiddenForm": true,
+            "undraggable": true
+          },
+          "state": {
+            "_id": "",
+            "label": "State/ Province/ Region",
+            "value": "",
+
+            "hiddenForm": true,
+            "undraggable": true
+
+          },
+          "city": {
+            "_id": "",
+            "label": "City",
+            "value": "",
+
+            "hiddenForm": true,
+            "undraggable": true
+
+          },
+          "zipCode": {
+            "_id": "576187da9e9e822f503fd8b1",
+            "label": "ZIP / Postal Code",
+            "value": "",
+            "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "issuedDate": {
+            "_id": "576187da9e9e822f503fd8b2",
+            "label": "Issued date",
+            "value": "",
+
+            "controlType": "date",
+            "hiddenForm": false,
+            "undraggable": false
+
+
+          },
+          "expiryDate": {
+            "_id": "576187da9e9e822f503fd8b3",
+            "label": "Expiry date",
+            "value": "",
+
+            "controlType": "date",
+            "hiddenForm": false,
+            "undraggable": false
+
+
+          },
+          "nonExpiry": {
+            "_id": "",
+            "label": "City",
+            "value": "",
+
+            "hiddenForm": true,
+            "undraggable": true
+
+
+          },
+          "note": {
+            "_id": "576187da9e9e822f503fd8d5",
+            "label": "Note",
+            "value": "",
+            "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          }
+        }
+      },
+      "bankCard": {
+        "hiddenForm": false,
+       "undraggable": true,
+        "_id": "",
+        "label": "Bank Card",
+        "name": "",
+        "default": true,
+        "privacy": true,
+        "value": {
+          "_id": "576187da9e9e822f503fd8b4",
+          "description": {
+            "_id": "",
+            "label": "Description",
+            "value": "",
+            "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "bankName": {
+            "_id": "576187da9e9e822f503fd8b5",
+            "label": "Bank name",
+            "value": "",
+              "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "bankBranch": {
+            "_id": "576187da9e9e822f503fd8b7",
+            "label": "Bank branch",
+            "value": "",
+              "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "cardNumber": {
+            "_id": "576187da9e9e822f503fd8b8",
+            "label": "Card number",
+            "value": "",
+             "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "bankAddress": {
+            "_id": "576187da9e9e822f503fd8b9",
+            "label": "Bank address",
+            "value": "",
+            "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "bankAddress_lat": {
+            "_id": "576187da9e9e822f503fd8ba",
+            "label": "Latitude Bank address",
+            "value": "",
+             "controlType": "textbox",
+            "hiddenForm": true,
+            "undraggable": true
+          },
+          "bankAddress_lng": {
+            "_id": "",
+            "label": "Longitude Bank address",
+            "value": "",
+            "hiddenForm": true,
+            "undraggable": true
+          },
+          "country": {
+            "_id": "",
+            "label": "Country",
+            "value": "",
+            "hiddenForm": true,
+            "undraggable": true
+          },
+          "state": {
+            "_id": "",
+            "label": "State/ Province/ Region",
+            "value": "",
+            "hiddenForm": true,
+            "undraggable": true
+          },
+          "city": {
+            "_id": "",
+            "label": "City",
+            "value": "",
+            "hiddenForm": true,
+            "undraggable": true
+          },
+          "zipCode": {
+            "_id": "576187da9e9e822f503fd8bb",
+            "label": "ZIP / Postal Code",
+            "value": "",
+              "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "issuedDate": {
+            "_id": "576187da9e9e822f503fd8bc",
+            "label": "Issued date",
+            "value": "",
+              "controlType": "date",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "expiryDate": {
+            "_id": "576187da9e9e822f503fd8bd",
+            "label": "expiry date",
+            "value": "",
+               "controlType": "date",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "nonExpiry": {
+            "_id": "",
+            "label": "Non Expiry",
+            "value": "",
+             "hiddenForm": true,
+            "undraggable": true
+          },
+          "note": {
+            "_id": "576187da9e9e822f503fd8be",
+            "label": "Note",
+            "value": "",
+              "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          }
+        }
+      },
+      "investment": {
+        "_id": "576187da9e9e822f503fd8bf",
+        "label": "Investment Account",
+        "name": "",
+        "default": true,
+        "privacy": true,
+         "hiddenForm": false,
+         "undraggable": false,
+        "value": {
+          "_id": "576187da9e9e822f503fd8c0",
+          "description": {
+            "_id": "",
+            "label": "Description",
+            "value": "",
+           "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "fullName": {
+            "_id": "576187da9e9e822f503fd8c1",
+            "label": "Full name",
+            "value": "",
+          
+           "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+
+          },
+          "accountType": {
+            "_id": "576187da9e9e822f503fd8c4",
+            "label": "Account type",
+            "value": "576187da9e9e822f503fd8c2",
+          
+           "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+
+          },
+          "accountNumber": {
+            "_id": "576187da9e9e822f503fd8c5",
+            "label": "Account number",
+            "value": "",
+          
+           "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+
+
+          },
+          "investmentFirm": {
+            "_id": "576187da9e9e822f503fd8c6",
+            "label": "Investment Firm",
+            "value": "",
+          
+           "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+
+          },
+          "note": {
+            "_id": "576187da9e9e822f503fd8c7",
+            "label": "Note",
+            "value": "",
+            "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+
+          }
+        }
+      },
+      "insurance": {
+        "_id": "576187da9e9e822f503fd8c8",
+        "label": "Insurance",
+        "name": "",
+        "default": true,
+        "privacy": true,
+          "hiddenForm": false,
+         "undraggable": false,
+        "value": {
+          "_id": "576187da9e9e822f503fd8c9",
+          "discription": {
+            "_id": "576187da9e9e822f503fd8ca",
+            "label": "Description",
+            "value": "",
+           "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "insurer": {
+            "_id": "576187da9e9e822f503fd8cb",
+            "label": "Insurer",
+            "value": "",
+               "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "insuranceType": {
+            "_id": "576187da9e9e822f503fd8cc",
+            "label": "Insurance type",
+            "value": "",
+             "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "policyNumber": {
+            "_id": "576187da9e9e822f503fd8cd",
+            "label": "Policy number",
+            "value": "",
+           "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "startDate": {
+            "_id": "576187da9e9e822f503fd8ce",
+            "label": "Start date",
+            "value": "",
+               "controlType": "date",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "expiryDate": {
+            "_id": "576187da9e9e822f503fd8cf",
+            "label": "Expiry date",
+            "value": "",
+            "controlType": "date",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "nonExpiry": {
+            "_id": "",
+            "label": "Non expiry",
+            "value": "",
+           "hiddenForm": true,
+            "undraggable": true
+          },
+          "note": {
+            "_id": "576187da9e9e822f503fd8d1",
+            "label": "Description",
+            "value": "",
+           "controlType": "date",
+            "hiddenForm": false,
+            "undraggable": false
+          }
+        }
+      },
+      "visaCard": {
+        "_id": "576187da9e9e822f503fd8d6",
+        "label": "Visa Card",
+        "name": "",
+        "default": true,
+        "privacy": true,
+        "hiddenForm": false,
+         "undraggable": false,
+        "value": {
+          "_id": "576187da9e9e822f503fd8d7",
+          "description": {
+            "_id": "",
+            "label": "Description",
+            "value": "",
+            "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "nameCardHolder": {
+            "_id": "576187da9e9e822f503fd8d8",
+            "label": "Name card holder",
+            "value": "",
+            "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "cardNumber": {
+            "_id": "576187da9e9e822f503fd8d9",
+            "label": "Cad number",
+            "value": "",
+           "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "securityCode": {
+            "_id": "576187da9e9e822f503fd8da",
+            "label": "Security code",
+            "value": "",
+            "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          
+          },
+          "expiryDate": {
+            "_id": "",
+            "label": "Expiry date",
+            "value": "",
+            "controlType": "date",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "note": {
+            "_id": "",
+            "label": "Note",
+            "value": "",
+           "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          }
+        }
+      },
+      "masterCard": {
+        "_id": "576187da9e9e822f503fd8db",
+        "label": "Master Card",
+        "name": "",
+        "default": true,
+        "privacy": true,
+         "hiddenForm": false,
+         "undraggable": false,
+        "value": {
+          "_id": "576187da9e9e822f503fd8dc",
+          "description": {
+            "_id": "",
+            "label": "Description",
+            "value": "",
+          "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "nameCardHolder": {
+            "_id": "576187da9e9e822f503fd8de",
+            "label": "Name card holder",
+            "value": "",
+          "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          
+          },
+          "cardNumber": {
+            "_id": "576187da9e9e822f503fd8df",
+            "label": "Card number",
+            "value": "",
+           "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "securityCode": {
+            "_id": "576187da9e9e822f503fd8e0",
+            "label": "Security code",
+            "value": "",
+            "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "expiryDate": {
+            "_id": "576187da9e9e822f503fd8e1",
+            "label": "Expiry date",
+            "value": "",
+          "controlType": "date",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "note": {
+            "_id": "576187da9e9e822f503fd8e2",
+            "label": "Note",
+            "value": "",
+           "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          }
+         
+        }
+      },
+      "payPalCard": {
+        "_id": "576187da9e9e822f503fd8e3",
+        "label": "Paypal Card",
+        "name": "",
+        "default": true,
+        "privacy": true,
+         "hiddenForm": false,
+         "undraggable": false,
+        "value": {
+          "_id": "576187da9e9e822f503fd8e4",
+          "description": {
+            "_id": "576187da9e9e822f503fd8e5",
+            "label": "Description",
+            "value": "",
+           "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "fullName": {
+            "_id": "576187da9e9e822f503fd8e6",
+            "label": "Full name",
+            "value": "",
+          "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "serviceProvider": {
+            "_id": "576187da9e9e822f503fd8e7",
+            "label": "Service provider",
+            "value": "",
+            "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "email": {
+            "_id": "576187da9e9e822f503fd8e8",
+            "label": "Email",
+            "value": "",
+          "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+          "address": {
+            "_id": "576187da9e9e822f503fd8e9",
+            "label": "Address",
+            "value": "",
+             "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          },
+           "Address_lat": {
+            "_id": "",
+            "label": "Latitude address",
+            "value": "",
+             "hiddenForm": true,
+            "undraggable": true
+          },     
+          "bankAddress_lng": {
+            "_id": "",
+            "label": "Longitude address",
+            "value": "",
+             "hiddenForm": true,
+            "undraggable": true
+          },
+          "country": {
+            "_id": "",
+            "label": "Country",
+            "value": "",
+            "undraggable": true,
+             "hiddenForm": true
+          },
+          "state": {
+            "_id": "",
+            "label": "State/ Province/ Region",
+            "value": "",
+           "undraggable": true,
+             "hiddenForm": true
+          },
+          "city": {
+            "_id": "",
+            "label": "City",
+            "value": "",
+           "undraggable": true,
+             "hiddenForm": true
+          
+          },
+          "zipCode": {
+            "_id": "576187da9e9e822f503fd8eb",
+            "label": "ZIP / Postal Code",
+            "value": "",
+            "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          
+          },
+          "note": {
+            "_id": "576187da9e9e822f503fd8ee",
+            "label": "Note",
+            "value": "",
+           "controlType": "textbox",
+            "hiddenForm": false,
+            "undraggable": false
+          }
+        }
+      }
+    }
+  },
+  "governmentID": {
+    "_id": "576187da9e9e822f503fd8ef",
+    "label": "Government ID",
+    "name": "",
+    "default": "",
+    "privacy": true,
+    "note": "",
+    "hiddenForm": false,
+    "undraggable": true,
+
+    "fullName": {
+      "_id": "576187da9e9e822f503fd8d2",
+      "label": "Full name",
+      "value": "",
+     "hiddenForm": false,
+      "undraggable": false,
+     "controlType": "textbox"
+    },
+    "firstName": {
+      "_id": "576187da9e9e822f503fd8d3",
+      "label": "First name",
+      "value": "",
+     "hiddenForm": false,
+      "undraggable": false,
+       "controlType": "textbox"
+    },
+    "middleName": {
+      "_id": "576187da9e9e822f503fd8d4",
+      "label": "Middle name",
+      "value": "",
+      "hiddenForm": false,
+      "undraggable": false,
+       "controlType": "textbox"
+    },
+    "lastName": {
+      "_id": "576187da9e9e822f503fd8f0",
+      "label": "Last name",
+      "value": "",
+     "hiddenForm": false,
+      "undraggable": false,
+       "controlType": "textbox"
+    },
+    "value": {
+      "birthCertificate": {
+        "_id": "576187da9e9e822f503fd8f1",
+        "label": "Birthday Certificate",
+        "name": "",
+         "default": true,
+        "privacy": true,
+         "hiddenForm": false,
+      "undraggable": true,
+        "value": {
+          "_id": "576187da9e9e822f503fd900",
+          "certificateNumber": {
+            "_id": "57694097e66cc03244751453",
+            "label": "Certificate number",
+            "value": "",
+            "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          },
+          "issuedDate": {
+            "_id": "576187da9e9e822f503fd901",
+            "label": "Issued date",
+            "value": "",
+            "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "date"
+          
+          },
+          "issuedBy": {
+            "_id": "576187da9e9e822f503fd902",
+            "label": "Issued by",
+            "value": "",
+            "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          },
+          "countryOfBirth": {
+            "_id": "576187da9e9e822f503fd903",
+            "label": "Country of birth",
+            "value": "",
+            "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "datecombo"
+          },
+          "cityOfBirth": {
+            "_id": "576187da9e9e822f503fd904",
+            "label": "City of birth",
+            "value": "",
+           "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "datecombo"
+          },
+          "note": {
+            "_id": "576187da9e9e822f503fd905",
+            "label": "Note",
+            "value": "",
+           "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          
+          }
+        }
+      },
+      "driverLicenseCard": {
+         "_id": "576187da9e9e822f503fd906",
+        "label": "Driver License Card",
+        "name": "",
+         "default": true,
+        "privacy": true,
+          "hiddenForm": false,
+      "undraggable": false,
+        "value": {
+          "_id": "576187da9e9e822f503fd907",
+          "cardType": {
+            "_id": "576187da9e9e822f503fd908",
+            "label": "Card type",
+            "value": "",
+           "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          },
+          "cardNumber": {
+            "_id": "57694119e66cc03244751455",
+            "label": "Card number",
+            "value": "",
+           "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          },
+          "issuedDate": {
+            "_id": "576187da9e9e822f503fd909",
+            "label": "Issued date",
+            "value": "",
+           "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "date"
+          },
+          "expiryDate": {
+            "_id": "576187da9e9e822f503fd90a",
+            "label": "Expiry date",
+            "value": "",
+           "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "date"
+          },
+          "class": {
+            "_id": "576187da9e9e822f503fd90b",
+            "label": "Class",
+            "value": "",
+           "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          },
+          "note": {
+            "_id": "576187da9e9e822f503fd90c",
+            "label": "Note",
+            "value": "",
+            "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          
+          }
+        }
+      },
+      "healthCard": {
+         "_id": "576187da9e9e822f503fd90d",
+        "label": "Health Card",
+        "name": "",
+         "default": true,
+        "privacy": true,
+         "hiddenForm": false,
+         "undraggable": false,
+
+        "value": {
+          "_id": "576940fce66cc03244751454",
+          "bloodType": {
+            "_id": "",
+            "label": "Blood type",
+            "value": "",
+            "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          },
+          "issuedDate": {
+            "_id": "576187da9e9e822f503fd90e",
+            "label": "Isssued date",
+            "value": "",
+             "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "date"
+          },
+          "expiryDay": {
+            "_id": "576187da9e9e822f503fd90f",
+            "label": "Expiry date",
+            "value": "",
+           "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "date"
+          
+          },
+          "note": {
+            "_id": "576187da9e9e822f503fd910",
+            "label": "Note",
+            "name": "",
+            "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "date"
+          }
+        }
+      },
+      "medicalBenifitCard": {
+          "_id": "576187da9e9e822f503fd911",
+        "label": "Medical Benifit Card",
+        "name": "",
+         "default": true,
+        "privacy": true,
+         "hiddenForm": false,
+         "undraggable": false,
+        "value": {
+          "_id": "5769415ce66cc03244751456",
+          "cardNumber": {
+            "_id": "576187da9e9e822f503fd912",
+            "label": "Card number",
+            "value": "",
+           "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          },
+          "issuedDate": {
+            "_id": "576187da9e9e822f503fd913",
+            "label": "Issued date",
+            "value": "",
+           "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "date"
+          },
+          "expiryDate": {
+            "_id": "576187da9e9e822f503fd914",
+            "label": "Expiry date",
+            "value": "",
+           "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "date"
+          },
+          "tier": {
+            "_id": "576187da9e9e822f503fd915",
+            "label": "Tier",
+            "value": "",
+           "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          },
+          "note": {
+            "_id": "576187da9e9e822f503fd916",
+            "label": "Note",
+            "value": "",
+            "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          }
+        }
+      },
+      "passportId": {
+
+        "_id": "576187da9e9e822f503fd917",
+        "label": "Passport ID",
+        "name": "",
+         "default": true,
+        "privacy": true,
+         "hiddenForm": false,
+            "undraggable": false,
+        "value": {
+          "nationality": {
+            "_id": "576187da9e9e822f503fd918",
+            "label": "Nationality",
+            "value": "",
+            "hiddenForm": false,
+            "undraggable": false,
+             "controlType": "textbox"
+          },
+          "cardNumber": {
+            "_id": "57694178e66cc03244751457",
+            "label": "Card number",
+            "value": "",
+            "hiddenForm": false,
+            "undraggable": false,
+             "controlType": "textbox"
+          },
+          "issuedDate": {
+            "_id": "576187da9e9e822f503fd919",
+            "label": "Issued date",
+            "value": "",
+            "hiddenForm": false,
+            "undraggable": false,
+             "controlType": "textbox"
+          
+          },
+          "expiryDate": {
+            "_id": "576187da9e9e822f503fd91a",
+            "label": "Expiry date",
+            "value": "",
+           "hiddenForm": false,
+            "undraggable": false,
+             "controlType": "textbox"
+          },
+          "issuedBy": {
+            "_id": "576187da9e9e822f503fd91b",
+            "label": "Issued by",
+            "value": "",
+           "hiddenForm": false,
+            "undraggable": false,
+             "controlType": "textbox"
+          
+          },
+          "issuedIn": {
+            "_id": "576187da9e9e822f503fd91c",
+            "label": "Issued in",
+            "value": "",         
+            "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          },
+          "note": {
+            "_id": "576187da9e9e822f503fd91d",
+            "label": "Note",
+            "value": "",
+           "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          }
+        }
+      },
+      "permanentResidenceIdCard": {
+
+        "_id": "576187da9e9e822f503fd91e",
+        "label": "Permanent Residence Card",
+        "name": "",
+        "default": true,
+        "privacy": true,
+        "hiddenForm": false,
+        "undraggable": false,
+        "value": {
+          "cardNumber": {
+            "_id": "576187da9e9e822f503fd91f",
+            "label": "Card number",
+            "value": "",
+            "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          },
+          "issuedDate": {
+            "_id": "5769418de66cc03244751458",
+            "label": "Issued date",
+            "value": "",
+           "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          },
+          "expiryDate": {
+            "_id": "576187da9e9e822f503fd920",
+            "label": "Expiry date",
+            "value": "",
+          "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "date"
+          },
+          "issuedBy": {
+            "_id": "576187da9e9e822f503fd921",
+            "label": "Issued by",
+            "value": "",
+            "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          },
+          "issuedIn": {
+            "_id": "576187da9e9e822f503fd922",
+            "label": "Issued in",
+            "value": "",
+           "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          },
+          "countryOfResidence": {
+            "_id": "576187da9e9e822f503fd923",
+            "label": "Country of residence",
+            "value": "",
+          "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          },
+          "note": {
+            "_id": "576187da9e9e822f503fd924",
+            "label": "Note",
+            "value": "",
+           "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          
+          }
+        }
+      },
+      "socialInsuranceCard": {
+         "_id": "",
+        "label": "Social Insurance Card",
+        "name": "",
+         "default": true,
+        "privacy": true,
+         "hiddenForm": true,
+         "undraggable": true,
+
+        "value": {
+          "cardNumber":  {"_id": "", "label": "Card number", "value": ""},
+          "issuedDate":  {"_id": "", "label": "Issued date", "value": ""},
+          "expiryDate":  {"_id": "", "label": "Expiry date", "value": ""},
+          "note":  {"_id": "", "label": "Note", "name": ""}
+        }
+      },
+      "taxCard": {
+          "_id": "",
+        "label": "Tax Card",
+        "name": "",
+         "hiddenForm": true,
+         "undraggable": true,
+         "default": true,
+        "privacy": true,
+        "value": {
+          "cardNumber":  {"_id": "", "label": "Card number", "value": ""},
+          "issuedDate":  {"_id": "", "label": "Issued date", "value": ""},
+          "expiryDate":  {"_id": "", "label": "Expiry date", "value": ""},
+          "issuedBy":  {"_id": "", "label": "Issued by", "value": ""},
+          "note":  {"_id": "", "label": "Note", "value": ""}
+        }
+      }
+    }
+  },
+  "family": {
+    "_id": "",
+
+     "hiddenForm": true,
+         "undraggable": true,
+    "label": "Family",
+    "name": "",
+   "default": true,
+   "privacy": true,
+    "value": {
+      "_id": "",
+      "fullName": {
+        "_id": "",
+        "label": "Full name",
+        "value": ""
+      },
+      "dob": {
+        "_id": "",
+        "label": "D.O.B",
+        "value": ""
+      },
+      "gender": {
+        "_id": "",
+        "label": "Gender",
+        "value": ""
+      },
+      "email": {
+        "_id": "",
+        "label": "Email",
+        "value": ""
+      },
+      "relationship": {
+        "_id": "",
+        "label": "Relationship",
+        "value": ""
+      }
+    },
+    "listFamily": { "family": [ ] }
+  },
+  "membership": {
+     "_id": "",
+    "label": "Membership",
+    "name": "",
+   "default": true,
+   "privacy": true,
+    "hiddenForm": true,
+        "undraggable": true,
+    "value": {
+      "businessName":  {"_id": "", "label": "Business name", "value": ""},
+      "membershipProgramName":  {"_id": "", "label": "Membership program name", "value": ""},
+      "holder":  {"_id": "", "label": "Holder", "value": ""},
+      "membershipClass":  {"_id": "", "label": "Membership class", "value": ""},
+      "expiryDate": {
+        "_id": "",
+        "label": "Expiry date",
+        "value": ""
+      },
+      "note":   {"_id": "", "label": "Note", "value": ""}
+    }
+  },
+  "employment": {
+     "_id": "",
+    "label": "Employment",
+    "name": "",
+   "default": true,
+    "privacy": true,
+     "hiddenForm": true,
+        "undraggable": true,
+    "value": {
+      "_id": "",
+      "description":  {"_id": "", "label": "Description", "value": ""},
+      "companyName":  {"_id": "", "label": "Company name", "value": ""},
+      "title":  {"_id": "", "label": "Title", "value": ""},
+      "email":  {"_id": "", "label": "Email", "value": ""},
+      "phoneNumber":  {"_id": "", "label": "Phone number", "value": ""},
+      "fax":  {"_id": "", "label": "Fax", "value": ""},
+      "mobileNumber":  {"_id": "", "label": "Mobile number", "value": ""},
+      "salary":  {"_id": "", "label": "Salary", "value": ""},
+      "employmentStatus":  {"_id": "", "label": "Employment status", "value": ""},
+      "startDate":  {"_id": "", "label": "Start date", "value": ""},
+      "endDate":  {"_id": "", "label": "End date", "value": ""},
+       "addressLine1": {
+            "_id": "",
+            "label": "Address line 1",
+            "value": ""
+          },
+
+          "addressLine1_lat": {
+            "_id": "",
+            "label": "Latitude address line 1",
+            "value": ""
+          },     
+          "addressLine1_lng": {
+            "_id": "",
+            "label": "Longitude address line 1",
+            "value": ""
+          },
+          "addressLine2": {
+            "_id": "",
+            "label": "Address line 2",
+            "value": ""
+          },
+            "addressLine2_lat": {
+            "_id": "",
+            "label": "Latitude address line 2",
+            "value": ""
+          },     
+          "addressLine2_lng": {
+            "_id": "",
+            "label": "Longitude address line 2",
+            "value": ""
+          },
+       "country": {"_id": "", "label": "Country", "value": ""},
+      "state": {"_id": "", "label": "State/ Province/ Region", "value": ""},
+       "city": {"_id": "", "label": "City", "value": ""},
+      "zipCode": {"_id": "", "label": "ZIP / Postal Code", "value": ""},
+      "note":  {"_id": "", "label": "Note", "value": ""}
+      
+    }
+  },
+  "education": {
+    "_id": "576187da9e9e822f503fd925",
+    "label": "Education",
+    "name": "",
+    "default": true,
+    "privacy": true,
+     "hiddenForm": false,
+     "undraggable": true,
+    "value": {
+      "_id": "5769419ee66cc03244751459",
+      "description": {
+        "_id": "",
+        "label": "Description",
+        "value": "",
+        "hiddenForm": false,
+         "undraggable": false,
+        "controlType": "textbox"
+      },
+      "schoolName": {
+        "_id": "576187da9e9e822f503fd926",
+        "label": "School name",
+        "value": "",
+        "hiddenForm": false,
+         "undraggable": false,
+        "controlType": "textbox"
+      },
+      "major": {
+        "_id": "576187da9e9e822f503fd927",
+        "label": "Major",
+        "value": "",
+          "hiddenForm": false,
+         "undraggable": false,
+        "controlType": "textbox"
+      },
+      "minor": {
+        "_id": "576187da9e9e822f503fd928",
+        "label": "Minor",
+        "value": "",
+          "hiddenForm": false,
+         "undraggable": false,
+        "controlType": "textbox"
+      },
+      "schoolId": {
+        "_id": "576187da9e9e822f503fd929",
+        "label": "School Id",
+        "value": "",
+          "hiddenForm": false,
+         "undraggable": false,
+        "controlType": "textbox"
+      },
+      "expiryDate": {
+        "_id": "576187da9e9e822f503fd92a",
+        "label": "Expiry date",
+        "value": "",
+         "hiddenForm": false,
+         "undraggable": false,
+        "controlType": "date"
+      },
+      "certificationType": {
+        "_id": "576941b6e66cc0324475145a",
+        "label": "Certification type",
+        "value": "",
+         "hiddenForm": false,
+         "undraggable": false,
+        "controlType": "textbox"
+      },
+      "grade": {
+        "_id": "576187da9e9e822f503fd92b",
+        "label": "Grade",
+        "value": "",
+         "hiddenForm": false,
+         "undraggable": false,
+        "controlType": "textbox"
+      },
+      "certificateNumber": {
+        "_id": "576187da9e9e822f503fd92c",
+        "label": "Certificate number",
+        "value": "",
+         "hiddenForm": false,
+         "undraggable": false,
+        "controlType": "textbox"
+      },
+      "graduatedDate": {
+        "_id": "576187da9e9e822f503fd92d",
+        "label": "Graduate date",
+        "value": "",
+         "hiddenForm": false,
+         "undraggable": false,
+        "controlType": "textbox"
+      },
+      "note": {
+        "_id": "576187da9e9e822f503fd92e",
+        "label": "Note",
+        "value": "",
+         "hiddenForm": false,
+         "undraggable": false,
+        "controlType": "textbox"
+      }
+
+    }
+  },
+  "others": {
+    "_id": "576187da9e9e822f503fd91c1",
+    "label": "Others",
+    "name": "",
+    "default": "Preference",
+    "privacy": true,
+       "hiddenForm": false,
+     "undraggable": true,
+    "value": {
+      "preference": {
+        "_id": "576187da9e9e822f503fd91c2",
+        "label": "Preference",
+        "name": "Preference",
+        "default": true,
+        "privacy": true,
+         "hiddenForm": false,
+     "undraggable": true,
+        "value": {
+          "interesting": {
+            "_id": "576187da9e9e822f503fd91c3",
+            "label": "Interesting",
+            "value": "interest",
+             "hiddenForm": false,
+            "undraggable": false,
+             "controlType": "smartinput"
+          },
+          "food": {
+            "_id": "576187da9e9e822f503fd91c4",
+            "label": "Food",
+            "value": "",
+              "hiddenForm": false,
+            "undraggable": false,
+             "controlType": "smartinput"
+          },
+          "seat": {
+            "_id": "576187da9e9e822f503fd91c5",
+            "label": "Seat (plan/train/boat/ect)",
+            "value": "seat",
+              "hiddenForm": false,
+            "undraggable": false,
+             "controlType": "smartinput"
+          },
+           "season": {
+            "_id": "576187da9e9e822f503fd91c6",
+            "label": "Season",
+            "value": "season",
+               "hiddenForm": false,
+            "undraggable": false,
+             "controlType": "smartinput"
+          },
+          "note": {
+            "_id": "576187da9e9e822f503fd91c7",
+            "label": "Note",
+            "value": "",
+              "hiddenForm": false,
+            "undraggable": false,
+             "controlType": "textbox"
+          }
+        }
+      },
+      "favourite": {
+        "_id": "576187da9e9e822f503fd91c8",
+        "label": "Favourite",
+        "name": "Favourite",
+        "default": true,
+        "privacy": true,
+          "hiddenForm": false,
+            "undraggable": true,
+
+        "value": {
+          "colour": {
+            "_id": "576187da9e9e822f503fd91c9",
+            "label": "Color",
+            "value": "color",
+            "controlType": "smartinput",
+             "hiddenForm": false,
+            "undraggable": false
+          },
+          "holiday": {
+            "_id": "576187da9e9e822f503fd91c10",
+            "label": "Holiday",
+            "value": "",
+             "controlType": "textbox",
+             "hiddenForm": false,
+            "undraggable": false
+          },
+          "movie": {
+            "_id": "576187da9e9e822f503fd91c11",
+            "label": "Movie",
+            "value": "",
+             "controlType": "textbox",
+             "hiddenForm": false,
+            "undraggable": false
+          },
+          "music_type": {
+            "_id": "576187da9e9e822f503fd91c12",
+            "label": "Music type",
+            "value": "",
+             "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "smartinput"
+          },
+          "song": {
+            "_id": "576187da9e9e822f503fd91c13",
+            "label": "Song",
+            "value": "song",
+              "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "smartinput"
+          },
+          "tv_show": {
+            "_id": "576187da9e9e822f503fd91c14",
+            "label": "TV Show",
+            "value": "tvShow",
+             "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "smartinput"
+          },
+          "personality": {
+            "_id": "576187da9e9e822f503fd91c15",
+            "label": "Personality",
+            "value": "",
+               "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          },
+          "preferred_time": {
+            "_id": "576187da9e9e822f503fd91c16",
+            "label": "Preferred time of day",
+            "value": "",
+                "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          },
+          "note": {
+            "_id": "576187da9e9e822f503fd91c17",
+            "label": "Note",
+            "value": "",
+               "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          }
+        }
+      },
+       "body": {
+        "_id": "576187da9e9e822f503fd91c18",
+        "label": "Body",
+        "name": "Body",
+        "default": true,
+        "privacy": true,
+            "hiddenForm": false,
+            "undraggable": true,
+        "value": {
+          "hair_colour": {
+            "_id": "576187da9e9e822f503fd91c19",
+            "label": "Hair Clour",
+            "value": "color",
+             "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "smartinput"
+          },
+          "eye_colour": {
+            "_id": "576187da9e9e822f503fd91c20",
+            "label": "Eye colour",
+            "value": "color",
+             "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "smartinput"
+          },
+          "height": {
+            "_id": "576187da9e9e822f503fd91c21",
+            "label": "Height",
+            "value": "weight",
+            "unit": "",
+               "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "numinput"
+          },
+          "weight": {
+            "_id": "576187da9e9e822f503fd91c22",
+            "label": "Weight",
+            "value": "weight",
+            "unit": "",
+             "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "numinput"
+          },
+           "type": {
+            "_id": "576187da9e9e822f503fd91c23",
+            "label": "Body type",
+            "value": "",
+             "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "smartinput"
+          },
+          "note_body": {
+            "_id": "576187da9e9e822f503fd91c24",
+            "label": "Note",
+            "value": "",
+             "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          },
+          "neck": {
+            "_id": "576187da9e9e822f503fd91c25",
+            "label": "Neck circumference",
+            "unit": "",
+            "value": "weight",
+            "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "numinput"
+          },
+           "chest": {
+            "_id": "576187da9e9e822f503fd91c26",
+            "label": "Chest circumference",
+            "value": "",
+            "unit": ""
+          },
+          "arm": {
+            "_id": "576187da9e9e822f503fd91c27",
+            "label": "Length of arm",
+             "value": "weight",
+            "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "numinput",
+            "unit": ""
+          },
+           "leg": {
+            "_id": "576187da9e9e822f503fd91c28",
+            "label": "Length of leg",
+             "value": "weight",
+            "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "numinput",
+            "unit": ""
+          },
+          "inner": {
+            "_id": "576187da9e9e822f503fd91c29",
+            "label": "Inner thigh circumference",
+             "value": "weight",
+            "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "numinput",
+            "unit": ""
+          },
+           "bicep": {
+            "_id": "576187da9e9e822f503fd91c30",
+            "label": "Bicep circumference",
+             "value": "weight",
+            "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "numinput",
+            "unit": ""
+          },
+          "shoes": {
+            "_id": "576187da9e9e822f503fd91c31",
+            "label": "Shoe size",
+            "value": "shoesize",
+            "unit": "",
+              "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "numinput"
+          },
+            "ring": {
+            "_id": "576187da9e9e822f503fd91c32",
+            "label": "Ring size",
+             "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "numinput",
+              "unit": "",
+               "value": "weight"
+          },
+          "note_tailor": {
+            "_id": "576187da9e9e822f503fd91c33",
+            "label": "Note",
+            "value": "",
+             "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          },
+          "right_eye": {
+            "_id": "576187da9e9e822f503fd91c34",
+            "label": "Right eye prescription",
+            "value": "",
+            "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          },
+          "left_eye": {
+            "_id": "576187da9e9e822f503fd91c35",
+            "label": "Left eye prescription",
+            "value": "",
+            "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          },
+            "note_eye": {
+            "_id": "576187da9e9e822f503fd91c36",
+            "label": "Note",
+              "value": "",
+               "hiddenForm": false,
+            "undraggable": false,
+            "controlType": "textbox"
+          }
+        }
+      }
+    }
+  }
+ 
+ 
+} 
+
+
+

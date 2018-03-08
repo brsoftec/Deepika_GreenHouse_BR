@@ -1,0 +1,33 @@
+.help-intro-dialog .modal-body {
+    background: white url(../img/help/intro-business-bg.svg) no-repeat;
+    background-size: cover;
+}
+.help-intro-slide {
+    height: 480px;
+}
+.help-intro-text {
+    margin: 20px;
+}
+.help-intro-paging-item {
+    width: 12px !important;
+}
+
+.intro-slide-heading {
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, Geneva, sans-serif;
+    font-weight: 300;
+}
+
+.help-intro-picture {
+    height: 200px;
+    margin: 20px auto 0 auto;
+    text-align: center;
+}
+
+.help-intro-picture img {
+    height: 100%;
+}
+
+.intro-slide-picture.narrow {
+    margin: 0 auto;
+    width: 70%;
+}

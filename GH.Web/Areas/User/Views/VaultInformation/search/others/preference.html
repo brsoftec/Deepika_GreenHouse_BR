@@ -1,0 +1,290 @@
+﻿
+<div ng-controller="SearchOthersPreferenceController"> 
+   <div ng-if="write == false && read == false">
+        <div class="vault-group">
+        <!--preference_interesting-->
+        <div class="vault-group-content" ng-if="preference._name">
+                    <div class="vault-row">
+                        <div class="vault-group-actions">
+                            <button ng-hide="value.IsEdit" class="btn-vault-action btn-vault-edit" ngclipboard data-clipboard-target="#copy-preference">
+                                Copy text
+                            </button>
+                            <button ng-hide="IsEdit" class="btn-vault-action btn-vault-edit" ng-click="Edit() ">
+                                Edit
+                            </button>
+                            <button ng-hide="!IsEdit" class="btn-vault-action btn-vault-save" ng-click="Save()">
+                                Save
+                            </button>
+                            <button ng-hide="!IsEdit" class="btn-vault-action btn-vault-cancel btn-cancel"
+                                    ng-click="Cancel()">
+                                Cancel
+                            </button>
+                        </div>
+
+                    </div>
+
+
+                    <!-- // preference -->
+                    <div class="vault-row" ng-hide="IsEdit" id="copy-preference">
+                        <div class="vault-label">
+                            <label>{{preference._label}}</label>
+                        </div>
+                        <div class="vault-field">
+                            <div class="vault-field-value">
+
+
+                                <!--basic -->
+                                <span ng-if="preference_sexuality._value">
+                                    <strong> {{preference_sexuality._label}}: </strong> {{preference_sexuality._value}} <br />
+                                </span>
+                                <span ng-if="preference_languages._value !=''">
+                                    <strong>{{preference_languages._label}}: </strong>  {{preference_languages._value.join(', ')}} <br />
+                                </span>
+                                <span ng-if="preference_ethnicity._value">
+                                    <strong> {{preference_ethnicity._label}}: </strong> {{preference_ethnicity._value}} <br />
+                                </span>
+                                <span ng-if="preference_religion._value">
+                                    <strong> {{preference_religion._label}}: </strong> {{preference_religion._value}} <br />
+                                </span>
+                                <span ng-if="preference_disability._value">
+                                    <strong> {{preference_disability._label}}: </strong> {{preference_disability._value}} <br />
+                                </span>
+                                <!--end basic-->
+                                <span ng-if="preference_interests._value !=''">
+                                    <strong>{{preference_interests._label}}: </strong>  {{preference_interests._value.join(', ')}} <br />
+                                </span>
+                                <span ng-if="preference_sports._value !=''">
+                                    <strong>{{preference_sports._label}}: </strong>  {{preference_sports._value.join(', ')}} <br />
+                                </span>
+                                <span ng-if="preference_food._value !=''">
+                                    <strong>{{preference_food._label}}: </strong> {{preference_food._value.join(', ') }} <br />
+                                </span>
+                                <span ng-if="preference_allergies._value !=''">
+                                    <strong>{{preference_allergies._label}}: </strong> {{preference_allergies._value.join(', ') }} <br />
+                                </span>
+
+                                <span ng-if="preference_seat._value !=''">
+                                    <strong>{{preference_seat._label}}: </strong> {{preference_seat._value.join(', ') }} <br />
+                                </span>
+
+                                <span ng-if="preference_season._value !=''">
+                                    <strong>{{preference_season._label}}: </strong>  {{preference_season._value.join(', ') }}
+                                </span>
+                            </div>
+
+                            <div class="vault-privacy-indicator" ng-class="{'privacy-on': preference._privacy}"
+                                 bs-tooltip
+                                 data-title="{{preference._privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                                 data-placement="bottom-left">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- // -->
+                    <div ng-hide="!IsEdit">
+                        <div class="vault-row">
+                            <div class="vault-label">
+                            </div>
+                            <div class="vault-field-edit">
+                                <label>
+                                    <strong>
+                                        {{preference._name}}
+                                    </strong>
+                                </label>
+                                <button class="btn-vault-privacy" ng-class="{'privacy-on': preference._privacy}"
+                                        ng-click="preference._privacy = !preference._privacy"
+                                        bs-tooltip
+                                        data-title="{{preference._privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                                        data-placement="bottom-left"></button>
+                            </div>
+
+                        </div>
+
+                        <!--sexuality-->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{preference_sexuality._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <input name="sexuality" placeholder="" ng-model="preference_sexuality._value" />
+                            </div>
+                        </div>
+                        <!--language-->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{preference_languages._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-smart-input ng-model="preference_languages._value" placeholder="Enter your languages" type="language">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <!--ethnicity-->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{preference_ethnicity._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <input name="ethnicity" placeholder="" ng-model="preference_ethnicity._value" />
+                            </div>
+                        </div>
+                        <!--religion-->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{preference_religion._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <input name="religon" placeholder="" ng-model="preference_religion._value" />
+                            </div>
+                        </div>
+                        <!--disability-->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{preference_disability._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <input name="disability" placeholder="" ng-model="preference_disability._value" />
+                            </div>
+                        </div>
+
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{preference_interests._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-smart-input ng-model="preference_interests._value" placeholder="Enter your interests" type="interest">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{preference_sports._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-smart-input ng-model="preference_sports._value" placeholder="Enter your sports" type="sport">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <!-- preference_food preference_allergies -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{preference_food._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-smart-input ng-model="preference_food._value" placeholder="List your favorite foods" type="food">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <!-- preference_allergies -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{preference_allergies._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-smart-input ng-model="preference_allergies._value" placeholder="List your allergies">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <!-- preference_seat -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <!-- label>{{preference_seat._label}}</label -->
+                                <label>Seat</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-smart-input ng-model="preference_seat._value" type="seat" placeholder="on plane/train/boat etc.">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <!-- preference_seat -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{preference_season._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-smart-input ng-model="preference_season._value">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+    </div>
+     </div>
+    <div ng-if="write == false && read == false">   
+        <div class="vault-group">
+            <!--preference_interesting-->
+        <div class="vault-group-content" ng-if="preference._name">
+                       
+             <div class="vault-row">
+                <div class="vault-group-actions">
+                    <button class="btn-vault-action btn-vault-edit" ngclipboard data-clipboard-target="#copy-preference">
+                        Copy text
+                    </button>
+                               
+                </div>
+              </div>
+
+        <!-- // preference -->
+            <div class="vault-row" id="copy-preference">
+                <div class="vault-label">
+                    <label>{{preference._label}}</label>
+                </div>
+                <div class="vault-field">
+                    <div class="vault-field-value">
+
+
+                        <!--basic -->
+                        <span ng-if="preference_sexuality._value">
+                            <strong> {{preference_sexuality._label}}: </strong> {{preference_sexuality._value}} <br />
+                        </span>
+                        <span ng-if="preference_languages._value !=''">
+                            <strong>{{preference_languages._label}}: </strong>  {{preference_languages._value.join(', ')}} <br />
+                        </span>
+                        <span ng-if="preference_ethnicity._value">
+                            <strong> {{preference_ethnicity._label}}: </strong> {{preference_ethnicity._value}} <br />
+                        </span>
+                        <span ng-if="preference_religion._value">
+                            <strong> {{preference_religion._label}}: </strong> {{preference_religion._value}} <br />
+                        </span>
+                        <span ng-if="preference_disability._value">
+                            <strong> {{preference_disability._label}}: </strong> {{preference_disability._value}} <br />
+                        </span>
+                        <!--end basic-->
+                        <span ng-if="preference_interests._value !=''">
+                            <strong>{{preference_interests._label}}: </strong>  {{preference_interests._value.join(', ')}} <br />
+                        </span>
+                        <span ng-if="preference_sports._value !=''">
+                            <strong>{{preference_sports._label}}: </strong>  {{preference_sports._value.join(', ')}} <br />
+                        </span>
+                        <span ng-if="preference_food._value !=''">
+                            <strong>{{preference_food._label}}: </strong> {{preference_food._value.join(', ') }} <br />
+                        </span>
+                        <span ng-if="preference_allergies._value !=''">
+                            <strong>{{preference_allergies._label}}: </strong> {{preference_allergies._value.join(', ') }} <br />
+                        </span>
+
+                        <span ng-if="preference_seat._value !=''">
+                            <strong>{{preference_seat._label}}: </strong> {{preference_seat._value.join(', ') }} <br />
+                        </span>
+
+                        <span ng-if="preference_season._value !=''">
+                            <strong>{{preference_season._label}}: </strong>  {{preference_season._value.join(', ') }}
+                        </span>
+                    </div>
+
+                    <div class="vault-privacy-indicator" ng-class="{'privacy-on': preference._privacy}"
+                            bs-tooltip
+                            data-title="{{preference._privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                            data-placement="bottom-left">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+    </div>
+
+</div>

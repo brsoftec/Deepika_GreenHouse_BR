@@ -1,0 +1,261 @@
+a:hover, .btn:hover {
+    /*color: inherit !important;*/
+}
+
+/* Windows */
+window, .window, [window] {
+    position: absolute;
+    /*left: 0; top: 0;*/
+    width: 270px;
+    border: 2px solid #00adef;
+    z-index: 1000;
+}
+
+window.tabbed, .window.tabbed, [window].tabbed {
+    border: none;
+    background-color: #e6e7e8;
+}
+
+window.msg-box {
+    right: 300px;
+}
+
+.window-header {
+    background-color: #00adef;
+    padding: 2px;
+}
+
+.tabbed .window-header {
+    background-color: #e6e7e8;
+}
+
+.window-heading {
+    font-weight: bold;
+    color: white;
+    padding-left: 4px;
+}
+
+.window-close {
+    display: block;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: transparent url(../img/window-close.png) no-repeat center center;
+}
+
+.tabbed .window-close {
+    background-image: url(../img/window-close-alt.png);
+    top: 3px;
+}
+
+.tabs-nav {
+    list-style: none;
+    margin: 4px 0 0 4px;
+    padding: 0;
+}
+
+.tabs-nav li {
+    display: inline-block;
+    margin: 0 4px 0 0;
+    padding: 0;
+}
+
+.tabs-nav a {
+    text-decoration: none;
+    padding: 2px 5px;
+    background-color: #c7eafb;
+    color: white;
+    font-weight: bold;
+}
+
+.tabs-nav .active a {
+    background-color: #00adef;
+}
+
+.tabs-container {
+    border: 1px solid #909090;
+}
+
+.window-container {
+    overflow: hidden;
+}
+
+.tabbed .window-container {
+    border: 1px solid #909090;
+    margin-top: -1px;
+    overflow-y: scroll;
+}
+
+.msg-container {
+    position: relative;
+    margin-top: 20px;
+}
+
+.msg-list {
+    max-height: 420px;
+}
+
+.msg-list-row {
+    padding: 4px;
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+}
+
+.msg-list-row-unread {
+    background-color: #e1f4fd;
+}
+
+.msg-list-row > div {
+    display: inline-block;
+}
+
+.msg-list-avatar img {
+    width: 50px;
+}
+
+.msg-list-summary {
+    margin-left: 10px;
+    vertical-align: top;
+    width: 72%;
+    cursor: pointer;
+}
+
+.msg-list-name {
+    font-weight: bold;
+}
+
+.msg-list-when {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    text-align: right;
+    font-size: 80%;
+    color: #888;
+}
+
+.msg-list-text {
+    font-size: 90%;
+    #color: #777;
+    margin-top: 6px;
+
+}
+
+.msg-list-row-read-indicator {
+    position: absolute;
+    right: 6px;
+    bottom: 10px;
+    width: 14px;
+    height: 10px;
+    background: transparent url(../img/msg-list-row-read.png) no-repeat left center;
+}
+
+.msg-box {
+
+}
+
+.msg-conversation {
+    background-color: #f0f0f0;
+    max-height: 400px;
+    min-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 10px;
+}
+
+.msg-conversation-entry {
+    padding: 2px 4px;
+    clear: both;
+}
+
+.msg-conversation-entry > div {
+    display: inline-block;
+}
+
+.msg-conversation-avatar {
+    width: 30px;
+    vertical-align: top;
+}
+
+.msg-conversation-avatar img {
+    width: 100%;
+}
+
+.msg-conversation-text {
+    font-size: 90%;
+    background-color: #fefefe;
+    border-radius: 10px;
+    padding: 4px 8px;
+    max-width: 80%;
+}
+
+.msg-from-me .msg-conversation-text {
+    background-color: #c1e4f2;
+    float: right;
+}
+
+.msg-conversation-input {
+    background-color: white;
+    height: 40px;
+    margin: 0;
+}
+
+.form-msg-input {
+    margin: 0;
+    padding: 0;
+}
+
+.input-msg {
+    border: none;
+    width: 100%;
+    /*height: 90%;*/
+    font-size: 90%;
+
+}
+
+.msg-input-box {
+    background-color: white;
+    height: 40px;
+    padding: 3px;
+    cursor: text;
+    font: medium -moz-fixed;
+    overflow: auto;
+    resize: none;
+    width: 100%;
+    line-height: 1.2;
+    outline: none;
+}
+
+.msg-input-btn-group {
+    margin-left: 10px;
+    background: white;
+}
+.btn-msg {
+    width: 20px; height: 20px;
+    background: white url(../img/btn-emojis.png) no-repeat top center;
+    border: none;
+    margin-right: 8px;
+}
+.btn-drfi {
+    background-image: url(../img/btn-drfi.png);
+}
+.msg-emoji-selectors {
+padding: 4px;
+    width: 260px;
+}
+.msg-emoji-selectors a {
+    margin: 2px;
+}
+.msg-emoji-selectors a, .msg-emoji {
+    display: inline-block;
+    width: 20px; height: 20px;
+}
+.msg-emoji-selectors img {
+    width: 100%; height: 100%;
+}
+.msg-emoji {
+    vertical-align: middle;
+    margin: 2px;
+}

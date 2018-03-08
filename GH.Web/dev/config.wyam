@@ -1,0 +1,17 @@
+#recipe Docs
+
+// Customize your settings and add new ones here
+Settings[Keys.Host] = "demo.regit.today";
+Settings[DocsKeys.Title] = "Regit API";
+//Settings[DocsKeys.Logo] = "regit-logotype-xs.png";
+Settings[Keys.LinkHideExtensions] = false;
+Settings[Keys.LinkRoot] = "/devapi";
+
+FileSystem.OutputPath = "api";
+
+// Add any pipeline customizations here
+/*
+Pipelines.Remove("BlogPosts");
+Pipelines.Remove("BlogIndexes");
+Pipelines.Remove("BlogCategories");
+Pipelines.Remove("BlogTags");*/

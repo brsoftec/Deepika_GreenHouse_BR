@@ -1,0 +1,37 @@
+﻿.follow-info {
+    margin-top: 15px;
+    font-size: 24px;
+    color: #999;
+}
+
+.btn-follow {
+    margin-right: 15px;
+}
+
+.number-followers {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.business-description {
+    margin-top: 15px;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.business-infos {
+    margin-top: 15px;
+    letter-spacing: 0.5px;
+}
+
+.business-info .info-title {
+    display: inline-block;
+    vertical-align: middle;
+    font-weight: bold;
+    width: 60px;
+}
+
+.business-info .info-value {
+    display: inline-block;
+    vertical-align: middle;
+}

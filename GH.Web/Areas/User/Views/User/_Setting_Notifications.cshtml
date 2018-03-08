@@ -1,0 +1,39 @@
+﻿@using GH.Lang
+<div ng-controller="NotificationSettingsController" id="notifications" class="account-notifications">
+
+            <div class="account-form-row">
+                <div class="account-form-label">
+                    <span class="field-title">@Regit.Interactions_Title </span>
+                </div>
+                <div class="account-form-control control-float-right">
+                    <switcher ng-model="Model.Interactions" switcher-on-text="@Regit.YesText" switcher-off-text="@Regit.NoText" on-changed="Save()"></switcher>
+                </div>
+            </div>
+
+            <div class="account-form-row">
+                <div class="account-form-label">
+                    <span class="field-title">@Regit.Event_And_Reminders_Title</span>
+                </div>
+                <div class="account-form-control control-float-right">
+                    <switcher ng-model="Model.EventAndReminders" switcher-on-text="@Regit.YesText" switcher-off-text="@Regit.NoText" on-changed="Save()"></switcher>
+                </div>
+            </div>
+
+            <div class="account-form-row">
+                <div class="account-form-label">
+                    <span class="field-title">@Regit.Network_Request_Title</span>
+                </div>
+                <div class="account-form-control control-float-right">
+                    <switcher ng-model="Model.NetworkRequest" switcher-on-text="@Regit.YesText" switcher-off-text="@Regit.NoText" on-changed="Save()"></switcher>
+                </div>
+            </div>
+
+            <div ng-if="false" class="account-form-row">
+                <div class="account-form-label">
+                    <span class="field-title">@Regit.Workflow_Title</span>
+                </div>
+                <div class="account-form-control control-float-right">
+                    <switcher ng-model="Model.Workflow" switcher-on-text="@Regit.YesText" switcher-off-text="@Regit.NoText" on-changed="Save()"></switcher>
+                </div>
+            </div>
+        </div>

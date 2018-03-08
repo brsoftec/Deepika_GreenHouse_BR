@@ -1,0 +1,160 @@
+﻿<div class="vault-group">
+    <div class="vault-panel" ng-controller="membershipController">
+        <div class="vault-panel-header">
+            <button class="btn-vault-panel-header btn-vault-panel-back" ng-click="vm.AlphaRedirectTask('main_form.html')" href="#"> Back</button>
+            <button class="btn-vault-panel-header btn-vault-panel-close" ng-click="vm.AlphaRedirectTask('main_form.html')" href="#"> Close</button>
+            <h4 class="vault-panel-title">  Add a new membership </h4>
+        </div>
+        <div class="vault-panel-body">
+            <form name="formMembership" class="vault-panel-form" novalidate>
+
+                <div class="vault-panel-row">
+
+                    <div class="vault-panel-row">
+                        <label>Description</label>
+                        <input ng-model="_new.description">
+                    </div>
+
+                    <div class="vault-panel-row">
+                        <label>Business name</label>
+                        <input ng-model="_new.businessName">
+                    </div>
+
+                    <div class="vault-panel-row">
+                        <label>Membership program name</label>
+                        <input ng-model="_new.membershipProgramName">
+                    </div>
+
+                    <div class="vault-panel-row">
+                        <label>Holder</label>
+                        <input placeholder="" ng-model="_new.holder" rules="name" />
+
+                    </div>
+
+                    <div class="vault-panel-row">
+                        <label>Membership number</label>
+                        <input ng-model="_new.membershipNumber">
+                    </div>
+                    <div class="vault-panel-row">
+                        <label>Membership class</label>
+                        <input ng-model="_new.membershipClass">
+                    </div>
+
+                    <!-- Indefinite -->
+                    <div class="vault-panel-row">
+                        <!--<input type="checkbox" ng-model="_new.indefiniteDate" />
+                        <label>Indefinite </label>-->
+                        <label class="checkbox-square"><input type="checkbox" ng-model="_new.indefiniteDate" /><span></span> Indefinite</label>                 
+                    </div>
+
+                    <div class="vault-panel-row" ng-show="!_new.indefiniteDate">
+                        <label>Expiry Date </label>
+                        <rgu-date-input type="combo" ng-model="_new.expiryDate"></rgu-date-input>
+                    </div>
+                    <!-- End Indefinite-->
+                    <!--document-->
+                    <div class="vault-panel-row">
+                        <label><strong> --- Document Files --- </strong> <br /></label>
+                    </div>
+                    <div class="vault-panel-row form-doc-manager">
+
+                        <div class="vault-form-doc-manager" ng-controller="DocumentController">
+                            <button type="button" class="vault-doc-upload btn btn-default" ng-click="$event.preventDefault(); uploadDocForm( _newJspath)">
+                                Add file
+                            </button>
+
+                            <div ng-repeat="doc in _listdoc">
+
+                                <div ng-if="doc.jsPath == _newJspath">
+                                    <div class="vault-doc-grid vault-form-doc-grid">
+                                        <div class="vault-panel-col third">
+                                            <span class="vault-doc-type-icon vault-doc-type-{{GenerateFileType(doc.type)}}"></span>
+                                            <span>
+                                                <a href="#" class="vault-doc-fname" ng-click="$event.preventDefault();openDocEditorForm(doc)"
+                                                   ng-bind="doc.name"></a>
+                                            </span>
+                                            <span>
+                                                <a href="#" class="vault-doc-name" ng-click="$event.preventDefault();openDocEditorForm(doc)"
+                                                   ng-bind="doc.description"></a>
+                                            </span>
+                                        </div>
+                                        <div class="vault-panel-col third">
+                                            <span class="vault-doc-cat" ng-bind="doc.category"></span>
+                                        </div>
+                                        <div class="vault-panel-col third">
+                                            <span class="vault-doc-actions" ng-init="">
+                                                <button class="vault-doc-delete" ng-click="$event.preventDefault();DeleteFile(doc)">Delete</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--end document-->
+                    <div class="vault-panel-row">
+                        <label>Note</label>
+                        <textarea ng-model="_new.note"></textarea>
+                    </div>
+                    <div class="vault-panel-row">
+                        <label class="checkbox-square"><input type="checkbox" ng-model="accountOnline" /><span></span> Add account online</label> 
+                        <!--<input type="checkbox" ng-model="accountOnline" ng-checked="false">
+                        <label>Add account online </label>-->
+                    </div>
+                    <div ng-show="accountOnline">
+
+                        <div class="vault-panel-row">
+                            <label>
+                                <strong>
+                                    Account online
+                                </strong>
+                            </label>
+
+                        </div>
+
+
+                        <div class="vault-panel-row">
+                            <div class="vault-panel-col">
+                                <label>Login Id</label>
+                                <input ng-model="_new.loginId">
+
+                            </div>
+                            <div class="vault-panel-col">
+                                <label>Password</label>
+                                <!--<rgu-control type="password" ng-model="password._value">
+                                </rgu-control-->
+                                <input ng-show="showpassword" type="text" ng-model="_new.password">
+                                <input ng-hide="showpassword" type="password" ng-model="_new.password">
+                                <label class="checkbox-square"><input type="checkbox" ng-model="showpassword" ng-checked="false" /><span></span>Show password</label>
+
+                                <!--<input type="checkbox" ng-model="showpassword" ng-checked="false">
+                                <label>Show password</label>-->
+
+                            </div>
+                        </div>
+                        <div class="vault-panel-row">
+                            <label>Login site</label>
+                            <input ng-model="_new.loginSite">
+                        </div>
+                        <div class="vault-panel-row">
+                            <label>Service provider</label>
+                            <input ng-model="_new.serviceProvider">
+                        </div>
+
+                        <div class="vault-panel-row">
+                            <label>Note</label>
+                            <textarea ng-model="_new.noteOnline"></textarea>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="vault-panel-actions">
+                    <button class="btn btn-primary vault-panel-action vault-panel-save"  ng-disabled="_new.description==''" ng-click="addNewForm(_new); Save(); vm.AlphaRedirectTask('main_form.html')">Save</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

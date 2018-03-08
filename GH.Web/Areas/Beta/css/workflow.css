@@ -1,0 +1,141 @@
+﻿.workflow-heading {
+    color: #00adef;
+    font-weight: 400;
+}
+
+.cta-workflow-permissions {
+    background-image: url(../img/workflow-permissions.svg);
+}
+
+.workflow-grid {
+    clear: both;
+}
+.user-role-cell {
+    /*min-width: 300px !important;*/
+}
+
+.workflow-user-role {
+    display: inline-block;
+}
+
+.workflow-role-badge {
+    display: inline-block;
+    border: 1px solid #999;
+    color: #999;
+    border-radius: 4px;
+    text-align: center;
+    padding: 0 6px;
+    font-variant: all-small-caps;
+    background: white;
+    margin-right: 4px;
+}
+
+.workflow-role-badge.role-admin {
+    color: crimson;
+    border-color: crimson;
+}
+
+.workflow-role-badge.role-editor {
+    color: #00adef;
+    border-color: #00adef;
+}
+
+.workflow-role-badge.role-approver {
+    color: mediumseagreen;
+    border-color: mediumseagreen;
+}
+
+.popover-workflow-add-member {
+    width: 380px;
+    margin-bottom: 50px;
+}
+
+.popover-workflow-add-member rgu-checkbox {
+    margin-right: 10px;
+}
+
+
+
+.user-info-name {
+    display: inline-block;
+
+}
+
+.workflow-edit-label {
+    width: 100px;
+    margin-left: 60px;
+    display: inline-block;
+}
+
+.workflow-edit-field {
+    display: inline-block;
+}
+
+.workflow-edit-field rgu-checkbox {
+    margin-right: 8px;
+}
+
+.workflow-permissions {
+    position: relative;
+}
+
+.workflow-permissions-grid {
+    border-bottom: 1px solid #ddd;
+}
+.workflow-permissions .myrole {
+    background: #d9eee6;
+    border-left: 1px solid mediumturquoise;
+    border-right: 1px solid mediumturquoise;
+}
+.workflow-permissions-grid .permission-col {
+    text-align: center;
+    width: 15% !important;
+}
+.workflow-permissions-legends {
+    vertical-align: middle;
+    font-size: 90%;
+    margin: -40px 0 0 400px;
+
+}.workflow-permissions-legends p {
+    /*height: 30px;*/
+    /*line-height: 30px;*/
+}
+.myrole-legend {
+    display: inline-block;
+    width: 40px; height: 20px;
+    margin-right: 10px;
+    vertical-align: middle;
+
+}
+.permission-badge {
+    display: inline-block;
+    border: 1px solid #00adef;
+    font-size: 130%;
+    width: 30px; height: 30px;
+    color: #00adef;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 28px;
+    font-weight: bold;
+    font-variant: all-small-caps;
+    background-color: white;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+.workflow-permissions-legends .permission-badge {
+
+}
+
+.permission-badge-W {
+    background: seagreen;
+    color: white;
+    border: none;
+}
+.permission-badge-X {
+    text-indent: -99999px;
+    background: transparent url(../img/no-access.svg) no-repeat center center;
+    background-size: 20px;
+    opacity: .3;
+    border: none;
+}

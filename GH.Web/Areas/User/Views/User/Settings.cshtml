@@ -1,0 +1,53 @@
+﻿@{
+ViewBag.Title = "Account Settings";
+Layout = "~/Areas/User/Views/Shared/_LayoutDefaultApply.cshtml";
+var Settings = new[]
+{
+new  { Name= "profile", Label= "Personal Profile", Template = "_Setting_Profile" },
+new  { Name= "access", Label= "Manage Access", Template = "_Setting_Access" },
+new  { Name= "viewprefs", Label= "View Preferences", Template = "_Setting_ViewPreferences" },
+new  { Name= "notifications", Label= "Notifications", Template = "_Setting_Notifications" },
+new  { Name= "activity-log", Label= "Activity Log", Template = "_Setting_ActivityLog" }
+, new  { Name= "account", Label= "Manage Account", Template = "_Setting_Account" }
+};
+}
+
+@section styles{
+<link href="~/Content/css/cropper.min.css" rel="stylesheet"/>
+@Styles.Render("~/bundles/css/phone-input")
+@Styles.Render("~/bundles/user/account-settings/css")
+
+<link href="@Url.Versioned("~/Areas/Beta/css/signin.css")" rel="stylesheet" />
+}
+
+@section scripts {
+<script src="~/Content/scripts/canvas-toBlob.js"></script>
+<script src="~/Content/scripts/cropper.min.js"></script>
+
+
+<script src="@Url.Versioned("~/Areas/User/Scripts/Services/BusinessAccountService.js")"></script>
+@Scripts.Render("~/bundles/user/account-settings-ctrl")
+@Scripts.Render("~/bundles/BusinessUserSystem")
+@Scripts.Render("~/bundles/sms-authencation-popup-ctrl")
+}
+
+<div class="module module-main module-account" ng-controller="AccountSettingsController">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">&laquo; Home</a></li>
+        <li class="breadcrumb-item active">Account Settings</li>
+    </ol>
+    <h1>Account Settings</h1>
+
+
+    <div class="settings-container">
+        @foreach (var Setting in Settings)
+        {
+        <div class="account-accordion" ng-class="{open:accordionsOpen['@Setting.Name']}">
+            <div class="account-summary" ng-click="toggleAccordion('@Setting.Name')">@Setting.Label</div>
+            <div class="account-details" id="#@Setting.Name" ng-show="accordionsOpen['@Setting.Name']">
+                @Html.Partial(Setting.Template)
+            </div>
+        </div>
+        }
+    </div>
+</div>

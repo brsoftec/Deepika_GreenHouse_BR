@@ -1,0 +1,87 @@
+<div class="headpane" ng-if="isOpenHeadpane">
+    <div class="user-picker-container clearfix">
+        <ul class="user-picker-picked">
+            <li ng-repeat="user in participators">
+                <span ng-bind="user.name"></span>
+                <button class="btn-delete-inline" ng-if="participators.length>1 && 
+                        (conversation.isGroupChat || !$first)" ng-click="unpickUser(user)">Unpick
+                </button>
+            </li>
+        </ul>
+        <rgu-user-picker class="msg-conversation-user-picker" ng-model="participators" inline="true"></rgu-user-picker>
+        <button class="btn btn-primary btn-input-action" ng-click="submitParticipators(false)">Done</button>
+    </div>
+</div>
+<div class="msg-conversation">
+
+    <div class="msg-conversation-entry" ng-repeat="message in messages track by $index"
+         ng-init="isGroup=conversation.isGroupChat"
+         ng-class="{'msg-from-me': message.fromMe}">
+        <div class="msg-conversation-avatar unselectable" ng-if="!message.fromMe">
+            <img ng-src="{{conversation.from.avatar | avatarUrl}}">
+        </div>
+        <div class="msg-conversation-text"
+             ng-if="message.type!='drfi' && message.type!='drfiresponsedenied'  && message.type!='drfiresponseaccepted' && !message.Isdeleted"
+             ng-bind-html="message.text | rawHtml" ng-right-click="openMessageActions(message)"></div>
+        <div ng-if="(message.type==='drfiresponseaccepted') && !message.drfiDenied && message.fromMe"
+             class="msg-conversation-text msg-system-message msg-drfi-message">
+            <span class="msg-system-message-text">You sent information to {{conversation.from.name}}.</span>
+            <div class="msg-drfi-data">
+                <div class="msg-drfi-data-view" ng-bind-html="renderDrfiData(message)">
+                </div>
+            </div>
+        </div>
+        <div ng-if="(message.type==='drfiresponseaccepted')  && !message.fromMe"
+             class="msg-conversation-text msg-system-message msg-drfi-message">
+            <span class="msg-system-message-text">{{conversation.from.name}} accepted your request for information.</span>
+            <div class="msg-drfi-data msg-drfi-response">
+                <div class="msg-drfi-data-view msg-drfi-response-data" ng-bind-html="renderDrfiData(message)">
+                </div>
+                <div class="msg-drfi-data-actions msg-drfi-response-actions">
+                    <a href="#" ngclipboard data-clipboard-text="{{renderDrfiData(message,true)}}">Copy</a>
+                    <a ng-click="downloadinformationdrfi(message)" href="#">Download</a>
+                </div>
+            </div>
+        </div>
+        <div ng-if="(message.type==='drfiresponsedenied') && !message.fromMe"
+             class="msg-conversation-text msg-system-message msg-drfi-message">
+            <span class="msg-system-message-text">{{conversation.from.name}} denied your request for information.</span>
+        </div>
+        <div ng-if="(message.type==='drfiresponsedenied') && message.fromMe"
+             class="msg-conversation-text msg-system-message msg-drfi-message">
+            <span class="msg-system-message-text">You denied information request from {{conversation.from.name}}.</span>
+        </div>
+
+        <div ng-if="(message.type==='drfi'||message.text==='[DRFI Request]') && message.fromMe"
+             class="msg-conversation-text msg-system-message msg-drfi-message">
+            <span class="msg-system-message-text">You have requested information from {{conversation.from.name}}.</span>
+        </div>
+        <div ng-if="(message.type==='drfi'||message.text==='[DRFI Request]') && !message.fromMe"
+             class="msg-conversation-text msg-system-message msg-drfi-message">
+            <span class="msg-system-message-text">{{conversation.from.name}} is requesting your information.</span>
+            <div class="msg-drfi-data msg-drfi-response">
+                <div class="msg-drfi-data-view msg-drfi-response-data" ng-bind-html="renderDrfiDataPreview(message)">
+
+                </div>
+                <div class="msg-drfi-data-actions msg-drfi-response-actions">
+                    <a ng-if="!missingDrfiData(message)" ng-click="acceptDrfi(message)" href="#">Accept</a>
+                    <a  ng-click="denyDrfi(message)" href="#">Deny</a>
+                    <a ng-click="viewformdrfi(message)" href="#">View Request</a>
+                </div>
+            </div>
+            <!--<a ng-click="viewformdrfi(message)" href="#">View request</a>-->
+        </div>
+        <div class="msg-conversation-deleted" ng-if="message.Isdeleted">Message deleted {{message.Datedeleted |
+            friendlyTime | lowerFirst}}
+        </div>
+        <div class="msg-conversation-actions context-dropdown"
+             ng-if="rguView.openingContextMenu===message.messageid">
+            <button class="context-dropdown-action msg-conversation-action" ng-click="deleteMessage(message)">Delete
+                message
+            </button>
+        </div>
+        <div class="msg-conversation-seen unselectable" ng-if="!message.Isdeleted"
+             ng-bind="renderSeenInfo(message)"></div>
+    </div>
+</div>
+<msg-input conversation-id="{{conversation.id}}"></msg-input>

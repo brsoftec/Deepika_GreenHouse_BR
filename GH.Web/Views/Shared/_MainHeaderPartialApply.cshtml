@@ -1,0 +1,201 @@
+﻿@*<!--@formatter:off-->*@
+
+@{
+string query = "";
+if (Request.QueryString["query"] != null)
+{
+query = Request.QueryString["query"].ToString();
+}
+
+if (ViewBag.PageClass == "regit-business")
+{
+ViewBag.Tier = "business";
+}
+}
+@*<!--@formatter:on-->*@
+
+
+<header class="main-header" rgu-event-listener>
+    @if (ViewBag.IsBusinessView != true)
+    {
+    <a href="/" class="main-header-logo">
+        <img src="/Areas/Beta/img/regit-light.svg">
+    </a>
+    }
+    else
+    {
+    <a href="/BusinessAccount" class="main-header-logo">
+        <img src="/Areas/Beta/img/regit-business-light.svg">
+    </a>
+    }
+    @* Html.Partial("_HeaderBetaTestPartial") *@
+    <div class="main-search">
+        <form name="formSearch" action="/Search" method="GET">
+            <input name="query" value="@query" class="main-search-input" placeholder="Search Regit">
+            <button class="main-search-options">
+                Search options
+            </button>
+        </form>
+    </div>
+    <div ng-controller="NotificationController2" class="main-nav">
+        @if (ViewBag.IsBusinessView == false)
+        {
+@*        <a href="~/CampaignUser/ManagerCampaign" class="main-nav-item main-nav-interactions" bs-tooltip
+           data-title="Manage Interactions" data-placement="auto">
+            Interactions
+        </a>*@
+
+        <a href="~/CampaignUser/ManageSyncs" class="main-nav-item main-nav-handshakes" bs-tooltip
+           data-title="Manage Handshakes" data-placement="auto">
+            Handshakes
+        </a>
+        <a href="~/DelegationManager" class="main-nav-item main-nav-delegate  next-group" bs-tooltip
+           data-title="Delegate" data-placement="auto">
+            Delegate
+        </a>
+        <a href="~/User/Network" class="main-nav-item main-nav-network" bs-tooltip
+           data-title="Network" data-placement="auto">
+            Network
+        </a>
+        <a href="#" ng-click="SMSAuthencationVault()" class="main-nav-item main-nav-vault" bs-tooltip
+           data-title="Information Vault" data-placement="auto">
+            Vault
+        </a>
+        }
+        else
+        {
+        <a href="~/Campaign/ManagerCampaign" class="main-nav-item main-nav-interactions" bs-tooltip
+           data-title="Manage Interactions" data-placement="auto">
+            Interactions
+        </a>
+        }
+        <a href="#" notification-group type="general">
+        </a>
+        <script type="text/ng-template" id="notifications.popover.html">
+            <div ng-controller="NotificationListController2" class="notifications-popover">
+               <p> NotificationListController2 </p>
+                <div class="notifications-list">
+                    <div class="notification-item" ng-repeat="notif in ListNotifycation">
+                        <div class="notification-desc">
+                            {{notif.Title}}
+                            <div ng-if="notif.Type==='Delegation Request'" class="notifications-actions">
+                                <a href="#" ng-click="ViewPopup((notif.PreserveBag+''))">View</a>
+                            </div>
+                            <div ng-if="notif.Type==='Invited Handshake'" class="notifications-actions"> 
+                                <a href="#" ng-click="RedirectHandshake(notif.PreserveBag,notif)">View</a>
+                            </div>
+                            <div ng-if="notif.Type==='Invite SRFI'" class="notifications-actions">
+                                <a href="#" ng-click="RedirectSRFI(notif.PreserveBag,notif)">View</a>
+                            </div>
+                            <div ng-if="notif.Type==='Notify Missing Information Vault For Registration'"
+                                 class="notifications-actions">
+                                <a ng-click="ViewReistrationForm(notif.PreserveBag)">View</a>
+                            </div>
+                            <div ng-if="notif.Type==='Push To Vault'" class="notifications-actions">
+
+                                <a href="#" ng-click="ViewReistrationFormPushVault(notif.PreserveBag)">View</a>
+                            </div>
+                            <div ng-if="notif.Type==='HandShake Vault Changed'" class="notifications-actions">
+
+                                <a href="#" ng-click="DownloadFormHandshake(notif.PreserveBag,notif)">Download</a>
+                            </div>
+
+                            <div ng-if="notif.Type==='Invite Friend'" class="notifications-actions">
+                                <a href="/User/Network/#personal">View</a>
+
+                            </div>
+                            <div ng-if="notif.Type==='Billing First'" class="notifications-actions">
+                                <a href="/BusinessAccount/Billing">View</a>
+
+                            </div>
+                            <div ng-if="notif.Type==='Billing Renew'" class="notifications-actions">
+                                <a href="/BusinessAccount/Billing">View</a>
+                            </div>
+                            <div ng-if="notif.Type==='Invite Emergency'" class="notifications-actions">
+                                <a href="/User/Network/#personal">View</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notifications-actions">
+                    <a href="#" ng-click="showmore()">View all notifications</a>
+                </div>
+            </div>
+        </script>
+    </div>
+    <div class="main-user-nav">
+        <a onclick="return false;" href="#" class="main-user-nav" popover-placement="bottom-left"
+           popover-trigger="'outsideClick'" popovertitle="" uib-popover-template="'user-nav.menu.html'"
+           popover-is-open="currentView.showingUserMenu" ng-click="openMainUserMenu($event)">
+            <img class="main-user-avatar" ng-src="{{regitGlobal.activeAccount.avatar | avatarUrl:(regitGlobal.viewTier==='business')}}">
+            <div class="main-user-name" ng-bind="regitGlobal.activeAccount.displayName"></div>
+        </a>
+        <script type="text/ng-template" id="user-nav.menu.html">
+            <div class="user-nav-menu-popover">
+                <div class="user-nav-menu-section">
+                    @if (ViewBag.IsBusinessView == false)
+                    {
+                    <div class="user-nav-menu-item">
+                        <a href="/ActivityLog">Activity Log</a>
+                    </div>
+                    <div class="user-nav-menu-item">
+                        <a href="/User/Settings">Account Settings</a>
+                    </div>
+                    <div class="user-nav-menu-item">
+                        <a href="/User/Network">Network</a>
+                    </div>
+                    }
+                    else
+                    {
+                    <div class="user-nav-menu-item">
+                        <a href="/ActivityLog/Business">Activity Log</a>
+                    </div>
+                    <div class="user-nav-menu-item">
+                        <a href="/Workflow">Workflow</a>
+                    </div>
+                    <div class="user-nav-menu-item">
+                        <a href="/BusinessAccount/Billing">Billing</a>
+                    </div>
+                    <div class="user-nav-menu-item">
+                        <a href="/BusinessAccount/Settings">Account Settings</a>
+                    </div>
+                    }
+                </div>
+                <div ng-if="regitGlobal.activeAccount.isBusinessMember" class="user-nav-menu-divider"></div>
+                <div ng-if="regitGlobal.activeAccount.isBusinessMember" class="user-nav-menu-section">
+                    <div class="user-nav-menu-section-heading">Business</div>
+                    <div class="user-nav-menu-section-row user-nav-menu-profile">
+                        <div class="avatar-prefix user-nav-menu-avatar">
+                            <img ng-src="{{regitGlobal.businessAccount.avatar | avatarUrl}}">
+                        </div>
+                        <div class="user-nav-menu-username">
+                            {{regitGlobal.businessAccount.displayName}}
+                        </div>
+                    </div>
+                    <div class="user-nav-menu-item">
+                        <a href="/BusinessAccount">Switch to Business</a>
+                    </div>
+                </div>
+                <div ng-if="regitGlobal.activeAccount.hasBusinessMember" class="user-nav-menu-divider"></div>
+                <div ng-if="regitGlobal.activeAccount.hasBusinessMember" class="user-nav-menu-section">
+                    <div class="user-nav-menu-section-heading">Business Member</div>
+                    <div class="user-nav-menu-section-row user-nav-menu-profile">
+                        <div class="avatar-prefix user-nav-menu-avatar">
+                            <img ng-src="{{regitGlobal.userAccount.avatar | avatarUrl}}">
+                        </div>
+                        <div class="user-nav-menu-username">
+                            {{regitGlobal.userAccount.displayName}}
+                        </div>
+                    </div>
+                    <div class="user-nav-menu-item">
+                        <a href="/">Switch to Personal</a>
+                    </div>
+                </div>
+                <div class="user-nav-menu-divider"></div>
+                <div class="user-nav-menu-item"><a ng-click="logout()" href="#">Sign Out</a></div>
+            </div>
+        </script>
+    </div>
+</header>
+
+@Html.Partial("_ResponsiveHeaderPartial")

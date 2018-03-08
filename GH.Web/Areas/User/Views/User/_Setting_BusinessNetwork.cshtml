@@ -1,0 +1,75 @@
+﻿@using GH.Lang
+<div ng-controller="RelationshipSettingsController as ctrl" id="business" rgu-event-listener>
+    @*{{ctrl.Followees | json}}*@
+    <div ng-if="!businesses.length" class="account-message">
+        <p>You have no business relationship, since you are not following any company, nor participated in any
+            interaction. Discover more in your home feed, or by searching.</p>
+    </div>
+    <form id="businessRelationshipForm" ng-if="businesses.length">
+        <table class="network-grid business-network-grid table table-striped">
+            <tr class="network-row" ng-repeat="business in businesses | limitTo:10:view.start">
+                <td class="network-cell network-key">
+                    <div class="avatar-prefix"><img
+                            ng-src="{{business.avatar | avatarUrl:true}}"
+                           /></div>
+                    <a class="network-member-name" href="/BusinessAccount/Profile/{{business.id}}">{{business.displayName}} </a>
+                </td>
+                <td class="network-cell network-date">
+                    <div>
+                    <span class="network-business-item-date">
+                        Followed {{business.followedAt | date:'yyyy/dd/MM'}}
+                    </span>
+                    </div>
+                </td>
+                <td class="network-cell network-transactions">
+                    <button class="grid-action action-transactions" ng-click="ctrl.open(business)"
+                            bs-tooltip data-title="View my interaction log with this business">
+                        Log
+                    </button>
+                </td>
+                <td class="network-cell network-actions">
+                    <a class="grid-action action-following" ng-click="ctrl.unfollow(business)"
+                       bs-tooltip data-title="Unfollow this business">
+                        Following
+                    </a>
+                </td>
+            </tr>
+        </table>
+@*        <ul uib-pagination ng-show="ctrl.Followees.Total > 0" boundary-links="true"
+            items-per-page="ctrl.followParameter.Length" total-items="ctrl.Followees.Total" ng-model="ctrl.currentPage"
+            ng-change="ctrl.pageChanged()" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;"
+            first-text="&laquo;" last-text="&raquo;"></ul>   *@  
+        <ul uib-pagination ng-if="businesses.length" boundary-links="true"
+            items-per-page="10" total-items="businesses.length" ng-model="ctrl.currentPage"
+            ng-change="ctrl.pageChanged()" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;"
+            first-text="&laquo;" last-text="&raquo;"></ul>
+    </form>
+
+
+    <script type="text/ng-template" id="transactionDetail.html">
+        <div class="modal-content relationship-container">
+            <div class="modal-header text-center">
+                <a class="close" aria-label="Close">
+                    <i class="close-icon" ng-click="cancel()"></i>
+                </a>
+                <span class="relationship-title">@Regit.Your_Transactions_With_Message.ToUpper() {{follow.DisplayName}}</span>
+            </div>
+            <div class="modal-body">
+                <div class="relationship-retail-list" scroll-modal>
+                    <div class="row field border-bottom relationship-retail-item"
+                         ng-repeat="transaction in transactions">
+                        <div class="col-md-2 text-left">
+
+                            <span class="field-title" ng-bind="transaction.Date | date:'dd MMM yyyy'"></span>
+                        </div>
+                        <div class="col-md-10 text-left">
+                            <div>
+                                <span class="field-title">{{transaction.Description}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+</div>

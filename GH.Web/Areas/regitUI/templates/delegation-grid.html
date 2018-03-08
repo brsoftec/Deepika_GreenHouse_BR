@@ -1,0 +1,704 @@
+<div class="user-grid delegation-grid">
+    <div ng-if="!view.loaded">Loading delegation...</div>
+    <div ng-if="view.loaded && !delegations.length">No delegation</div>
+    <table ng-if="delegations.length" class="table">
+        <tbody>
+        <tr ng-repeat-start="delegation in delegations | orderBy:sortDelegations" ng-class="{even: $index%2}"
+            ng-if="!delegation.removed">
+            <td class="user-avatar-cell">
+                <a ng-if="user.profileUrl" href="{{delegation.user.profileUrl}}">
+                    <img class="img-thumbnail" ng-src="{{delegation.user.avatar | avatarUrl}}">
+                </a>
+                <img class="img-thumbnail" ng-if="!delegation.user.profileUrl"
+                     ng-src="{{delegation.user.avatar | avatarUrl}}">
+            </td>
+            <td class="user-name-cell">
+                <a ng-if="delegation.user.profileUrl" href="{{delegation.user.profileUrl}}">{{delegation.user.displayName}}</a>
+                <span ng-if="!delegation.user.profileUrl">{{delegation.user.displayName}}</span>
+            </td>
+            <td class="user-status-cell">
+                <span ng-if="delegation.pending && delegation.outgoing"
+                      class="user-network-badge user-network-badge-pending badge">Pending</span>
+                <span ng-if="delegation.pending && !delegation.outgoing"
+                      class="user-network-badge user-network-badge-pending badge">Incoming Request</span>
+                <span ng-if="delegation.role==='Custom'"
+                      class="badge delegation-badge delegation-badge-custom">Custom</span>
+                <span ng-if="delegation.role==='Super'"
+                      class="badge delegation-badge delegation-badge-super">Super</span>
+                <span ng-if="delegation.role==='Emergency'"
+                      class="badge delegation-badge delegation-badge-emergency">Emergency</span>
+            </td>
+            <td class="user-info-cell">
+                <span ng-if="delegation.pending && delegation.outgoing" class="user-pending-sent">Invitation sent {{delegation.sent | friendlyTime}}</span>
+            </td>
+
+            <td class="user-grid-actions">
+
+                <button type="button" ng-if="!delegation.pending" class="grid-action action-delete"
+                        ng-click="removeDelegation(delegation)">Remove
+                </button>
+
+            </td>
+
+            <td class="more-actions">
+
+                <button type="button" ng-if="!delegation.pending || delegation.outgoing" class="grid-action action-more"
+                        ng-click="rguView.openMoreActions(delegation.id,$event)">More
+                </button>
+                <div class="more-actions-dropdown" ng-if="rguView.isOpenMoreActions(delegation.id)">
+                    <button ng-if="delegation.pending && delegation.outgoing" class="more-action" ng-click="removeDelegation(delegation)">
+                        Cancel Request
+                    </button>
+                    <button ng-if="!delegation.pending" class="more-action"
+                            ng-click="viewDelegationDetails(delegation)">
+                        View Details
+                    </button>
+                    <button ng-if="!delegation.pending" class="more-action" ng-click="removeDelegation(delegation)">
+                        Remove Delegation
+                    </button>
+                </div>
+                <button type="button" ng-if="view.expandedDelegation.id !== delegation.id"
+                        class="row-view-action row-expand" ng-click="expandRow(delegation,$event)">More Details
+                </button>
+                <button type="button" ng-if="view.expanded && view.expandedDelegation.id === delegation.id"
+                        class="row-view-action row-collapse" ng-click="collapseRow(delegation,$event)">Less
+                </button>
+            </td>
+        </tr>
+
+        <tr ng-repeat-end ng-class="{even: $index%2}">
+            <td ng-if="view.expanded && view.expandedDelegation.id === delegation.id" colspan="6"
+                class="user-edit-cell delegation-details-cell">
+                <div class="delegation-details">
+                    <div class="delegation-details-row"
+                         ng-if="delegation.status==='Accepted' && !delegation.role==='Emergency'">This delegation has
+                        been
+                        accepted and is active.
+                    </div>
+                    <div class="delegation-details-row"
+                         ng-if="delegation.status==='Accepted' && delegation.role==='Emergency'">This delegation has
+                        been
+                        accepted but is not active.
+                    </div>
+                    <div class="delegation-details-row" ng-if="delegation.status==='Activated'">This delegation has been
+                        activated and is active.
+                    </div>
+                    <div class="delegation-details-row" ng-if="delegation.pending && !delegation.outgoing">This
+                        delegation is awaiting your response.
+                    </div>
+                    <div class="delegation-details-row" ng-if="delegation.pending && delegation.outgoing">This
+                        delegation is awaiting {{delegation.user.displayName}}'s response.
+                    </div>
+                    <div class="delegation-details-row">Effective <span ng-if="delegation.since">from {{delegation.since | vaultValue}} </span>to
+                        {{delegation.expires | vaultValue}}
+                    </div>
+                    <div class="delegation-details-row" ng-if="delegation.message">
+                        Delegator's message: <span ng-bind-html="delegation.message | textToHtml"></span>
+                    </div>
+
+                    <div class="delegation-details-row"
+                         ng-if="delegation.role==='Custom' || delegation.role==='Emergency'">Permissions:
+                        <ul class="delegation-details-permissions">
+                            <li ng-repeat="permission in delegation.permissions"
+                                ng-if="permission.read || permission.write">{{permission.name}}
+                                <span class="delegation-permission-badge"
+                                      ng-class="{'delegation-permission-badge-write':permission.write}"
+                                      ng-bind="permission.write ? 'W' : (permission.read ? 'R' : '')"></span></li>
+                        </ul>
+                    </div>
+
+                    <div ng-if="delegation.pending && !delegation.outgoing"
+                         class="delegation-details-row delegation-agree">
+                        <rgu-checkbox ng-model="view.agreed"></rgu-checkbox>
+                        <label> I understand the risks of delegation and agree to the <a target="_blank" href="/about/terms-conditions#delegation">Terms
+                            &amp; Conditions.</a>
+                        </label>
+                    </div>
+
+                    <div class="delegation-details-actions">
+                        <button type="button" ng-if="delegation.pending && !delegation.outgoing"
+                                ng-disabled="!view.agreed"
+                                class="grid-action action-accept" ng-click="acceptRequest(delegation)">Accept
+                        </button>
+                        <button type="button" ng-if="delegation.pending && !delegation.outgoing"
+                                class="grid-action action-deny" ng-click="denyRequest(delegation)">Deny
+                        </button>
+                        <button type="button"
+                                ng-if="delegation.role==='Emergency' && !delegation.outgoing && delegation.status==='Accepted'"
+                                class="grid-action action-activate" ng-click="activateDelegation(delegation)">Activate
+                        </button>
+                        <button type="button"
+                                ng-if="delegation.role==='Emergency' && delegation.status==='Activated' && !delegation.outgoing && !delegation.view.showingVault"
+                                class="grid-action action-show-vault" ng-click="showVaultViewer(delegation)">Show Vault Information
+                        </button>
+                        <button type="button"
+                                ng-if="delegation.role==='Emergency' && delegation.status==='Activated' && !delegation.outgoing && delegation.view.showingVault"
+                                class="grid-action action-hide-vault" ng-click="hideVaultViewer(delegation)">Hide Vault Information
+                        </button>
+                    </div>
+                </div>
+
+                <!--<pre>{{delegation | json}}</pre>-->
+
+                <div ng-if="!delegation.outgoing && delegation.role!=='Normal' && delegation.role!=='Emergency'"
+                     class="delegation-details-vault" ng-controller="DelegationController">
+                    <div ng-controller="ManagerWhoDelegatedToController">
+                        <div class="vault-search" ng-class="{'vault-search-empty':!vaultSearch.query.length}">
+
+                            <input class="search-vault"
+                                   placeholder="Search {{delegation.user.displayName}}'s vault"
+                                   ng-disabled="vaultEdit.editingField"
+                                   ng-model="vaultSearch.query" ng-change="onVaultSearchInput()">
+
+                            <button type="button" class="search-clear" ng-click="clearSearch()">Clear search</button>
+                        </div>
+
+                        <div class="vault-search-results" ng-if="vaultSearch.searching">
+
+                            <form name="formVaultSearch">
+
+                                <div ng-repeat="entry in matchedEntries = (vaultEntries | filter: filterEntriesByQuery)"
+                                     class="vault-search-row">
+
+                                    <div class="vault-entry-path" ng-bind-html="entry.path"></div>
+                                    <div ng-if="!entry.leaf"
+                                         class="vault-entry vault-entry-group vault-entry-level-{{entry.level}}"
+                                         ng-class="{'vault-entry-form':entry.list}">
+
+                                    <span class="vault-entry-label"
+                                          ng-bind-html="entry.label || entry.path | vaultHighlightMatch:vaultSearch.query"></span>
+
+                                        <a href="#" ng-if="entry.list && entry.label !=='Contact'"
+                                           class="vault-entry-action"
+                                           ng-click="$event.preventDefault(); SearchResult(currentDelegation, entry.jsPath, entry.label, entry);">Edit
+                                            form</a>
+
+                                    </div>
+
+                                    <div ng-if="!entry.leaf && entry.list && editForm.value && editingForm.value === entry"
+                                         class="vault-entry-form-edit">
+
+                                        <div class="form-group">
+                                            <div ng-include="query.pathForm"></div>
+                                        </div>
+
+                                        <div class="vault-entry-form-edit-actions">
+                                            <button type="button"
+                                                    class="btn btn-default vault-entry-form-edit-action btn-edit-vault-field-cancel"
+                                                    ng-click="cancelForm()">
+                                                Close view
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                    <!--end Search form delegation-->
+                                    <div ng-if="entry.leaf" class="vault-entry vault-entry-level-{{entry.level}}"
+                                         ng-class="{'vault-entry-editing': vaultEdit.editingField===entry}">
+
+                                        <label class="vault-entry-label"
+                                               ng-bind-html="entry.label | vaultHighlightMatch:vaultSearch.query">
+                                        </label>
+                                        <button ng-if="!vaultEdit.editingField && entry.permission.write" type="button"
+                                                class="btn-edit-vault-field"
+                                                ng-click="editField(entry); SearchResult(currentDelegation, entry.jsPath, entry.label, entry)">
+                                            Edit field
+                                        </button>
+
+                                        <div ng-if="vaultEdit.editingField!==entry" class="vault-entry-value"
+                                             ng-bind-html="entry.value | vaultValue | vaultHighlightMatch:vaultSearch.query">
+                                        </div>
+                                        <div ng-if="vaultEdit.editingField===entry" class="vault-entry-form-edit">
+                                            <div class="form-group" ng-include="query.pathForm"></div>
+                                        </div>
+                                        <!--</div>-->
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="delegation-details-vault delegation-details-emergency-vault" ng-if="delegation.role==='Emergency' && delegation.status==='Activated' && !delegation.outgoing && delegation.view.showingVault">
+                    <!--<pre>{{delegation | json}}</pre>-->
+                <div class="vault-emergency-form" ng-controller="DelegationController">
+                    <!-- Basic information -->
+                    <div ng-if="ev.basic">
+                        <div class="vault-emergency-form-heading">Basic information</div>
+                        <div class="vault-emergency-form-row">
+                            <div class="vault-emergency-form-label">
+                                First name
+                            </div>
+                            <div class="vault-emergency-form-value">
+                                {{ev.basic.value.firstName.value | vaultValue}}
+                            </div>
+                        </div>
+                        <div class="vault-emergency-form-row">
+                            <div class="vault-emergency-form-label">
+                                Middle name
+                            </div>
+                            <div class="vault-emergency-form-value">
+                                {{ev.basic.value.middleName.value | vaultValue}}
+                            </div>
+                        </div>
+                        <div class="vault-emergency-form-row">
+                            <div class="vault-emergency-form-label">
+                                Last name
+                            </div>
+                            <div class="vault-emergency-form-value">
+                                {{ev.basic.value.lastName.value | vaultValue}}
+                            </div>
+                        </div>
+
+                        <div class="vault-emergency-form-row">
+                            <div class="vault-emergency-form-label">
+                                Date Of Birth
+                            </div>
+                            <div class="vault-emergency-form-value">
+                                {{ev.basic.value.dob.value | vaultValue}}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- End Basic information -->
+                    <!-- Contact -->
+                    <div ng-if="ev.contact">
+                        <div class="vault-emergency-form-heading">Contact</div>
+                        <!-- mobile -->
+                        <div ng-if="ev.contact.mobile">
+                            <div class="vault-emergency-form-row">
+                                <div class="vault-emergency-form-label">
+                                    Mobile
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.contact.mobile}}
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- end mobile -->
+                        <!-- home -->
+                        <div ng-if="ev.contact.home">
+                            <div class="vault-emergency-form-row">
+
+                                <div class="vault-emergency-form-label">
+                                    Home
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.contact.home}}
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- end home -->
+                        <!-- office -->
+                        <div ng-if="ev.contact.office">
+
+                            <div class="vault-emergency-form-row">
+
+                                <div class="vault-emergency-form-label">
+                                    Office
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.contact.office}}
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- end office -->
+                        <!-- fax -->
+                        <div ng-if="ev.contact.fax">
+                            <div class="vault-emergency-form-row">
+
+                                <div class="vault-emergency-form-label">
+                                    fax
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.contact.fax}}
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- end fax -->
+                        <!-- Email -->
+                        <div ng-if="ev.contact.email">
+
+                            <div class="vault-emergency-form-row">
+                                <div class="vault-emergency-form-label">
+                                    Email
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.contact.email}}
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- end fax -->
+                        <!--  End Contact  -->
+                    </div>
+
+                    <!-- Address -->
+
+                    <div ng-if="ev.address">
+                        <div class="vault-emergency-form-heading">Current Address</div>
+                        <!-- description -->
+                        <div ng-if="ev.address.description">
+                            <div class="vault-emergency-form-row">
+                                <div class="vault-emergency-form-label">
+                                    Description
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.address.description}}
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- end description -->
+                        <!-- addressLine -->
+                        <div ng-if="ev.address.addressLine">
+                            <div class="vault-emergency-form-row">
+                                <div class="vault-emergency-form-label">
+                                    Address line
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.address.addressLine}}
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- end addressLine -->
+                        <!-- endDate -->
+                        <div ng-if="ev.address.startDate">
+                            <div class="vault-emergency-form-row">
+                                <div class="vault-emergency-form-label">
+                                    From date
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.address.startDate | vaultValue}}
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- end startDate -->
+                        <!-- endDate -->
+                        <div ng-if="ev.address.endDate">
+                            <div class="vault-emergency-form-row">
+                                <div class="vault-emergency-form-label">
+                                    To date
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.address.endDate | vaultValue}}
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- end endDate -->
+                        <!-- country -->
+                        <div ng-if="ev.address.country">
+                            <div class="vault-emergency-form-row">
+                                <div class="vault-emergency-form-label">
+                                    Country
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.address.country}}
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- end country -->
+                        <!-- city -->
+                        <div ng-if="ev.address.city">
+                            <div class="vault-emergency-form-row">
+                                <div class="vault-emergency-form-label">
+                                    City
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.address.city}}
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- end city -->
+                        <!-- instruction -->
+                        <div ng-if="ev.address.instruction">
+                            <div class="vault-emergency-form-row">
+                                <div class="vault-emergency-form-label">
+                                    Instruction
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.address.instruction}}
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- end instruction -->
+                    </div>
+
+                    <!-- end Address -->
+                    <!-- Passport -->
+                    <div ng-if="ev.passport">
+                        <div class="vault-emergency-form-heading">Passport</div>
+                        <!-- description -->
+                        <div ng-if="ev.passport.description">
+                            <div class="vault-emergency-form-row">
+                                <div class="vault-emergency-form-label">
+                                    Description
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.passport.description}}
+                                </div>
+                            </div>
+                        </div>
+                        <!--end description -->
+                        <!-- firstName -->
+                        <div ng-if="ev.passport.firstName">
+                            <div class="vault-emergency-form-row">
+                                <div class="vault-emergency-form-label">
+                                    First name
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.passport.firstName}}
+                                </div>
+                            </div>
+                        </div>
+                        <!--end firstName -->
+                        <!-- middleName -->
+                        <div ng-if="ev.passport.middleName">
+                            <div class="vault-emergency-form-row">
+                                <div class="vault-emergency-form-label">
+                                    Middle name
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.passport.middleName}}
+                                </div>
+                            </div>
+                        </div>
+                        <!--end middleName -->
+                        <!-- lastName -->
+                        <div ng-if="ev.passport.lastName">
+                            <div class="vault-emergency-form-row">
+                                <div class="vault-emergency-form-label">
+                                    Last name
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.passport.lastName}}
+                                </div>
+                            </div>
+                        </div>
+                        <!--end lastName -->
+                        <!-- nationality -->
+                        <div ng-if="ev.passport.nationality">
+                            <div class="vault-emergency-form-row">
+                                <div class="vault-emergency-form-label">
+                                    Nationality
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.passport.nationality}}
+                                </div>
+                            </div>
+                        </div>
+                        <!--end nationality -->
+                        <!-- cardNumber -->
+                        <div ng-if="ev.passport.cardNumber">
+                            <div class="vault-emergency-form-row">
+                                <div class="vault-emergency-form-label">
+                                    Card number
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.passport.cardNumber}}
+                                </div>
+                            </div>
+                        </div>
+                        <!--end cardNumber -->
+                        <!-- issuedDate -->
+                        <div ng-if="ev.passport.issuedDate">
+                            <div class="vault-emergency-form-row">
+                                <div class="vault-emergency-form-label">
+                                    Issued Date
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.passport.issuedDate | vaultValue}}
+                                </div>
+                            </div>
+                        </div>
+                        <!--end issuedDate -->
+                        <!-- expiryDate -->
+                        <div ng-if="ev.passport.expiryDate">
+                            <div class="vault-emergency-form-row">
+                                <div class="vault-emergency-form-label">
+                                    Expiry date
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.passport.expiryDate | vaultValue}}
+                                </div>
+                            </div>
+                        </div>
+                        <!--end expiryDate
+                  <!-- issuedBy -->
+                        <div ng-if="ev.passport.issuedBy">
+                            <div class="vault-emergency-form-row">
+                                <div class="vault-emergency-form-label">
+                                    Issued by
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.passport.issuedBy}}
+                                </div>
+                            </div>
+                        </div>
+                        <!--end issuedBy -->
+                        <!-- issuedIn -->
+                        <div ng-if="ev.passport.issuedIn">
+                            <div class="vault-emergency-form-row">
+                                <div class="vault-emergency-form-label">
+                                    Issued in
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.passport.issuedIn}}
+                                </div>
+                            </div>
+                        </div>
+                        <!--end issuedIn -->
+                    </div>
+                    <!-- end Passport -->
+                    <!-- Health Card -->
+                    <div ng-if="ev.health">
+                        <div class="vault-emergency-form-heading">Health Card</div>
+                        <!-- description -->
+                        <div ng-if="ev.health.description">
+                            <div class="vault-emergency-form-row">
+                                <div class="vault-emergency-form-label">
+                                    Description
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.health.description}}
+                                </div>
+                            </div>
+                        </div>
+                        <!--end description -->
+                        <!-- firstName -->
+                        <div ng-if="ev.passport.firstName">
+                            <div class="vault-emergency-form-row">
+                                <div class="vault-emergency-form-label">
+                                    First name
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.passport.firstName}}
+                                </div>
+                            </div>
+                        </div>
+                        <!--end firstName -->
+                        <!-- middleName -->
+                        <div ng-if="ev.health.middleName">
+                            <div class="vault-emergency-form-row">
+                                <div class="vault-emergency-form-label">
+                                    Middle name
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.health.middleName}}
+                                </div>
+                            </div>
+                        </div>
+                        <!--end middleName -->
+                        <!-- lastName -->
+                        <div ng-if="ev.health.lastName">
+                            <div class="vault-emergency-form-row">
+                                <div class="vault-emergency-form-label">
+                                    Last name
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.health.lastName}}
+                                </div>
+                            </div>
+                        </div>
+                        <!--end lastName -->
+                        <!-- cardNumber -->
+                        <div ng-if="ev.health.cardNumber">
+                            <div class="vault-emergency-form-row">
+                                <div class="vault-emergency-form-label">
+                                    Card number
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.health.cardNumber}}
+                                </div>
+                            </div>
+                        </div>
+                        <!--end cardNumber -->
+                        <!-- bloodType -->
+                        <div ng-if="ev.health.bloodType">
+                            <div class="vault-emergency-form-row">
+                                <div class="vault-emergency-form-label">
+                                    Blood type
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.health.bloodType }}
+                                </div>
+                            </div>
+                        </div>
+                        <!--end issuedDate -->
+                        <!-- issuedDate -->
+                        <div ng-if="ev.health.issuedDate">
+                            <div class="vault-emergency-form-row">
+                                <div class="vault-emergency-form-label">
+                                    Issued Date
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.health.issuedDate | vaultValue}}
+                                </div>
+                            </div>
+                        </div>
+                        <!--end issuedDate -->
+                        <!-- expiryDate -->
+                        <div ng-if="ev.health.expiryDate">
+                            <div class="vault-emergency-form-row">
+                                <div class="vault-emergency-form-label">
+                                    Expiry date
+                                </div>
+                                <div class="vault-emergency-form-value">
+                                    {{ev.health.expiryDate | vaultValue}}
+                                </div>
+                            </div>
+                        </div>
+                        <!--end expiryDate
+
+                </div>
+                <!-- end health -->
+                    </div>
+
+                    <!-- Blood Type -->
+                    <div ng-if="ev.blood">
+
+                        <div class="vault-emergency-form-row">
+                            <div class="vault-emergency-form-label">
+                                Blood Type
+                            </div>
+                            <div class="vault-emergency-form-value">
+                                {{ev.blood}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- End Blood Type -->
+                    <!-- Allergies  -->
+                    <div ng-if="ev.allergies">
+
+                        <div class="vault-emergency-form-row">
+                            <div class="vault-emergency-form-label">
+                                Allergies
+                            </div>
+                            <div class="vault-emergency-form-value">
+                                {{ev.allergies.join(', ')}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- End allergies -->
+                </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+

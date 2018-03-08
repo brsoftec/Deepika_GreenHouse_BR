@@ -1,0 +1,188 @@
+﻿
+@{
+    Layout = "~/Areas/User/Views/Shared/_LayoutDefaultBusinessApply.cshtml";
+}
+@section scripts {
+ 
+    @Scripts.Render("~/bundles/BusinessUserSystem")
+    @Scripts.Render("~/bundles/Campaign")
+    @Scripts.Render("~/bundles/CampaignService")
+}
+
+<div class="module module-main module-business module-interactions" ng-controller="ManagerCampaignController as vm" ng-init="vm.initializeController()">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/BusinessAccount">&laquo; Business Home</a></li>
+        <li class="breadcrumb-item active">Interaction Module</li>
+    </ol>
+    <h1>Interaction Manager</h1>
+    <div class="interaction-manager clearfix">
+
+        <form class="form-horizontal form-campaigns">
+            <div class="interaction-cta-prefix">
+                New Interaction
+            </div>
+            <div class="interaction-cta-list">
+               <a  href="/Campaign/InsertAdvertisingCampaign"> <button type="button" class="interaction-cta interaction-cta-ad">Advertisement </button></a> 
+                <a  href="/Campaign/InsertRegistrationCampaign"> <button type="button" class="interaction-cta interaction-cta-evt" >Registration</button></a>
+                <a href="/Campaign/InsertEventCampaign"><button type="button" class="interaction-cta interaction-cta-reg" >Event</button></a>
+              <button type="button" class="interaction-cta interaction-cta-srfi" ng-click="$event.preventDefault();vm.gotoSRFI()">SRFI</button>
+            </div>
+
+            <div class="campaigns-grid">
+                <div class="input-group-btn btn-filter-campaigns btn-filter-campaigns-type">
+
+
+                    <button type="button" class="btn btn-default dropdown-toggl btn-filter-campaigns"
+                            data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                        {{vm.CampaignTypeSelect}}<span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a ng-click="vm.ChangeCampaignType('All Campaigns')" href="#">All Campaigns</a></li>
+                        <li><a ng-click="vm.ChangeCampaignType('Advertising')" href="#">Advertising</a></li>
+                        <li><a ng-click="vm.ChangeCampaignType('Registration')" href="#">Registrations</a></li>
+                        <li><a ng-click="vm.ChangeCampaignType('Event')" href="#">Event</a></li>
+                        <li><a ng-click="vm.ChangeCampaignType('SRFI')" href="#">SRFI</a></li>
+
+                    </ul>
+                </div>
+                <div class="input-group-btn btn-filter-campaigns btn-filter-campaigns-status">
+                    <button type="button" class="btn btn-default dropdown-toggl"
+                            data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                        {{vm.CampaignStatusSelect}}<span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a ng-click="vm.ChangeCampaignstatus('All Status')" href="#">All Status</a></li>
+                        <li><a ng-click="vm.ChangeCampaignstatus('Active')" href="#">Active</a></li>
+                        <li><a ng-click="vm.ChangeCampaignstatus('Inactive')" href="#">Inactive</a></li>
+                        <li><a ng-click="vm.ChangeCampaignstatus('Pending')" href="#">Pending</a></li>
+                        <li><a ng-click="vm.ChangeCampaignstatus('Saved')" href="#">Saved</a></li>
+                        <li><a ng-click="vm.ChangeCampaignstatus('Expired')" href="#">Expired</a></li>
+                    </ul>
+
+                </div>
+                <table class="table table-striped interactions-grid">
+                    <thead>
+                        <tr>
+                            <th class="campaigns-name">Interactions</th>
+                            <th>Launch</th>
+                            <th>Expire</th>
+                            <th>Views/Target</th>
+                            <th>Participants</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-init="status=c.Status.toLowerCase();" ng-class="'campaign-status-' + status" ng-repeat="c in vm.ListCampaignNodraff track by $index">
+                            <td class="campaigns-name">
+                                <campaign-indicator type="{{c.Type}}" namecampaign="{{c.Name}}" status="{{c.Status}}" />
+                            </td>
+                            <td class="campaigns-type">{{(c.Type!='SRFI')?(c.SpendEffectDate|date:'yyyy-MM-dd'):''}}</td>
+                            <td ng-class="vm.GetClassStatusCampaign(c.Status)">{{(c.Type!='SRFI')?(c.EnDate|date:'yyyy-MM-dd'):''}}</td>
+                            <td class="campaigns-participants">{{c.Participants}}</td>
+                            <td class="campaigns-target">{{c.Target}}</td>
+                            <td class="campaigns-actions">
+                                <a href="#" class="btn-campaigns-edit" ng-if="vm.Isviewedit" ng-click="vm.Edit($index)">Edit</a>
+                                <a href="#" class="btn-campaigns-edit" ng-if="(vm.Isviewapproved && (c.Status=='Pending'))" ng-click="vm.Approve($index)">Approve</a>
+                                <a ng-if="!(c.Type=='SRFI')" href="#" class="btn-campaigns-boost" ng-click="vm.Boost(c)">Boost</a>
+                                @*<a ng-hide="(c.Boost || (c.Type=='Registration') )" href="#" class="btn-campaigns-boost"
+                                    ng-click="vm.Boost(c)">Boost</a>*@
+                                <a class="btn-campaigns-analytics" ng-click="vm.ActionAnalytics(c.Id,c.Name)">Analytics</a>
+                                @*<a href="/BusinessUserSystem/AnalyticsCampaign">CAMPAIGN ANALYTICS CHART</a>*@
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ul  items-per-page="5" boundary-links="true" ng-change="vm.pageChanged()" uib-pagination  total-items="vm.totalCampaigns" ng-model="vm.currentPageNumber"
+                    class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;"
+                    first-text="&laquo;" last-text="&raquo;"></ul>
+            </div>
+            <div class="grid-heading">
+                <button class="btn grid-tab-btn" ng-class="{'btn-primary':!showTemplates}"
+                        ng-click="$event.preventDefault();showTemplates=false;">
+                    Drafts
+                </button>
+                <button class="btn grid-tab-btn" ng-class="{'btn-primary':showTemplates}"
+                        ng-click="$event.preventDefault();showTemplates=true;">
+                    Templates
+                </button>
+            </div>
+
+            <div class="campaigns-grid campaigns-drafts" ng-if="!showTemplates">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="campaigns-name">Draft Name</th>
+                            <th>Created</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="campaign-draft" ng-repeat="c in vm.ListCampaigndraff track by $index">
+                            <td class="campaigns-name">
+                                <campaign-indicator type="{{c.Type}}" namecampaign="{{c.Name}}" />
+                            </td>
+
+                            <td class="campaigns-expires">{{c.SpendEffectDate|date:'yyyy-MM-dd'}}</td>
+
+                            <td class="campaigns-actions">
+                                <a href="#" class="btn-campaigns-edit" ng-click="vm.EditDraf($index)">Edit</a>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <div uib-pagination items-per-page="5" ng-change="pageChangeddraff()" boundary-links="true" total-items="vm.totalCampaignsdraff" ng-model="vm.currentPageNumberdraff"
+                     class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;"
+                     first-text="&laquo;" last-text="&raquo;">
+                </div>
+            </div>
+
+
+            <div class="campaigns-grid campaigns-templates" ng-if="showTemplates">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="campaigns-name">Template</th>
+                            <th>Description</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="campaign-template" ng-repeat="c in vm.ListCampaigntemplate track by $index">
+                            <td class="campaigns-name">
+                                <campaign-indicator type="{{c.Type}}" namecampaign="{{c.Name}}" />
+                            </td>
+                            <td class="campaigns-type">{{c.Description}}</td>
+
+                            <td class="campaigns-actions">
+                                <a href="#" class="btn-campaigns-edit" ng-click="vm.CloneTemplate($index)">New Campaign</a>
+                                <a href="#" class="btn-campaigns-edit" ng-click="vm.EditTemplate($index)">Edit Template</a>
+
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <div uib-pagination items-per-page="5" ng-change="pageChangedtemplate()" boundary-links="true" total-items="vm.totalCampaignstemplate" ng-model="vm.currentPageNumbertemplate"
+                     class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;"
+                     first-text="&laquo;" last-text="&raquo;">
+                </div>
+            </div>
+        </form>
+        <script type="text/ng-template" id="modal-boost.html">
+            <div class="modal-container modal-alert">
+                <h3 class="">Boost Campaign</h3>
+                <div class="modal-alert-text">
+                    <h4>Boost your campaign <span class="campaign-name">{{campaign.Name}}</span>: higher visiblity, wider reach, more engagement!</h4>
+                    <p>Current cost ${{campaign.Cost}}. You will be charged an additional ${{boostCost}}. Total: ${{campaign.Cost + boostCost}}.</p>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="btn btn-primary btn-lg" ng-click="submit()">Yes, Boost It</button>
+                    <button type="button" class="btn btn-default btn-lg" ng-click="cancel()">No</button>
+                </div>
+            </div>
+        </script>
+    </div>  
+</div>

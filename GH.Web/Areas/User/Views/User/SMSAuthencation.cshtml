@@ -1,0 +1,86 @@
+﻿@{
+ViewBag.Title = "AUTHENTICATION SMS";
+Layout = "~/Areas/User/Views/Shared/_LayoutDeFaultApply.cshtml";
+}
+
+@section scripts {
+@Scripts.Render("~/bundles/smsauthencation-ctrl")
+<script src="~/Areas/User/Scripts/Controllers/sms-authencation-popup-ctrl.js"></script>
+}
+
+<div class="module module-main module-pin-auth">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/">&laquo; Home</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="/VaultInformation">Information Vault</a>
+        </li>
+        <li class="breadcrumb-item active">Set PIN</li>
+    </ol>
+
+    <div class="vault-pin-set" ng-controller="SMSAuthencationController">
+
+        <h2 class="sms-auth-heading">
+            <i class="sms-auth-heading-icon"></i>VAULT PIN
+        </h2>
+        <div class="sms-auth-content">
+            @if (ViewBag.NoPin == true)
+            {
+            <div class="sms-auth-intro pin-auth-intro">
+                <p>
+                    This is the first time you access the information vault. You need to create a permanent PIN to
+                    authenticate you on subsequent access.
+                </p>
+                <p>You only need to do this one time. You can still change the PIN later in your Account Settings.</p>
+                <p>Enter 4 to 6 digits.</p>
+            </div>
+            <div class="sms-auth-content">
+                <div class="sms-auth-input-row">
+                    <input type="password" class="form-control pin-input sms-auth-input"
+                           placeholder="Enter PIN" ng-model="newPin"/>
+                </div>
+                <div class="sms-auth-input-row">
+                    <input type="password" class="form-control pin-input sms-auth-input"
+                           placeholder="Confirm PIN" ng-model="confirmNewPin"/>
+                    <div class="pin-auth-create-error" ng-if="errorNewPin" ng-bind="errorNewPin"></div>
+                </div>
+                <div class="sms-auth-actions pin-auth-actions">
+                    <button type="submit" class="btn btn-primary sms-auth-btn"
+                            ng-click="updatePinCode(newPin,confirmNewPin)">
+                        Save PIN and enter vault
+                    </button>
+                </div>
+            </div>
+            }
+            else
+            {
+            <div class="sms-auth-intro pin-auth-intro">
+                <p>
+                    Enter your Vault PIN to proceed. If you don't remember it, <a href="/User/Settings#access">
+                    click here
+                    to change it.
+                </a>
+                </p>
+            </div>
+            <div class="sms-auth-input-row">
+                <input ng-model="auth.PIN" type="password" class="input-pin sms-auth-input" placeholder="_ _ _ _"
+                       ng-enter="Authencation()">
+            </div>
+            <div class="button-group sms-auth-actions pin-auth-actions">
+                <button type="button" ng-click="Cancel()" class="btn btn-default sms-auth-btn">Cancel</button>
+                <button type="submit" ng-click="Authencation()" class="btn btn-primary sms-auth-btn">
+                    Authenticate
+                </button>
+            </div>
+            <div style="padding-top: 20px">
+                <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+                    <div ng-bind-html="messageBox" class="form-field-message"
+                         style="text-align: center; width: 40%;">
+                    </div>
+                </uib-alert>
+            </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+.error-page-container {
+    padding-bottom: 40px;
+}
+.error-page-heading {
+    /*height: 200px;*/
+    background: transparent url(../img/error-page.svg) no-repeat center top;
+    background-size: 200px;
+    padding-top: 200px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 220%;
+    font-weight: bold;
+    color: #00adef;
+}
+
+.error-page-subhead {
+    text-align: center;
+    color: #999;
+    font-size: 180%;
+    margin-bottom: 20px;
+}
+
+.error-page-text {
+    text-align: center;
+     width: 60%;
+     margin: 0 auto;
+     font-size: 120%;
+}
+
+.error-info {
+    padding: 10px 30px;
+    border: 1px solid #ddd;
+    background: #fafafa;
+    border-radius: 8px;
+    width: 80%;
+    margin: 20px auto;
+}
+
+.error-info-row {
+    text-align: left;
+    width: 100%;
+    padding: 6px 0;
+    border-bottom: 2px solid #eee;
+}
+.error-info-row:last-child {
+    border: none;
+}
+
+.error-info-label {
+    display: inline-block;
+    width: 40%;
+}
+.error-info-value {
+    display: inline-block;
+    font-weight: 500;
+}
+

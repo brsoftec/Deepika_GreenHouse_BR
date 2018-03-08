@@ -1,0 +1,34 @@
+﻿@if (ViewBag.ViewPreferences != null)
+{
+    <script>
+        regitGlobal.viewPreferences =
+        {
+            showBusinessIntroSlides: @ViewBag.ViewPreferences.ShowBusinessIntroSlides.ToString().ToLower()
+        }
+    </script>
+}
+
+    <div ng-controller="ViewPreferencesController" id="viewprefs" class="account-viewprefs">
+
+        <div class="account-form-row">
+            <div class="account-form-label">
+                <span class="field-title">Business homepage modal introductory screens</span>
+            </div>
+        @if (ViewBag.CanWrite)
+        {
+            <div class="account-form-control control-float-right">
+                <switcher ng-model="settings.viewprefs.showBusinessIntroSlides" switcher-on-text="Show" switcher-off-text="Hide"
+                          on-changed="updateViewPreference('businessIntroSlides')"></switcher>
+            </div>
+        }
+        else
+        {
+            <div class="account-form-control control-float-right" style="margin-top: 10px;">
+                Change in personal settings
+            </div>
+        
+        }
+        </div>
+
+    </div>
+

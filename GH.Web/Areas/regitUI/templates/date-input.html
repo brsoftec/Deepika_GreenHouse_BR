@@ -1,0 +1,18 @@
+<div class="date-definite" ng-if="indef">
+    <rgu-checkbox ng-model="view.indefinite" label="Indefinite" on-change="onIndefChange()"></rgu-checkbox>
+</div>
+
+<input class="rgu-date-calendar-input" ng-if="(!type || type==='datepicker') && !view.indefinite" bs-datepicker="" name="{{name}}Input" ng-model="$parent.model"
+       ng-required="required" data-date-format="yyyy-MM-dd" data-date-type="date"
+       data-min-date="{{afterMdy}}" data-max-date="{{beforeMdy}}"
+       data-placement="auto" data-autoclose="1">
+
+<div ng-if="type==='combo' && !view.indefinite">
+
+    <rgu-picker class="picker-day" ng-model="rdate.day" items="days" placeholder="Day"></rgu-picker>
+    <rgu-picker class="picker-month" ng-model="rdate.month" items="months" placeholder="Month"
+                filter="monthName"></rgu-picker>
+    <rgu-picker class="picker-year" ng-model="rdate.year" items="years" placeholder="Year"></rgu-picker>
+</div>
+
+<div class="form-field-message form-field-error" ng-if="error.status" ng-bind="error.msg"></div>

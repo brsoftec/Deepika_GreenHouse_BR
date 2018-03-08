@@ -1,0 +1,558 @@
+﻿<div class="vault-panel">
+    <div class="vault-panel-header">
+        <button class="btn-vault-panel-header btn-vault-panel-back" ng-click="vm.AlphaRedirectTask('main_form.html')" href="#"> Back</button>
+        <button class="btn-vault-panel-header btn-vault-panel-close" ng-click="vm.AlphaRedirectTask('main_form.html')" href="#"> Close</button>
+
+        <h4 class="vault-panel-title">
+            Edit Goverment ID
+        </h4>
+    </div>
+
+    <div class="vault-panel-body">
+        <form name="Form" class="vault-panel-form" novalidate>
+            <!-- if birthCertificate -->
+            <div ng-if="nameItem == 'birthCertificate' ">
+                <div ng-controller="SearchBirthCertificateController">
+                    <div ng-repeat="value in _listForm">
+                        <div ng-if="$index == indexItem">
+                            <div class="vault-panel-row">
+                                <div class="vault-panel-row">
+                                    <div class="vault-panel-row">
+                                        <label>Description</label>
+                                        <input ng-model="value.description">
+                                    </div>
+                                    <div class="vault-panel-row">
+                                        <div class="vault-panel-col third">
+                                            <label>First name</label>
+                                            <div class="form-panel-control">
+                                                <input ng-model="value.firstName" rules="name" />
+                                            </div>
+                                        </div>
+                                        <div class="vault-panel-col third">
+                                            <label>Middle name</label>
+                                            <div class="form-panel-control">
+                                                <input ng-model="value.middleName" rules="name" />
+                                            </div>
+                                        </div>
+
+                                        <div class="vault-panel-col third">
+                                            <label>Last name</label>
+                                            <div class="form-panel-control">
+                                                <input ng-model="value.lastName" rules="name" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="vault-panel-row">
+                                        <label>Certificate number</label>
+                                        <input ng-model="value.certificateNumber">
+                                    </div>
+
+                                    <div class="vault-panel-row">
+                                        <label>Issued date </label>
+                                        <rgu-date-input type="combo" ng-model="value.issuedDate"></rgu-date-input>
+                                    </div>
+
+                                    <div class="vault-panel-row">
+                                        <label>Expiry Date </label>
+                                        <rgu-date-input type="combo" ng-model="value.expiryDate" after="value.issuedDate"></rgu-date-input>
+                                    </div>
+                                    <div class="vault-panel-row">
+                                        <rgu-control type="location" ng-model="value.countryCity"></rgu-control>
+                                    </div>
+                                    <!--document-->
+
+                                    <div ng-if="$index == 1" class="vault-panel-row form-doc-manager">
+                                        <label>Document Files</label>
+
+                                        <div class="vault-form-doc-manager" ng-controller="DocumentController">
+                                            <button type="button" class="vault-doc-upload btn btn-default" ng-click="$event.preventDefault();uploadDocFormTest()">
+                                                Add file
+                                            </button>
+                                            <div ng-repeat="doc in _listdoc">
+
+
+                                                <div ng-if="doc.pathIndex ==1">
+                                                    <table class="vault-doc-grid vault-form-doc-grid">
+
+                                                        <tr>
+
+                                                            <td class="vault-doc-type-icon vault-doc-type-{{GenerateFileType(doc.type)}}"></td>
+                                                            <td>
+                                                                <a href="#" class="vault-doc-fname" ng-click="$event.preventDefault();openDocEditorForm(doc)"
+                                                                   ng-bind="doc.name"></a>
+                                                            </td>
+                                                            <td>
+                                                                <a href="#" class="vault-doc-name" ng-click="$event.preventDefault();openDocEditorForm(doc)"
+                                                                   ng-bind="doc.description"></a>
+                                                            </td>
+                                                            <td>
+                                                                <div class="vault-doc-cat" ng-bind="doc.category"></div>
+                                                            </td>
+                                                            <td class="vault-doc-actions" ng-init="">
+                                                                <button class="vault-doc-delete" ng-click="$event.preventDefault();DeleteFile(doc)">Delete</button>
+                                                            </td>
+                                                        </tr>
+
+
+                                                    </table>
+                                                </div>
+                                            </div>
+                                    </div>
+                                    </div>
+
+                                    <!--end document-->
+
+                                    <div class="vault-panel-row">
+                                        <label>Note</label>
+                                        <textarea ng-model="value.note"></textarea>
+                                    </div>
+                                    <div class="vault-panel-row vault-panel-row-tall">
+                                        <label class="checkbox-square"><input type="checkbox" ng-model="value._default" /><span></span>Set as default</label>
+                                        <!--<input type="checkbox" ng-model="value._default">
+                                        <label>Set as default</label>-->
+                                    </div>
+                                </div>
+
+                                <div class="vault-panel-actions">
+                                    <button class="btn btn-primary vault-panel-action vault-panel-save" ng-disabled="!Form.$valid" ng-click="Save(); vm.AlphaRedirectTask('main_form.html')" href="#">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- </div>-->
+                </div>
+
+            </div>
+            <!-- end if -->
+            <!-- if driverLicenseCard -->
+            <div ng-if="nameItem == 'driverLicenseCard' ">
+                <div ng-controller="SearchDriverLicenseController">
+                    <div ng-repeat="value in _listForm">
+                        <div ng-if="$index == indexItem">
+                            <div class="vault-panel-row">
+
+                                <div class="vault-panel-row">
+
+                                    <div class="vault-panel-row">
+                                        <label>Description</label>
+                                        <input ng-model="value.description">
+                                    </div>
+                                    <div class="vault-panel-row">
+                                        <div class="vault-panel-col third">
+                                            <label>First name</label>
+                                            <div class="form-panel-control">
+                                                <input ng-model="value.firstName" rules="name" />
+                                            </div>
+                                        </div>
+                                        <div class="vault-panel-col third">
+                                            <label>Middle name</label>
+                                            <div class="form-panel-control">
+                                                <input ng-model="value.middleName" rules="name" />
+                                            </div>
+                                        </div>
+
+                                        <div class="vault-panel-col third">
+                                            <label>Last name</label>
+                                            <div class="form-panel-control">
+                                                <input ng-model="value.lastName" rules="name" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="vault-panel-row">
+                                        <label>Card type</label>
+                                        <input ng-model="value.cardType">
+                                    </div>
+
+                                    <div class="vault-panel-row">
+                                        <label>Card number</label>
+                                        <input ng-model="value.cardNumber">
+                                    </div>
+                                    <div class="vault-panel-row">
+                                        <label>Issued date </label>
+                                        <rgu-date-input type="combo" ng-model="value.issuedDate"></rgu-date-input>
+                                    </div>
+
+                                    <div class="vault-panel-row">
+                                        <label>Expiry Date </label>
+                                        <rgu-date-input type="combo" ng-model="value.expiryDate" after="value.startDate"></rgu-date-input>
+                                    </div>
+                                    <div class="vault-panel-row">
+                                        <label>Class/ tier</label>
+                                        <input ng-model="value.classTier">
+                                    </div>
+
+                                    <div class="vault-panel-row">
+                                        <label>Note</label>
+                                        <textarea ng-model="value.note"></textarea>
+                                    </div>
+                                    <div class="vault-panel-row vault-panel-row-tall">
+                                        <label class="checkbox-square"><input type="checkbox" ng-model="value._default" /><span></span>Set as default</label>
+                                        <!--<input type="checkbox" ng-model="value._default">
+                                        <label>Set as default</label>-->
+                                    </div>
+                                </div>
+
+                                <div class="vault-panel-actions">
+                                    <button class="btn btn-primary vault-panel-action vault-panel-save" ng-disabled="!Form.$valid" ng-click="Save(); vm.AlphaRedirectTask('main_form.html')" href="#">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- </div>-->
+                </div>
+
+            </div>
+            <!-- end if -->
+            <!-- if healthCard -->
+            <div ng-if="nameItem == 'healthCard' ">
+                <div ng-controller="SearchHealthCardController">
+                    <div ng-repeat="value in _listForm">
+                        <div ng-if="$index == indexItem">
+                            <div class="vault-panel-row">
+
+
+                                <div class="vault-panel-row">
+
+                                    <div class="vault-panel-row">
+                                        <label>Description</label>
+                                        <input ng-model="value.description">
+                                    </div>
+                                    <div class="vault-panel-row">
+                                        <div class="vault-panel-col third">
+                                            <label>First name</label>
+                                            <div class="form-panel-control">
+                                                <input ng-model="value.firstName" rules="name" />
+                                            </div>
+                                        </div>
+                                        <div class="vault-panel-col third">
+                                            <label>Middle name</label>
+                                            <div class="form-panel-control">
+                                                <input ng-model="value.middleName" rules="name" />
+                                            </div>
+                                        </div>
+
+                                        <div class="vault-panel-col third">
+                                            <label>Last name</label>
+                                            <div class="form-panel-control">
+                                                <input ng-model="value.lastName" rules="name" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="vault-panel-row">
+                                        <label>Card number</label>
+                                        <input ng-model="value.cardNumber">
+                                    </div>
+                                    <div class="vault-panel-row">
+                                        <label>Blood type</label>
+                                        <rgu-control type="select" class="short" options="['O','O+', 'A', 'A+', 'B', 'B+', 'AB']" ng-model="value.bloodType" />
+                                    </div>
+                                    <div class="vault-panel-row">
+                                        <label>Issued date </label>
+                                        <rgu-date-input type="combo" ng-model="value.issuedDate"></rgu-date-input>
+                                    </div>
+
+                                    <div class="vault-panel-row">
+                                        <label>Expiry Date </label>
+                                        <rgu-date-input type="combo" ng-model="value.expiryDate" after="value.issuedDate"></rgu-date-input>
+                                    </div>
+
+                                    <div class="vault-panel-row">
+                                        <label>Note</label>
+                                        <textarea ng-model="value.note"></textarea>
+                                    </div>
+                                    <div class="vault-panel-row vault-panel-row-tall">
+                                        <label class="checkbox-square"><input type="checkbox" ng-model="value._default" /><span></span>Set as default</label>
+                                        <!--<input type="checkbox" ng-model="value._default">
+                                        <label>Set as default</label>-->
+                                    </div>
+                                </div>
+
+                                <div class="vault-panel-actions">
+                                    <button class="btn btn-primary vault-panel-action vault-panel-save" ng-disabled="!Form.$valid" ng-click="Save(); vm.AlphaRedirectTask('main_form.html')" href="#">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- </div>-->
+                </div>
+
+            </div>
+            <!-- end if -->
+
+            <!-- if medicalBenefitCard -->
+            <div ng-if="nameItem == 'medicalBenefitCard' ">
+                <div ng-controller="SearchMedicalCardController">
+                    <div ng-repeat="value in _listForm">
+                        <div ng-if="$index == indexItem">
+                            <div class="vault-panel-row">
+
+                                <div class="vault-panel-row">
+
+                                    <div class="vault-panel-row">
+                                        <label>Description</label>
+                                        <input ng-model="value.description">
+                                    </div>
+                                    <div class="vault-panel-row">
+                                        <div class="vault-panel-col third">
+                                            <label>First name</label>
+                                            <div class="form-panel-control">
+                                                <input ng-model="value.firstName" rules="name" />
+                                            </div>
+                                        </div>
+                                        <div class="vault-panel-col third">
+                                            <label>Middle name</label>
+                                            <div class="form-panel-control">
+                                                <input ng-model="value.middleName" rules="name" />
+                                            </div>
+                                        </div>
+
+                                        <div class="vault-panel-col third">
+                                            <label>Last name</label>
+                                            <div class="form-panel-control">
+                                                <input ng-model="value.lastName" rules="name" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="vault-panel-row">
+                                        <label>Card number</label>
+                                        <input ng-model="value.cardNumber">
+                                    </div>
+
+                                    <div class="vault-panel-row">
+                                        <label>Issued date </label>
+                                        <rgu-date-input type="combo" ng-model="value.issuedDate"></rgu-date-input>
+                                    </div>
+
+                                    <div class="vault-panel-row">
+                                        <label>Expiry Date </label>
+                                        <rgu-date-input type="combo" ng-model="value.expiryDate" after="value.issuedDate"></rgu-date-input>
+                                    </div>
+
+                                    <div class="vault-panel-row">
+                                        <label>Tier</label>
+                                        <input ng-model="value.tier">
+                                    </div>
+                                    <div class="vault-panel-row">
+                                        <label>Note</label>
+                                        <textarea ng-model="value.note"></textarea>
+                                    </div>
+                                    <div class="vault-panel-row vault-panel-row-tall">
+                                        <input type="checkbox" ng-model="value._default">
+                                        <label>Set as default</label>
+                                    </div>
+                                </div>
+                                <div class="vault-panel-actions">
+                                    <button class="btn btn-primary vault-panel-action vault-panel-save" ng-disabled="!Form.$valid" ng-click="Save(); vm.AlphaRedirectTask('main_form.html')" href="#">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- </div>-->
+                </div>
+
+            </div>
+            <!-- end if -->
+
+            <!-- if passportID -->
+            <div ng-if="nameItem == 'passportID' ">
+                <div ng-controller="SearchPassportIDController">
+                    <div ng-repeat="value in _listForm">
+                        <div ng-if="$index == indexItem">
+                            <div class="vault-panel-row">
+
+
+                                <div class="vault-panel-row">
+
+                                    <div class="vault-panel-row">
+                                        <label>Description</label>
+                                        <input ng-model="value.description">
+                                    </div>
+                                    <div class="vault-panel-row">
+                                        <div class="vault-panel-col third">
+                                            <label>First name</label>
+                                            <div class="form-panel-control">
+                                                <input ng-model="value.firstName" rules="name" />
+                                            </div>
+                                        </div>
+                                        <div class="vault-panel-col third">
+                                            <label>Middle name</label>
+                                            <div class="form-panel-control">
+                                                <input ng-model="value.middleName" rules="name" />
+                                            </div>
+                                        </div>
+
+                                        <div class="vault-panel-col third">
+                                            <label>Last name</label>
+                                            <div class="form-panel-control">
+                                                <input ng-model="value.lastName" rules="name" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="vault-panel-row">
+                                        <label>Nationality/ Cityzenship</label>
+                                        <input ng-model="value.nationality">
+                                    </div>
+
+
+                                    <div class="vault-panel-row">
+                                        <label>Card number</label>
+                                        <input ng-model="value.cardNumber">
+                                    </div>
+
+                                    <div class="vault-panel-row">
+                                        <label>Issued date </label>
+                                        <rgu-date-input type="combo" ng-model="value.issuedDate"></rgu-date-input>
+                                    </div>
+
+                                    <div class="vault-panel-row">
+                                        <label>Expiry Date </label>
+                                        <rgu-date-input type="combo" ng-model="value.expiryDate" after="value.issuedDate"></rgu-date-input>
+                                    </div>
+
+                                    <div class="vault-panel-row">
+                                        <label>Issued by</label>
+                                        <input ng-model="value.issuedBy">
+                                    </div>
+                                    <div class="vault-panel-row">
+                                        <label>Issued in</label>
+                                        <input ng-model="value.issuedIn">
+                                    </div>
+                                    <div class="vault-panel-row">
+                                        <label>Note</label>
+                                        <textarea ng-model="value.note"></textarea>
+                                    </div>
+                                    <div class="vault-panel-row vault-panel-row-tall">
+                                        <input type="checkbox" ng-model="value._default">
+                                        <label>Set as default</label>
+                                    </div>
+                                </div>
+                                  <div class="vault-panel-actions">
+                                    <button class="btn btn-primary vault-panel-action vault-panel-save" ng-disabled="!Form.$valid" ng-click="Save(); vm.AlphaRedirectTask('main_form.html')" href="#">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- </div>-->
+                </div>
+
+            </div>
+            <!-- end if -->
+            <!-- if CustomGovernmentID -->
+            <div ng-if="nameItem == 'CustomGovernmentID' ">
+                <div ng-controller="SearchCustomIDController">
+                    <div ng-repeat="value in _listForm">
+                        <div ng-if="$index == indexItem">
+                            <div class="vault-panel-row">
+                                <div class="vault-panel-row">
+
+                                    <div class="vault-panel-row">
+                                        <label>Description</label>
+                                        <input ng-model="value.description">
+                                    </div>
+                                    <div class="vault-panel-row">
+                                        <div class="vault-panel-col third">
+                                            <label>First name</label>
+                                            <div class="form-panel-control">
+                                                <input ng-model="value.firstName" rules="name" />
+                                            </div>
+                                        </div>
+                                        <div class="vault-panel-col third">
+                                            <label>Middle name</label>
+                                            <div class="form-panel-control">
+                                                <input ng-model="value.middleName" rules="name" />
+                                            </div>
+                                        </div>
+
+                                        <div class="vault-panel-col third">
+                                            <label>Last name</label>
+                                            <div class="form-panel-control">
+                                                <input ng-model="value.lastName" rules="name" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="vault-panel-row">
+                                        <label>Nationality/ Cityzenship</label>
+                                        <input ng-model="value.nationality">
+                                    </div>
+                                    <div class="vault-panel-row">
+                                        <label>Card number</label>
+                                        <input ng-model="value.cardNumber">
+                                    </div>
+
+                                    <div class="vault-panel-row">
+                                        <label>Address line</label>
+                                        <input id="addressInput" ng-model="value.address">
+                                        <rgu-checkbox ng-model="showMap" label="Show map to find location"></rgu-checkbox>
+                                    </div>
+                                    <div class="vault-panel-row" ng-show="showMap">
+
+                                        <location-map inputid="addressInput"></location-map>
+                                    </div>
+
+                                    <div class="vault-panel-row" ng-show="!showMap">
+                                        <rgu-control type="location" ng-model="value.countryCity"></rgu-control>
+
+                                    </div>
+
+                                    <div class="vault-panel-row">
+                                        <div class="vault-panel-col">
+                                            <label>Phone number</label>
+
+                                            <input ng-model="value.phone" rules="phone" />
+                                        </div>
+
+                                        <div class="vault-panel-col">
+                                            <label>Email</label>
+
+                                            <input ng-model="value.email" rules="email" />
+                                        </div>
+                                    </div>
+
+                                    <div class="vault-panel-row">
+                                        <label>Issued date </label>
+                                        <rgu-date-input type="combo" ng-model="value.issuedDate"></rgu-date-input>
+                                    </div>
+
+                                    <div class="vault-panel-row">
+                                        <label>Expiry Date </label>
+                                        <rgu-date-input type="combo" ng-model="value.expiryDate" after="value.issuedDate"></rgu-date-input>
+                                    </div>
+
+                                    <div class="vault-panel-row">
+                                        <label>Issued by</label>
+                                        <input ng-model="value.issuedBy">
+                                    </div>
+                                    <div class="vault-panel-row">
+                                        <label>Issued in</label>
+                                        <input ng-model="value.issuedIn">
+                                    </div>
+                                    <div class="vault-panel-row">
+                                        <label>Note</label>
+                                        <textarea ng-model="value.note"></textarea>
+                                    </div>
+                                    <div class="vault-panel-row vault-panel-row-tall">
+                                        <input type="checkbox" ng-model="value._default">
+                                        <label>Set as default</label>
+                                    </div>
+                                </div>
+
+                                <div class="vault-panel-actions">
+                                    <button class="btn btn-primary vault-panel-action vault-panel-save" ng-disabled="!Form.$valid" ng-click="Save(); vm.AlphaRedirectTask('main_form.html')" href="#">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- </div>-->
+                </div>
+
+            </div>
+            <!-- end if -->
+        </form>
+    </div>
+</div>

@@ -1,0 +1,277 @@
+/* Tabs panel */
+.tabbable-panel {
+    border: none;
+}
+
+/* Default mode */
+.tabbable-line > .nav-tabs {
+    border: none;
+    margin: 0px;
+    background-color: #f2f2f2;
+}
+
+.tabbable-line > .nav-tabs > li {
+    margin-right: 2px;
+    padding: 0 20px;
+}
+
+.tabbable-line > .nav-tabs > li > a {
+    border: 0;
+    margin-right: 0;
+    color: #737373;
+    background: none !important;
+}
+
+.tabbable-line > .nav-tabs > li > a > i {
+    color: #a6a6a6;
+}
+
+.tabbable-line > .nav-tabs > li.open, .tabbable-line > .nav-tabs > li:hover {
+    border-bottom: 4px solid #b3edff;
+}
+
+.tabbable-line > .nav-tabs > li.open > a, .tabbable-line > .nav-tabs > li:hover > a {
+    border: 0;
+    background: none !important;
+    color: #333333;
+}
+
+.tabbable-line > .nav-tabs > li.open > a > i, .tabbable-line > .nav-tabs > li:hover > a > i {
+    color: #a6a6a6;
+}
+
+.tabbable-line > .nav-tabs > li.open .dropdown-menu, .tabbable-line > .nav-tabs > li:hover .dropdown-menu {
+    margin-top: 0px;
+}
+
+.tabbable-line > .nav-tabs > li.active {
+    border-bottom: 4px solid #00bfff;
+    position: relative;
+}
+
+.tabbable-line > .nav-tabs > li.active > a {
+    border: 0;
+    color: #333333;
+}
+
+.tabbable-line > .nav-tabs > li.active > a > i {
+    color: #404040;
+}
+
+.tabbable-line > .tab-content {
+    margin-top: -3px;
+    /*background-color: #fff;*/
+    border: 0;
+    border-top: 1px solid #eee;
+    padding: 15px 0;
+}
+
+.portlet .tabbable-line > .tab-content {
+    padding-bottom: 0;
+}
+
+/* Below tabs mode */
+
+.tabbable-line.tabs-below > .nav-tabs > li {
+    border-top: 4px solid transparent;
+}
+
+.tabbable-line.tabs-below > .nav-tabs > li > a {
+    margin-top: 0;
+}
+
+.tabbable-line.tabs-below > .nav-tabs > li:hover {
+    border-bottom: 0;
+    border-top: 4px solid #b3edff;
+}
+
+.tabbable-line.tabs-below > .nav-tabs > li.active {
+    margin-bottom: -2px;
+    border-bottom: 0;
+    border-top: 4px solid #00bfff;
+}
+
+.tabbable-line.tabs-below > .tab-content {
+    margin-top: -10px;
+    border-top: 0;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+.nav-tabs > li, .nav-pills > li {
+    float: none;
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+}
+
+.nav-tabs, .nav-pills {
+    text-align: center;
+}
+
+.navbar-wrapper {
+    width: 100% !important;
+    z-index: 20;
+}
+
+/* Tabs panel */
+.tabbable-side-panel {
+    border: none;
+    padding: 10px;
+}
+
+.tabbable-line > nav > li.active {
+    padding: 15px 0;
+    border-left: 4px solid #00bfff;
+    position: relative;
+}
+
+#main {
+    float: left;
+    width: 250px;
+    padding: 10px;
+    word-wrap: break-word;
+}
+
+#sidebar {
+    float: right;
+    width: 650px;
+    padding: 10px;
+}
+
+body .panel-heading .panel-title {
+    font-size: 15px !important;
+    color: #5182A3 !important;
+    /*border-bottom: 0.5px solid #737373;
+    background-color: #fff;*/
+    cursor: pointer;
+}
+
+.panel-heading {
+    font-size: 15px !important;
+}
+
+.collapsing {
+    transition: height 0.8s;
+}
+
+.faqHeader > panel.panel-default > .panel-collapse.panel-body {
+    background-color:white;
+}
+
+.panel-body > p {
+    text-align: justify;
+}
+
+.navbar-collapse.in {
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.faqHeader {
+    font-size: 27px;
+    margin: 20px 0px 20px 0px;
+}
+
+a:link, a:visited, a:hover {
+    color: #5182A3;
+    text-decoration: none;
+}
+
+a:after {
+    position: absolute; /* Prevent underline of arrow */
+    padding-left: 2px; /* Add a little space between text and arrow */
+    content: ""; /* Unicode hex for &raquo;  */
+}
+
+.main-text-header {
+    font-size: 25px !important;
+    text-align: center !important;
+    line-height: normal;
+    padding: 40px 0;
+}
+
+.help-centre-img {
+    background: transparent url(../img/bigsea_bg.png) no-repeat 100% center;
+    padding: 0;
+    width: auto;
+    height: 30em;
+    text-align:center;
+}
+
+#header-content {
+    color: #fff !important;
+    text-align: center !important;
+    padding-top: 20px;
+}
+
+#header-content > .search-header, .search-header-content {
+    color: #fff;
+    text-align: center !important;
+}
+
+#header-content > .search-header {
+    font-size: 25px;
+    padding: 20px 0 10px 0;
+}
+
+#header-content > .search-header-content {
+    padding-bottom: 20px;
+    font-size: 13px;
+}
+
+#header-content > .header-regit-logo {
+    background: url('../img/regit-logotype-light.svg') no-repeat 95% center;
+    background-position: center;
+    background-size: 60px;
+    height: 100px;
+}
+
+#header-content > .header-search-bar {
+    background: url('../img/magnifying_glass.svg') no-repeat 95% center;
+    background-color: #fff;
+    background-position: 10px 12px;
+    background-size: 20px;
+    width: 100%;
+    height: 20%;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+#header-content > a .header-search-link {
+    background-color: rgba(255, 255, 255, 0.4) ;
+}
+
+.tab-content > .content-image {
+    text-align: left;
+    border: 1px solid;
+    /*-moz-columns: 4;
+    -webkit-columns: 4;
+    columns: 4;*/
+}
+
+.tab-content > .content-image > img {
+    max-width: 20% !important;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.title {
+    text-align: center;
+}
+
+.show {
+    background-color: yellow;
+}
+
+#searcher {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+}

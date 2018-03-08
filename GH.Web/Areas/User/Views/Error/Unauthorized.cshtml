@@ -1,0 +1,49 @@
+﻿@using GH.Web.Areas.User.ViewModels
+@model WorkflowErrorViewModel
+@{
+    ViewBag.Title = "Workflow Access Error";
+        Layout = "~/Areas/User/Views/Shared/_LayoutFullApply.cshtml";
+    WorkflowErrorViewModel error = TempData["error"] as WorkflowErrorViewModel ?? Model;
+    ViewBag.BodyClass = "regit-business";
+
+}
+@section styles{
+    <link href="@Url.Versioned("~/Areas/Beta/css/error.css")" rel="stylesheet"/>
+}
+@section scripts {
+
+}
+
+<div class="module module-main module-error module-error-unauthorized">
+    
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/BusinessAccount">&laquo; Business Home</a></li>
+        <li class="breadcrumb-item"><a href="/Workflow">Workflow</a></li>
+        <li class="breadcrumb-item active">Access Error: @error.ResourceName</li>
+    </ol>
+
+    <div class="error-page-container">
+        <div class="error-page-heading">Workflow Error</div>
+        <div class="error-page-subhead">
+            Unauthorized Access
+        </div>
+        <div class="error-page-text">
+            <p>You have no permission to access this page due to role restriction imposed by your business workflow.</p>
+            <div class="error-info">
+                <div class="error-info-row">
+                    <div class="error-info-label">Page</div>
+                    <div class="error-info-value">@Html.Raw(error.ResourceName)</div>
+                </div>
+                <div class="error-info-row">
+                    <div class="error-info-label">Your role</div>
+                    <div class="error-info-value">@error.Roles</div>
+                </div>
+                <div class="error-info-row">
+                    <div class="error-info-label">Effective permission</div>
+                    <div class="error-info-value">@error.EffectivePermissions</div>
+                </div>
+            </div>
+            <p>Contact your business administrator for resolution.</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,166 @@
+﻿@{
+    ViewBag.Page = "about";
+    ViewBag.Title = "Regit: Take Control of Your Information";
+    Layout = "~/Areas/User/Views/Shared/_AboutNewLayout.cshtml";
+    ViewBag.BodyClass = "";
+    ViewBag.AngularApp = "regitAbout";
+}
+
+@section styles {
+    <style>
+        [ng-cloak], .ng-cloak { display: none !important; }
+    </style>
+}
+
+@section initscripts {
+    <script>
+        angular.module('regitAbout', ['ngCookies', 'UserModule']);
+    </script>
+}
+
+@section scripts {
+
+
+}
+
+
+<div class="about-intro">
+    <div class="about-content">
+        <div class="about-intro-subhead">Simple, Formless, Compliant </div>
+        <div class="about-intro-head">KEEP DATA CLEAN</div>
+        <div class="about-intro-text">
+            <p>Regit is a secure permissioned-based data platform that simplifies how individuals and businesses exchange personal information by eliminating the form.</p>
+            <p>
+                Join <a href="/User/Signup">Regit.today</a>, it is 100% free to individuals and free to start for businesses.
+            </p>
+        </div>
+        <a href="#more" class="about-intro-cta">Learn more</a>
+
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <div class="about-signin" ng-controller="PublicSigninController">
+                <form name="formSignin" ng-submit="signIn()">
+                    <div class="signin-form-row">
+                        <input class="signin-input" ng-model="signModel.Email" placeholder="Email">
+                    </div>
+                    <div class="signin-form-row">
+                        <input class="signin-input" type="password" ng-model="signModel.Password"
+                               placeholder="Password">
+                    </div>
+                    <div class="signin-form-row signin-trouble">
+                        <a href="/User/Trouble">Forgot password?</a>
+                    </div>
+                    <div class="signin-form-row signin-message">
+                        <span class="signin-message-text"></span>
+                    </div>
+                    <div class="signin-form-row">
+                        <button class="signin-submit" ng-click="signin()">Sign in</button>
+                    </div>
+                </form>
+                <div class="signin-signup" ng-controller="PublicSignupController">
+                    <p>Don't have an account?</p>
+
+@*                    <button type="button" signup-picker class="signin-signup-action" ng-click="toggleSignupPicker();$event.stopPropagation();">Sign up</button>*@
+@*
+                    <div class="signup-picker rgu-popover" ng-show="view.openingSignupPicker" ng-cloak ng-click="$event.stopPropagation();">
+                        <div class="signup-business">
+                            <p>Create a Business Account?</p>
+                            <a href="/BusinessAccount/Signup">Sign Up for Business</a>
+                        </div>
+                    </div>
+*@
+                      <div class="signup-picker-list">
+@*
+                            <button type="button" class="signup-picker-item" ng-click="selectTier('individual')">Create an Individual Account</button>
+                            <button type="button" class="signup-picker-item business" ng-click="selectTier('business')">Create a Business Account</button>
+*@
+                          <a href="User/Signup" class="signup-picker-item" >Create an Individual Account</a>
+                          <a href="BusinessAccount/Signup" class="signup-picker-item business">Create a Business Account</a>
+                        </div>
+                
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="about-section about-works">
+    <div class="about-content">
+        <h3>How It Works?</h3>
+        <div class="works-illus">
+            <div class="about-works-picture">
+                <img src="~/Areas/About/Content/img/tools.jpg?v=1">
+            </div>
+            <div class="works-text">
+                <div class="works-text-section">
+                    <p>
+                        Business creates an interaction, selects the required information, and sends the request for information to the individual on the Regit platform.
+                    </p>
+                </div>
+                <div class="works-text-section">
+                    <p>
+                        Individual reviews the request. If consented, the required information is sent to the business with as little as one click. No typing repetitive information, no unnecessary forms.
+
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="about-section alt about-benefits">
+    <div class="about-content">
+        <h3>How Are We Different?</h3>
+        <div class="about-col">
+            <div class="full-picture">
+                <img src="~/Areas/About/Content/img/about-benefits-control.svg">
+            </div>
+            <div class="full-text">
+                <p>
+                    Regit gives individuals <b>CONTROL</b> of their information. We believe that only when individuals have control of their information, can businesses have control of their data.
+                </p>
+            </div>
+        </div>
+        <div class="about-col about-benefits-free">
+            <div class="full-picture">
+                <img src="~/Areas/About/Content/img/about-benefits-free.svg">
+            </div>
+            <div class="full-text">
+                <p>
+                    <b>100% FREE</b> for individuals. Business only pays for what they use.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="about-section about-security">
+    <div class="about-content">
+        <h3>Security &amp; Confidentiality</h3>
+        <div class="security-picture">
+            <img src="~/Areas/About/Content/img/about-security.svg">
+        </div>
+
+        <div class="security-text">
+            <p>
+                Regit offers convenience without compromising on security. Regit built-in security includes:
+            </p>
+            <ul>
+                <li>Multi-factor Authentication</li>
+                <li>Encryption for data in-flight and at rest</li>
+                <li>Complex password and strong reset policy</li>
+                <li>Microsoft Azure for performance, compliance, and security</li>
+            </ul>
+
+            <p class="important">
+                All information is shared only with your consent. Regit will never sell your
+                information.
+            </p>
+        </div>
+
+    </div>
+</div>

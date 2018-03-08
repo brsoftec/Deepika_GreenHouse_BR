@@ -1,0 +1,29 @@
+﻿@using GH.Lang
+<div ng-controller="CloseSuspendSettingsController" collapse-base-on-route="/close-suspend-account" class="collapse-item">
+   
+    <div class="collapse-header">
+        <a href="#/close-suspend-account" class="regit-color" data-toggle="collapse" aria-expanded="false" data-target="#closeSuspendCollapseContent">@Regit.Close_Or_Suspend_Account_Title</a>
+    </div>
+    <div class="collapse-content">
+        <div class="collapse" id="closeSuspendCollapseContent">
+            <div class="row field">
+                <div class="col-md-8">
+                    <span class="field-title">@Regit.Close_Your_Account_Title</span>
+                </div>
+                <div class="col-md-4 text-right">
+                    <a ng-click="AccountSwitchAction('Close')">@Regit.CloseBtn dfasas</a>
+                </div>
+            </div>
+            <hr />
+            <div class="row field">
+                <div class="col-md-8">
+                    <span class="field-title">@Regit.Suspend_Your_Account_Title</span>
+                </div>
+                <div class="col-md-4 text-right">
+                    <a ng-click="AccountSwitchAction('Suspend')">@Regit.SuspendBtn</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

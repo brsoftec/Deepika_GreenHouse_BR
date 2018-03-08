@@ -1,0 +1,56 @@
+<div class="mini-calendar-header">
+    <button class="mini-calendar-month-nav mini-calendar-month-nav-prev" ng-click="$event.preventDefault();gotoMonth('prev')">Prev</button>
+    <button class="mini-calendar-month-nav  mini-calendar-month-nav-next" ng-click="$event.preventDefault();gotoMonth('next')">Next</button>
+    <button class="mini-calendar-header-month" ng-bind-html="activeMonth | monthHeader"></button>
+</div>
+
+<div class="mini-calendar-view">
+    <table class="mini-calendar-grid">
+        <tr>
+            <th ng-repeat="initials in monthInitials track by $index">{{initials}}</th>
+        </tr>
+        <tr ng-repeat="week in weeks">
+            <td ng-repeat="day in week track by $index"
+                ng-class="{'is-today': isToday(day), 'is-active-day': isActiveDay(day),
+                'not-in-month':notInActiveMonth(day), 'has-events':day.hasEvents}">
+                <a href="#" class="mini-calendar-cell" ng-if="inCalendar" ng-click="$event.preventDefault();gotoDay(day);"
+                   bs-tooltip data-title="{{day.hasEvents ? 'This day has ' + day.events.length + ' events' : ''}}">
+                    <span class="mini-calendar-cell-text">{{day | dayCell}}</span>
+                </a>
+                <a href="#" class="mini-calendar-cell" ng-if="!inCalendar" ng-click="$event.preventDefault();gotoDay(day)"
+                   bs-tooltip data-title="{{day.hasEvents ? 'This day has ' + day.events.length + ' events' : ''}}"
+                   popover-placement="auto" popover-trigger="'outsideClick'" uib-popover-template="'day-cell-popup.html'"
+                   popover-is-open="openingDayCellPopup">
+                    <span class="mini-calendar-cell-text">{{day | dayCell}}</span>
+                </a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script type="text/ng-template" id="day-cell-popup.html">
+    <div class="mini-calendar-popup">
+        <div class="mini-calendar-popup-header">
+            <h4>{{day | fullDate}}</h4>
+        </div>
+        <div class="mini-calendar-popup-event-message" ng-if="!day.hasEvents">
+            This day has no events.
+            </div>
+        <div class="mini-calendar-popup-event-list" ng-if="day.hasEvents">
+            <div class="mini-calendar-popup-event" ng-repeat="event in day.events | orderBy: 'start.date'">
+                <div class="mini-calendar-popup-event-time">
+                    <span class="time-hour">{{event.start.date | fullTime}}</span>
+                    <span class="time-hour">{{event.end.date | fullTime}}</span>
+                </div>
+                <div class="mini-calendar-popup-event-summary">
+                    Event: <span class="event-name">{{event.summary}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="mini-calendar-popup-actions">
+            <a href="#" ng-click="$event.preventDefault();gotoCalendar()">View in Calendar</a>
+        </div>
+    </div>
+</script>
+
+

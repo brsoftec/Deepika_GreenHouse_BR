@@ -1,0 +1,26 @@
+<div class="vault-form-doc-manager">
+    <button type="button" class="vault-doc-upload btn btn-default" ng-click="$event.preventDefault();addDoc()">Add photo
+    </button>
+    <table class="vault-doc-grid vault-form-doc-grid">
+        <tr ng-repeat="doc in docs">
+            <td class="vault-doc-type-icon vault-doc-type-{{doc.type}}"></td>
+            <td>
+                <a href="#" class="vault-doc-fname" ng-click="$event.preventDefault();openDocEditor(doc)"
+                   ng-bind="doc.fname"></a>
+            </td>
+            <td>
+                <a href="#" class="vault-doc-name" ng-click="$event.preventDefault();openDocEditor(doc)"
+                   ng-bind="doc.name"></a>
+            </td>
+            <td>
+                <div class="vault-doc-cat" ng-bind="doc.cat"></div>
+            </td>
+            <td class="vault-doc-actions" ng-init="">
+                <button class="vault-doc-delete" ng-click="$event.preventDefault();deleteDoc(doc)">Delete</button>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+

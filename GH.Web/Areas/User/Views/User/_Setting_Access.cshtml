@@ -1,0 +1,282 @@
+﻿@using GH.Lang
+<div ng-controller="ManageLoginPasswordController" id="access">
+    <div class="account-form-row">
+        <div class="acccunt-form-label">
+            <span class="field-title">SMS OTP</span>
+            @*{{SMS.Enable | json}}*@
+        </div>
+        <div class="account-form-control control-float-right">
+            <switcher ng-model="sms.enable" switcher-on-text="On" switcher-off-text="Off" on-changed="setSMSOTP()"></switcher>
+        </div>
+    </div>
+    <div class="account-form-row">
+        <div class="account-form-label">
+            <span class="field-title h-34">@Regit.Change_Login_Password</span>
+        </div>
+        <div class="account-form-control">
+            <div ng-if="editting.Password" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-3 control-label">@Regit.Old_Password</label>
+                    <div class="col-md-9">
+                        <input type="password" class="fix-width-mini" ng-model="changePasswordModel.OldPassword" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">@Regit.New_Password</label>
+                    <div class="col-md-9">
+                        <input type="password" class="fix-width-mini" ng-model="changePasswordModel.NewPassword" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">@Regit.Confirm_New_Password</label>
+                    <div class="col-md-9">
+                        <input type="password" class="fix-width-mini" ng-model="changePasswordModel.ConfirmPassword" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label"></label>
+                    <div class="col-md-9">
+                        <a class="btn btn-blue fix-width-mini" ng-click="changePassword()">@Regit.Save</a>
+                        <a class="btn btn-white fix-width-mini" ng-click="cancelChangePassword()">@Regit.Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="account-form-label text-right" ng-if="!editting.Password">
+            <a class="field-action regit-color" ng-class="{'editting': editting.Password}" ng-click="edit('Password')"><i  class="fa fa-pencil"></i> @Regit.Edit</a>
+        </div>
+    </div>
+
+    <!--Pin Code-->
+    @*<div class="account-form-row">
+        <div class="account-form-label">
+            <span class="field-title h-34">@Regit.Set_PIN</span>
+        </div>
+        <div class="account-form-control">
+            <div class="form-horizontal">
+                <div class="form-group" ng-if="encodedPinCode">
+                    <label class="col-md-12 control-label long-spacing">******</label>
+                </div>
+                <div ng-if="editting.PinCode" class="form-group">
+                    <label class="col-md-3 control-label">@Regit.New_PIN_Code</label>
+                    <div class="col-md-9">
+
+                        <input type="password" class="fix-width-mini" ng-model="changePinCodeModel.NewPinCode" />
+                    </div>
+                </div>
+                <div ng-if="editting.PinCode" class="form-group">
+                    <label class="col-md-3 control-label">@Regit.Confirm_PIN_Code</label>
+                    <div class="col-md-9">
+
+                        <input type="password" class="fix-width-mini" ng-model="changePinCodeModel.ConfirmNewPinCode" />
+                    </div>
+                </div>
+                <div ng-if="editting.PinCode" class="form-group">
+                    <label class="col-md-3 control-label"></label>
+                    <div class="col-md-9">
+                        <a class="btn btn-blue fix-width-mini" ng-click="changePinCode()">Save</a>
+                        <a class="btn btn-white fix-width-mini" ng-click="cancelChangePinCode()">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="account-form-label text-right" ng-if="!editting.PinCode">
+            <a class="field-action regit-color" ng-class="{'editting': editting.PinCode}" ng-click="edit('PinCode')"><i  class="fa fa-pencil"></i> @Regit.Edit</a>
+        </div>
+    </div>*@
+
+    <div class="account-form-row">
+        <div class="account-form-label">
+            <privacy-control hidable ng-model="privacy.Email" ng-change="updatePrivacy()"></privacy-control>  <span class="field-title h-34">@Regit.Phone_Number_For_OTP_Title</span>
+        </div>
+        <div class="account-form-control">
+            <div class="form-horizontal">
+                <div class="form-group" ng-if="encodedPhoneNumber">
+                    <label class="col-md-12 control-label long-spacing">{{encodedPhoneNumber}}</label>
+                </div>
+                <div ng-if="editting.PhoneNumber" class="form-group">
+                    <label class="col-md-3 control-label">@Regit.New_Phone_number</label>
+                    <div class="col-md-9">
+                        <ui-select ng-model="changePhoneNumberModel.NewPhoneNumberCountryCallingCode" theme="bootstrap" search-enabled="true" remove-selected="false">
+                            <ui-select-match placeholder="@Regit.Select_Country">{{$select.selected.name.common}} (+{{$select.selected.callingCode[0]}})</ui-select-match>
+                            <ui-select-choices repeat="country.callingCode as country in countries | filter: $select.search">
+                                <span>{{country.name.common}} (+{{country.callingCode[0]}})</span>
+                            </ui-select-choices>
+                        </ui-select>
+                        <input type="text" class="fix-width-mini" ng-model="changePhoneNumberModel.NewPhoneNumber" placeholder="@Regit.Example_Mobile_Message" />
+                        @*<rgu-phone-input ng-model="changePhoneNumberModel.NewPhoneNumber" phone-code="changePhoneNumberModel.NewPhoneNumberCountryCallingCode"
+        initial-country="auto"></rgu-phone-input>*@
+                    </div>
+                </div>
+                <div ng-if="editting.PhoneNumber" class="form-group">
+                    <label class="col-md-3 control-label">@Regit.Confirm_New_Phone_Number_Title</label>
+                    <div class="col-md-9">
+                        <ui-select ng-model="changePhoneNumberModel.ConfirmNewPhoneNumberCountryCallingCode" theme="bootstrap" search-enabled="true" remove-selected="false">
+                            <ui-select-match placeholder="@Regit.Select_Country">{{$select.selected.name.common}} (+{{$select.selected.callingCode[0]}})</ui-select-match>
+                            <ui-select-choices repeat="country.callingCode as country in countries | filter: $select.search">
+                                <span>{{country.name.common}} (+{{country.callingCode[0]}})</span>
+                            </ui-select-choices>
+                        </ui-select>
+                        <input type="text" class="fix-width-mini" ng-model="changePhoneNumberModel.ConfirmNewPhoneNumber" placeholder="@Regit.Example_Mobile_Message" />
+                        @*<rgu-phone-input ng-model="changePhoneNumberModel.ConfirmNewPhoneNumber" phone-code="changePhoneNumberModel.ConfirmNewPhoneNumberCountryCallingCode"
+                                         initial-country="auto"></rgu-phone-input>*@
+                     </div>
+                </div>
+                <div ng-if="editting.PhoneNumber" class="form-group">
+                    <label class="col-md-3 control-label"></label>
+                    <div class="col-md-9">
+                        <a class="btn btn-blue fix-width-mini" ng-click="changePhoneNumber()">Save</a>
+                        <a class="btn btn-white fix-width-mini" ng-click="cancelChangePhoneNumber()">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="account-form-label text-right" ng-if="!editting.PhoneNumber" >
+            <a class="field-action regit-color" ng-class="{'editting': editting.PhoneNumber}" ng-click="edit('PhoneNumber')"><i class="fa fa-pencil"></i> @Regit.Edit</a>
+        </div>
+    </div>
+
+    <div class="account-form-row">
+        <div class="account-form-label">
+            <privacy-control hidable ng-model="privacy.Email" ng-change="updatePrivacy()"></privacy-control>  <span class="field-title h-34">@Regit.Change_Email</span>
+        </div>
+        <div class="account-form-control">
+            <div ng-if="editting.Email" class="row">
+                <div class="col-md-10">
+                    <div class="form-horizontal">
+                        <div class="form-group" ng-if="encodedEmail">
+                            <label class="col-md-12 control-label long-spacing">{{encodedEmail}}</label>
+                        </div>
+                        <div ng-if="editting.Email" class="form-group">
+                            <label class="col-md-3 control-label">@Regit.New_Email</label>
+                            <div class="col-md-9">
+                                <input type="text" class="fix-width-mini" ng-model="changeEmailModel.Email" ng-blur="checkDuplicatedEmail()" />
+                                <div class="error-text-color">{{emailError}}</div>
+                            </div>
+                        </div>
+                        <div ng-if="editting.Email" class="form-group">
+                            <label class="col-md-3 control-label">@Regit.Password</label>
+                            <div class="col-md-9">
+                                <input type="password" class="fix-width-mini" ng-model="changeEmailModel.Password" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"></label>
+                            <div class="col-md-9">
+                                <a class="btn btn-blue fix-width-mini" ng-click="changeEmail()">@Regit.Save</a>
+                                <a class="btn btn-white fix-width-mini" ng-click="cancelChangeEmail()">@Regit.Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="account-form-label text-right" ng-if="!editting.Email">
+            <a class="field-action regit-color" ng-class="{'editting': editting.Email}" ng-click="edit('Email')"><i  class="fa fa-pencil"></i> @Regit.Edit</a>
+        </div>
+    </div>
+ 
+    <div class="account-form-row">
+        <div class="account-form-label">
+            <span class="field-title h-34">@Regit.Change_Security_Questions_Title</span>
+        </div>
+        <div class="account-form-control">
+            <div ng-if="editting.SecurityQuestion" class="row">
+                <form name="securityQuestionForm">
+                    <div class="col-md-10">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <ui-select class="question-select" ng-model="changeSecurityQuestionsModel.Question1.QuestionId" theme="bootstrap" search-enabled="false" remove-selected="false">
+                                        <ui-select-match placeholder="@Regit.Select_The_Security_Question_One.ToUpper()">{{$select.selected.Question}}</ui-select-match>
+                                        <ui-select-choices repeat="question.Id as question in filtered=(securityQuestions| questionFilter: [changeSecurityQuestionsModel.Question2, changeSecurityQuestionsModel.Question3])">
+                                            <span ng-bind-html="question.Question"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <div class="form-error">{{errors.Question1}}</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" ng-disabled="!changeSecurityQuestionsModel.Question1.QuestionId" ng-model="changeSecurityQuestionsModel.Question1.Answer" />
+                                    <div class="form-error">{{errors.Answer1}}</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <ui-select class="question-select" ng-model="changeSecurityQuestionsModel.Question2.QuestionId" theme="bootstrap" search-enabled="false" remove-selected="false">
+                                        <ui-select-match placeholder="@Regit.Select_The_Security_Question_Two.ToUpper()">{{$select.selected.Question}}</ui-select-match>
+                                        <ui-select-choices repeat="question.Id as question in filtered=(securityQuestions| questionFilter: [changeSecurityQuestionsModel.Question1, changeSecurityQuestionsModel.Question3])">
+                                            <span ng-bind-html="question.Question"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <div class="form-error">{{errors.Question2}}</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" ng-disabled="!changeSecurityQuestionsModel.Question2.QuestionId" ng-model="changeSecurityQuestionsModel.Question2.Answer" />
+                                    <div class="form-error">{{errors.Answer2}}</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <ui-select class="question-select" ng-model="changeSecurityQuestionsModel.Question3.QuestionId" theme="bootstrap" search-enabled="false" remove-selected="false">
+                                        <ui-select-match placeholder="@Regit.Select_The_Security_Question_Three.ToUpper()">{{$select.selected.Question}}</ui-select-match>
+                                        <ui-select-choices repeat="question.Id as question in filtered=(securityQuestions| questionFilter: [changeSecurityQuestionsModel.Question1, changeSecurityQuestionsModel.Question2])">
+                                            <span ng-bind-html="question.Question"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <div class="form-error">{{errors.Question3}}</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" ng-disabled="!changeSecurityQuestionsModel.Question3.QuestionId" ng-model="changeSecurityQuestionsModel.Question3.Answer" />
+                                    <div class="form-error">{{errors.Answer3}}</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12 text-center">
+                                    <a class="btn btn-blue fix-width-mini" ng-click="changeSecurityQuestions(changeSecurityQuestionsModel)">@Regit.Save</a>
+                                    <a class="btn btn-white fix-width-mini" ng-click="cancelChangeSecurityQuestions()">@Regit.Cancel</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="account-form-label text-right" ng-if="!editting.SecurityQuestion" >
+            <a class="field-action regit-color" ng-class="{'editting': editting.SecurityQuestion}" ng-click="edit('SecurityQuestion')"><i class="fa fa-pencil"></i> @Regit.Edit</a>
+        </div>
+    </div>
+</div>
+
+<div bs-modal bs-modal-on-hidden="onPinAuthenticateModalHidden()" bs-modal-show="configs.ShowPinAuthenticateModal" class="modal fade pin-authenticate-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-right">
+                <a ng-click="configs.ShowPinAuthenticateModal = false"><i class="close-icon"></i></a>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <div class="regit-color">
+                        To change access control settings, you need to authenticate.
+                        A PIN has been sent to your phone. It may take a few moments to arrive.
+                        Enter the PIN below:
+                    </div>
+                    <div><input type="text" ng-model="pinAuthenticate.PIN" placeholder="- - - -" /></div>
+                    <div>
+                        @Regit.Your_PIN_waiting <br />
+                        @Regit.Didnt_receive_PIN <br />
+                        <a class="regit-color">@Regit.Re_send_PIN</a>
+                    </div>
+                    <div>
+                        <a class="btn btn-blue" ng-click="authenticatePin()">@Regit.Submit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,191 @@
+﻿<div ng-controller="SearchOthersFavouriteController">
+  
+    <div ng-if="write == false && read == false">
+        <!--favourite-->
+        <div class="vault-group-content" ng-if="favourite._name">
+            <div class="vault-row">
+                <div class="vault-group-actions">
+                    <button ng-hide="value.IsEdit" class="btn-vault-action btn-vault-edit" ngclipboard data-clipboard-target="#copy-favourite">
+                        Copy text
+                    </button>
+                    <button ng-hide="IsEdit" class="btn-vault-action btn-vault-edit" ng-click="Edit()">
+                        Edit
+                    </button>
+                    <button ng-hide="!IsEdit" class="btn-vault-action btn-vault-save" ng-click="Save()">
+                        Save
+                    </button>
+                    <button ng-hide="!IsEdit" class="btn-vault-action btn-vault-cancel btn-cancel"
+                            ng-click="Cancel()">
+                        Cancel
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- // -->
+            <div class="vault-row" ng-hide="IsEdit" id="copy-favourite">
+                <div class="vault-label">
+                    <label>{{favourite._label}}</label>
+                </div>
+                <div class="vault-field">
+                    <div class="vault-field-value">
+                        <span ng-if="favourite_colour._value !=''">
+                            <strong>{{favourite_colour._label}}:  </strong>  {{favourite_colour._value.join(', ')}} <br />
+                        </span>
+                        <span ng-if="favourite_holiday._value !=''">
+                            <strong>{{favourite_holiday._label}}: </strong> {{favourite_holiday._value.join(', ') }} <br />
+                        </span>
+                        <span ng-if="favourite_movie._value !=''">
+                            <strong>{{favourite_movie._label}}: </strong> {{favourite_movie._value.join(', ') }} <br />
+                        </span>
+                        <span ng-if="favourite_music_type._value !=''">
+                            <strong> {{favourite_music_type._label}}: </strong>{{favourite_music_type._value.join(', ') }} <br />
+                        </span>
+                        <span ng-if="favourite_song._value !=''">
+                            <strong> {{favourite_song._label}}: </strong>{{favourite_song._value.join(', ') }} <br />
+                        </span>
+                        <span ng-if="favourite_tv_show._value !=''">
+                            <strong> {{favourite_tv_show._label}}:</strong>{{favourite_tv_show._value.join(', ') }} <br />
+                        </span>
+                    </div>
+
+                    <div class="vault-privacy-indicator" ng-class="{'privacy-on': favourite._privacy}"
+                         bs-tooltip
+                         data-title="{{favourite._privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                         data-placement="bottom-left">
+                    </div>
+                </div>
+            </div>
+
+            <!-- // -->
+            <div ng-hide="!IsEdit">
+                <div class="vault-row">
+                    <div class="vault-label">
+                    </div>
+                    <div class="vault-field-edit">
+                        <label>
+                            <strong>
+                                {{favourite._name}}
+                            </strong>
+                        </label>
+                        <button class="btn-vault-privacy" ng-class="{'privacy-on': favourite._privacy}"
+                                ng-click="favourite._privacy = !preference._privacy"
+                                bs-tooltip
+                                data-title="{{favourite._privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                                data-placement="bottom-left"></button>
+                    </div>
+
+                </div>
+                <!-- favourite_colour -->
+                <div class="vault-row">
+
+                    <div class="vault-label">
+                        <label>{{favourite_colour._label}}</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-smart-input ng-model="favourite_colour._value" type="color" placeholder="Enter your favorite color">
+                        </rgu-smart-input>
+
+                    </div>
+
+                </div>
+                <!-- favourite_holiday -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>{{favourite_holiday._label}}</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-smart-input ng-model="favourite_movie._value" type="movie" placeholder="Enter your favorite movie">
+                        </rgu-smart-input>
+                    </div>
+                </div>
+                <!-- favourite_music_type -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>{{favourite_music_type._label}}</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-smart-input ng-model="favourite_music_type._value" type="musicGenre" placeholder="Enter your favorite music genre">
+                        </rgu-smart-input>
+                    </div>
+                </div>
+                <!-- favourite_song -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>{{favourite_song._label}}</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-smart-input ng-model="favourite_song._value" type="song" placeholder="Enter your favorite songs">
+                        </rgu-smart-input>
+                    </div>
+                </div>
+
+                <!-- favourite_tv_show -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>{{favourite_tv_show._label}}</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-smart-input ng-model="favourite_tv_show._value" type="tvShow" placeholder="Enter your favorite TV shows">
+                        </rgu-smart-input>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div ng-if="write == false && read == true">
+      
+            <!--favourite-->
+            <div class="vault-group-content" ng-if="favourite._name">
+                <div class="vault-row">
+                    <div class="vault-group-actions">
+                        <button class="btn-vault-action btn-vault-edit" ngclipboard data-clipboard-target="#copy-favourite">
+                            Copy text
+                        </button>
+                      
+                    </div>
+
+                </div>
+
+                <!-- // -->
+                <div class="vault-row" id="copy-favourite">
+                    <div class="vault-label">
+                        <label>{{favourite._label}}</label>
+                    </div>
+                    <div class="vault-field">
+                        <div class="vault-field-value">
+                            <span ng-if="favourite_colour._value !=''">
+                                <strong>{{favourite_colour._label}}:  </strong>  {{favourite_colour._value.join(', ')}} <br />
+                            </span>
+                            <span ng-if="favourite_holiday._value !=''">
+                                <strong>{{favourite_holiday._label}}: </strong> {{favourite_holiday._value.join(', ') }} <br />
+                            </span>
+                            <span ng-if="favourite_movie._value !=''">
+                                <strong>{{favourite_movie._label}}: </strong> {{favourite_movie._value.join(', ') }} <br />
+                            </span>
+                            <span ng-if="favourite_music_type._value !=''">
+                                <strong> {{favourite_music_type._label}}: </strong>{{favourite_music_type._value.join(', ') }} <br />
+                            </span>
+                            <span ng-if="favourite_song._value !=''">
+                                <strong> {{favourite_song._label}}: </strong>{{favourite_song._value.join(', ') }} <br />
+                            </span>
+                            <span ng-if="favourite_tv_show._value !=''">
+                                <strong> {{favourite_tv_show._label}}:</strong>{{favourite_tv_show._value.join(', ') }} <br />
+                            </span>
+                        </div>
+
+                        <div class="vault-privacy-indicator" ng-class="{'privacy-on': favourite._privacy}"
+                             bs-tooltip
+                             data-title="{{favourite._privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                             data-placement="bottom-left">
+                        </div>
+                    </div>
+                </div>
+
+             
+            </div>
+     
+    </div>
+
+</div>

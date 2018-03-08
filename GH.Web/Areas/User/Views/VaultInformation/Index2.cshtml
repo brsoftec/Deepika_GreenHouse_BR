@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "Information Vault";
+    Layout = "~/Areas/User/Views/Shared/_LayoutDefaultApply.cshtml";
+}
+@section styles {
+    @Styles.Render("~/bundles/css/phone-input")
+}
+
+@section scripts {
+
+    @Scripts.Render("~/bundles/js/phone-input")
+    @Scripts.Render("~/bundles/InformationVaultService")
+    @Scripts.Render("~/bundles/information-vault-ctrl")
+@Scripts.Render("~/bundles/search-vault")
+<script src="~/Areas/User/Scripts/Controllers/Vault/basicInformation.js"></script>
+
+
+    <script src="~/Areas/User/Scripts/Controllers/VaultPushController.js"></script>
+    <script src="~/Areas/User/Scripts/Controllers/PushToVault/RegistrationOnPushToVaultUserController.js"></script>
+    @Scripts.Render("~/bundles/country-city-ctrl")
+    @Scripts.Render("~/bundles/sms-authencation-popup-ctrl")
+    @Scripts.Render("~/bundles/dialog-confirm-ctrl")
+}
+
+<div ng-controller="VaultController">
+    @*{{vault | json}}*@
+    <p>NEW VAULT</p>
+    @*{{test2 | json}}*@
+    <div class="vault-group-content" ng-controller="basicInformationController">
+        {{formData | json}}
+
+        <p>
+            {{lstField | json}}
+        </p>
+        {{formData2 | json}}
+        <div class="vault-group-content" ng-repeat="field in lstField">
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>{{field.data.label}}</label>
+                </div>
+                <div class="vault-field">
+                    <div class="vault-field-value">
+                        {{field.data.value}}
+                    </div>
+                    <div class="vault-privacy-indicator" ng-class="{'privacy-on': field.data.privacy}"
+                         bs-tooltip
+                         data-title="{{field.data.privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                         data-placement="bottom-left">
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+   
+</div>
+
+

@@ -1,0 +1,204 @@
+﻿   <!-- family EmergencyController -->
+   <!-- family -->
+<div ng-controller="EmergencyController">
+
+    <div ng-if="_listForm.length ">
+        <div class="vault-group">
+            <!--HEADER -->
+            <div class="vault-group-header">
+                <h4>Emergency</h4>
+                
+                <button class="btn-vault-group-collapse" ng-init="hide_emergencyBody=false;"
+                        ng-click="$event.preventDefault();hide_emergencyBody=!hide_emergencyBody;"></button>
+            </div>
+            <div ng-hide="hide_emergencyBody">
+               
+              
+                <div class="vault-group-content" ng-repeat="value in _listForm">
+                
+                    <div class="vault-row">
+
+                        <div class="vault-group-actions">
+                            <button ng-hide="value.IsEdit" class="btn-vault-action btn-vault-edit" ngclipboard data-clipboard-target="#copy-emergency{{$index}}">
+                                Copy text
+                            </button>
+                            <button ng-hide="value.IsEdit" class="btn-vault-action btn-vault-edit" ng-click="value.IsEdit = !value.IsEdit">
+                                Edit
+                            </button>
+                            <button ng-hide="!value.IsEdit" class="btn-vault-action btn-vault-save" ng-click="UpdateEmergency(value); value.IsEdit = !value.IsEdit">
+                                Save
+                            </button>
+                            <button ng-hide="!value.IsEdit" class="btn-vault-action btn-vault-cancel btn-cancel"
+                                    ng-click="value.IsEdit = !value.IsEdit">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                
+
+                    <div class="vault-row" ng-hide="value.IsEdit" id="copy-emergency{{$index}}">
+                        <div class="vault-label">
+                            <label> <span ng-if="value.Relationship.value"> {{value.Relationship.value}}</span>
+                                <span ng-if="!value.Relationship.value">Emergency #{{$index}}</span>
+                            </label>
+                        </div>
+                        <div class="vault-field">
+                            <div class="vault-field-value">
+                               
+                                    <span ng-if="value.DisplayName">
+                                    <a href="/User/Profile?id={{value.Id}}">{{value.DisplayName}}</a>
+                                    </span><br />
+                                    <span ng-if="value.FirstName">
+                                        <strong> First name: </strong> {{value.FirstName }} <br />
+                                    </span>
+                                    <span ng-if="value.MiddleName">
+                                        <strong> Middle name: </strong> {{value.MiddleName }} <br />
+                                    </span>
+                              
+                                    <span ng-if="value.LastName">
+                                        <strong> Last name: </strong> {{value.LastName }} <br />
+                                    </span>
+                                <span ng-if="value.Gender">
+                                    <strong> Gender: </strong> {{value.Gender }} <br />
+                                </span>
+                                 
+                                    <span ng-if="value.Email">
+                                        <strong> Email: </strong> {{value.Email}} <br />
+                                    </span>
+
+                                    <span ng-if="value.Phone">
+                                        <strong>Phone: </strong> {{value.Phone}} <br />
+                                    </span>
+                                    <span ng-if="value.Address">
+                                        <strong> Address: </strong> {{value.Address }} <br />
+                                    </span>
+                                    <span ng-if="value.City">
+                                        <strong> City: </strong> {{value.City }} <br />
+                                    </span>
+                                    <span ng-if="value.Country">
+                                        <strong> Country: </strong> {{value.Country }} <br />
+                                    </span>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <!-- //  edit family-->
+                    <div ng-hide="!value.IsEdit">
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>Relationship</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                    <rgu-control type="select" class="short" options="['Father', 'Mother','Son', 'Daughter', 'Brother', 'Sister', 'Cousin', 'Husband', 'Wife', 'Uncle', 'Aunt', 'Niece',
+                             'Nephew', 'Grandmother', 'Grandfather', 'Friend', 'Father-in-law', 'Mother-in-law', 'In-law', 'Other']" ng-model="value.Relationship.value" />
+                            </div>
+                            <button class="vault-field-remove" ng-click="removeEmergency(value);">Remove</button>
+                        </div>
+                        <!-- First name -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>First name</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <input ng-model="value.FirstName" disabled/>
+                            </div>
+                        </div>
+                        <!-- Middle name -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>Middle name</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <input ng-model="value.MiddleName" disabled />
+                            </div>
+                        </div>
+                        <!-- Last name -->
+                         <div class="vault-row">
+                            <div class="vault-label">
+                                <label>Last name</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <input ng-model="value.LastName" disabled />
+                            </div>
+                        </div>
+                      
+                        <!-- Last name -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>Email</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <input ng-model="value.Email" disabled />
+                            </div>
+                        </div>
+
+                        <!-- D.O.B -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>Phone</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <input ng-model="value.Phone" disabled />
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                Address
+                            </div>
+                            <div class="vault-field-edit">
+                                <input ng-model="value.Address" disabled />
+                              
+                            </div>
+                        </div>
+                        <!-- Email -->
+                        <div class="vault-row">
+
+                            <div class="vault-label">
+                                <label>City</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <input ng-model="value.City" disabled />
+                            </div>
+
+                        </div>
+
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>Country</label>
+                            </div>
+                            <div class="vault-field-edit">
+
+                                <input ng-model="value.Country" disabled />
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!--- /// -->
+                <!-- // -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label> </label>
+
+                    </div>
+                    <div class="vault-field-actions">
+                        <a href="#" class="vault-field-add"
+                           ng-click="$event.preventDefault(); vm.AlphaRedirectTask('emergency.html') ">+ Add more emergency</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

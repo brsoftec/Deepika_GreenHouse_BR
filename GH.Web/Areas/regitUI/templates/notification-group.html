@@ -1,0 +1,61 @@
+<div class="notification-group" ng-controller="NotificationListController2" >
+  
+    <a href="#" class="notification-link main-nav-item main-nav-notice" type="general"
+       bs-tooltip data-title="Notifications" data-placement="auto" ng-click="openNotificationsPopover($event)">
+        <span ng-if="countUnread()" class="badge main-nav-badge" ng-bind="countUnread()"></span>
+    </a>
+
+    <div ng-if="view.opening && !view.showingCallbox" class="notification-popover">
+        <div ng-repeat="notif in notifications | filter:filterNotifications | limitTo:10" class="notification-popover-item notification-cat-{{notif.category}}"
+             ng-class="{unread: !notif.read, 'has-avatar':notif.fromAvatar}">
+            <div class="notification-item-prefix">
+            
+                <img ng-if="notif.fromAvatar" ng-src="{{notif.fromAvatar}}">
+            </div>
+            <div class="notification-item-text">{{notif.text}}
+                <span ng-if="notif.recent" class="notification-when"
+                      ng-bind="notif.created | friendlyTime"></span>
+
+                <div ng-if="notif.actions && !notif.resolved" class="notification-item-actions">
+                    <a class="notification-item-action" ng-repeat = "action in notif.actions" href="#" ng-click="$event.preventDefault(); handleAction(action, notif)" ng-bind="action.label"></a>
+                </div>
+
+                <div ng-if="notif.Type==='Notify Missing Information Vault For Registration'"
+                     class="notification-item-actions">
+                    <a ng-click="ViewReistrationForm(notif.PreserveBag)">View</a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="notification-popover-actions">
+            <a href="/Notification">View All Notifications</a>
+        </div>
+    </div>
+
+    <div ng-if="view.showingCallbox" class="callbox" >
+        <!--<pre>{{view.callingNotification | json}}</pre>-->
+        <div class="callbox-from">
+            <div class="callbox-avatar">
+                <img ng-src="{{view.callingNotification.fromAvatar | avatarUrl:true}}">
+            </div>
+            <div class="callbox-from-name" ng-bind="view.callingNotification.fromName">
+
+            </div>
+        </div>
+        <div class="callbox-text" ng-bind="view.callingNotification.callText">
+        </div>
+        <div class="callbox-interaction-info" ng-if="view.callingNotification.interaction">
+            <div ng-if="view.callingNotification.interaction.image" class="callbox-interaction-picture" ng-bind="">
+                <img ng-src="{{view.callingNotification.interaction.image}}" class="img-responsive">
+            </div>
+            <div class="callbox-interaction-name" ng-bind="view.callingNotification.interaction.name"></div>
+            <div class="callbox-interaction-desc" ng-bind-html="view.callingNotification.interaction.description | textToHtml"></div>
+        </div>
+        <div ng-if="view.callingNotification.actions && !view.callingNotification.resolved" class="callbox-actions">
+            <a ng-repeat = "action in view.callingNotification.actions" class="callbox-action" href="#"
+               ng-click="$event.preventDefault(); handleAction(action, view.callingNotification)" ng-bind="action.label"></a>
+        </div>
+    </div>
+</div>

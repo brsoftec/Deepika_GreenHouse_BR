@@ -1,0 +1,86 @@
+﻿<div ng-controller="EmergencyController">  
+<div ng-if="!outNetwork">
+    <div class="vault-row" ng-if="addNewError">
+        <div class="form-field-message form-field-error">{{addNewError}}</div>
+    </div>   
+    <div class="vault-panel-row">
+        <span class="no-result" ng-show="searchFriendNoResult">No Results Found</span> <div class="search-friend-input-wrapper">
+            <input type="text" ng-model="invitation"
+                   placeholder="Find your friend" uib-typeahead="friend as friend.DisplayName for friend in findFriends($viewValue)" typeahead-no-results="searchFriendNoResult" typeahead-wait-ms="500" typeahead-editable="false" typeahead-template-url="searchFriendsTemplate.html" />
+        </div> 
+        <script type="text/ng-template" id="searchFriendsTemplate.html">
+            <div class="search-friend-item">
+              
+                    <table>
+                        <tr>
+                            <td>
+                                <div class="search-friend-avatar">
+                                    <img ng-src="{{match.model.Avatar ? match.model.Avatar : '/Areas/User/Content/Images/no-pic.png'}} " width="30">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="search-friend-name">
+                                    <span ng-bind-html="match.model.DisplayName | uibTypeaheadHighlight:query"></span>
+                                </div>
+
+                            </td>
+                        </tr>
+                    </table>              
+               
+            </div>
+        </script>
+
+    </div>
+   
+    <div class="vault-panel-row">
+        <div class="vault-panel-col">
+         
+            <label>Display name </label>
+
+            <input ng-model="invitation.DisplayName" disabled />
+        </div>
+
+        <div class="vault-panel-col">
+        
+            <label>Relationship</label>
+            <div class="form-panel-control">
+                <rgu-control type="select" class="short" options="['Father', 'Mother','Son', 'Daughter', 'Brother', 'Sister', 'Cousin', 'Husband', 'Wife', 'Uncle', 'Aunt', 'Niece',
+                             'Nephew', 'Grandmother', 'Grandfather', 'Friend', 'Father-in-law', 'Mother-in-law', 'In-law', 'Other']" ng-model="_new.relationship.value" />
+                  
+            </div>
+        </div>
+    </div>
+    <div class="vault-panel-actions">
+        <button class="btn btn-primary vault-panel-action vault-panel-save" ng-disabled="!formGroup.$valid" ng-click="CheckAddNew(invitation)" href="#">Invite</button>
+
+    </div>
+    </div>
+    <label class="checkbox-square"><input type="checkbox" ng-model="outNetwork" /><span></span>Invite out network</label>
+    <div ng-if="outNetwork">
+        <fieldset>
+            <legend>Email</legend>
+            <div class="form-group form-row">
+             
+                <div class="col-sm-9">
+                 
+                    <input ng-model="_invitedEmail" class="form-control" 
+                           placeholder="Email address" rules="email">
+                </div>
+            </div>
+
+
+            <div style="padding-top:20px">
+                <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"><div ng-bind-html="messageBox"></div></<uib-alert>
+            </div>
+            
+
+        </fieldset>
+        <div class="vault-panel-actions">
+            <button class="btn btn-primary vault-panel-action vault-panel-save" ng-disabled="!formGroup.$valid" ng-click="inviteByEmail(_invitedEmail)" href="#">Invite to Email</button>
+
+        </div>
+    </div>
+   
+    
+    </div>
+

@@ -1,0 +1,344 @@
+﻿
+<div class="vault-group">
+    <div class="vault-panel" ng-controller="OthersController">
+        <div class="vault-panel-header">
+            <button class="btn-vault-panel-header btn-vault-panel-back" ng-click="vm.AlphaRedirectTask('main_form.html')" href="#"> Back</button>
+            <button class="btn-vault-panel-header btn-vault-panel-close" ng-click="vm.AlphaRedirectTask('main_form.html')" href="#"> Close</button>
+            <h4 class="vault-panel-title">
+                <span ng-if="select_others._value == preference._label">
+                    <span ng-if="preference._name !=''">Edit </span>
+                    <span ng-if="preference._name ==''">Add </span>
+                    {{select_others._value}}
+                </span>
+               
+                <span ng-if="select_others._value == favourite._label">
+                    <span ng-if="favourite._name !=''">Edit </span>
+                    <span ng-if="favourite._name ==''">Add </span>
+                    {{select_others._value}}
+                </span>
+                <span ng-if="select_others._value == body._label">
+                    <span ng-if="body._name !=''">Edit </span>
+                    <span ng-if="body._name ==''">Add </span>
+                    {{select_others._value}}
+                </span>
+            </h4>
+        </div>
+
+        <div class="vault-panel-body">
+            <form name="formOthers" class="vault-panel-form" novalidate>
+                <div class="vault-panel-row">
+                    <select rgu-select class="short" ng-model="select_others._value" ng-options="others for others in list_others">
+                        <option value="" class="select-heading">{{select_others._value}}</option>
+                    </select>
+
+                    <!--preference-->
+                    <div ng-if="preference._label == select_others._value ">
+                        <div class="vault-panel-row">
+                            <label>{{preference_sexuality._label}}</label>
+                            <div class="form-editor-control tag-input">
+                                <input ng-model="preference_sexuality._value" />
+                             
+                            </div>
+                        </div>    
+                        <div class="vault-panel-row">
+                            <label>{{preference_languages._label}}</label>
+                            <div class="form-editor-control tag-input">
+                                <rgu-smart-input ng-model="preference_languages._value" placeholder="Enter your languages" type="language">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <div class="vault-panel-row">
+                            <label>{{preference_ethnicity._label}}</label>
+                            <div class="form-editor-control">
+                                <input ng-model="preference_ethnicity._value" />
+                                
+                            </div>
+                        </div>
+                        <div class="vault-panel-row">
+                            <label>{{preference_religion._label}}</label>
+                            <div class="form-editor-control">
+                                <input ng-model="preference_religion._value" />
+                            </div>
+                        </div>
+                        <div class="vault-panel-row">
+                            <label>{{preference_disability._label}}</label>
+                            <div class="form-editor-control">
+                                <input ng-model="preference_disability._value" />
+                            </div>
+                        </div>
+                        <!-- /// -->
+                        <div class="vault-panel-row">
+                            <label>{{preference_interests._label}}</label>
+                            <div class="form-editor-control tag-input">
+                                <rgu-smart-input ng-model="preference_interests._value" placeholder="Enter your interests" type="interest">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <div class="vault-panel-row">
+                            <label>{{preference_sports._label}}</label>
+                            <div class="form-editor-control tag-input">
+                                <rgu-smart-input ng-model="preference_sports._value" placeholder="Enter your sports" type="sport">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <div class="vault-panel-row">
+                            <label>{{preference_food._label}}</label>
+                            <div class="form-editor-control tag-input">
+                                <rgu-smart-input ng-model="preference_food._value" placeholder="List your favorite foods" type="food">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+
+                        <!--  Allergies -->
+                        <div class="vault-panel-row">
+                            <label>Allergies</label>
+                            <div class="form-editor-control tag-input">
+                                <rgu-smart-input ng-model="preference_allergies._value" placeholder="List your allergies">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <div class="vault-panel-row">
+                            <label>Seat</label>
+
+                            <div class="form-editor-control tag-input">
+                                <rgu-smart-input ng-model="preference_seat._value" type="seat">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <div class="vault-panel-row">
+                            <label>{{preference_season._label}}</label>
+                            <div class="form-editor-control tag-input">
+                                <rgu-smart-input ng-model="preference_season._value">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <div class="vault-panel-row">
+                            <label>{{preference_note._label}}</label>
+                            <textarea name="{{preference_note._value}}" ng-model="preference_note._value"></textarea>
+                        </div>
+
+
+                    </div>
+
+                  
+                    <!-- FAVAOURITE-->
+                    <div class="vault-panel-section" ng-if="favourite._label == select_others._value">
+
+                        <div class="vault-panel-row">
+                            <label>Colors</label>
+                            <div class="form-panel-control">
+                                <rgu-smart-input ng-model="favourite_colour._value" type="color" placeholder="Enter your favorite color">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <div class="vault-panel-row">
+                            <label>Holidays</label>
+                            <div class="form-panel-control">
+                                <rgu-smart-input ng-model="favourite_holiday._value" type="holiday" placeholder="Enter your favorite holidays">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <div class="vault-panel-row">
+                            <label>Movies</label>
+                            <div class="form-panel-control">
+                                <rgu-smart-input ng-model="favourite_movie._value" type="movie" placeholder="Enter your favorite movie">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <div class="vault-panel-row">
+                            <label>Music Genres</label>
+                            <div class="form-panel-control">
+                                <rgu-smart-input ng-model="favourite_music_type._value" type="musicGenre" placeholder="Enter your favorite music genre">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <div class="vault-panel-row">
+                            <label>Songs</label>
+                            <div class="form-panel-control">
+                                <rgu-smart-input ng-model="favourite_song._value" type="song" placeholder="Enter your favorite songs">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <div class="vault-panel-row">
+                            <label>TV Shows</label>
+                            <div class="form-panel-control">
+                                <rgu-smart-input ng-model="favourite_tv_show._value" type="tvShow" placeholder="Enter your favorite TV shows">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <div class="vault-panel-row">
+                            <label>Personality</label>
+                            <div class="form-panel-control">
+                                <rgu-smart-input ng-model="favourite_personality._value" type="" placeholder="">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <div class="vault-panel-row">
+                            <label>Preferred time of day</label>
+                            <div class="form-panel-control">
+                                <input type="text" ng-model="favourite_preferred_time._value"  placeholder="" />
+                                
+                            </div>
+                        </div>
+
+                        <div class="vault-panel-row">
+                            <label>{{favourite_note._label}}</label>
+                            <textarea name="note" ng-model="favourite_note._value"></textarea>
+                        </div>
+                    </div>
+                  
+                 
+                      <!--BODY -->
+
+                    <div class="vault-panel-section" ng-if="body._label == select_others._value">
+                        <div class="vault-panel-heading">
+                            Body Metrics
+                        </div>
+                        <div class="vault-panel-row">
+                            <div class="vault-panel-col">
+                                <label>{{body_eye_colour._label}}</label>
+                                <div class="form-panel-control">
+                                    <rgu-smart-input ng-model="body_eye_colour._value" type="color">
+                                    </rgu-smart-input>
+                                </div>
+                            </div>
+                            <div class="vault-panel-col">
+                                <label>{{body_hair_colour._label}}</label>
+                                <div class="form-panel-control">
+                                    <rgu-smart-input ng-model="body_hair_colour._value" type="color">
+                                    </rgu-smart-input>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vault-panel-row">
+                            <div class="vault-panel-col third">
+                                <label>{{body_height._label}}</label>
+                                <div class="form-panel-control">
+                                    <rgu-input-group measure="length" ng-model="body_height._value" unit-model="body_height._unit">
+                                    </rgu-input-group>
+                                </div>
+                            </div>
+                            <div class="vault-panel-col third">
+                                <label>{{body_weight._label}}</label>
+                                <div class="form-panel-control">
+                                    <rgu-input-group measure="weight" ng-model="body_weight._value" unit-model="body_weight._unit">
+                                    </rgu-input-group>
+                                </div>
+                            </div>
+                            <div class="vault-panel-col third">
+                                <label>{{body_type._label}}</label>
+                                <div class="form-panel-control">
+                                    <rgu-tag-input ng-model="body_type._value" list="bodyTypes" label="(other type)">
+                                    </rgu-tag-input>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vault-panel-row">
+                            <label>{{body_note_body._label}}</label>
+                            <textarea name="body_note_body" ng-model="body_note_body._value"></textarea>
+                        </div>
+                        <div class="vault-panel-heading">
+                            Tailor Metrics
+                        </div>
+                        <div class="vault-panel-row">
+                            <div class="vault-panel-col">
+                                <label>{{body_neck._label}}</label>
+                                <div class="form-panel-control">
+                                    <rgu-input-group measure="length" ng-model="body_neck._value" unit-model="body_neck._unit">
+                                    </rgu-input-group>
+                                </div>
+                            </div>
+                            <div class="vault-panel-col">
+                                <label>{{body_chest._label}}</label>
+                                <div class="form-panel-control">
+                                    <rgu-input-group measure="length" ng-model="body_chest._value" unit-model="body_chest._unit">
+                                    </rgu-input-group>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vault-panel-row">
+                            <div class="vault-panel-col">
+                                <label>{{body_arm._label}}</label>
+                                <div class="form-panel-control">
+                                    <rgu-input-group measure="length" ng-model="body_arm._value" unit-model="body_arm._unit">
+                                    </rgu-input-group>
+                                </div>
+                            </div>
+                            <div class="vault-panel-col">
+                                <label>{{body_leg._label}}</label>
+                                <div class="form-panel-control">
+                                    <rgu-input-group measure="length" ng-model="body_leg._value" unit-model="body_leg._unit">
+                                    </rgu-input-group>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vault-panel-row">
+                            <div class="vault-panel-col">
+                                <label>{{body_inner._label}}</label>
+                                <div class="form-panel-control">
+                                    <rgu-input-group measure="length" ng-model="body_inner._value" unit-model="body_inner._unit">
+                                    </rgu-input-group>
+                                </div>
+                            </div>
+                            <div class="vault-panel-col">
+                                <label>{{body_bicep._label}}</label>
+                                <div class="form-panel-control">
+                                    <rgu-input-group measure="length" ng-model="body_bicep._value" unit-model="body_bicep._unit">
+                                    </rgu-input-group>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vault-panel-row">
+                            <div class="vault-panel-col">
+                                <label>{{body_shoes._label}}</label>
+                                <div class="form-panel-control">
+                                    <rgu-input-group measure="shoesize" ng-model="body_shoes._value" unit-model="body_shoes._unit">
+                                    </rgu-input-group>
+                                </div>
+                            </div>
+                            <div class="vault-panel-col">
+                                <label>{{body_ring._label}}</label>
+                                <div class="form-panel-control">
+                                    <rgu-input-group measure="length" ng-model="body_ring._value" unit-model="body_ring._unit">
+                                    </rgu-input-group>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vault-panel-row">
+                            <label>{{body_note_tailor._label}}</label>
+                            <textarea name="body_note_tailor" ng-model="body_note_tailor._value"></textarea>
+                        </div>
+                        <div class="vault-panel-heading">
+                            Eyes
+                        </div>
+                        <div class="vault-panel-row">
+                            <div class="vault-panel-col">
+                                <label>{{body_left_eye._label}}</label>
+                                <div class="form-panel-control">
+                                    <input ng-model="body_left_eye._value">
+                                </div>
+                            </div>
+                            <div class="vault-panel-col">
+                                <label>{{body_right_eye._label}}</label>
+                                <div class="form-panel-control">
+                                    <input ng-model="body_right_eye._value">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vault-panel-row">
+                            <!-- label>{{body_note_note_eye._label}}</label -->
+                            <label>Notes</label>
+                            <textarea ng-model="body_note_eye._value"></textarea>
+                        </div>
+                    </div>
+
+
+                    <div class="vault-panel-actions">
+                        <button class="btn btn-primary vault-panel-action vault-panel-save" type="button" ng-disabled="!formOthers.$valid" ng-click="Save(); vm.AlphaRedirectTask('main_form.html')">Save</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,236 @@
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "~/Areas/User/Views/Shared/_LayoutWide.cshtml";
+}
+@section styles{
+
+@Styles.Render("~/bundles/css/feed")
+}
+
+
+@section left {
+    <div class="module module-left module-profile">
+    <div class="feed-profile-header clearfix">
+        <img class="feed-profile-avatar thumbnail" src="/Areas/regitUI/img/avatars/2.jpg">
+        <div class="feed-profile-name">{{user.fullName}}</div>
+        <a href="#/Account" class="feed-profile-edit">Edit Profile</a>
+        <a href="#/Vault" class="feed-profile-edit">Edit Vault</a>
+    </div>
+    <div class="feed-profile-details">
+
+        <div class="feed-profile-heading">About Me</div>
+        <div class="feed-profile-about">I give you my soul, you give me money</div>
+        <div class="feed-profile-facts">
+            <p>Born on <i class="feed-profile-fact-value">23 Septemper 1988</i></p>
+            <p>Live in <i class="feed-profile-fact-value">Melbourne, VIC, Australia</i></p>
+        </div>
+    </div>
+</div>
+<div class="module module-left module-quicklinks">
+    <h4 class="module-heading">Quick Links</h4>
+    <div class="quicklinks ist-group">
+        <a class="list-group-item list-group-item-action" href="#/Account">Network</a>
+        <a class="list-group-item list-group-item-action" href="#/Account">Account Settings</a>
+        <a class="list-group-item list-group-item-action" href="#/Account">Business Relationships</a>
+    </div>
+</div>
+
+<div class="module module-left module-sponsored">
+    <h4 class="module-heading">Sponsored</h4>
+    <div class="sponsored-item">
+        <div class="sponsored-heading"><a href="#">Become Our Membership</a></div>
+        <div class="sponsored-summary">
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore
+            veritatis et...
+        </div>
+        <div class="sponsored-picture">
+            <a href="#">
+                <img class="sponsored-img img-responsive"
+                     src="/Areas/regitUI/img/feed-ad.jpg">
+            </a>
+        </div>
+    </div>
+</div>
+
+}
+
+@* BODY *@
+
+<div class="module module-closable module-main module-vault-profile">
+    <button type="button" ng-click="closeModule($event)" class="module-close"></button>
+    <div class="info-important info-add-vault">
+        Help us serve you better. <a href="#/Vault" class="link-more">Tell us more about yourself</a>
+    </div>
+    <vault-profile ng-model="vault.strength">
+    </vault-profile>
+</div>
+<div class="feed feed-individual">
+    <div ng-repeat="interaction in interactions | filter:{CampaignType:'!SRFI', Role:''}"
+         ng-init="abbr=getInteractionAbbr(interaction);interaction.followed=false;"
+         class="module module-main module-feed">
+        <div class="feed-entry feed-interaction feed-{{abbr}}">
+            <div class="feed-header">
+                <div class="feed-avatar">
+                    <img src="http://placehold.it/40x40">
+                </div>
+                <div class="feed-fromwhen">
+                    <div class="feed-from">
+                        <a href="#/BusinessPage">Business #{{interaction.BusinessId}}</a>
+                    </div>
+                    <div class="feed-when">
+                        Posted {{campaign.SpendEffectDate | friendlyTime:'inDay'}}
+                    </div>
+                </div>
+                <div class="feed-follow">
+                    <button type="button" class="follow-cta" ng-click="interaction.followed=!interaction.followed"
+                            ng-class="{followed:!interaction.followed,following:interaction.followed}"
+                            ng-bind="interaction.followed?'Following':'Follow'"></button>
+                </div>
+                <div class="feed-menu">
+                    <div uib-dropdown>
+                        <button type="button" class="feed-dropdown" uib-dropdown-toggle></button>
+                        <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="feed-dropdown">
+                            <li><a href="#">Delele Post</a></li>
+                            <li><a href="#">Report Abuse</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="feed-content">
+                <h3 class="feed-campaign-type-heading" ng-bind="interaction.CampaignType"></h3>
+                <h4 class="feed-interaction-name" ng-bind="interaction.CampaignName"></h4>
+
+                <div class="feed-interaction-text" ng-bind="interaction.Description">
+                </div>
+
+                <div class="feed-interaction-event-details" ng-if="abbr==='evt'">
+                    <p>
+                        Start time: <span class="value date">{{interaction.EventStartDate | date:'hh.mm a, dd MMM yyyy'}}</span>&nbsp;&nbsp;&nbsp;
+                    </p>
+                    <p>
+                        End time: <span class="value date">{{interaction.EventEndDate | date:'hh.mm a, dd MMM yyyy'}}</span>
+                    </p>
+                    <p>Location: <span class="value">{{interaction.EventLocation}}</span></p>
+                    <p>Theme: <span class="value">{{interaction.EventTheme}}</span></p>
+                    <p ng-if="interaction.UserPay">
+                        Price: <span class="value campaign-user-cost">12 USD</span>
+                    </p>
+
+                </div>
+
+                <div class="feed-interaction-picture">
+                    <pre>{{campaign | json}}</pre>
+                    <a class="img-campaign img-{{abbr}}" href="{{campaign.LinkUrl | properUrl}}" target="_blank">
+                        <img ng-src="campaign" class="img-responsive">
+                    </a>
+                </div>
+
+                <div class="feed-interaction-footer" ng-if="abbr!=='ad'" ng-init="verb=abbr==='reg'?'register':'join'">
+                    <div class="feed-interaction-participators" ng-if="interaction.participators">
+                        {{interaction.participators}} {{verb}}ed
+                    </div>
+
+                    <button type="button" class="feed-interaction-cta" ng-click="openReg()" ng-bind="verb"></button>
+                </div>
+
+            </div>
+
+
+        </div>
+        <script type="text/ng-template" id="modal-feed-open-reg.html">
+            <div class="modal-container">
+                <h3 class="reg-title">{{interaction.CampaignName}} - Registration Form</h3>
+                <div class="stamp-regit">Powered by Regit</div>
+                <form class="form-horizontal form-registration">
+                    <fieldset>
+                        <legend>Delegation</legend>
+                        <div class="form-group form-row">
+                            <div class="col-sm-3">
+                                <label for="select-delegate">Registering For</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <select rgu-select class="short" id="select-delegate">
+                                    <option>Myself</option>
+                                    <option>Delegator 1</option>
+                                    <option>Delegator 2</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Personal Information</legend>
+                        <div class="form-group form-row"
+                             ng-repeat="field in fields | filter: filterRequired">
+                            <div class="col-sm-3">
+                                <label>{{field.displayName}}</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <rgu-control ng-if="field.type!=='numinput' && field.type!=='tagsinput'"
+                                             type="{{field.type}}"
+                                             ng-model="field.model" options="field.options"></rgu-control>
+                                <rgu-control ng-if="field.type==='numinput'" type="{{field.type}}"
+                                             ng-model="field.model" options="field.options"
+                                             unit-model="field.unitModel"></rgu-control>
+                                <rgu-control ng-if="field.type==='tagsinput'" type="{{field.type}}"
+                                             ng-model="field.model" options="field.options"
+                                             placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <h5>Optional</h5>
+                        </div>
+                        <div class="form-group form-row" ng-if="optionalFields.length"
+                             ng-repeat="field in optionalFields = (fields | filter: filterOptional)">
+                            <div class="col-sm-3">
+                                <label>{{field.displayName}}</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <rgu-control ng-if="field.type!=='numinput' && field.type!=='tagsinput'"
+                                             type="{{field.type}}"
+                                             ng-model="field.model" options="field.options"></rgu-control>
+                                <rgu-control ng-if="field.type==='numinput'" type="{{field.type}}"
+                                             ng-model="field.model" options="field.options"
+                                             unit-model="field.unitModel"></rgu-control>
+                                <rgu-control ng-if="field.type==='tagsinput'" type="{{field.type}}"
+                                             ng-model="field.model" options="field.options"
+                                             placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="form-group form-row">
+                        <div class="col-sm-3">
+                            <label></label>
+                        </div>
+                        <div class="col-sm-9">
+                            <input id="option-agreed" type="checkbox" value="agreed">
+                            <label for="option-agreed">
+                                I have read and agreed to the <a href="#">
+                                    Terms
+                                    &amp;
+                                    Conditions
+                                </a>.
+                            </label>
+                            <p class="campaign-agree-cost">
+                                I agree to pay an amount of <span class="campaign-user-cost">12 USD</span>
+                                registration fee.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="button" class="btn btn-default" ng-click="cancel()">
+                            Cancel
+                        </button>
+                        <button type="button" class="btn btn-primary" ng-click="submit()">
+                            Register
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </script>
+
+    </div>
+    <button type="button" class="feed-load-more" ng-click="feedLoadMore()">See more...</button>
+
+</div>

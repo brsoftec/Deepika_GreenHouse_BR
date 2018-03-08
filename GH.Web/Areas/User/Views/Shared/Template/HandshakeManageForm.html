@@ -1,0 +1,76 @@
+﻿
+<div class="modal-container">
+    <img class="thumbnail feed-profile-avatar" ng-src="{{profile.avatar | avatarUrl}}">
+    <div class="feed-profile-name">{{profile.displayName}} </div>
+    <h3 class="reg-title center">Handshake List</h3>
+    <div class="stamp-regit">Powered by Regit</div>
+    <form class="form-horizontal form-registration">
+        <div class="form-horizontal form-registration sync-invite-form">
+            <table class="table">
+                <tr ng-repeat="hs in listHandShake">
+                    <td class="hs-member-name" style="width: 70%"> {{hs.campaign.name}} </td>
+                    <td class="campaigns-name">
+                        <button class="btn btn-default" ng-click="viewForm(hs)"> View </button>
+                        <button class="btn btn-blue" ng-disabled="hs.status=='Complete'" ng-click="sendInvite(hs)"> Send </button>
+                    </td>
+                </tr>
+            </table>
+            <div class="button-group center">
+                <button type="button" ng-click="cancel()" class="btn btn-default">
+                    <span> Close</span>
+                </button>
+            </div>
+        </div>
+        <div ng-if="showForm">
+            <div class="align-right">
+                <button type="button" ng-click="closeForm()" class="btn btn-default">
+                    <span> Close details</span>
+                </button>
+            </div>
+            <fieldset>
+                <legend>Personal Information</legend>
+                <div ng-repeat="campaign in groupField">
+                    <div class="interaction-form-group-heading first-group"> {{campaign.name}} </div>
+                    <div class="form-group form-row" ng-repeat="field in campaign.fields">
+                        <div class="col-sm-4 text-right interaction-form-label">
+                            <label>{{field.displayName}}</label><span title="Required Field" ng-if="!field.optional && field.type !=='static'" style="color:red;"> *</span>
+                            <switch ng-if="field.optional" ng-model="field.selected" switcher-on-text="Send" switcher-off-text="N/A"></switch>
+                        </div>
+                        <div ng-if="campaign.name != 'Membership' && Mode=='Edit'" class="col-sm-8">
+                            <rgu-control ng-if="field.type!=='numinput' && field.type!=='tagsinput' && field.type!=='range' && field.type!=='history'"
+                                         type="{{field.type}}"
+                                         ng-model="field.model" options="field.options"></rgu-control>
+                            <rgu-control ng-if="field.type==='numinput'" type="{{field.type}}" ng-model="field.model"
+                                         options="field.options"
+                                         unit-model="field.unitModel"></rgu-control>
+                            <rgu-control ng-if="field.type==='tagsinput'" type="{{field.type}}" ng-model="field.model"
+                                         options="field.options"
+                                         placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                            <rgu-control ng-if="field.type==='range'" type="range" subtype="{{field.options}}"
+                                         ng-model="field.range" options="field.model"
+                                         unit-model="field.unitModel" ng-required="field.optional"
+                                         rules="{{field.rules}}"></rgu-control>
+                            <rgu-control ng-if="field.type==='history'" type="history" subtype="{{field.options}}"
+                                         ng-model="field.history" options="field.model"
+                                         ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+                        </div>
+                        <div ng-if="campaign.name == 'Membership' && Mode=='Edit'" class="col-sm-8">
+                            <rgu-control ng-if="field.type==='static'" type="static" value="{{field.value}}"
+                                         ng-model="field.model"></rgu-control>
+                            <rgu-control ng-if="field.type!=='static' && field.type!=='numinput' && field.type!=='tagsinput' "
+                                         type="{{field.type}}"
+                                         ng-model="field.model" options="field.options"></rgu-control>
+                            <rgu-control ng-if="field.type==='numinput'" type="{{field.type}}" ng-model="field.model"
+                                         options="field.options"
+                                         unit-model="field.unitModel"></rgu-control>
+                            <rgu-control ng-if="field.type==='tagsinput'" type="{{field.type}}" ng-model="field.model"
+                                         options="field.options"
+                                         placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+    </form>
+</div>

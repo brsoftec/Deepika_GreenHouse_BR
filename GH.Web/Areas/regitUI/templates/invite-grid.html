@@ -1,0 +1,47 @@
+<div class="invite-grid">
+
+    <table ng-if="invites.length" class="table">
+        <tbody>
+        <tr ng-repeat="invite in invites" ng-class="{even: $index%2}">
+            <td class="user-avatar-cell">
+                <img class="img-thumbnail" ng-src="{{'' | avatarUrl}}">
+            </td>
+            <td class="user-name-cell">
+                {{invite.email}}
+            </td>
+            <td class="user-role-cell">
+                <div class="badge-pending">Sent</div>
+                <div ng-repeat="role in invite.roles" class="workflow-user-role">
+                    <span ng-bind="role.name" class="workflow-role-badge role-{{role.name}}"></span>
+                </div>
+            </td>
+            <td class="user-info-cell">
+                <span>Invitation sent {{invite.sent | friendlyTime}}</span>
+            </td>
+
+            <td class="user-grid-actions">
+
+            </td>
+
+            <td class="more-actions">
+                <button class="grid-action action-more"
+                        ng-click="rguView.openMoreActions(invite.id,$event)">More
+                </button>
+                <div class="more-actions-dropdown" ng-if="rguView.isOpenMoreActions(invite.id)">
+
+                    <button class="more-action" ng-click="resendInvite(invite)">Resend Invitation
+                    </button>
+                    <button class="more-action" ng-click="cancelInvite(invite)">Cancel Invitation
+                    </button>
+
+                </div>
+            </td>
+        </tr>
+
+        </tbody>
+
+    </table>
+
+
+</div>
+

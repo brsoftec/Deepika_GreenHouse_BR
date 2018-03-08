@@ -1,0 +1,26 @@
+﻿<div ng-controller="ActivityLogSettingsController" collapse-base-on-route="/acitivity-log-settings" class="collapse-item">
+    <div class="collapse-header">
+        <a href="#/acitivity-log-settings" class="regit-color" data-toggle="collapse" aria-expanded="false" data-target="#activityLogSettingsCollapseContent">Activity Log Settings</a>
+    </div>
+    <div class="collapse-content">
+        <div class="collapse" id="activityLogSettingsCollapseContent">
+            <div class="row field">
+                <div class="col-md-8">
+                    <span class="field-title">Keep a record of your interactions</span>
+                </div>
+                <div class="col-md-4 text-right">
+                    <switcher ng-model="activityLogSettings.RecordInteraction" switcher-on-text="Yes" switcher-off-text="No" on-changed="saveActivityLogSetting('RecordInteraction')"></switcher>
+                </div>
+            </div>
+            <hr />
+            <div class="row field">
+                <div class="col-md-8">
+                    <span class="field-title">Keep a record of your social activities</span>
+                </div>
+                <div class="col-md-4 text-right">
+                    <switcher ng-model="activityLogSettings.RecordSocialActivity" switcher-on-text="Yes" switcher-off-text="No" on-changed="saveActivityLogSetting('RecordSocialActivity')"></switcher>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,1372 @@
+﻿@{
+    ViewBag.Title = "Hanshake";
+    Layout = "~/Areas/User/Views/Shared/_LayoutWideApply.cshtml";
+     var campaignid = ViewBag.campaignid;
+    var campaigntype = ViewBag.campaigntype;
+}
+@section styles{
+    @Styles.Render("~/bundles/css/feed")
+    @Styles.Render("~/regitCampaign/css")
+    <link href="~/Areas/Beta/css/home.css" rel="stylesheet" />
+    <link href="~/Areas/Beta/css/interactions.css" rel="stylesheet" />
+}
+@section scripts {
+    @Scripts.Render("~/bundles/user-home-ctrl")
+    @Scripts.Render("~/bundles/BusinessUserSystem")
+    @Scripts.Render("~/bundles/NewFeeds")
+    @Scripts.Render("~/bundles/sms-authencation-popup-ctrl")
+    <script src="~/Areas/User/Scripts/Controllers/PushToVault/push-vault-user-ctrl.js"></script>
+    <script src="~/Areas/User/Scripts/Controllers/PushToVault/RegistrationOnPushToVaultUserController.js"></script>
+    <script src="~/Areas/User/Scripts/Controllers/PushToVault/RegistrationOnPushToVaultUserToUserController.js"></script>
+    <script src="~/Areas/User/Scripts/Controllers/NewFeeds/RegistrationHandshakeOnNewFeedController.js"></script>
+}
+@section left {
+    <div class="module module-left module-profile">
+        <div class="feed-profile-header clearfix">
+            <img class="feed-profile-avatar thumbnail" ng-src="{{user.PhotoUrl ? user.PhotoUrl : '/Areas/User/Content/Images/no-pic.png'}}">
+            <div class="feed-profile-name">{{user.DisplayName}}</div>
+            <div class="feed-profile-edit">
+                <a href="/User/Settings">Edit Profile</a>
+            </div>
+            <div class="feed-profile-edit">
+                <a ng-click="SMSAuthencationVault()">Edit Vault</a>
+            </div>
+            <div class="feed-profile-edit">
+                <a href="/CampaignUser/ManagerCampaign">Manage Interactions</a>
+            </div>
+        </div>
+        <div class="feed-profile-details">
+            <div class="feed-profile-heading">About Me</div>
+
+            <div class="feed-profile-about">{{user.Status}}</div>
+      
+        </div>
+    </div>
+    <div ng-controller="PushVaultUserController" ng-hide="pushtovaults.length==0" class="module module-left module-push">
+
+        <a href="#" class="btn-push" ng-click="$event.preventDefault();openSRFIList()"
+           popover-placement="bottom" popover-trigger="'outsideClick'"
+           popovertitle="" uib-popover-template="'srfi-select.html'"
+           popover-is-open="showingPushToVaultSelect">Push To Vault</a>
+    </div>
+
+    <script type="text/ng-template" id="srfi-select.html">
+        <div class="srfi-select">
+            <ul>
+                <li ng-repeat="pustovault in pushtovaults">
+                    <a href="#" ng-click="$event.preventDefault();selectPushToVault(pustovault)" ng-bind="pustovault.CampaignName"></a>
+                </li>
+            </ul>
+
+        </div>
+    </script>
+    <script type="text/ng-template" id="modal-feed-open-reg-pushtovault.html">
+        <div class="modal-container">
+            <h3 class="reg-title">{{campaign.Name}} - Push To Vault</h3>
+            <div class="stamp-regit">Powered by Regit</div>
+            <form class="form-horizontal form-registration">
+                <fieldset>
+                    <legend>Friends</legend>
+
+                    <div class="form-group form-row">
+                        <div class="col-sm-3">
+                            <label class="control-label"></label>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="radiogroup">
+                                <div class="radio">
+                                    <input checked id="option-member" name="input-title" ng-click="showingmember=true;" ng-model="pushtype" type="radio" value="member">
+                                    <label for="option-member">Friends</label>
+                                </div>
+                                <div class="radio">
+                                    <input id="option-email" name="input-title" ng-click="showingmember=false;" ng-model="pushtype" type="radio" value="email">
+                                    <label for="option-email">Email</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-show="showingmember" class="form-group form-row">
+                        <div class="col-sm-3">
+                            <label for="input-delegate"> By Friends</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <select ng-options="f as f.DisplayName for f in ListMemberBus" ng-model="memberBusSelected" class="" id="select-delegate"></select>
+                            <div class="form-field-details-row" ng-if="memberBusSelected==null || !memberBusSelected">
+                                <span class="form-field-message" style="color:red">
+                                    Please select a member
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div ng-show="!showingmember" class="form-group form-row">
+                        <div class="col-sm-3">
+                            <label for="input-delegate"> By Email</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <input type="text" ng-model="usernotifycationemail" />
+                            <div class="form-field-details-row" ng-if="usernotifycationemail==null || !usernotifycationemail">
+                                <span class="form-field-message" style="color:red">
+                                    Please enter email
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Personal Information</legend>
+
+
+                    <div class="form-group form-row" ng-repeat="field in dataregisterform  | filter: filterRequired">
+                        <div class="col-sm-3">
+                            <label>{{field.displayName}}</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <rgu-control ng-if="field.type!=='numinput' && field.type!=='tagsinput' && ($parent.Mode!='Read') &&  field.type!=='range' &&  field.type!=='history'"
+                                         type="{{field.type}}"
+                                         ng-model="field.model" options="field.options"></rgu-control>
+
+                            <rgu-control ng-if="field.type==='numinput' &&  ($parent.Mode!='Read')" type="{{field.type}}" ng-model="field.model"
+                                         options="field.options"
+                                         unit-model="field.unitModel"></rgu-control>
+                            <rgu-control ng-if="field.type==='tagsinput' &&  ($parent.Mode!='Read') " type="{{field.type}}" ng-model="field.model"
+                                         options="field.options"
+                                         placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+
+                            <rgu-control ng-if="field.type==='range'&&  ($parent.Mode!='Read') " type="range" subtype="{{field.options}}" ng-model="field.model" options="field.modelarrays"
+                                         unit-model="field.unitModel" ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+
+                            <rgu-control ng-if="field.type==='history' &&  ($parent.Mode!='Read')" type="history" subtype="{{field.options}}"
+                                         ng-model="field.modelarrays" options="field.model"
+                                         ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+
+                            <input ng-if="($parent.Mode=='Read')" disabled="disabled" type="password" value="{{vaildfiled(field)?field.model:''}}" class="form-control" placeholder="">
+                            <div class="form-field-details-row" ng-if="vaildfiled(field) ==false">
+                                <span class="form-field-message" style="color:red">
+                                    Please enter value
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group form-row" ng-if="membershipFields.length">
+                        <div class="col-sm-12">
+                            <h5 class="form-optional-heading">Membership</h5>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-row" ng-if="membershipFields.length"
+                         ng-repeat="field in membershipFields = (dataregisterform | filter: filterMembership)">
+                        <div class="col-sm-3">
+                            <label>{{field.displayName}}</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <rgu-control ng-if="field.type==='static'  && ($parent.Mode!='Read')" type="static" value="{{field.model}}" ng-model="field.model"></rgu-control>
+
+                            <rgu-control ng-if="field.type!=='static' && field.type!=='numinput' && field.type!=='tagsinput'  && ($parent.Mode!='Read') "
+                                         type="{{field.type}}"
+                                         ng-model="field.model" options="field.options"></rgu-control>
+                            <rgu-control ng-if="field.type==='numinput'  && ($parent.Mode!='Read')" type="{{field.type}}" ng-model="field.model"
+                                         options="field.options"
+                                         unit-model="field.unitModel"></rgu-control>
+                            <rgu-control ng-if="field.type==='tagsinput'  && ($parent.Mode!='Read')" type="{{field.type}}" ng-model="field.model"
+                                         options="field.options"
+                                         placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                            <input ng-if="($parent.Mode=='Read')" disabled="disabled" type="password" value="{{vaildfiled(field)?field.model:""}}" class="form-control" placeholder="">
+
+                            <div class="form-field-details-row" ng-if="vaildfiled(field) ==false">
+                                <span class="form-field-message" style="color:red">
+                                    Please enter value
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group form-row" ng-if="qaFields.length">
+                        <div class="col-sm-12">
+                            <h5 class="form-optional-heading">Answer Question </h5>
+                        </div>
+                    </div>
+                    <div class="form-group form-row" ng-if="qaFields.length"
+                         ng-repeat="field in qaFields = (dataregisterform | filter: filterQA)">
+                        <div class="col-sm-3">
+                            <label>{{field.displayName}}</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <rgu-control ng-if="($parent.Mode!='Read')" type="qa" choices="{{field.choices}}" options="field.modelarrays"
+                                         ng-model="field.model"></rgu-control>
+                            <input ng-if="($parent.Mode=='Read')" disabled="disabled" type="password" value="{{ vaildfiled(field)?field.model:""}}" class="form-control" placeholder="">
+                            <div class="form-field-details-row" ng-if="vaildfiled(field) ==false">
+                                <span class="form-field-message" style="color:red">
+                                    Please enter value
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div clss="form-group form-row" ng-if="optionalFields.length">
+                        <div class="col-sm-12">
+                            <h5 class="form-optional-heading">Optional</h5>
+                        </div>
+                    </div>
+                    <div class="form-group form-row" ng-if="optionalFields.length"
+                         ng-repeat="field in optionalFields = (dataregisterform | filter: filterOptional)">
+                        <div class="col-sm-3">
+                            <input type="checkbox" ng-model="field.selected"> <label>{{field.displayName}}</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <rgu-control ng-if="field.type!=='numinput' && field.type!=='tagsinput' && ($parent.Mode!='Read') && field.type!=='range' && field.type!=='history'"
+                                         type="{{field.type}}"
+                                         ng-model="field.model" options="field.options"></rgu-control>
+                            <rgu-control ng-if="field.type==='numinput' &&  ($parent.Mode!='Read')" type="{{field.type}}" ng-model="field.model"
+                                         options="field.options"
+                                         unit-model="field.unitModel"></rgu-control>
+                            <rgu-control ng-if="field.type==='tagsinput' &&  ($parent.Mode!='Read') " type="{{field.type}}" ng-model="field.model"
+                                         options="field.options"
+                                         placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                            <rgu-control ng-if="field.type==='range' &&  ($parent.Mode!='Read') " type="range" subtype="{{field.options}}" ng-model="field.model" options="field.modelarrays"
+                                         unit-model="field.unitModel" ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+                            <rgu-control ng-if="field.type==='history' &&  ($parent.Mode!='Read')" type="history" subtype="{{field.options}}"
+                                         ng-model="field.modelarrays" options="field.model"
+                                         ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+                            <input ng-if="($parent.Mode=='Read')" disabled="disabled" type="password" value="{{ vaildfiled(field)?field.model:""}}" class="form-control" placeholder="">
+                            <div class="form-field-details-row" ng-if="vaildfiled(field) ==false && field.selected==true">
+                                <span class="form-field-message" style="color:red">
+                                    Please enter value
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </fieldset>
+                <div ng-if="false" class="form-group form-row">
+                    <div class="col-sm-3">
+                        <label></label>
+                    </div>
+                    <div class="col-sm-9">
+                        <input id="option-agreed" ng-model="TermsConditions" type="checkbox" value="agreed">
+                        <label for="option-agreed">
+                            I have read and agreed to the <a target="_blank" href="{{campaign.termsAndConditionsFile}}">
+                                Terms &amp;
+                                Conditions
+                            </a>.
+                        </label>
+                        <p ng-show="(campaign.usercodetype=='Pay')" class="campaign-agree-cost">I agree to pay an amount of <span class="campaign-user-cost">{{campaign.usercode}} {{campaign.usercodecurrentcy}}</span> registration fee.</p>
+                    </div>
+
+                </div>
+                <div style="padding-top:20px;color:red">
+                    <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"><div ng-bind-html="messageBox"></div></<uib-alert>
+                </div>
+                <div class="button-group">
+                    <button type="button" ng-click="cancel()" class="btn btn-default">Cancel</button>
+                    <button type="button" ng-click="RegisterCampaign()" class="btn btn-primary">Push</button>
+
+                </div>
+            </form>
+        </div>
+    </script>
+
+
+    <div class="module module-left module-quicklinks">
+        <h4 class="module-heading">Quick Links</h4>
+        <div class="quicklinks ist-group">
+            <a class="list-group-item list-group-item-action" href="/User/Settings">Account Settings</a>
+            <a class="list-group-item list-group-item-action" href="/User/Network#personal">Personal Network</a>
+            <a class="list-group-item list-group-item-action" href="/User/Network#business">Business Network</a>
+        </div>
+    </div>
+
+
+
+}
+
+@*BODY*@
+
+<div class="module module-main module-home-dashboard">
+    <div class="home-dashboard-container">
+        <div class="home-dashboard-cta-box">
+            <a href="/VaultInformation" class="home-dashboard-cta home-dashboard-cta-vault">Information Vault</a>
+            <div class="home-dashboard-cta-desc">Store &amp; organize your personal information</div>
+        </div>
+        <div class="home-dashboard-cta-box">
+            <a href="/DelegationManager" class="home-dashboard-cta home-dashboard-cta-delegation">Delegation</a>
+            <div class="home-dashboard-cta-desc">Delegate to someone you trust for managing your information</div>
+        </div>
+        <div class="home-dashboard-cta-box">
+            <a href="/CampaignUser/InsertPushToVault" class="home-dashboard-cta home-dashboard-cta-push">Push Form</a>
+            <div class="home-dashboard-cta-desc">Push information to other's Vault</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="module module-main module-closable module-intro module-intro-1">
+    <button type="button" ng-click="closeModule($event)" class="module-close"></button>
+    <div class="intro-welcome">Hello, {{user.DisplayName}}</div>
+    <div class="intro-heading"><span class="intro-heading-ord">1</span>Upload your profile picture</div>
+    <div class="intro-picture-container">
+        <div class="intro-picture">
+            <img class="intro-picture-img" ng-src="{{user.PhotoUrl ? user.PhotoUrl : '/Areas/Beta/img/intro-profile-picture.svg'}}" width="200">
+        </div>
+        <div class="intro-picture-actions">
+            <a href="/User/Settings#profile" class="add-photo-action">Add Photo</a>
+            <p class="intro-picture-settings-link">Or go to <a href="/User/Settings">Account Settings</a> to update your basic information</p>
+        </div>
+    </div>
+</div>
+
+<div class="module module-main module-closable module-intro module-intro-2">
+    <button type="button" ng-click="closeModule($event)" class="module-close"></button>
+    <div class="intro-heading"><span class="intro-heading-ord">2</span>Get to know how to Store &amp; Organize your information</div>
+    <div class="intro-text">
+        <p>Information stored in your VAULT will be protected with added security and is fully controlled by you &ndash; Noone will be able to see what is inside!</p>
+    </div>
+
+    <div class="intro-vault-tour-picture">
+        <img src="/Areas/Beta/img/intro-vault-tour.svg" />
+    </div>
+
+</div>
+
+<div class="module module-main module-closable module-intro module-intro-3">
+    <button type="button" ng-click="closeModule($event)" class="module-close"></button>
+    <div class="intro-heading"><span class="intro-heading-ord">3</span>Expand your Network to Business</div>
+    <div class="intro-text">
+        <p>Add your information to the Vault, that is easier to help you interacting with more Businesses.</p>
+    </div>
+
+    <a href="/VaultInformation" class="intro-vault-link">Take me to the Vault</a>
+
+    <div class="intro-text">
+        <p>And go to Search Box on Top bar to looking for Business you want to.</p>
+    </div>
+
+    <div class="intro-search-business-picture">
+        <img src="/Areas/Beta/img/intro-search-business.svg" />
+    </div>
+
+</div>
+
+@*<div class="module module-closable module-main module-interaction-cta">
+        <div class="interaction-cta-list">
+            <a href="/CampaignUser/InsertPushToVault"><button type="button" class="interaction-cta interaction-cta-push">Push Form</button></a>
+        </div>
+        <p><a href="/CampaignUser/ManagerCampaign" class="link-more">Manage Interactions</a></p>
+
+    </div>
+    <div class="module module-main module-closable module-new-intro">
+        <button type="button" ng-click="closeModule($event)" class="module-close"></button>
+        <h2 class="new-intro-heading">Welcome to Regit!</h2>
+        <div class="new-intro-splash">
+            <img src="~/Areas/Beta/img/new-intro-splash.png" class="img-responsive" />
+        </div>
+        <div class="new-intro-text">
+            <p>Congratulations! You are now one of the first users of Regit. Start exploring how Regit makes your life easier.</p>
+            <p>What you can do for a start:</p>
+            <ul>
+                <li>Discover new information in the home feed (below)</li>
+                <li>Add personal information to your <a href="/VaultInformation">Information Vault</a></li>
+                <li>Change your <a href="/User/Settings">Account Settings</a> to suit the way you work with Regit</li>
+            </ul>
+            <p>If you have any suggestion, or found a bug to report, click Feedback button on footer below. Thank you.</p>
+        </div>
+
+    </div>*@
+
+<div class="feed feed-individual" ng-view></div>
+<div><input type="hidden" id="campaignpublicid" value=""></div>
+
+
+<script type="text/ng-template" id="home.html">
+    <div class="module module-main module-feed" ng-if="isTargeted(campaign)" ng-init="isReg = campaign.CampaignType==='Registration'; type = isReg ? 'reg' : 'ad';abbr=getInteractionAbbr(campaign);" ng-repeat="campaign in listcampaigns track by $index">
+        <div class="feed-entry feed-interaction feed-{{abbr}}">
+
+            <div class="feed-header">
+                <div class="feed-avatar">
+                    <img class="thumbnail" ng-src="{{campaign.BusinessImageUrl}}">
+                </div>
+                <div class="feed-fromwhen">
+                    <div class="feed-from">
+                        <a ng-click="goToBusinessProfile(campaign)" href="#">{{campaign.BusinessName}}</a>
+
+                    </div>
+                    <div class="feed-when">
+                        Posted {{campaign.SpendEffectDate | friendlyTime:'inDay'}}
+                    </div>
+                </div>
+                <div class="feed-follow">
+                    <button ng-if="!isFollowing(campaign)" type="button" class="follow-cta" ng-click="OnFollow($event,CurrentUser,campaign.BusinessUserId)"
+                            ng-class="{followed:!isFollowing(campaign),following:isFollowing(campaign)}"
+                            ng-bind="isFollowing(campaign)?'Following':'Follow'"></button>
+
+                    <button ng-if="isFollowing(campaign)" type="button" class="follow-cta" ng-click="OnFollowing($event,CurrentUser,campaign.BusinessUserId)"
+                            ng-class="{followed:!isFollowing(campaign),following:isFollowing(campaign)}"
+                            ng-bind="isFollowing(campaign)?'Following':'Follow'"></button>
+                </div>
+                <div class="feed-menu">
+                    <div uib-dropdown>
+                        <button type="button" class="feed-dropdown" uib-dropdown-toggle></button>
+                        <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="feed-dropdown">
+                            <li><a href="#">Delele Post</a></li>
+                            <li><a href="#">Report Abuse</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feed-content">
+                <h3 class="feed-campaign-type-heading" ng-bind="campaign.CampaignType"></h3>
+                <h4 class="feed-interaction-name" ng-bind="campaign.Name"></h4>
+
+                <div class="feed-interaction-text" ng-bind="campaign.Description">
+                </div>
+
+                <div class="feed-interaction-event-details" ng-if="abbr==='evt'">
+                    <p>
+                        Start time: <span class="value date">{{campaign.starttime  | date:'hh:mm a'}}  {{campaign.startdate | date:'yyyy-MM-dd'}}</span>&nbsp;&nbsp;&nbsp;
+                    </p>
+                    <p>
+                        End time: <span class="value date">{{campaign.endtime  | date:'hh:mm a'}} {{campaign.enddate | date:'yyyy-MM-dd'}}</span>
+                    </p>
+                    <p ng-if="campaign.EventLocation">Location: <span class="value">{{campaign.EventLocation}}</span></p>
+                    <p ng-if="campaign.EventTheme">Theme: <span class="value">{{campaign.EventTheme}}</span></p>
+                    <p ng-if="campaign.usercodetype!== 'Free'">
+                       Price: <span class="value campaign-user-cost">{{campaign.usercode}} {{campaign.usercodecurrentcy}}</span>
+                    </p>
+
+                </div>
+                <div class="feed-interaction-event-details" ng-if="campaign.usercodetype!== 'Free' && abbr==='reg'">
+                    <p ng-if="campaign.usercodetype!== 'Free'">
+                       Price: <span class="value campaign-user-cost">{{campaign.usercode}} {{campaign.usercodecurrentcy}}</span>
+                    </p>
+
+                </div>
+                <div class="feed-interaction-picture" ng-if="campaign.TargetLink=='http://'">
+
+
+
+                    <a class="img-campaign img-{{abbr}}">
+                        <img ng-src="{{campaign.Image}}" class="img-responsive">
+                    </a>
+                </div>
+                <div class="feed-interaction-picture" ng-if="campaign.TargetLink !=='http://'">
+
+
+
+                    <a class="img-campaign img-{{abbr}}" href="{{campaign.TargetLink}}">
+                        <img ng-src="{{campaign.Image}}" class="img-responsive">
+                    </a>
+                </div>
+
+                <div class="feed-interaction-footer" ng-if="abbr!=='ad'" ng-init="verb=abbr==='reg'?'register':'join'">
+                    <div class="feed-interaction-participators" ng-if="campaign.MembersOfBusinessNbr">
+                        {{campaign.MembersOfBusinessNbr}} {{verb}}ed
+                    </div>
+
+                    <button type="button" class="feed-interaction-cta" ng-if="!isRegister(campaign)" ng-click="OnDeregister(campaign)">Un{{verb}}</button>
+                    <button type="button" class="feed-interaction-cta" ng-if="isRegister(campaign)" ng-click="openReg(campaign)">{{verb}}</button>
+                </div>
+
+            </div>
+
+        </div>
+        <div ng-if="false" class="col-md-12 row-feed" ng-repeat="post in posts">
+            <div class="row feed-content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="feed-logo-width" ng-click="ShowProfile(post.Account)">
+                            <img class="img-responsive social-icon-small" ng-src="{{post.Account.PhotoUrl ? post.Account.PhotoUrl : '/Areas/User/Content/Images/no-pic.png'}}" />
+                        </div>
+                        <div class="feed-user">
+                            <div class="feed-user-container">
+                                <span ng-click="ShowProfile(post.Account)" ng-if="post.Account.DisplayName" class="user-name regit-color">
+                                    {{post.Account.DisplayName}}<i ng-show="post.Account.AccountType == 'Business' && post.Account.BusinessAccountVerified" class="fa fa-check-circle" style="margin-left: 5px;color: #00a651;" aria-hidden="true"></i>
+                                </span>
+                                <span ng-click="ShowProfile(post.Account)" ng-if="!post.Account.DisplayName" class="user-name regit-color">
+                                    {{post.Account.Email}}
+                                </span>
+                                <span ng-if="post.IsSharePost"> Shared <span ng-click="ShowProfile(post.PostShared.Account)" class="regit-color user-name">{{post.PostShared.Account.DisplayName}}</span>'s <span class="regit-color user-name">a link</span></span>
+                            </div>
+                            <div>
+                                <small class="feed-time-live">
+                                    @GH.Lang.Regit.Posted <span am-time-ago="post.CreatedOn"></span>
+                                </small>
+                            </div>
+                        </div>
+                        <div class="feed-action pull-right">
+                            <div class="action-dropdown dropdown">
+                                <a data-toggle="dropdown" aria-expanded="true"><i style="padding: 10px 0" class="fa fa-chevron-down regit-color-disable"></i></a>
+                                <ul class="dropdown-menu from-right">
+                                    <li ng-show="post.IsCanDeleted">
+                                        <a class="toggle" ng-click="delete(post.Id)"><i class="glyphicon glyphicon-remove" style="padding: 5px; background-color: #a8a9ae; color: white"></i> Delete</a>
+                                    </li>
+                                    <li role="separator" class="divider" ng-show="post.IsCanDeleted"></li>
+                                    <li>
+                                        <a class="toggle"><i class="glyphicon glyphicon-alert" style="color: #a8a9ae; padding: 5px"></i> Report</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="posts.length" class="row feed-content-wrapper">
+                    <div class="col-md-12 facebook-post">
+                        <div class="col-xs-12 facebook-post-wrapper">
+                            <div class="row row-feed">
+                                <div ng-if="!post.VideoUrl" class="col-xs-4" ng-class="{'col-xs-4': post.Photos.length > 0}">
+                                    <div class="col-xs-12">
+                                        <div class="row" ng-if="post.Photos.length == 1">
+                                            <div class="col-xs-12 photo-feed">
+                                                <div ng-click="openLightbox(post.Photos, 0)" class="photo-feed-wrapper" ng-style="{'background-size': 'cover', 'background-position': 'center','background-image':'url('+post.Photos[0].Url+')'}"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row" ng-if="post.Photos.length > 1">
+                                            <div class="col-xs-6 photo-feed" ng-repeat="img in post.Photos" ng-if="$index <= 1">
+                                                <div ng-click="openLightbox(post.Photos, $index)" class="photo-feed-wrapper" ng-style="{'background-size': 'cover', 'background-position': 'center','background-image':'url('+img.Url+')'}"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-2 photo-feed" ng-repeat="img in post.Photos" ng-if="$index > 1 && $index < 7">
+                                                <div ng-click="openLightbox(post.Photos, $index)" class="photo-feed-wrapper" ng-style="{'background-size': 'cover', 'background-position': 'center','background-image':'url('+img.Url+')'}"></div>
+                                            </div>
+                                            <div class="col-xs-2 photo-feed" ng-if="post.Photos.length >= 8">
+                                                <div ng-click="openLightbox(post.Photos, 7)" class="photo-feed-wrapper" ng-style="{'background-size': 'cover', 'background-position': 'center','background-image':'url('+post.Photos[7].Url+')'}">
+                                                    <div class="photo-feed-wrapper-backdrop" ng-if="post.Photos.length > 8">+{{post.Photos.length - 7}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6" ng-if="post.VideoUrl">
+                                    <video class="social-post-video" ng-attr-poster="{{post.Photos[0].Url}}" controls>
+                                        <source ng-src="{{post.VideoUrl|trustUrl}}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                                <div class="message-content col-xs-12" ng-if="post.Photos.length == 0" ng-bind-html="post.Message"></div>
+                                <div class="message-content col-xs-8" ng-if="post.Photos.length > 0" ng-bind-html="post.Message"></div>
+                                <!--Sharing-->
+                                <div class="col-xs-12" ng-if="post.IsSharePost" style="margin-top: 10px">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="col-xs-12" style="border-top: 1px solid #d7d7d7">
+                                                <div class="row">
+                                                    <div class="feed-logo-width" ng-click="ShowProfile(post.PostShared.Account)">
+                                                        <img class="img-responsive social-icon-small" ng-src="{{post.PostShared.Account.PhotoUrl ? post.PostShared.Account.PhotoUrl : '/Areas/User/Content/Images/no-pic.png'}}" />
+                                                    </div>
+                                                    <div class="feed-user">
+                                                        <div class="feed-user-container" ng-click="ShowProfile(post.PostShared.Account)">
+                                                            <span class="user-name regit-color">
+                                                                {{post.PostShared.Account.DisplayName}}<i ng-show="post.PostShared.Account.AccountType == 'Business' && post.PostShared.Account.BusinessAccountVerified" class="fa fa-check-circle" style="margin-left: 5px;color: #00a651;" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row feed-content-wrapper">
+                                                <div class="col-md-12 facebook-post">
+                                                    <div class="col-xs-12 facebook-post-wrapper">
+                                                        <div class="row row-feed">
+                                                            <div ng-if="!post.PostShared.VideoUrl" class="col-xs-4" ng-class="{'col-xs-4': post.PostShared.Photos.length > 0}">
+                                                                <div class="col-xs-12">
+                                                                    <div class="row" ng-if="post.PostShared.Photos.length == 1">
+                                                                        <div class="col-xs-12 photo-feed">
+                                                                            <div ng-click="openLightbox(post.PostShared.Photos, 0)" class="photo-feed-wrapper" ng-style="{'background-size': 'cover', 'background-position': 'center','background-image':'url('+post.Photos[0].Url+')'}"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row" ng-if="post.PostShared.Photos.length > 1">
+                                                                        <div class="col-xs-6 photo-feed" ng-repeat="img in post.PostShared.Photos" ng-if="$index <= 1">
+                                                                            <div ng-click="openLightbox(post.PostShared.Photos, $index)" class="photo-feed-wrapper" ng-style="{'background-size': 'cover', 'background-position': 'center','background-image':'url('+img.Url+')'}"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-xs-2 photo-feed" ng-repeat="img in post.PostShared.Photos" ng-if="$index > 1 && $index < 7">
+                                                                            <div ng-click="openLightbox(post.PostShared.Photos, $index)" class="photo-feed-wrapper" ng-style="{'background-size': 'cover', 'background-position': 'center','background-image':'url('+img.Url+')'}"></div>
+                                                                        </div>
+                                                                        <div class="col-xs-2 photo-feed" ng-if="post.PostShared.Photos.length >= 8">
+                                                                            <div ng-click="openLightbox(post.PostShared.Photos, 7)" class="photo-feed-wrapper" ng-style="{'background-size': 'cover', 'background-position': 'center','background-image':'url('+post.Photos[7].Url+')'}">
+                                                                                <div class="photo-feed-wrapper-backdrop" ng-if="post.PostShared.Photos.length > 8">+{{post.PostShared.Photos.length - 7}}</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-6 col-xs-6" ng-if="post.PostShared.VideoUrl">
+                                                                <video class="social-post-video" ng-attr-poster="{{post.PostShared.Photos[0].Url}}" controls>
+                                                                    <source ng-src="{{post.PostShared.VideoUrl|trustUrl}}" type="video/mp4">
+                                                                    Your browser does not support the video tag.
+                                                                </video>
+                                                            </div>
+                                                            <div class="message-content col-xs-12" ng-if="post.PostShared.Photos.length == 0" ng-bind-html="post.PostShared.Message"></div>
+                                                            <div class="message-content col-xs-8" ng-if="post.PostShared.Photos.length > 0" ng-bind-html="post.PostShared.Message"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--End Sharing-->
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="col-xs-12 feed-btn-bar">
+                                        <div class="row">
+                                            <div class="col-xs-1">
+                                                <div class="row">
+                                                    <a class="r-like regit-color-disable r-2x" ng-click="likePost(post.Id)" ng-class="{'active': post.IsLiked }"></a>
+                                                    <label class="regit-color-disable feed-btn-count">{{post.TotalLike}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-1">
+                                                <div class="row">
+                                                    <a ng-click="addCommentToSocialPost(post)" class="r-comment regit-color-disable r-2x"></a>
+                                                    <label class="regit-color-disable feed-btn-count">{{post.TotalComment}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-1">
+                                                <div class="row">
+                                                    <a ng-click="sharePostToSocialNetwork(post)" class="r-share regit-color-disable r-2x"></a>
+                                                    <label class="regit-color-disable feed-btn-count">{{post.TotalShares}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-1">
+                                                <div class="row">
+                                                    <a ng-if="post.Privacy == 'Public'" class="r-public r-2x regit-color-disable"></a>
+                                                    <a ng-if="post.Privacy == 'Friends'" class="r-friends r-2x regit-color-disable"></a>
+                                                    <a ng-if="post.Privacy == 'Private'" class="r-private r-2x regit-color-disable"></a>
+                                                </div>
+                                            </div>
+                                            <div class="pull-right" style="margin: 15px 0">
+                                                <div class="feed-source">
+                                                    <img ng-if="showSocialIcon(2,post)" style="height: 15px" class="img-responsive social-icon-small" src="/Content/Images/r-icon.png" />
+                                                    <img ng-if="showSocialIcon(1,post)" style="height: 15px" class="img-responsive social-icon-small" src="/Content/Images/twit-bird.png" />
+                                                    <img ng-if="showSocialIcon(0,post)" style="height: 15px" class="img-responsive social-icon-small" src="/Content/Images/f-icon.png" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <button type="button" ng-if="listcampaigns.lenght>0" class="feed-load-more" ng-click="feedLoadMore()">See more...</button>
+
+</script>
+<!--POPUP-->
+
+<script type="text/ng-template" id="modal-feed-open-reg-handshake.html">
+    <div class="modal-container">
+        <h3 class="reg-title">{{campaign.Name}} - HANDSHAKE Form</h3>
+        <div class="stamp-regit">Powered by Regit</div>
+        <form class="form-horizontal form-registration">
+
+            <fieldset>
+                <legend>Personal Information</legend>
+
+
+                <div class="form-group form-row" ng-repeat="field in dataregisterform  | filter: filterRequired">
+                    <div class="col-sm-3">
+                        <label>{{field.displayName}}</label>
+                        <label ng-if="(!field.read && $parent.Iscustomrole && !field.write)" style="color:chocolate;font-size:small">Don't Permission</label>
+                        <label ng-if="(field.read && $parent.Iscustomrole &&  !field.write)" style="color:chocolate;font-size:small">Read</label>
+                        <label ng-if="(field.read && field.write && $parent.Iscustomrole )" style="color:chocolate;font-size:small">Read And Write</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <rgu-control ng-disabled="true" ng-if="field.type!=='numinput' && field.type!=='tagsinput' &&  field.type!=='range' &&  field.type!=='history' &&  field.type!=='doc'"
+                                     type="{{field.type}}"
+                                     ng-model="field.model" options="field.options"></rgu-control>
+
+                        <rgu-control ng-disabled="true" ng-if="field.type==='numinput' " type="{{field.type}}" ng-model="field.model"
+                                     options="field.options"
+                                     unit-model="field.unitModel"></rgu-control>
+                        <rgu-control ng-disabled="true" ng-if="field.type==='tagsinput'  " type="{{field.type}}" ng-model="field.model"
+                                     options="field.options"
+                                     placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+
+                        <rgu-control ng-disabled="true" ng-if="field.type==='range'" type="range" subtype="{{field.options}}" ng-model="field.model" options="field.modelarrays"
+                                     unit-model="field.unitModel" ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+
+                        <rgu-control ng-disabled="true" ng-if="field.type==='history' " type="history" subtype="{{field.options}}"
+                                     ng-model="field.modelarrays" options="field.model"
+                                     ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+
+                        <div ng-if="field.type==='doc' &&  ($parent.Mode!='Read')" class="doc-control-manager">
+                            <table class="doc-control-grid">
+                                <tr ng-repeat="doc in field.model">
+                                    <td>
+                                        <a target="_blank" href="{{field.pathfile +doc.fname}}">{{doc.fname}}</a>
+                                    </td>
+                                    <td class="doc-control-actions">
+                                        <button class="doc-control-delete" ng-click="$event.preventDefault();deleteDoc( field.model,$index)">Delete</button>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="upload-group doc-control-upload">
+                                <input ng-disabled="true" type="file" id="{{field.jsPath}}" jsonpath="{{field.jsPath}}" class="input-file" onchange='angular.element(this).scope().uploadFile(this)'>
+                            </div>
+                        </div>
+
+                        <input ng-if="false" disabled="disabled" type="password" value="{{vaildfiled(field)?field.model:''}}" class="form-control" placeholder="">
+                        <div ng-if="false" class="form-field-details-row" @*ng-if="vaildfiled(field) ==false"*@>
+                            <span class="form-field-message" style="color:red">
+                                Please enter value
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-group form-row" ng-if="membershipFields.length">
+                    <div class="col-sm-12">
+                        <h5 class="form-optional-heading">Membership</h5>
+                    </div>
+                </div>
+
+                <div class="form-group form-row" ng-if="membershipFields.length"
+                     ng-repeat="field in membershipFields = (dataregisterform | filter: filterMembership)">
+                    <div class="col-sm-3">
+                        <label>{{field.displayName}}</label>
+                        <label ng-if="(!field.read && $parent.Iscustomrole && !field.write)" style="color:chocolate;font-size:small">Don't Permission</label>
+                        <label ng-if="(field.read && $parent.Iscustomrole &&  !field.write)" style="color:chocolate;font-size:small">Read</label>
+                        <label ng-if="(field.read && field.write && $parent.Iscustomrole )" style="color:chocolate;font-size:small">Read And Write</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <rgu-control ng-disabled="true" ng-if="field.type==='static' " type="static" value="{{field.model}}" ng-model="field.model"></rgu-control>
+
+                        <rgu-control ng-disabled="true" ng-if="field.type!=='static' && field.type!=='numinput' && field.type!=='tagsinput'   "
+                                     type="{{field.type}}"
+                                     ng-model="field.model" options="field.options"></rgu-control>
+                        <rgu-control ng-disabled="true" ng-if="field.type==='numinput'  " type="{{field.type}}" ng-model="field.model"
+                                     options="field.options"
+                                     unit-model="field.unitModel"></rgu-control>
+                        <rgu-control ng-disabled="true" ng-if="field.type==='tagsinput'" type="{{field.type}}" ng-model="field.model"
+                                     options="field.options"
+                                     placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                        <input ng-if="false" disabled="disabled" type="password" value="{{vaildfiled(field)?field.model:''}}" class="form-control" placeholder="">
+
+                        <div ng-if="false" class="form-field-details-row" ng-if="vaildfiled(field) ==false">
+                            <span class="form-field-message" style="color:red">
+                                Please enter value
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group form-row" ng-if="qaFields.length">
+                    <div class="col-sm-12">
+                        <h5 class="form-optional-heading">Answer Question</h5>
+                    </div>
+                </div>
+                <div class="form-group form-row" ng-if="qaFields.length"
+                     ng-repeat="field in qaFields = (dataregisterform | filter: filterQA)">
+                    <div class="col-sm-3">
+                        <label>{{field.displayName}}</label>
+                        <label ng-if="(!field.read && $parent.Iscustomrole && !field.write)" style="color:chocolate;font-size:small">Don't Permission</label>
+                        <label ng-if="(field.read && $parent.Iscustomrole &&  !field.write)" style="color:chocolate;font-size:small">Read</label>
+                        <label ng-if="(field.read && field.write && $parent.Iscustomrole )" style="color:chocolate;font-size:small">Read And Write</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <rgu-control ng-disabled="true" ng-if="true" type="qa" choices="{{field.choices}}" options="field.modelarrays"
+                                     ng-model="field.model"></rgu-control>
+                        <input ng-if="false" disabled="disabled" type="password" value="{{ vaildfiled(field)?field.model:""}}" class="form-control" placeholder="">
+                        <div ng-if="false" class="form-field-details-row" @*ng-if="vaildfiled(field) ==false"*@>
+                            <span class="form-field-message" style="color:red">
+                                Please enter value
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div clss="form-group form-row" ng-if="optionalFields.length">
+                    <div class="col-sm-12">
+                        <h5 class="form-optional-heading">Optional</h5>
+                    </div>
+                </div>
+                <div class="form-group form-row" ng-if="optionalFields.length"
+                     ng-repeat="field in optionalFields = (dataregisterform | filter: filterOptional)">
+                    <div class="col-sm-3">
+                        <input type="checkbox" ng-model="field.selected">
+                        <label>{{field.displayName}}</label>
+                        <label ng-if="(!field.read && $parent.Iscustomrole && !field.write)" style="color:chocolate;font-size:small">Don't Permission</label>
+                        <label ng-if="(field.read && $parent.Iscustomrole &&  !field.write)" style="color:chocolate;font-size:small">Read</label>
+                        <label ng-if="(field.read && field.write && $parent.Iscustomrole )" style="color:chocolate;font-size:small">Read And Write</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <rgu-control ng-disabled="true" ng-if="field.type!=='numinput' && field.type!=='tagsinput'  && field.type!=='range' && field.type!=='history' &&  field.type!=='doc'"
+                                     type="{{field.type}}"
+                                     ng-model="field.model" options="field.options"></rgu-control>
+                        <rgu-control ng-disabled="true" ng-if="field.type==='numinput' " type="{{field.type}}" ng-model="field.model"
+                                     options="field.options"
+                                     unit-model="field.unitModel"></rgu-control>
+                        <rgu-control ng-disabled="true" ng-if="field.type==='tagsinput'  " type="{{field.type}}" ng-model="field.model"
+                                     options="field.options"
+                                     placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                        <rgu-control ng-disabled="true" ng-if="field.type==='range'  " type="range" subtype="{{field.options}}" ng-model="field.model" options="field.modelarrays"
+                                     unit-model="field.unitModel" ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+                        <rgu-control ng-disabled="true" ng-if="field.type==='history' " type="history" subtype="{{field.options}}"
+                                     ng-model="field.modelarrays" options="field.model"
+                                     ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+
+                        <div ng-if="field.type==='doc'" class="doc-control-manager">
+                            <table class="doc-control-grid">
+                                <tr ng-repeat="doc in field.model">
+                                    <td>
+                                        <a target="_blank" href="{{field.pathfile +doc.fname}}">{{doc.fname}}</a>
+                                    </td>
+                                    <td class="doc-control-actions">
+                                        <button class="doc-control-delete" ng-click="$event.preventDefault();deleteDoc( field.model,$index)">Delete</button>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="upload-group doc-control-upload">
+                                <input ng-disabled="true" type="file" id="{{field.jsPath}}" jsonpath="{{file.jsPath}}" class="input-file" onchange='angular.element(this).scope().uploadFile(this)'>
+                            </div>
+                        </div>
+
+                        <input ng-if="false" disabled="disabled" type="password" value="{{ vaildfiled(field)?field.model:''}}" class="form-control" placeholder="">
+                        <div ng-if="false" class="form-field-details-row" @*ng-if="vaildfiled(field) ==false && field.selected==true"*@>
+                            <span class="form-field-message" style="color:red">
+                                Please enter value
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+
+            </fieldset>
+            <div class="form-group form-row">
+                <div class="col-sm-3">
+                    <label></label>
+                </div>
+                <div class="col-sm-9">
+                    <input id="option-agreed" ng-model="TermsConditions" type="checkbox" value="agreed">
+                    <label for="option-agreed">
+                        I agree to the <a target="_blank" href="{{campaign.termsAndConditionsFile}}">
+                            Terms &amp;
+                            Conditions
+                        </a>, and that by registering, everytime I update any of the above information in my vault, the change will be automatically sent to <span style="color:blue"> {{campaign.BusinessName}} </span>
+                    </label>
+                    <p ng-show="(campaign.usercodetype=='Pay')" class="campaign-agree-cost">I agree to pay an amount of <span class="campaign-user-cost">{{campaign.usercode}} {{campaign.usercodecurrentcy}}</span> registration fee.</p>
+                </div>
+
+            </div>
+            <div style="padding-top:20px">
+                <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"><div ng-bind-html="messageBox"></div></<uib-alert>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm-3">
+                    <label></label>
+                </div>
+                <div class="col-sm-9">
+                    <button type="button" ng-click="cancel()" class="btn btn-default">Cancel</button>
+                    <button type="button" ng-click="Register()" class="btn btn-primary">Save</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</script>
+
+
+
+<script type="text/ng-template" id="modal-feed-open-reg.html">
+    <div class="modal-container">
+        <h3 class="reg-title">{{campaign.Name}} - Registration Form</h3>
+
+        <div class="stamp-regit">Powered by Regit</div>
+        <form class="form-horizontal form-registration">
+            <fieldset>
+                <legend>Delegation</legend>
+                <div class="form-group form-row">
+                    <div class="col-sm-3">
+                        <label for="input-delegate">Registering For</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <select ng-change="changedelegate()" ng-options="f as f.FromUserDisplayName for f in ListManagerDelegatedTo" ng-model="DelegationSelected" class="" id="select-delegate"></select>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Personal Information</legend>
+
+
+                <div class="form-group form-row" ng-repeat="field in dataregisterform  | filter: filterRequired">
+                    <div class="col-sm-3">
+                        <label>{{field.displayName}}</label>
+                        <label ng-if="(!field.read && $parent.Iscustomrole && !field.write)" style="color:chocolate;font-size:small">Don't Permission</label>
+                        <label ng-if="(field.read && $parent.Iscustomrole &&  !field.write)" style="color:chocolate;font-size:small">Read</label>
+                        <label ng-if="(field.read && field.write && $parent.Iscustomrole )" style="color:chocolate;font-size:small">Read And Write</label>
+
+                    </div>
+                    <div class="col-sm-9">
+                        <rgu-control ng-if="field.type!=='numinput' && field.type!=='tagsinput' && ($parent.Mode!='Read') &&  field.type!=='range' &&  field.type!=='history' &&  field.type!=='doc'"
+                                     type="{{field.type}}"
+                                     ng-model="field.model" options="field.options"></rgu-control>
+
+                        <rgu-control ng-if="field.type==='numinput' &&  ($parent.Mode!='Read')" type="{{field.type}}" ng-model="field.model"
+                                     options="field.options"
+                                     unit-model="field.unitModel"></rgu-control>
+                        <rgu-control ng-if="field.type==='tagsinput' &&  ($parent.Mode!='Read') " type="{{field.type}}" ng-model="field.model"
+                                     options="field.options"
+                                     placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+
+                        <rgu-control ng-if="field.type==='range'&&  ($parent.Mode!='Read') " type="range" subtype="{{field.options}}" ng-model="field.model" options="field.modelarrays"
+                                     unit-model="field.unitModel" ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+
+                        <rgu-control ng-if="field.type==='history' &&  ($parent.Mode!='Read')" type="history" subtype="{{field.options}}"
+                                     ng-model="field.modelarrays" options="field.model"
+                                     ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+
+                        <div ng-if="field.type==='doc' &&  ($parent.Mode!='Read')" class="doc-control-manager">
+                            <table class="doc-control-grid">
+                                <tr ng-repeat="doc in field.model">
+                                    <td>
+                                        <a target="_blank" href="{{field.pathfile +doc.fname}}">{{doc.fname}}</a>
+                                    </td>
+                                    <td class="doc-control-actions">
+                                        <button class="doc-control-delete" ng-click="$event.preventDefault();deleteDoc( field.model,$index)">Delete</button>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="upload-group doc-control-upload">
+                                <input type="file" id="{{field.jsPath}}" jsonpath="{{field.jsPath}}" class="input-file" onchange='angular.element(this).scope().uploadFile(this)'>
+                            </div>
+                        </div>
+
+                        <input ng-if="($parent.Mode=='Read')" disabled="disabled" type="password" value="{{vaildfiled(field)?field.model:''}}" class="form-control" placeholder="">
+                        <div class="form-field-details-row" ng-if="vaildfiled(field) ==false">
+                            <span class="form-field-message" style="color:red">
+                                Please enter value
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-group form-row" ng-if="membershipFields.length">
+                    <div class="col-sm-12">
+                        <h5 class="form-optional-heading">Membership</h5>
+                    </div>
+                </div>
+
+                <div class="form-group form-row" ng-if="membershipFields.length"
+                     ng-repeat="field in membershipFields = (dataregisterform | filter: filterMembership)">
+                    <div class="col-sm-3">
+                        <label>{{field.displayName}}</label>
+                        <label ng-if="(!field.read && $parent.Iscustomrole && !field.write)" style="color:chocolate;font-size:small">Don't Permission</label>
+                        <label ng-if="(field.read && $parent.Iscustomrole &&  !field.write)" style="color:chocolate;font-size:small">Read</label>
+                        <label ng-if="(field.read && field.write && $parent.Iscustomrole )" style="color:chocolate;font-size:small">Read And Write</label>
+
+                    </div>
+                    <div class="col-sm-9">
+                        <rgu-control ng-if="field.type==='static'  && ($parent.Mode!='Read')" type="static" value="{{field.model}}" ng-model="field.model"></rgu-control>
+
+                        <rgu-control ng-if="field.type!=='static' && field.type!=='numinput' && field.type!=='tagsinput'  && ($parent.Mode!='Read') "
+                                     type="{{field.type}}"
+                                     ng-model="field.model" options="field.options"></rgu-control>
+                        <rgu-control ng-if="field.type==='numinput'  && ($parent.Mode!='Read')" type="{{field.type}}" ng-model="field.model"
+                                     options="field.options"
+                                     unit-model="field.unitModel"></rgu-control>
+                        <rgu-control ng-if="field.type==='tagsinput'  && ($parent.Mode!='Read')" type="{{field.type}}" ng-model="field.model"
+                                     options="field.options"
+                                     placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                        <input ng-if="($parent.Mode=='Read')" disabled="disabled" type="password" value="{{vaildfiled(field)?field.model:''}}" class="form-control" placeholder="">
+
+                        <div class="form-field-details-row" ng-if="vaildfiled(field) ==false">
+                            <span class="form-field-message" style="color:red">
+                                Please enter value
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group form-row" ng-if="qaFields.length">
+                    <div class="col-sm-12">
+                        <h5 class="form-optional-heading">Answer Question</h5>
+                    </div>
+                </div>
+                <div class="form-group form-row" ng-if="qaFields.length"
+                     ng-repeat="field in qaFields = (dataregisterform | filter: filterQA)">
+                    <div class="col-sm-3">
+                        <label>{{field.displayName}}</label>
+                        <label ng-if="(!field.read && $parent.Iscustomrole && !field.write)" style="color:chocolate;font-size:small">Don't Permission</label>
+                        <label ng-if="(field.read && $parent.Iscustomrole &&  !field.write)" style="color:chocolate;font-size:small">Read</label>
+                        <label ng-if="(field.read && field.write && $parent.Iscustomrole )" style="color:chocolate;font-size:small">Read And Write</label>
+
+                    </div>
+                    <div class="col-sm-9">
+                        <rgu-control ng-if="($parent.Mode!='Read')" type="qa" choices="{{field.choices}}" options="field.modelarrays"
+                                     ng-model="field.model"></rgu-control>
+                        <input ng-if="($parent.Mode=='Read')" disabled="disabled" type="password" value="{{ vaildfiled(field)?field.model:""}}" class="form-control" placeholder="">
+                        <div class="form-field-details-row" ng-if="vaildfiled(field) ==false">
+                            <span class="form-field-message" style="color:red">
+                                Please enter value
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div clss="form-group form-row" ng-if="optionalFields.length">
+                    <div class="col-sm-12">
+                        <h5 class="form-optional-heading">Optional</h5>
+                    </div>
+                </div>
+                <div class="form-group form-row" ng-if="optionalFields.length"
+                     ng-repeat="field in optionalFields = (dataregisterform | filter: filterOptional)">
+                    <div class="col-sm-3">
+
+                        <input type="checkbox" ng-model="field.selected">
+                        <label>{{field.displayName}}</label>
+                        <label ng-if="(!field.read && $parent.Iscustomrole && !field.write)" style="color:chocolate;font-size:small">Don't Permission</label>
+                        <label ng-if="(field.read && $parent.Iscustomrole &&  !field.write)" style="color:chocolate;font-size:small">Read</label>
+                        <label ng-if="(field.read && field.write && $parent.Iscustomrole )" style="color:chocolate;font-size:small">Read And Write</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <rgu-control ng-if="field.type!=='numinput' && field.type!=='tagsinput' && ($parent.Mode!='Read') && field.type!=='range' && field.type!=='history' &&  field.type!=='doc'"
+                                     type="{{field.type}}"
+                                     ng-model="field.model" options="field.options"></rgu-control>
+                        <rgu-control ng-if="field.type==='numinput' &&  ($parent.Mode!='Read')" type="{{field.type}}" ng-model="field.model"
+                                     options="field.options"
+                                     unit-model="field.unitModel"></rgu-control>
+                        <rgu-control ng-if="field.type==='tagsinput' &&  ($parent.Mode!='Read') " type="{{field.type}}" ng-model="field.model"
+                                     options="field.options"
+                                     placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                        <rgu-control ng-if="field.type==='range' &&  ($parent.Mode!='Read') " type="range" subtype="{{field.options}}" ng-model="field.model" options="field.modelarrays"
+                                     unit-model="field.unitModel" ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+                        <rgu-control ng-if="field.type==='history' &&  ($parent.Mode!='Read')" type="history" subtype="{{field.options}}"
+                                     ng-model="field.modelarrays" options="field.model"
+                                     ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+
+                        <div ng-if="field.type==='doc' &&  ($parent.Mode!='Read')" class="doc-control-manager">
+                            <table class="doc-control-grid">
+                                <tr ng-repeat="doc in field.model">
+                                    <td>
+                                        <a target="_blank" href="{{field.pathfile +doc.fname}}">{{doc.fname}}</a>
+                                    </td>
+                                    <td class="doc-control-actions">
+                                        <button class="doc-control-delete" ng-click="$event.preventDefault();deleteDoc( field.model,$index)">Delete</button>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="upload-group doc-control-upload">
+                                <input type="file" id="{{field.jsPath}}" jsonpath="{{file.jsPath}}" class="input-file" onchange='angular.element(this).scope().uploadFile(this)'>
+                            </div>
+                        </div>
+
+                        <input ng-if="($parent.Mode=='Read')" disabled="disabled" type="password" value="{{ vaildfiled(field)?field.model:''}}" class="form-control" placeholder="">
+                        <div class="form-field-details-row" ng-if="vaildfiled(field) ==false && field.selected==true">
+                            <span class="form-field-message" style="color:red">
+                                Please enter value
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+
+            </fieldset>
+            <div class="form-group form-row">
+                <div class="col-sm-3">
+                    <label></label>
+                </div>
+                <div class="col-sm-9">
+                    <input id="option-agreed" ng-model="TermsConditions" type="checkbox" value="agreed">
+                    <label for="option-agreed">
+                        I have read and agreed to the <a target="_blank" href="{{campaign.termsAndConditionsFile}}">
+                            Terms &amp;
+                            Conditions
+                        </a>.
+                    </label>
+                    <p ng-show="(campaign.usercodetype=='Pay')" class="campaign-agree-cost">I agree to pay an amount of <span class="campaign-user-cost">{{campaign.usercode}} {{campaign.usercodecurrentcy}}</span> registration fee.</p>
+                </div>
+
+            </div>
+            <div style="padding-top:20px">
+                <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"><div ng-bind-html="messageBox"></div></uib-alert>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm-3">
+                    <label></label>
+                </div>
+                <div class="col-sm-9">
+                    <button type="button" ng-click="cancel()" class="btn btn-default">Cancel</button>
+
+                    <button type="button" ng-hide="!Isregis" ng-click="Register()" class="btn btn-primary">Register</button>
+                    <button type="button" ng-hide="Isregis" ng-click="notifyMissingInformationOfVault()" class="btn btn-primary">Send back to delegator</button>
+                    <button type="button" ng-if="Mode!=='Edit'" ng-hide="IsReadOnly" ng-click="Edit()" class="btn btn-primary">Edit</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</script>
+@*<button type="button" ng-hide="!Isregis" ng-click="Register()" class="btn btn-primary">Register</button>
+
+    <button type="button" ng-hide="Isregis" ng-click="notifyMissingInformationOfVault()" class="btn btn-primary">Send back to delegator</button>*@
+
+
+<script type="text/ng-template" id="modal-delegate-view.html">
+    <form class="form-horizontal form-delegate  modal-form">
+        <div class="modal-container">
+
+            <h3 class="modal-heading">View Delegation</h3>
+
+            <div class="form-group form-row">
+                <div class="col-sm-5"> <label>Delegator</label></div>
+                <div class="col-sm-7">
+                    <a class="delegate-avatar" href="#"><img src="http://placehold.it/40x40"></a> <a href="#">{{delegation.FromUserDisplayName}}</a>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm-5"> <label>Role</label></div>
+                <div class="col-sm-7 field-value">{{delegation.DelegationRole}}</div>
+            </div>
+
+            <div class="form-group form-row" ng-if="delegation.DelegationRole==='Custom'">
+                <div class="col-sm-3">
+                    <label>Custom Role Permissions</label>
+                </div>
+                <div class="col-sm-9">
+                    <table class="delegation-permissions-grid table table-striped">
+                        <tr>
+                            <th>Vault</th>
+                            <th>Read</th>
+                            <th>Write</th>
+                        </tr>
+                        <tr ng-repeat="permission in delegation.GroupVaultsPermission">
+                            <td ng-bind="permission.name"></td>
+                            <td><input type="checkbox" ng-model="permission.read" class="input" disabled> <label>Read</label> </td>
+                            <td><input type="checkbox" ng-model="permission.write" class="input" disabled> <label>Write</label> </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm-5"><label>Status</label></div>
+                <div class="col-sm-7 field-value">{{delegation.Status}}</div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm-5"><label>Effective Date</label></div>
+                <div class="col-sm-7 field-value">{{delegation.EffectiveDate}}</div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm-5"><label>End Date</label></div>
+                <div class="col-sm-7 field-value">{{delegation.ExpiredDate}} </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm-5"><label>Comment</label></div>
+                <div class="col-sm-7 field-value">{{delegation.Message}}</div>
+            </div>
+            <div class="form-group form-row form-row-full">
+
+                <div ng-hide="!(delegation.Status=='Pending')" class="col-sm-12 form-row-indent">
+                    <input ng-model="TermsConditions" id="option-agreed" type="checkbox" value="agreed">
+                    <label for="option-agreed">I understand the risks of delegation and agree to the <a target="_blank" href="/about/terms-conditions#delegation"> Terms &amp; Conditions. </a> </label>
+                </div>
+
+            </div>
+
+            <div style="padding-top:20px">
+                <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+                    <div ng-bind-html="messageBox"></div>
+                    <uib-alert>
+            </div>
+
+        </div>
+
+        <div class="button-group modal-form-actions">
+            <button type="button" class="btn btn-default modal-form-btn" ng-click="close()">Close</button>
+            <button type="button" class="btn btn-primary modal-form-btn" ng-hide="!(delegation.Status=='Pending')" ng-click="acceptdelegation()">Accept Delegation</button>
+            <button type="button" class="btn btn-primary modal-form-btn" ng-hide="!(delegation.Status=='Pending')" ng-click="denieddelegation()">Deny Delegation</button>
+        </div>
+
+    </form>
+</script>
+
+
+
+
+<script type="text/ng-template" id="modal-feed-open-reg-pushtovault-user.html">
+    <div class="modal-container">
+        <h3 class="reg-title">{{campaign.Name}} - Push To Vault</h3>
+        <div class="stamp-regit">Powered by Regit</div>
+        <form class="form-horizontal form-registration">
+            <fieldset>
+                <legend>Personal Information</legend>
+
+
+                <div class="form-group form-row" ng-repeat="field in dataregisterform  | filter: filterRequired">
+                    <div class="col-sm-3">
+                        <label>{{field.displayName}}</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <rgu-control ng-if="field.type!=='numinput' && field.type!=='tagsinput' && ($parent.Mode!='Read') &&  field.type!=='range' &&  field.type!=='history'"
+                                     type="{{field.type}}"
+                                     ng-model="field.model" options="field.options"></rgu-control>
+
+                        <rgu-control ng-if="field.type==='numinput' &&  ($parent.Mode!='Read')" type="{{field.type}}" ng-model="field.model"
+                                     options="field.options"
+                                     unit-model="field.unitModel"></rgu-control>
+                        <rgu-control ng-if="field.type==='tagsinput' &&  ($parent.Mode!='Read') " type="{{field.type}}" ng-model="field.model"
+                                     options="field.options"
+                                     placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+
+                        <rgu-control ng-if="field.type==='range'&&  ($parent.Mode!='Read') " type="range" subtype="{{field.options}}" ng-model="field.model" options="field.modelarrays"
+                                     unit-model="field.unitModel" ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+
+                        <rgu-control ng-if="field.type==='history' &&  ($parent.Mode!='Read')" type="history" subtype="{{field.options}}"
+                                     ng-model="field.modelarrays" options="field.model"
+                                     ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+
+                        <input ng-if="($parent.Mode=='Read')" disabled="disabled" type="password" value="{{vaildfiled(field)?field.model:''}}" class="form-control" placeholder="">
+                        <div class="form-field-details-row" ng-if="vaildfiled(field) ==false">
+                            <span class="form-field-message" style="color:red">
+                                Please enter value
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-group form-row" ng-if="membershipFields.length">
+                    <div class="col-sm-12">
+                        <h5 class="form-optional-heading">Membership</h5>
+                    </div>
+                </div>
+
+                <div class="form-group form-row" ng-if="membershipFields.length"
+                     ng-repeat="field in membershipFields = (dataregisterform | filter: filterMembership)">
+                    <div class="col-sm-3">
+                        <label>{{field.displayName}}</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <rgu-control ng-if="field.type==='static'  && ($parent.Mode!='Read')" type="static" value="{{field.model}}" ng-model="field.model"></rgu-control>
+
+                        <rgu-control ng-if="field.type!=='static' && field.type!=='numinput' && field.type!=='tagsinput'  && ($parent.Mode!='Read') "
+                                     type="{{field.type}}"
+                                     ng-model="field.model" options="field.options"></rgu-control>
+                        <rgu-control ng-if="field.type==='numinput'  && ($parent.Mode!='Read')" type="{{field.type}}" ng-model="field.model"
+                                     options="field.options"
+                                     unit-model="field.unitModel"></rgu-control>
+                        <rgu-control ng-if="field.type==='tagsinput'  && ($parent.Mode!='Read')" type="{{field.type}}" ng-model="field.model"
+                                     options="field.options"
+                                     placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                        <input ng-if="($parent.Mode=='Read')" disabled="disabled" type="password" value="{{vaildfiled(field)?field.model:""}}" class="form-control" placeholder="">
+
+                        <div class="form-field-details-row" ng-if="vaildfiled(field) ==false">
+                            <span class="form-field-message" style="color:red">
+                                Please enter value
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group form-row" ng-if="qaFields.length">
+                    <div class="col-sm-12">
+                        <h5 class="form-optional-heading">Answer Question</h5>
+                    </div>
+                </div>
+                <div class="form-group form-row" ng-if="qaFields.length"
+                     ng-repeat="field in qaFields = (dataregisterform | filter: filterQA)">
+                    <div class="col-sm-3">
+                        <label>{{field.displayName}}</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <rgu-control ng-if="($parent.Mode!='Read')" type="qa" choices="{{field.choices}}" options="field.modelarrays"
+                                     ng-model="field.model"></rgu-control>
+                        <input ng-if="($parent.Mode=='Read')" disabled="disabled" type="password" value="{{ vaildfiled(field)?field.model:""}}" class="form-control" placeholder="">
+                        <div class="form-field-details-row" ng-if="vaildfiled(field) ==false">
+                            <span class="form-field-message" style="color:red">
+                                Please enter value
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div clss="form-group form-row" ng-if="optionalFields.length">
+                    <div class="col-sm-12">
+                        <h5 class="form-optional-heading">Optional</h5>
+                    </div>
+                </div>
+                <div class="form-group form-row" ng-if="optionalFields.length"
+                     ng-repeat="field in optionalFields = (dataregisterform | filter: filterOptional)">
+                    <div class="col-sm-3">
+                        <input type="checkbox" ng-model="field.selected"> <label>{{field.displayName}}</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <rgu-control ng-if="field.type!=='numinput' && field.type!=='tagsinput' && ($parent.Mode!='Read') && field.type!=='range' && field.type!=='history'"
+                                     type="{{field.type}}"
+                                     ng-model="field.model" options="field.options"></rgu-control>
+                        <rgu-control ng-if="field.type==='numinput' &&  ($parent.Mode!='Read')" type="{{field.type}}" ng-model="field.model"
+                                     options="field.options"
+                                     unit-model="field.unitModel"></rgu-control>
+                        <rgu-control ng-if="field.type==='tagsinput' &&  ($parent.Mode!='Read') " type="{{field.type}}" ng-model="field.model"
+                                     options="field.options"
+                                     placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                        <rgu-control ng-if="field.type==='range' &&  ($parent.Mode!='Read') " type="range" subtype="{{field.options}}" ng-model="field.model" options="field.modelarrays"
+                                     unit-model="field.unitModel" ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+                        <rgu-control ng-if="field.type==='history' &&  ($parent.Mode!='Read')" type="history" subtype="{{field.options}}"
+                                     ng-model="field.modelarrays" options="field.model"
+                                     ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+                        <input ng-if="($parent.Mode=='Read')" disabled="disabled" type="password" value="{{ vaildfiled(field)?field.model:""}}" class="form-control" placeholder="">
+                        <div class="form-field-details-row" ng-if="vaildfiled(field) ==false && field.selected==true">
+                            <span class="form-field-message" style="color:red">
+                                Please enter value
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+
+            </fieldset>
+            <div ng-if="false" class="form-group form-row">
+                <div class="col-sm-3">
+                    <label></label>
+                </div>
+                <div class="col-sm-9">
+                    <input id="option-agreed" ng-model="TermsConditions" type="checkbox" value="agreed">
+                    <label for="option-agreed">
+                        I have read and agreed to the <a target="_blank" href="{{campaign.termsAndConditionsFile}}">
+                            Terms &amp;
+                            Conditions
+                        </a>.
+                    </label>
+                    <p ng-show="(campaign.usercodetype=='Pay')" class="campaign-agree-cost">I agree to pay an amount of <span class="campaign-user-cost">{{campaign.usercode}} {{campaign.usercodecurrentcy}}</span> registration fee.</p>
+                </div>
+
+            </div>
+            <div style="padding-top:20px">
+                <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"><div ng-bind-html="messageBox"></div></<uib-alert>
+            </div>
+            <div class="button-group">
+                <button type="button" ng-click="cancel()" class="btn btn-default">Cancel</button>
+                <button type="button" ng-click="UpdateVaultInformation('Accecpt')" class="btn btn-primary">Accecpt</button>
+                <button type="button" ng-click="UpdateVaultInformation('Deny')" class="btn btn-primary">Deny</button>
+
+            </div>
+        </form>
+    </div>
+</script>
+
+
+
+<input ng-hide="true" id="campaignpublicid" value="@campaignid">
+<input ng-hide="true" id="campaignpublictype" value="@campaigntype">
+
+
+

@@ -1,0 +1,12 @@
+﻿<div class="vault-panel">
+    <div class="vault-panel-header">
+        <button class="btn-vault-panel-header btn-vault-panel-back" ng-click="vm.AlphaRedirectTask('main_form.html')" href="#"> Back</button>
+        <button class="btn-vault-panel-header btn-vault-panel-close" ng-click="vm.AlphaRedirectTask('main_form.html')" href="#"> Close</button>
+        <h4 class="vault-panel-title"> Add new Billing Address </h4>
+    </div>
+    <div class="vault-panel-body">
+        <form name="Form" class="vault-panel-form" novalidate>
+            <div ng-include="vm.billing_address"></div>
+        </form>
+    </div>
+</div>

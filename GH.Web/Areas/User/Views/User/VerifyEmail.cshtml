@@ -1,0 +1,51 @@
+﻿@using GH.Core.ViewModels
+@using GH.Lang
+@model VerifyEmailViewModel
+@{
+    ViewBag.Title = "Verified Email";
+    Layout = "~/Areas/User/Views/Shared/_PublicLayout.cshtml";
+}
+@section styles{
+    @Styles.Render("~/User/login")
+}
+@section scripts {
+    <script type="text/javascript">
+        document.cookie = 'access_token' + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    </script>
+    @Scripts.Render("~/bundles/login-ctrl")
+<script src="~/Areas/User/Scripts/Controllers/VerifyEmailController.js"></script>
+}
+
+<div class="module module-main module-verify-email" ng-controller="VerifyEmailController">
+
+    <div class="verifying-email-container">
+
+        <h2 class="page-message-heading">@(Model.Type == VerifyType.VerifySuccessfully || Model.Type == VerifyType.AccountIsVerified ? Regit.Registered_Completed_Message.ToUpper() : Regit.Registered_Not_Completed_Message.ToUpper())</h2>
+        @if (Model.Type == VerifyType.VerifySuccessfully)
+            {
+            <h3 class="page-message-subhead" ng-init="onSuccess('@Model.Email')">@Html.Raw(Regit.Start_App_Message)</h3>
+
+        }
+        else
+        {
+            if (Model.Type == VerifyType.SessionIsExpired)
+            {
+                <h3 class="page-message-subhead" ng-init="onFailure('@Model.Email')">
+                    @Html.Raw(Regit.Session_Verify_Is_Expired)
+                </h3>
+
+                <a ng-click="resendEmailVerify('@Model.Email')" class="regit-color">@Regit.Send_Link_Verify_Again_Button</a>
+                <br />
+                    <a class="btn btn-blue">@Regit.Check_Mail_Button.ToUpper()</a>
+            }
+            else
+            {
+                <h3 class="page-message-subhead" ng-init="onFailure('@Model.Email')">@Html.Raw(Model.Message)</h3>
+
+            }
+        }
+
+
+    </div>
+
+</div>

@@ -1,0 +1,133 @@
+<div class="interaction" itemscope itemtype="http://schema.org/RegisterAction">
+    <div class="interaction-header" itemprop="agent" itemscope itemtype="http://schema.org/LocalBusiness">
+        <div class="interaction-avatar" ng-if="interaction.business.avatar">
+            <img class="thumbnail" ng-src="{{interaction.business.avatar | avatarUrl:true}}" itemprop="logo">
+        </div>
+        <div class="interaction-fromwhen">
+        
+            <div class="interaction-from">
+                <a href="/BusinessAccount/Profile/{{interaction.business.id}}" itemprop="name">{{interaction.business.name}}</a>
+            </div>
+            <div class="interaction-when">
+                Posted {{interaction.from | friendlyTime:'inDay'}}
+            </div>
+        </div>
+        <div class="interaction-follow" ng-if="!asBusiness">
+            <button type="button" class="follow-cta"
+                    ng-class="{followed:!interaction.business.following,following:interaction.business.following}"
+                    ng-click="toggleFollowBusiness(interaction.business)"
+                    ng-disabled="view.showingMessage==='unauthenticated-follow'"
+                    ng-bind="interaction.business.following?'Following':'Follow'"
+                    itemscope itemtype="http://schema.org/InteractAction"></button>
+        </div>
+    </div>
+
+    <div class="interaction-message message-alert message-small" ng-if="interaction.expired">
+        <p>This interaction has expired.<span ng-if="interaction.type!=='broadcast'"> No new registration allowed.</span></p>
+    </div>
+    <div class="interaction-message message-alert message-small" ng-if="!interaction.editing && interaction.status==='Pending'">
+        <p>This interaction is waiting for approval.</span></p>
+    </div>
+    <div class="interaction-message message-alert message-small" ng-if="!interaction.editing && interaction.status==='Saved'">
+        <p>This interaction is not active.</span></p>
+    </div>
+    <div class="interaction-message message-alert" ng-if="view.showingMessage==='unauthenticated-follow'">
+        <p><a href="/User/Signin">Sign in</a> as Regit user before interacting with a business.</p>
+        <p>Don't have an account? <a href="/User/SignUp">Sign up now</a></p>
+    </div>
+
+    <div class="interaction-content">
+
+        <div class="interaction-heading">
+            <span class="interaction-type" ng-bind="interaction.type" itemprop="additionalType"></span>
+            <span class="interaction-name" ng-bind="interaction.name" itemprop="name"></span>
+        </div>
+        <div class="interaction-event-info" ng-if="interaction.type==='event'" ng-init="event = interaction.eventInfo"
+             itemscope itemtype="http://schema.org/Event">
+            <p itemprop="startDate">
+                Start time: <span class="value date">{{event.fromTime | date:'hh:mm a'}}  {{event.fromDate | date:'yyyy-MM-dd'}}</span>&nbsp;&nbsp;&nbsp;
+            </p>
+            <p itemprop="endDate">
+                End time: <span class="value date">{{event.toTime  | date:'hh:mm a'}} {{event.toDate | date:'yyyy-MM-dd'}}</span>
+            </p>
+            <p ng-if="event.location">Location: <span class="value" itemprop="location">{{event.location}}</span></p>
+            <p ng-if="event.theme">Theme: <span class="value">{{event.theme}}</span></p>
+
+        </div>
+        <div class="interaction-description" ng-bind-html="interaction.description | textToHtml" itemprop="description">
+        </div>
+        <div class="interaction-price" ng-if="interaction.paid">
+            <p>Registration Fee: {{interaction.priceCurrency}} <span class="interaction-price-amount">{{interaction.price | currency:'':2}}</span>
+            </p>
+        </div>
+
+        <div class="interaction-picture" ng-if="interaction.image.length">
+            <a ng-if="interaction.targetUrl.length" href="{{interaction.targetUrl | properUrl}}" target="_blank">
+                <img ng-src="{{interaction.image}}" class="img-responsive" itemprop="image">
+            </a>
+            <img ng-if="!interaction.targetUrl.length" ng-src="{{interaction.image}}" class="img-responsive" itemprop="image">
+        </div>
+
+    </div>
+    <div class="interaction-footer">
+        <button type="button" class="interaction-participate-cta"
+                ng-if="!isBroadcast && (!interaction.participated && !asBusiness || interaction.editing) "
+                ng-disabled="view.showingMessage==='unauthenticated-participate'"
+                ng-click="openForm(interaction)">
+            {{interaction.verb}}
+        </button>
+
+        <div class="interaction-social" ng-if="interaction.socialShare && !(ownBusiness && !interaction.editing)">
+            <social-actions interaction="interaction"></social-actions>
+        </div>
+        <div class="interaction-participants" ng-if="ownBusiness && !interaction.editing && !isBroadcast">
+            {{interaction.participants}} {{verbPast(interaction.verb)}}
+        </div>
+
+        <div class="interaction-participations interaction-message message-info message-small"
+             ng-if="interaction.participations.length && !isBroadcast && !asBusiness">
+            <button class="interaction-participation-action interaction-participation-open"
+                    ng-click="openForm(interaction)">Registration Details
+            </button>
+            <div class="interaction-participation" ng-repeat="participation in interaction.participations">
+                <p ng-if="participation.actor==='self'">You {{verbPast(interaction.verb)}} {{participation.participated | friendlyTime}}</p>
+                <p ng-if="participation.actor==='for'">You {{verbPast(interaction.verb)}} on behalf of {{participation.actorName}}
+                    {{participation.participated | friendlyTime}}</p>
+                <p ng-if="participation.actor==='by'">You {{verbPast(interaction.verb)}} via delegatee {{participation.actorName}}
+                    {{participation.participated | friendlyTime}}</p>
+            </div>
+        </div>
+
+        <div class="interaction-messages" ng-if="view.showingMessage">
+            <div class="interaction-message message-alert"
+                 ng-if="view.showingMessage==='unauthenticated-participate'">
+                <p><a href="/User/Signin?ReturnUrl={{interaction.publicUrlEncoded}}">Sign in</a> as Regit user before participating in this interaction.</p>
+                <p>Don't have an account? <a href="/User/SignUp?ReturnUrl={{interaction.publicUrlEncoded}}">Sign up now</a></p>
+            </div>
+            <div class="interaction-message message-error" ng-if="view.showingMessage==='error-pulldata'">
+                <p>Oops! An error was encountered loading interaction data.</p>
+                <p>Please try again later.</p>
+            </div>
+            <div class="interaction-message message-error" ng-if="view.showingMessage==='error-participate'">
+                <p>Oops! An error was encountered sending your registration.</p>
+                <p>Please try again later.</p>
+            </div>
+        </div>
+
+        <div class="interaction-admin" ng-if="ownBusiness && !interaction.editing" ng-class="{bothRoles: workflow.canEdit && workflow.canApprove}">
+             <button ng-if="workflow.canApprove && interaction.status==='Pending'" class="interaction-admin-action"
+                     ng-click="approveInteraction(interaction)">Approve
+             </button>
+            <button ng-if="workflow.canEdit" class="interaction-admin-action"
+                    ng-click="editInteraction(interaction)">Edit
+            </button>
+        </div>
+
+
+    </div>
+
+
+
+</div>
+
+

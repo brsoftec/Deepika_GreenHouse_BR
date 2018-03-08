@@ -1,0 +1,342 @@
+﻿@using GH.Web.Areas.User.ViewModels
+
+@{
+    if (ViewBag.NgApp == null)
+    {
+        ViewBag.NgApp = "myApp";
+    }  
+    if (ViewBag.Title == null)
+    {
+        ViewBag.Title = "Regit for Business";
+    } 
+    if (ViewBag.Description == null)
+    {
+        ViewBag.Description = "Regit: Take Control of Your Information";
+    }
+    ViewBag.BaseUrl = Request.Url.GetLeftPart(UriPartial.Authority);
+}
+
+<!DOCTYPE html>
+<html ng-app="@ViewBag.NgApp" ng-cloak>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="@ViewBag.Description">
+
+    <title>@ViewBag.Title</title>
+    
+    @RenderSection("meta", required: false)
+    
+    <meta property="og:site_name" content="Regit"/>
+    <meta property="og:title" content="@ViewBag.Title"/>  
+    <meta property="og:description" content="@ViewBag.Description"/>  
+    <meta property="og:image" content="@(ViewBag.BaseUrl)/Areas/Beta/img/regit-logotype.png"/>
+    
+    <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+
+    @Styles.Render("~/bundles/css/phone-input")
+    @Styles.Render("~/bundles/css/main")
+    @Styles.Render("~/bundles/css/business")
+
+    @RenderSection("styles", required: false)
+
+    <link rel="stylesheet" href="@Url.Versioned("~/Areas/Beta/css/responsive.css")">
+
+    @Html.Partial("_GlobalAccountCode")
+    @Html.Partial("_BusinessAccountCode")
+    <script src="@Url.Versioned("~/Scripts/regit-lib.js")"></script>
+    @RenderSection("prescripts", required: false)
+
+
+</head>
+<body class="regit-business @ViewBag.BodyClass" ng-controller="MainregitBussinessController">
+
+@Html.Partial("_MainHeaderPartialApply")
+<div class="main-body">
+    @RenderBody()
+    @RenderSection("body", required: false)
+
+</div>
+    @Html.Partial("_MainFooterPartialApply")
+<script type="text/ng-template" id="modal-feed-open-reg-pushtovault.html">
+            <div class="modal-container">
+                <h3 class="reg-title">{{campaign.Name}} - Push To Vault</h3>
+                <div class="stamp-regit">Powered by Regit</div>
+                <form class="form-horizontal form-registration">
+                    <fieldset>
+                        <legend>Members</legend>
+
+                        <div class="form-group form-row">
+                            <div class="col-sm-3">
+                                <label class="control-label"></label>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="radiogroup">
+                                    <div class="radio">
+                                        <input checked id="option-member" name="input-title" ng-click="showingmember=true;" ng-model="pushtype" type="radio" value="member">
+                                        <label for="option-member">Member</label>
+                                    </div>
+                                    <div class="radio">
+                                        <input id="option-email" name="input-title" ng-click="showingmember=false;" ng-model="pushtype" type="radio" value="email">
+                                        <label for="option-email">Email</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-show="showingmember" class="form-group form-row">
+                            <div class="col-sm-3">
+                                <label for="input-delegate"> By Members</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <select ng-options="f as f.DisplayName for f in ListMemberBus" ng-model="memberBusSelected" class="" id="select-delegate"></select>
+                                <div class="form-field-details-row" ng-if="memberBusSelected==null || !memberBusSelected">
+                                    <span class="form-field-message" style="color:red">
+                                        Please select a member
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div ng-show="!showingmember" class="form-group form-row">
+                            <div class="col-sm-3">
+                                <label for="input-delegate"> By Email</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="text" ng-model="usernotifycationemail" />
+                                <div class="form-field-details-row" ng-if="usernotifycationemail==null || !usernotifycationemail">
+                                    <span class="form-field-message" style="color:red">
+                                        Please enter email
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Personal Information</legend>
+
+
+                        <div class="form-group form-row" ng-repeat="field in dataregisterform  | filter: filterRequired">
+                            <div ng-bind-html="renderFieldGroup(field)"></div>
+                            <div class="col-sm-3">
+                                <label>{{field.displayName}}</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <rgu-control ng-if="field.type!=='numinput' && field.type!=='tagsinput' && ($parent.Mode!='Read') &&  field.type!=='range' &&  field.type!=='history'"
+                                             type="{{field.type}}"
+                                             ng-model="field.model" options="field.options"></rgu-control>
+
+                                <rgu-control ng-if="field.type==='numinput' &&  ($parent.Mode!='Read')" type="{{field.type}}" ng-model="field.model"
+                                             options="field.options"
+                                             unit-model="field.unitModel"></rgu-control>
+                                <rgu-control ng-if="field.type==='tagsinput' &&  ($parent.Mode!='Read') " type="{{field.type}}" ng-model="field.model"
+                                             options="field.options"
+                                             placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+
+                                <rgu-control ng-if="field.type==='range'&&  ($parent.Mode!='Read') " type="range" subtype="{{field.options}}" ng-model="field.model" options="field.modelarrays"
+                                             unit-model="field.unitModel" ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+
+                                <rgu-control ng-if="field.type==='history' &&  ($parent.Mode!='Read')" type="history" subtype="{{field.options}}"
+                                             ng-model="field.modelarrays" options="field.model"
+                                             ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+
+                                <input ng-if="($parent.Mode=='Read')" disabled="disabled" type="password" value="{{vaildfiled(field)?field.model:''}}" class="form-control" placeholder="">
+                                <div class="form-field-details-row" ng-if="vaildfiled(field) ==false">
+                                    <span class="form-field-message" style="color:red">
+                                        Please enter value
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group form-row" ng-if="membershipFields.length">
+                            <div class="col-sm-12">
+                                <h5 class="form-optional-heading">Membership</h5>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row" ng-if="membershipFields.length"
+                             ng-repeat="field in membershipFields = (dataregisterform | filter: filterMembership)">
+                            <div class="col-sm-3">
+                                <label>{{field.displayName}}</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <rgu-control ng-if="field.type==='static'  && ($parent.Mode!='Read')" type="static" value="{{field.model}}" ng-model="field.model"></rgu-control>
+
+                                <rgu-control ng-if="field.type!=='static' && field.type!=='numinput' && field.type!=='tagsinput'  && ($parent.Mode!='Read') "
+                                             type="{{field.type}}"
+                                             ng-model="field.model" options="field.options"></rgu-control>
+                                <rgu-control ng-if="field.type==='numinput'  && ($parent.Mode!='Read')" type="{{field.type}}" ng-model="field.model"
+                                             options="field.options"
+                                             unit-model="field.unitModel"></rgu-control>
+                                <rgu-control ng-if="field.type==='tagsinput'  && ($parent.Mode!='Read')" type="{{field.type}}" ng-model="field.model"
+                                             options="field.options"
+                                             placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                                <input ng-if="($parent.Mode=='Read')" disabled="disabled" type="password" value="{{vaildfiled(field)?field.model:""}}" class="form-control" placeholder="">
+
+                                <div class="form-field-details-row" ng-if="vaildfiled(field) ==false">
+                                    <span class="form-field-message" style="color:red">
+                                        Please enter value
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group form-row" ng-if="qaFields.length">
+                            <div class="col-sm-12">
+                                <h5 class="form-optional-heading">Answer Question</h5>
+                            </div>
+                        </div>
+                        <div class="form-group form-row" ng-if="qaFields.length"
+                             ng-repeat="field in qaFields = (dataregisterform | filter: filterQA)">
+                            <div class="col-sm-3">
+                                <label>{{field.displayName}}</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <rgu-control ng-if="($parent.Mode!='Read')" type="qa" choices="{{field.choices}}" options="field.modelarrays"
+                                             ng-model="field.model"></rgu-control>
+                                <input ng-if="($parent.Mode=='Read')" disabled="disabled" type="password" value="{{ vaildfiled(field)?field.model:""}}" class="form-control" placeholder="">
+                                <div class="form-field-details-row" ng-if="vaildfiled(field) ==false">
+                                    <span class="form-field-message" style="color:red">
+                                        Please enter value
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div clss="form-group form-row" ng-if="optionalFields.length">
+                            <div class="col-sm-12">
+                                <h5 class="form-optional-heading">Optional</h5>
+                            </div>
+                        </div>
+                        <div class="form-group form-row" ng-if="optionalFields.length"
+                             ng-repeat="field in optionalFields = (dataregisterform | filter: filterOptional)">
+                            <div class="col-sm-3">
+                                <input type="checkbox" ng-model="field.selected"> <label>{{field.displayName}}</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <rgu-control ng-if="field.type!=='numinput' && field.type!=='tagsinput' && ($parent.Mode!='Read') && field.type!=='range' && field.type!=='history'"
+                                             type="{{field.type}}"
+                                             ng-model="field.model" options="field.options"></rgu-control>
+                                <rgu-control ng-if="field.type==='numinput' &&  ($parent.Mode!='Read')" type="{{field.type}}" ng-model="field.model"
+                                             options="field.options"
+                                             unit-model="field.unitModel"></rgu-control>
+                                <rgu-control ng-if="field.type==='tagsinput' &&  ($parent.Mode!='Read') " type="{{field.type}}" ng-model="field.model"
+                                             options="field.options"
+                                             placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                                <rgu-control ng-if="field.type==='range' &&  ($parent.Mode!='Read') " type="range" subtype="{{field.options}}" ng-model="field.model" options="field.modelarrays"
+                                             unit-model="field.unitModel" ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+                                <rgu-control ng-if="field.type==='history' &&  ($parent.Mode!='Read')" type="history" subtype="{{field.options}}"
+                                             ng-model="field.modelarrays" options="field.model"
+                                             ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+                                <input ng-if="($parent.Mode=='Read')" disabled="disabled" type="password" value="{{ vaildfiled(field)?field.model:""}}" class="form-control" placeholder="">
+                                <div class="form-field-details-row" ng-if="vaildfiled(field) ==false && field.selected==true">
+                                    <span class="form-field-message" style="color:red">
+                                        Please enter value
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </fieldset>
+                    <div ng-if="false" class="form-group form-row">
+                        <div class="col-sm-3">
+                            <label></label>
+                        </div>
+                        <div class="col-sm-9">
+                            <input id="option-agreed" ng-model="TermsConditions" type="checkbox" value="agreed">
+                            <label for="option-agreed">
+                                I have read and agreed to the <a target="_blank" href="{{campaign.termsAndConditionsFile}}">
+                                    Terms &amp;
+                                    Conditions
+                                </a>.
+                            </label>
+                            <p ng-show="(campaign.usercodetype=='Pay')" class="campaign-agree-cost">I agree to pay an amount of <span class="campaign-user-cost">{{campaign.usercode}} {{campaign.usercodecurrentcy}}</span> registration fee.</p>
+                        </div>
+
+                    </div>
+                    <div style="padding-top:20px;color:red">
+                        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"><div ng-bind-html="messageBox"></div></<uib-alert>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" ng-click="cancel()" class="btn btn-default">Cancel</button>
+                        <button type="button" ng-click="RegisterCampaign()" class="btn btn-primary">Push</button>
+
+                    </div>
+                </form>
+            </div>
+        </script>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/angular")
+@Scripts.Render("~/bundles/js/phone-input")
+
+<script src="~/Areas/Realtime/Scripts/jquery.signalR-2.2.1.js"></script>
+<script src="/signalr/hubs"></script>
+<!--SignalR Event Aggregator-->
+
+@Scripts.Render("~/eventAggregation/events")
+@Scripts.Render("~/scripts/jquery.signalR.eventAggregator-1.5.155.1.js")
+@Scripts.Render("~/scripts/jquery.signalR.eventAggregator.angular-1.4.143.0.js")
+<!--End Event Agreegator-->
+
+@RenderSection("initscripts", required: false)
+
+<script src="@Url.Versioned("~/Scripts/GreenHouse/angular-custom-app.js")"></script>
+@Scripts.Render("~/Blue/highcharts")
+@Scripts.Render("~/bundles/user-service")
+@Scripts.Render("~/bundles/user-dashboard-service")
+@Scripts.Render("~/bundles/SMSauthencation")
+@Scripts.Render("~/bundles/sweet-alert")
+@Scripts.Render("~/bundles/AlertServices")
+@Scripts.Render("~/bundles/CountryCityService")
+@Scripts.Render("~/bundles/CommentService")
+@Scripts.Render("~/bundles/comment")
+
+<script src="@Url.Versioned("~/Areas/User/Scripts/RegitApp.js")"></script>
+@Scripts.Render("~/bundles/js/regit-main")
+
+<script src="~/Areas/Beta/js/vendor/xlsx.core.min.js"></script>
+<script src="~/Areas/Beta/js/vendor/alasql.min.js"></script>
+<script src="~/Areas/Beta/js/vendor/FileSaver.js"></script>
+<script src="~/Areas/Beta/js/vendor/json-export-excel.js"></script>
+
+<script src="~/Content/scripts/spin.min.js"></script>   
+
+<script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/main-regit-ctrl.js")"></script>
+<script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/Campaign/EventCalendarController.js")"></script>
+
+<script src="@Url.Versioned("~/Areas/User/Scripts/Services/NotificationService.js")"></script>
+<script src="@Url.Versioned("~/Areas/User/Scripts/Services/BusinessAccountService.js")"></script>
+<script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/business-home-ctrl.js")"></script>
+
+<script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/SRFI/srfi-business-ctrl.js")"></script>
+<script src="@Url.Versioned("~/Areas/User/Scripts/Services/InformationVaultService.js")"></script>
+<script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/Campaign/EventScheduleController.js")"></script>
+
+<script src="~/Areas/User/Scripts/Controllers/BA-post-new-feed-ctrl.js"></script>
+<script src="~/Areas/User/Scripts/Controllers/social-posts-filter-ctrl.js"></script>
+<script src="~/Areas/User/Scripts/Controllers/user-layout-ctrl.js"></script>
+<script src="~/Areas/User/Scripts/Controllers/BA-layout-ctrl.js"></script>
+
+<script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/PushToVault/push-vault-business-ctrl.js")"></script>
+<script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/PushToVault/RegistrationOnPushToVaultBusToUserController.js")"></script>
+
+
+@RenderSection("scripts", required: false)
+@if (User.Identity.IsAuthenticated)
+{
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/notification-ctrl.js")"></script>
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/MsgCtrl.js")"></script>
+    <script src="@Url.Versioned("~/Scripts/regit-responsive.js")"></script>
+}
+@Html.Partial("_GoogleAnalyticsScript")
+
+</body>
+</html>

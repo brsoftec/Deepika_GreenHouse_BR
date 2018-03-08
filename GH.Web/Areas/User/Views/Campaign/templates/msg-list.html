@@ -1,0 +1,14 @@
+<div class="msg-list">
+    <div class="msg-list-row" ng-repeat="conversation in conversations | filter:filterConversations" ng-init="isGroup=type==='groups'"
+         ng-class="{'msg-list-row-unread' : conversation.unreadCount}">
+        <div class="msg-list-avatar">
+            <img ng-if="!isGroup" ng-src="{{conversation.from.avatar}}"></div>
+        <div class="msg-list-summary" ng-click="openMsgBox(conversation,$index)">
+            <div class="msg-list-when">{{conversation.latestMessage.when}}</div>
+            <div class="msg-list-name"><span ng-if="!isGroup && conversation.from.online" class="msg-user-online"></span> {{conversation.name}}
+                <span class="msg-list-unread badge" ng-if="conversation.unreadCount">{{conversation.unreadCount}}</span></div>
+            <div class="msg-list-text" ng-bind-html="conversation.latestMessage.text"></div>
+            <div class="msg-list-row-read-indicator" ng-if="!conversation.unreadCount"></div>
+        </div>
+    </div>
+</div>

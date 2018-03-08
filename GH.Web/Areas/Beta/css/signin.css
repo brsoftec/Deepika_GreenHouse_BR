@@ -1,0 +1,43 @@
+.signin-auth {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding-top: 20px;
+    padding-right: 10px;
+    text-align: center;
+}
+
+.otp-send-action {
+    display: block;
+    border: none;
+    border-radius: 4px;
+    background: #00adef url(../img/otp-send.svg) no-repeat 6px center;
+    background-size: auto 30px;
+    color: white;
+    font-size: 120%;
+    font-weight: bold;
+    padding: 10px 20px 10px 40px;
+    margin-bottom: 20px;
+    border-right: 1px solid #2e6da4;
+    border-bottom: 1px solid #2e6da4;
+    border-left: 1px solid #CCCCCC;
+}
+
+.otp-send-action:hover {
+    background-color: #0076a3;
+}
+
+.otp-send-action:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+.otp-content{
+    display: block;
+    border: none;
+    font-size: 120%;
+    font-weight: bold;
+    padding: 10px 20px 10px 20px;
+    margin-bottom: 20px;
+  
+}

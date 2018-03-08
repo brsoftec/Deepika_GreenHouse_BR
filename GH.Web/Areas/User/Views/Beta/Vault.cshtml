@@ -1,0 +1,321 @@
+﻿@{
+    ViewBag.Title = "Information Vault";
+    Layout = "~/Areas/User/Views/Shared/_LayoutDefault.cshtml";
+}
+
+
+
+@* BODY *@
+
+    <div class="module module-closable module-main module-vault-profile">
+        <button type="button" ng-click="closeModule($event)" class="module-close"></button>
+
+        <vault-profile ng-model="vault.strength">
+        </vault-profile>
+    </div>
+    <div class="module module-main module-vault-dashboard">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/">&laquo; Home</a></li>
+            <li class="breadcrumb-item active">Information Vault</li>
+        </ol>
+        <div class="vault-intro">
+            <p>Your vault is new and young. Make it strong by adding information.</p>
+            <a class="btn-vault-add" ng-href="#/Vault/Categories">Add more information</a>
+            <p>Too busy? Have someone else use or update data from your information vault. <a href="#/Vault/Delegation" class="link-more">Delegate</a></p>
+        </div>
+
+        <div class="vault-search" ng-class="{'vault-search-empty':!vaultSearch.query.length}">
+
+            <input class="search-vault" placeholder="Search vault for information"
+                   ng-disabled="vaultEdit.editingField"
+                   ng-model="vaultSearch.query" ng-change="onVaultDocSearchInput()">
+            <div class="vault-select" ng-if="vaultSearch.delegators.length">
+                <select rgu-select ng-model="vaultSearch.selectedVault"
+                        ng-options="delegator for delegator in vaultSearch.delegators"
+                        ng-change="selectVault()"></select>
+            </div>
+            <button type="button" class="search-clear" ng-click="clearSearch()">Clear search</button>
+
+        </div>
+
+        <div class="vault-search-results" ng-if="vaultSearch.searching">
+            <form name="formVaultSearch">
+                <div ng-repeat="entry in matchedEntries = (vaultEntries | filter: filterEntriesByQuery)"
+                     class="vault-entry vault-entry-level-{{entry.level}}"
+                     ng-class="{'vault-entry-group':!entry.leaf, 'vault-entry-form':entry.list, 'vault-entry-editing': vaultEdit.editingField===entry}"
+                     ng-click="$event.preventDefault();selectVaultEntry($index)">
+                    <span ng-if="!entry.leaf" class="vault-entry-label"
+                          ng-bind-html="entry.label | vaultHighlightMatch:vaultSearch.query"></span>
+                    <a href="#" ng-if="!entry.leaf && entry.level>1" class="vault-entry-action"
+                       ng-click="gotoEditForm(entry.jsPath)">Edit form</a>
+                    <label ng-if="entry.leaf" class="vault-entry-label"
+                           ng-bind-html="entry.label | vaultHighlightMatch:vaultSearch.query"></label>
+                    <button ng-if="entry.leaf && !vaultEdit.editingField" type="button" class="btn-edit-vault-field"
+                            ng-click="$event.preventDefault();editField(entry)">
+                        Edit field
+                    </button>
+                    <div ng-if="entry.leaf && vaultEdit.editingField!==entry" class="vault-entry-value"
+                         ng-bind-html="entry.value | vaultValue | vaultHighlightMatch:vaultSearch.query | html">
+                    </div>
+                    <div ng-if="entry.leaf && vaultEdit.editingField===entry"
+                         class="vault-entry-value vault-entry-edit"
+                         ng-form="vaultEditForm">
+                        <rgu-control type="{{entry.type}}" name="vaultEditField" class="vault-entry-edit-control"
+                                     options="entry.options"
+                                     ng-model="vaultEdit.editModel" rules="{{entry.rules}}" autofocus></rgu-control>
+                        <button type="button" class="btn-edit-vault-field-action btn-edit-vault-field-cancel"
+                                ng-click="$event.preventDefault();cancelField(entry)">
+                            Cancel
+                        </button>
+                        <button type="button" class="btn-edit-vault-field-action"
+                                ng-disabled="vaultEditForm.$invalid"
+                                ng-click="$event.preventDefault();saveField(entry)">
+                            Save
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <form name="formVault" class="vault-form" novalidate>
+
+            <!--   DYNAMIC VAULT GROUP -->
+            <div class="vault-group" ng-repeat="group in vaultForm.groups">
+                <div class="vault-group-header">
+                    <h4>{{group.groupName}}</h4>
+                    <div class="vault-group-actions">
+                        <button ng-if="!editingMode" class="btn-vault-action btn-vault-edit"
+                                ng-click="editGroup(group)">
+                            Edit
+                        </button>
+                        <button ng-if="editingMode" class="btn-vault-action btn-vault-save"
+                                ng-click="saveGroup(group)">
+                            Save
+                        </button>
+                        <button ng-if="editingMode" class="btn-vault-action btn-vault-cancel btn-cancel"
+                                ng-click="cancelEditing()">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+                <div class="vault-group-content">
+                    <div class="vault-row" ng-class="{'vault-editing':editingMode}"
+                         ng-repeat-start="field in group.fields"
+                         ng-if="!field.divider" ng-init="name = field.name;">
+                        <div class="vault-label">
+                            <label>{{field.label}}</label>
+                        </div>
+                        <div class="vault-field" ng-if="!editingMode">
+                            <div class="vault-field-value">{{field.value | vaultValue}}</div>
+                            <!--                    <div class="vault-field-value" ng-init="beforeDate = 'today';afterDate='8-9-2016';">
+                                                    <rgu-date-input type="combo" ng-model="test.date" before="beforeDate" after="afterDate"></rgu-date-input>
+                                                </div>-->
+
+                            <div class="vault-privacy-indicator" ng-class="{'privacy-on': field.privacy}" bs-tooltip
+                                 data-title="Field {{field.privacy?'private (shared to nobody)':'public (shared to friends)'}}"
+                                 data-placement="auto"></div>
+                        </div>
+                        <div class="vault-field-edit" ng-if="editingMode">
+                            <editable field="editingModel[field.name]"></editable>
+                            <button class="btn-vault-privacy" ng-class="{'privacy-on': field.privacy}"></button>
+                        </div>
+                    </div>
+                    <div class="vault-row-divider" ng-repeat-end ng-if="field.divider"></div>
+                    <div class="vault-suggestions">
+                        <a href="#" ng-repeat="suggestion in group.suggestions" class="vault-suggestion"
+                           ng-click="$event.preventDefault(); followSuggestion(suggestion)">
+                            +
+                            {{suggestion.label}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!--    STATIC VAULT GROUPS -->
+            <div class="vault-group">
+                <div class="vault-group-header">
+                    <h4>Contact</h4>
+                    <div class="vault-group-actions">
+                        <button ng-if="!editingModeContact" class="btn-vault-action btn-vault-edit"
+                                ng-click="editContact()">
+                            Edit
+                        </button>
+                        <button ng-if="editingModeContact" class="btn-vault-action btn-vault-save"
+                                ng-disabled="!formVault.$valid" ng-click="saveGroup()">
+                            Save
+                        </button>
+                        <button ng-if="editingModeContact" class="btn-vault-action btn-vault-cancel btn-cancel"
+                                ng-click="cancelEditing()">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+                <div class="vault-group-content">
+                    <div class="vault-row" ng-if="!editingModeContact"
+                         ng-class="{'vault-editing':editingModeContact}">
+                        <div class="vault-label">
+                            <label ng-if="!editingModeContact">Mobile</label>
+
+                        </div>
+                        <div class="vault-field" ng-if="!editingModeContact">
+                            <ul class="vault-field-collection">
+                                <li><span class="vault-field-value">065 8219 2193</span></li>
+                                <li>
+                                    <span class="vault-field-value">065 7198 1297</span>
+                                    <div class="vault-is-default"></div>
+                                </li>
+                            </ul>
+
+                            <div class="vault-privacy-indicator" ng-class="{'privacy-on': field.privacy}"
+                                 bs-tooltip
+                                 data-title="Field {{field.privacy?'private (shared to nobody)':'public (shared to friends)'}}"
+                                 data-placement="auto"></div>
+                        </div>
+                    </div>
+                    <div class="vault-row" ng-if="!editingModeContact"
+                         ng-class="{'vault-editing':editingModeContact}">
+                        <div class="vault-label">
+                            <label>Home</label>
+                        </div>
+                        <div class="vault-field" ng-if="!editingMode">
+
+                            <ul class="vault-field-collection">
+                                <li><span class="vault-field-value">065 8198 9812</span></li>
+                            </ul>
+
+                            <div class="vault-privacy-indicator" ng-class="{'privacy-on': field.privacy}"
+                                 bs-tooltip
+                                 data-title="Field {{field.privacy?'private (shared to nobody)':'public (shared to friends)'}}"
+                                 data-placement="auto"></div>
+                        </div>
+                    </div>
+                    <div class="vault-row" ng-if="editingModeContact"
+                         ng-class="{'vault-editing':editingModeContact}">
+                        <div class="vault-label">
+                            <rgu-picker items="['Mobile','Home','Fax']" ng-model="phoneType"></rgu-picker>
+                            <span>{{isFormInvalid}}</span>
+                        </div>
+                        <div class="vault-field">
+                            <rgu-picker ng-model="phoneCode"
+                                        items="['Singapore (+065)', 'Vietnam (+084)']"></rgu-picker>
+                            <rgu-control type="textbox" class="vault-input short" ng-model="phoneNo" required
+                                         rules="phone"></rgu-control>
+                            <input type="radio" name="defaultPhone" ng-model="defaultPhone" value="0"><label>
+                                &nbsp;
+                            </label>
+                            <button class="btn-vault-privacy" ng-class="{'privacy-on': field.privacy}"></button>
+                        </div>
+                    </div>
+                    <div class="vault-row" ng-if="editingModeContact"
+                         ng-class="{'vault-editing':editingModeContact}">
+                        <div class="vault-label">
+                            <rgu-picker items="['Mobile','Home','Fax']" ng-model="phoneType2"></rgu-picker>
+                        </div>
+                        <div class="vault-field">
+                            <rgu-picker ng-model="phoneCode2"
+                                        items="['Singapore (+065)', 'Vietnam (+084)']"></rgu-picker>
+                            <input class="vault-input short" ng-model="phoneNo2">
+                            <input type="radio" name="defaultPhone" ng-model="defaultPhone" value="1"><label>
+                                &nbsp;
+                            </label>
+                            <button class="btn-vault-privacy" ng-class="{'privacy-on': field.privacy}"></button>
+                        </div>
+                    </div>
+                    <div class="vault-suggestions">
+                        <a href="#" class="vault-suggestion"
+                           ng-click="$event.preventDefault();">+ Add another phone number</a>
+                    </div>
+                    <div class="vault-row-divider"></div>
+                    <div class="vault-row" ng-class="{'vault-editing':editingModeContact}">
+                        <div class="vault-label">
+                            <label>Email</label>
+                        </div>
+                        <div class="vault-field" ng-if="!editingModeContact">
+
+                            <ul class="vault-field-collection">
+                                <li>
+                                    <span class="vault-field-value">johnie.rebuck@mail.com</span>
+                                    <div class="vault-is-default"></div>
+                                </li>
+                                <li><span class="vault-field-value">jojo.like@mail.com</span></li>
+                            </ul>
+
+                            <div class="vault-privacy-indicator" ng-class="{'privacy-on': field.privacy}"
+                                 bs-tooltip
+                                 data-title="Field {{field.privacy?'private (shared to nobody)':'public (shared to friends)'}}"
+                                 data-placement="auto"></div>
+                        </div>
+                        <div class="vault-field-edit" ng-if="editingModeContact">
+                            <input class="vault-input short" ng-model="email">
+                            <input type="radio" name="defaultEmail" ng-model="defaultEmail" value="0"><label>
+                                &nbsp;
+                            </label>
+                            <button class="btn-vault-privacy" ng-class="{'privacy-on': field.privacy}"></button>
+                        </div>
+
+                    </div>
+                    <div class="vault-suggestions">
+                        <a href="#" class="vault-suggestion"
+                           ng-click="$event.preventDefault();">+ Add another email</a>
+                    </div>
+                </div>
+            </div>
+            <div class="vault-group">
+                <div class="vault-group-header">
+                    <h4>Address</h4>
+                    <button class="btn-vault-group-collapse" ng-init="hideAddressBody=false;"
+                            ng-click="$event.preventDefault();hideAddressBody=!hideAddressBody;"></button>
+                </div>
+                <div class="vault-group-content" ng-hide="hideAddressBody">
+                    <div class="vault-group-actions">
+                        <button class="btn-vault-action btn-vault-edit" ng-click="$location.path('/Vault/Address')">
+                            Edit
+                        </button>
+                    </div>
+                    <div class="vault-row">
+                        <div class="vault-label">
+                            <label>Primary Address</label>
+                        </div>
+                        <div class="vault-field">
+                            <div class="vault-field-value">
+                                <strong>The Paradise</strong>
+                                <div class="vault-is-default"></div>
+                                <br>
+                                Blk 35 Mandalay Road<br>
+                                #13-37 Mandalay Towers<br>
+                                Singapore 308215
+                            </div>
+
+                            <div class="vault-privacy-indicator" ng-class="{'privacy-on': field.privacy}"
+                                 bs-tooltip
+                                 data-title="Field {{field.privacy?'private (shared to nobody)':'public (shared to friends)'}}"
+                                 data-placement="auto"></div>
+                        </div>
+                    </div>
+                    <div class="vault-row-divider"></div>
+                    <div class="vault-row">
+                        <div class="vault-label">
+                            <label>Mailing Address</label>
+                        </div>
+                        <div class="vault-field">
+                            <div class="vault-field-value">
+                                <strong>The Paradise 2</strong><br>
+                                Blk 35 Mandalay Road<br>
+                                #13-37 Mandalay Towers<br>
+                                Singapore 308215
+                            </div>
+                            <div class="vault-privacy-indicator" ng-class="{'privacy-on': field.privacy}"
+                                 bs-tooltip
+                                 data-title="Field {{field.privacy?'private (shared to nobody)':'public (shared to friends)'}}"
+                                 data-placement="auto"></div>
+                        </div>
+                    </div>
+                    <div class="vault-suggestions">
+                        <a href="#" class="vault-suggestion"
+                           ng-click="$event.preventDefault();">+ Add another address</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>

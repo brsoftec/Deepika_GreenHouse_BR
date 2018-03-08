@@ -1,0 +1,4 @@
+<div ng-if="view.expandable && !view.expanded" class="html-text-base" ng-bind-html="htmlBase"></div>
+<a ng-if="view.expandable && !view.expanded" href="#" class="html-text-more-action" ng-click="$event.preventDefault();setView(true)">Show more</a>
+<div ng-if="!view.expandable || view.expanded" class="html-text-more" ng-bind-html="htmlFull"></div>
+<a ng-if="view.expanded" href="#" class="html-text-more-action" ng-click="$event.preventDefault();setView(false)">Show less</a>

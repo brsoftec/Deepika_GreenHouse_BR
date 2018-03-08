@@ -1,0 +1,174 @@
+﻿@{
+ViewBag.Title = "Help Center";
+
+Layout = "~/Areas/User/Views/Shared/_SupportLayout.cshtml";
+if (Request.IsAuthenticated)
+{
+ViewBag.ContainerClass = "module module-main";
+}
+else
+{
+ViewBag.ContainerClass = "support-container";
+}
+}
+<!--
+@section styles {
+
+    @*    <link rel="stylesheet" href="@Url.Versioned("~/Areas/Beta/css/support.css")">*@
+    <link rel="stylesheet" href="@Url.Versioned("~/Areas/Beta/css/help.css")">
+}
+
+
+
+@section scripts {
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/HelpController.js")"></script>
+
+}
+-->
+
+<div class="@ViewBag.ContainerClass" ng-controller="HelpController">
+    @if (Request.IsAuthenticated)
+    {
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/">&laquo; Home</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="/Support">Support</a>
+        </li>
+        <li class="breadcrumb-item active">Help Center</li>
+    </ol>
+    }
+    <div class="help-page">
+        <div class="help-page-header">
+
+            @if (false && !User.Identity.IsAuthenticated)
+            {
+            <div class="about-signin" ng-controller="PublicSigninController">
+                <form name="formSignin" ng-submit="signIn()">
+                    <div class="signin-form-row">
+                        <input class="signin-input" ng-model="signModel.Email" placeholder="Email">
+                    </div>
+                    <div class="signin-form-row">
+                        <input class="signin-input" type="password" ng-model="signModel.Password"
+                               placeholder="Password">
+                    </div>
+                    <div class="signin-form-row signin-trouble">
+                        <a href="/User/Trouble">Forgot password?</a>
+                    </div>
+                    <div class="signin-form-row signin-message">
+                        <span class="signin-message-text"></span>
+                    </div>
+                    <div class="signin-form-row">
+                        <button class="signin-submit" ng-click="signin()">Sign in</button>
+                    </div>
+                </form>
+                <div class="signin-signup">
+                    <p>Don't have an account?</p>
+                    <a class="signin-signup-action" href="/User/SignUp">Sign up</a>
+                </div>
+            </div>
+            }
+
+            <h2 class="help-page-heading">Welcome to Regit Help Center</h2>
+            <h3 class="help-page-subhead">Find what you're looking for by browsing through the FAQs page<br> or type your
+                questions directly below.</h3>
+            <div class="help-search">
+                <input class="help-search-input" autofocus ng-model="search.query" placeholder="How can we help you?"
+                       ng-change="onHelpSearchInput()">
+                <button class="clear-search" ng-if="view.mode==='search'"
+                        ng-click="clearSearch();navTo(navHome)"></button>
+            </div>
+            <!--<div class="header-search-link">-->
+            <!--<a href="#">How do I change my password?</a>-->
+            <!--<a href="#">Where can I manage my account?</a>-->
+            <!--<a href="#">How can I add my information?</a>-->
+            <!--<a href="#">Why do I need security questions?</a>-->
+            <!--<a href="#">How to join an event?</a>-->
+            <!--</div>-->
+
+        </div>
+        <div class="help-nav">
+            <ul>
+                <li ng-repeat="nav in navs" class="help-nav-item">
+                    <a id="nav-{{nav.name}}" href="#"
+                       ng-class="{active: view.mode!=='search' && (view.mode==='home'&&!$index || view.mode==='section'&&view.section.name===nav.name) }"
+                       ng-click="$event.preventDefault;navTo(nav)" ng-bind="nav.label"></a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="help-content">
+            <div class="help-section help-section-home" ng-if="view.mode==='home'">
+                <h4 class="help-section-heading">Popular Topics</h4>
+                <div class="help-topics">
+                    <ul>
+                        <li ng-repeat="topic in topics | filter:filterFeaturedTopics"
+                            class="help-topic-item help-topic-item-{{topic.name}}"
+                            ng-click="$event.preventDefault(); viewTopic(topic)">
+                            <div class="help-topic-item-heading" ng-bind="topic.label"></div>
+                            <div class="help-topic-item-text" ng-bind="topic.description"></div>
+                        </li>
+                    </ul>
+                </div>
+                <h4 class="help-section-heading">Looking For Something Else?</h4>
+                <div class="help-more">
+                    <img src="/Areas/Beta/img/help-more.svg">
+                </div>
+                <div class="contact-support">
+                    <h5>Contact Support</h5>
+                    <p>If you can’t ﬁnd what you’re looking, you can always contact us via chat or <a
+                            href="mailto:support@regit.today">email</a> and we will gladly assist.
+                    </p>
+                </div>
+            </div>
+
+            <div class="help-section help-section-subjects" ng-if="view.mode==='section'">
+                <div class="section-nav">
+                    <div class="section-nav-heading" ng-bind-html="view.section.label"></div>
+                    <a class="section-nav-item" ng-repeat="subject in subjects | filter:filterSubjectsByCurrentSection"
+                       id="subject-{{subject.name}}" href="#"
+                       ng-class="{active:subject===view.section.subject}"
+                       ng-click="$event.preventDefault(); viewSubject(subject)" ng-bind-html="subject.label">
+                    </a>
+
+                </div>
+                <div class="subject-content">
+                    <div class="subject-description" ng-if="!view.section.subject"
+                         ng-bind-html="view.section.description | trustHtml"></div>
+                    <div class="help-item" ng-if="view.section.subject"
+                         ng-repeat="item in helpItems | filter:filterItemsByCurrentSubject">
+                        <div class="help-item-title" ng-bind-html="item.title"></div>
+                        <div class="help-item-text" ng-bind-html="item.description"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="help-section help-section-search" ng-if="view.mode==='search'">
+                <div class="search-results">
+                    <div class="search-item" ng-repeat="item in searchItems = (helpItems | filter:filterItemsBySearch)">
+                        <a class="help-item-title" href="#" ng-click="$event.preventDefault();navToItem(item)"
+                           ng-bind-html="item.title | searchHighlight:search.query"></a>
+                        <div class="help-item-text"
+                             ng-bind-html="item.description | helpSearchHighlight:search.query"></div>
+                    </div>
+                </div>
+                <div class="search-results no-results" ng-if="!searchItems.length">
+                    <h4 class="help-section-heading">Looking For Something Else?</h4>
+                    <div class="help-more">
+                        <img src="/Areas/Beta/img/help-more.svg">
+                    </div>
+                    <div class="contact-support">
+                        <h5>Contact Support</h5>
+                        <p>If you can’t ﬁnd what you’re looking, you can always contact us via chat or <a
+                                href="mailto:support@regit.today">email</a> and we will gladly assist.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+

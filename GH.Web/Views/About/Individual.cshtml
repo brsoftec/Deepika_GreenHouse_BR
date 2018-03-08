@@ -1,0 +1,163 @@
+﻿
+@{
+
+    ViewBag.Page = "about-individual";
+    ViewBag.Title = "Regit for Individuals";
+    Layout = "~/Areas/User/Views/Shared/_AboutNewLayout.cshtml";
+    ViewBag.BodyClass = "about-individual";
+    ViewBag.AngularApp = "regitAbout";
+}
+
+<h2>Individual</h2>
+
+
+@section styles {
+
+}
+
+@section initscripts {
+    <script>
+        angular.module('regitAbout',['ngCookies', 'UserModule']);
+    </script>
+}
+
+@section scripts {
+    <script src="~/Areas/Beta/js/greenhouseApp.js"></script>
+    <script src="~/Areas/User/Scripts/Services/UserModule.js"></script>
+    <script src="~/Areas/User/Scripts/Services/AuthorizationService.js"></script>
+    <script src="~/Areas/User/Scripts/Controllers/public-signin.js"></script>
+    <script src="~/Areas/About/Content/js/main.js"></script>
+}
+
+<div class="about-intro">
+    <div class="about-content">
+        <div class="about-intro-subhead">Regit gives you control of/div>
+        <div class="about-intro-head">YOUR INFORMATION</div>
+        <div class="about-intro-text">
+            <p>Do you remember the last time you changed your information and updated everyone?.</p>
+            <p>How about the last time you enjoyed filling out a form asking for the same repetitive information?.</p>
+
+            <p>
+
+                NEVER right? Regit eliminnates the form and makes it easy to keep your data up-to-date with the people and businesses you trust with as little as one-click. You are in control.
+            </p>
+        </div>
+        <a href="#more" class="about-intro-cta">Learn more</a>
+
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <div class="about-signin" ng-controller="PublicSigninController">
+                <form name="formSignin" ng-submit="signIn()">
+                    <div class="signin-form-row">
+                        <input class="signin-input" ng-model="signModel.Email" placeholder="Email">
+                    </div>
+                    <div class="signin-form-row">
+                        <input class="signin-input" type="password" ng-model="signModel.Password"
+                               placeholder="Password">
+                    </div>
+                    <div class="signin-form-row signin-trouble">
+                        <a href="/User/Trouble">Forgot password?</a>
+                    </div>
+                    <div class="signin-form-row signin-message">
+                        <span class="signin-message-text"></span>
+                    </div>
+                    <div class="signin-form-row">
+                        <button class="signin-submit" ng-click="signin()">Sign in</button>
+                    </div>
+                </form>
+                <div class="signin-signup">
+                    <p>Don't have an account?</p>
+                    <a class="signin-signup-action" href="/User/SignUp">Sign up</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="about-section about-data" id="#more">
+
+    <div class="about-content">
+        <h3>Your Data, Your Way</h3>
+        <div class="about-col">
+            <div class="col-picture">
+                <img src="~/Areas/About/Content/img/about-data.svg">
+            </div>
+        </div>
+        <div class="about-col">
+            <div class="col-text">
+                <p>
+                    When you make a change to your information like your address, or phone number, safely share and
+                    update your friends, families, service providers with
+                    <strong>just one click of a button</strong>. All in one place and only with your consent.
+                </p>
+            </div>
+        </div>
+
+        <div class="about-col about-col-responsive">
+            <div class="col-picture">
+                <img src="~/Areas/About/Content/img/about-data-info.svg">
+            </div>
+        </div>
+
+        <div class="about-col">
+            <div class="col-text left-col-text">
+                <p>
+                    <strong>Your information at your fingertips</strong> to help you get things done. No more
+                    wasting
+                    time trying to find your information and no missed opportunities.
+                </p>
+            </div>
+        </div>
+        <div class="about-col about-col-noresponsive">
+            <div class="col-picture right-col-picture">
+                <img src="~/Areas/About/Content/img/about-data-info.svg">
+            </div>
+        </div>
+
+        <div class="about-col">
+            <div class="col-picture">
+                <img src="~/Areas/About/Content/img/about-emergency.svg">
+            </div>
+        </div>
+        <div class="about-col">
+            <div class="col-text">
+                <p>
+                    Emergencies can happen anytime. <strong>Have peace of mind</strong> by delegating your
+                    information to
+                    someone you trust so they can help you when it matters most.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="about-section alt about-benefits">
+    <div class="about-content">
+        <h3>How We Are Different</h3>
+        <div class="about-col">
+            <div class="full-picture">
+                <img src="~/Areas/About/Content/img/about-benefits-control.svg">
+            </div>
+            <div class="full-text">
+                <p>
+                    You have <b>FULL CONTROL</b> of your personal information. Share only the information you
+                    want and when you want to.
+                </p>
+            </div>
+        </div>
+        <div class="about-col about-benefits-free">
+            <div class="full-picture">
+                <img src="~/Areas/About/Content/img/about-benefits-free.svg">
+            </div>
+            <div class="full-text">
+                <p>
+                    <b>100% FREE</b> for individuals. We believe you shouldn't need to pay to manage your own
+                    information.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+

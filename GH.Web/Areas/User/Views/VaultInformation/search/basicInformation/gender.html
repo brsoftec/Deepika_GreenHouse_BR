@@ -1,0 +1,67 @@
+﻿
+
+<div ng-controller="SearchBasicController">
+
+    <div ng-if="write">
+        <div class="vault-group-content">
+            <!--First Name-->
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>{{field.label}}</label>
+                </div>
+
+                <div class="vault-field">
+                    <div class="vault-field-edit">
+                        <rgu-radio-group values="['Male','Female']" ng-model="field.value"></rgu-radio-group>
+                    </div>
+                </div>
+            </div>
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label></label>
+                </div>
+                <div class="vault-field">
+                    <button type="button"
+                            class="btn-edit-vault-field-action btn-edit-vault-field-cancel"
+                            ng-click="$event.preventDefault();cancelField(entry)">
+                        Cancel
+                    </button>
+                    <button type="button" class="btn-edit-vault-field-action"
+                            ng-click="Save()">
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-if="!write && read">
+        <div class="vault-group-content">
+            <!--First Name-->
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>{{field.label}}</label>
+                </div>
+
+                <div class="vault-field">
+                    <div class="vault-field-edit">
+                        <label> {{field.value}}</label>
+                      
+                    </div>
+                </div>
+            </div>
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label></label>
+                </div>
+                <div class="vault-field">
+                    <button type="button"
+                            class="btn-edit-vault-field-action btn-edit-vault-field-cancel"
+                            ng-click="$event.preventDefault(); cancelField(entry)">
+                        Close view
+                    </button>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    </div> 

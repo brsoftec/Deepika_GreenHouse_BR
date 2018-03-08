@@ -1,0 +1,22 @@
+<div class="emergency-contact-select">
+    <select rgu-select ng-model="selectedContact" ng-change="onChangeContact()"
+            ng-options="contact as contact for contact in contacts">
+    </select>
+</div>
+<div class="emergency-contact-create" ng-if="creatingContact">
+    <select rgu-select ng-model="newContact" ng-change="onNewContact()"
+            ng-options="friend as friend.displayName for friend in friends">
+    </select>
+    <div ng-if="selectingFriend">
+        <div class="control-row">
+            Relationship:
+            <rgu-smart-select list="relationships" ng-model="newContact.relationship">
+            </rgu-smart-select>
+        </div>
+        <div class="control-row">
+            Priority:
+            <rgu-picker class="control-inline" items="[1,2,3]" ng-model="newContact.priority">
+            </rgu-picker>
+        </div>
+    </div>
+</div>

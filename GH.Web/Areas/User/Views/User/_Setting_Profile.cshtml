@@ -1,0 +1,147 @@
+﻿@using GH.Lang
+        <!--END TEST-->
+        <div ng-controller="EditProfileController" id="profile">
+            <div class="account-form-row">
+                <div class="account-form-label">
+                    <span class="field-title h-34">@Regit.Display_Name</span>
+                </div>
+                <div class="account-form-control">
+                    <div ng-if="profile.DisplayName" class="word-break">
+                        <span class="field-value h-34">{{profile.DisplayName}}</span>
+                    </div>
+                    <div class="field-editor" ng-if="editting.DisplayName">
+                        <input type="text" ng-model="editor.DisplayName" style="width: 500px;" />
+                    </div>
+                    <div class="field-tools" ng-if="editting.DisplayName">
+                        <a class="btn btn-blue fix-width-mini" ng-click="save('DisplayName')">@Regit.Save</a>
+                        <a class="btn btn-white fix-width-mini" ng-click="cancel('DisplayName')">@Regit.Cancel</a>
+                    </div>
+                </div>
+                <div class="account-form-label text-right" ng-if="!editting.DisplayName">
+                    <a class="field-action regit-color" ng-class="{'editting': editting.DisplayName}" ng-click="edit('DisplayName')"><i class="fa fa-pencil"></i> @Regit.Edit</a>
+                </div>
+            </div>
+            <div class="account-form-row">
+                <div class="account-form-label">
+                    <span class="field-title h-34">About Me
+                 
+                    </span>
+                </div>
+                <div class="account-form-control">
+                    <div ng-if="profile.Status" class="word-break">
+                        <span class="field-value h-34">{{profile.Status}}</span>
+                    </div>
+                    <div class="field-editor" ng-if="editting.Status">
+                        <input type="text" ng-model="editor.Status" />
+                    </div>
+                    <div class="field-tools" ng-if="editting.Status">
+                        <a class="btn btn-blue fix-width-mini" ng-click="save('Status')">@Regit.Save</a>
+                        <a class="btn btn-white fix-width-mini" ng-click="cancel('Status')">@Regit.Cancel</a>
+                    </div>
+                </div>
+                <div class="account-form-label text-right" ng-if="!editting.Status">
+                    <a class="field-action regit-color" ng-class="{'editting': editting.Status}" ng-click="edit('Status')"><i class="fa fa-pencil"></i> @Regit.Edit</a>
+                </div>
+            </div>
+
+            <div class="account-form-row">
+                <div class="account-form-label">
+                    <privacy-control ng-model="privacy.CountryCity" ng-change="updatePrivacy()"> </privacy-control> <span class="field-title h-34" > Country and City</span>
+                </div>
+                <div class="account-form-control">
+                    <div ng-if="profile.City || profile.Country">
+                        <span class="field-value h-34">{{profile.City}}{{profile.City && profile.Country ? ',' : ''}} {{profile.Country}}</span>
+                    </div>
+                    <div class="field-editor" ng-if="editting.CityCountry">
+                        <ui-select ng-model="editor.Country" theme="bootstrap" remove-selected="false">
+                            <ui-select-match placeholder="@Regit.Select_Country">{{$select.selected.Name}}</ui-select-match>
+                            <ui-select-choices repeat="country.Name as country in countries | filter: $select.search">
+                                <span ng-bind-html="country.Name | highlight: $select.search"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                        <input type="text"  placeholder="@Regit.SELECT_CITY" ng-model="editor.City" />
+                    </div>
+                    <div class="field-tools" ng-if="editting.CityCountry">
+                        <a class="btn btn-blue fix-width-mini" ng-click="save('City','Country')">@Regit.Save</a>
+                        <a class="btn btn-white fix-width-mini" ng-click="cancel('City','Country')">@Regit.Cancel</a>
+                    </div>
+                </div>
+                <div class="account-form-label text-right" ng-if="!editting.CityCountry">
+                    <a class="field-action regit-color" ng-class="{'editting': editting.CityCountry}" ng-click="edit('City','Country')"><i class="fa fa-pencil"></i> @Regit.Edit</a>
+                </div>
+            </div>
+
+            <!--DOB-->
+            <div class="account-form-row">
+                <div class="account-form-label">
+                    <privacy-control ng-model="privacy.DOB" ng-change="updatePrivacy()"></privacy-control> <span class="field-title h-34">@Regit.DOB</span>
+                </div>
+                <div class="account-form-control">
+                    <div ng-if="profile.Birthdate" class="word-break">
+                        <span class="field-value h-34" ng-if="profile.Birthdate !=='Unknow'">{{profile.Birthdate | vaultValue}}</span>
+                    </div>
+                    <div class="field-editor" ng-if="editting.Birthdate">
+                        <rgu-date-input type="combo" ng-model="editor.Birthdate"></rgu-date-input>
+                    </div>
+                    <div class="field-tools" ng-if="editting.Birthdate">
+                        <a class="btn btn-blue fix-width-mini" ng-click="save('Birthdate')">@Regit.Save</a>
+                        <a class="btn btn-white fix-width-mini" ng-click="cancel('Birthdate')">@Regit.Cancel</a>
+                    </div>
+                </div>
+                <div class="account-form-label text-right" ng-if="!editting.Birthdate">
+                    <a class="field-action regit-color" ng-class="{'editting': editting.Birthdate}" ng-click="edit('Birthdate')"><i class="fa fa-pencil"></i> @Regit.Edit</a>
+                </div>
+            </div>
+            <!-- End DOB-->
+            <div class="account-form-row clearfix">
+                <div class="account-form-label">
+                    <privacy-control ng-model="privacy.PhotoUrl" ng-change="updatePrivacy()"></privacy-control>  <span class="field-title">@Regit.Profile_Picture_Title</span>
+                </div>
+                <div class="account-form-control account-form-control-avatar">
+                    <div class="profile-picture">
+                        <img ng-if="(!editting.PhotoUrl || !editor.NewProfilePicture)" ng-src="{{profile.PhotoUrl | avatarUrl}}" />
+                        <img ng-if="editting.PhotoUrl && editor.NewProfilePicture" ng-src="{{editor.NewProfilePicture}}" />
+                    </div>
+                    <div class="field-editor" ng-if="editting.PhotoUrl">
+                        <div class="image-editor" ng-show="view.editingImage">
+                            <img id="editing-image" class="editing-image" ng-src="{{editor.NewProfilePicture || profile.PhotoUrl}}">
+                        </div>
+                        <button class="btn btn-primary image-editor-action" ng-if="!view.editingImage" ng-click="openImageEditor()">Crop Picture</button>
+
+                        <div upload-control ng-if="!view.editingImage" class="upload-control upload-photo" on-file-selected="onProfilePictureSelected()" files-store="editor">
+                            <input type="file" id="profile-photo-upload" /> <img src="/Content/Images/camera-icon.png" /> @Regit.Upload_Photo
+                        </div>
+                    </div>
+                    <div class="field-tools" ng-if="editting.PhotoUrl">
+                        <a class="btn btn-blue fix-width-mini" ng-click="save('PhotoUrl'); closeImageEditor(); ">@Regit.Save</a>
+                        <a class="btn btn-white fix-width-mini" ng-click="cancel('PhotoUrl'); closeImageEditor(); ">@Regit.Cancel</a>
+                    </div>
+                </div>
+                <div class="account-form-label text-right" ng-if="!editting.PhotoUrl">
+                    <a class="field-action regit-color" ng-class="{'editting': editting.PhotoUrl}" ng-click="edit('PhotoUrl');openImageEditor()"><i class="fa fa-pencil"></i> @Regit.Edit</a>
+                </div>
+            </div>
+            <div class="account-form-row">
+                <div class="account-form-label">
+                    <privacy-control hidable ng-model="privacy.Profile" ng-change="updatePrivacy()"></privacy-control> <span class="field-title h-34">Public Profile Page</span>
+                </div>
+                <div class="account-form-control control-float-right">
+                    <a class="account-form-link" href="#" ng-click="$event.preventDefault();view.showQR = !view.showQR"
+                       ng-bind="view.showQR ? 'Hide QR Code' : 'Show QR Code'"></a>
+                </div>
+                <div class="account-form-control">
+                    <a href="{{profileUrl}}" ng-bind="profileUrl"></a>
+                </div>
+                <div class="account-form-control qr-viewer" ng-if="view.showQR">
+                <div class="qr-viewer-image">
+                    <qr size="100" text="profileUrl"></qr>
+                    </div>
+                    <div class="qr-viewer-description">
+                        <p>Scanning this QR code will get the URL above.</p>
+                        <p>Regit mobile app user will be prompted to invite you to their network.</p>
+                        <p>Only share this QR code to people you know.</p>
+                        <a type="button" class="qr-action-download" ng-click="exportQR($event)">Download QR Code image</a>
+                    </div>
+                </div>
+            </div>            
+        </div>

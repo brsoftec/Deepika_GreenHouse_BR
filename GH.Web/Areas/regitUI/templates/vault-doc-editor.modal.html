@@ -1,0 +1,69 @@
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog vault-doc-editor-dialog vault-doc-editor-type-{{GenerateFileType(doc.type)}}">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="btn-modal-close" ng-click="$hide()">Close</button>
+                <h4 class="modal-title" ng-if="!newDoc">{{GenerateFileType(doc.type)=='img' ? 'Photo' : 'Document'}} Settings</h4>
+                <h4 class="modal-title" ng-if="newDoc">Add new file</h4>
+            </div>
+            <div class="modal-body">
+                <form class="vault-doc-form">
+                    <div class="vault-doc-editor">
+                        <div class="vault-doc-editor-row">
+
+                            <label>Description </label>
+                            <div class="vault-doc-editor-control">
+                                <rgu-control type="textbox" ng-model="doc.description"></rgu-control>
+                            </div>
+                        </div>
+                        <div class="vault-doc-editor-row">
+                            <label>Category</label>
+                            <div class="vault-doc-editor-control">
+                                <rgu-smart-input type="docCat" ng-model="doc.category"></rgu-smart-input>
+                            </div>
+                        </div>
+                        <div class="vault-doc-editor-row" ng-if="source!=='form'">
+                            <label>Attach To</label>
+                            <div class="vault-doc-editor-control">
+                                <ui-select ng-model="doc.jsPath" on-select="onLinkSelect($item, $model)">
+                                    <ui-select-match>
+                                        <span ng-bind="$select.selected.path + '/' + $select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="entry.path + '/' + entry.id as entry in (vaultEntries | filter: $select.search)" group-by="'path'"
+                                                       ui-disable-choice="entry.level < 2">
+
+                                        <span class="vault-entry vault-entry-level-{{entry.level}}" ng-bind="entry.label"
+                                              ng-class="{'vault-entry-group vault-select-group':!entry.leaf, 'vault-entry-form vault-select-item':entry.list, 'vault-select-disabled':entry.level<2}"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vault-doc-preview" >
+                        <img ng-src="/Areas/regitUI/img/vault-doc-preview-doc.png" ng-if="GenerateFileType(doc.type)!=='img'" class="img-responsive">
+                        <img ng-src="/Content/vault/documents/{{ruserid}}/{{doc.name}}" ng-if="GenerateFileType(doc.type)==='img'" class="img-responsive">
+
+                       
+
+                        <div class="upload-group vault-doc-upload-control" ng-if="newDoc">
+                            <input type="file" class="input-file" ng-model-instant id="fileToUpload" onchange="angular.element(this).scope().setFiles(this)" />
+                        </div>
+                    </div>
+
+                    <div class="modal-footer vault-doc-editor-footer" ng-if="newDoc">
+                        <button type="button" class="btn btn-default" ng-click="$hide()">Cancel</button>
+                        <button class="btn btn-primary" ng-disabled="hasFile==false" ng-click="addNewDoc(doc); $hide()">Save</button>
+                    </div>
+
+                    <div class="modal-footer vault-doc-editor-footer" ng-if="!newDoc">
+                        <button type="button" class="btn btn-default" ng-click="$hide()">Cancel</button>
+                        <button class="btn btn-primary" ng-click="addNewDoc(doc); $hide()">Save</button>
+                        <button class="btn btn-default vault-doc-download-btn" ng-click="RenderFile(doc);">Download</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

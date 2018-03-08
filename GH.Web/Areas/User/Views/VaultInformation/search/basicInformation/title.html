@@ -1,0 +1,22 @@
+﻿
+
+<div ng-controller="SearchBasicController">
+    <div class="vault-group-content">
+        <div class="vault-row">
+            <rgu-control type="smartselect" class="short" options="title" ng-model="field.value">
+            </rgu-control>
+            <!--<rgu-control type="select" class="short" options="['Mr.', 'Ms', 'Mrs.', 'Dr.', 'Sir']" ng-model="field.value" />-->
+        </div>
+        <button type="button"
+                class="btn-edit-vault-field-action btn-edit-vault-field-cancel"
+                ng-click="$event.preventDefault();cancelField(entry)">
+            Cancel
+        </button>
+        <button type="button" class="btn-edit-vault-field-action"
+                ng-click="Save()">
+            Save
+        </button>
+
+    </div>
+</div>
+

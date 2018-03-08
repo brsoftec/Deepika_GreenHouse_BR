@@ -1,0 +1,66 @@
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog billing-payment-card-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="btn-modal-close" ng-click="$hide()">Close</button>
+                <h4 class="modal-title">Payment Method</h4></div>
+        </div>
+        <div class="modal-body" ng-controller="PaymentCardController">
+            <form class="modal-form payment-card-form">
+                <div class="stripe-element">
+
+                    <div class="payment-card-form-row">
+                        <div class="field payment-card-form-label"><img class="card-brand-logo" ng-src="{{getCardTypeIconUrl(payment.method.brand)}}">
+                        </div>
+                    </div>
+                    <div class="payment-card-form-row">
+                        <div class="field payment-card-form-label">Name on Card</div>
+                        <div class="payment-card-form-control fullsize"><input name="cardholder-name"
+                                                                               ng-model="payment.method.fullName"></div>
+                    </div>
+                    <div class="payment-card-form-row">
+                        <div class="payment-card-form-label">Card Number</div>
+                        <div id="card-number" class="payment-card-form-control fullsize card-input"><input
+                                name="cardnumber" type="{{payment.method.creating ? 'text' : 'password'}}" ng-model="payment.method.cardNumber">
+                        </div>
+                    </div>
+                    <div class="payment-card-form-row card-expires">
+
+                        <div class="payment-card-form-col right">
+                            <div class="payment-card-form-label">Security Code</div>
+                            <div class="payment-card-form-control card-input" id="card-cvc"><input
+                                    ng-model="payment.method.securityCode"></div>
+                        </div>
+                        <div class="payment-card-form-col">
+                            <div class="payment-card-form-label">Expiry Date</div>
+                            <div id="card-expiry" class="payment-card-form-control card-input"><input
+                                    class="" ng-model="payment.method.expiry"
+                                    placeholder=""> /
+                            </div>
+
+                        </div>
+                        <div class="payment-card-form-row">
+                            <div class="payment-card-form-label"></div>
+                            <div class="payment-card-form-control">
+                                <rgu-checkbox ng-model="payment.method.isDefault" label="Set as Default"
+                                              ng-disabled="!(payment.method.creating && payment.methods.length || payment.methods.length && !payment.methods[payment.method.index].isDefault )">
+                                </rgu-checkbox>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="payment-card-message payment-card-error form-field-message" ng-if="view.cardError.type">
+                        {{view.cardError.message}}
+                    </div>
+
+                    <div class="payment-card-actions modal-actions">
+                        <button class="btn btn-default modal-action" ng-click="$hide()">Cancel</button>
+                       <button class="btn btn-primary modal-action" ng-disabled="!canSaveMethod()" ng-click="saveMethod($hide)">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+

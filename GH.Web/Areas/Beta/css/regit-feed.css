@@ -1,0 +1,269 @@
+.feed-entry {
+    position: relative;
+}
+
+.feed-content {
+    border: none;
+}
+
+.feed-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0 30px 0 50px;
+    width: 100%;
+}
+
+.feed-avatar {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.feed-avatar img {
+    width: 40px;
+    height: 40px;
+}
+
+.feed-fromwhen, .feed-source, .feed-menu {
+    display: inline-block;
+}
+
+.feed-from {
+    color: #00adef;
+    font-weight: bold;
+}
+
+.feed-when {
+    color: #aaa;
+    font-size: 80%;
+}
+
+.feed-follow {
+    float: right;
+    margin: 0 20px 0 0;
+}
+
+.follow-cta {
+    display: inline-block;
+    width: 100px;
+    height: 30px;
+    line-height: 20px;
+    padding: 5px 5px 10px 30px;
+    color: #00adef;
+    background: white url(../img/follow.svg) no-repeat 8px center;
+    background-size: 16px;
+    border: 1px solid #00adef;
+    border-radius: 3px;
+    text-align: center;
+    outline: none;
+}
+.follow-cta:hover {
+}
+
+.follow-cta.following {
+    background-color: white;
+    background-image: url(../img/following.svg);
+    color: #808080;
+    border-color: #808080;
+}
+/*.follow-cta.following:hover, .btn-unfollow {
+    color: white;
+    text-decoration: none;
+    background: red url(../img/btn-unfollow.png) no-repeat 8px center !important;
+}*/
+.campaign-member-count {
+    font-size: 90%;
+    color: #888;
+    margin-top: 20px;
+}
+.feed-campaign-type-heading {
+    text-transform: uppercase;
+}
+.feed-menu {
+    position: absolute;
+    right: 10px;
+}
+
+.feed-dropdown {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border: none;
+    background: transparent url(../img/feed-dropdown.png) no-repeat top right;
+
+}
+
+.icon-social {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: transparent url(../img/social-icons.png) no-repeat 0 0;
+    margin-right: 12px;
+    text-indent: -99999px;
+}
+
+.icon-social.facebook {
+    background-position: -20px 0;
+}
+
+.icon-social.twitter {
+    background-position: -40px 0;
+}
+
+.feed-social {
+    border: 1px solid #eee;
+    padding: 40px 1em 1em 1em;
+}
+
+.feed-news h4 {
+    font-weight: bold;
+    color: #666;
+}
+
+.img-news {
+    display: block;
+    max-width: 40%;
+    margin: 10px 10px 10px 0;
+    float: left;
+}
+
+.feed-news-text {
+    font-size: 90%;
+}
+
+.feed-footer {
+    clear: left;
+    height: 30px;
+    margin-top: 10px;
+}
+
+.feed-actions {
+    list-style: none;
+}
+
+.feed-actions li {
+    display: inline-block;
+    margin-right: 20px;
+    line-height: 20px;
+}
+
+.feed-actions a {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: transparent url(../img/feed-actions.png) no-repeat 0 0;
+    text-indent: -99999px;
+}
+
+.feed-action-comment {
+    background-position: -20px 0 !important;
+}
+
+.feed-action-share {
+    background-position: -40px 0 !important;
+}
+
+.feed-action-like.liked {
+    background-position: -20px -20px !important;
+}
+
+.feed-stats {
+    color: #a8a8a8;
+}
+
+.feed-interaction .feed-actions {
+    margin-top: 10px;
+}
+
+.feed-source {
+    float: right;
+}
+
+.feed-post-text {
+    font-size: 90%;
+}
+
+.feed-post .feed-content {
+    margin-top: 10px;
+}
+
+.feed-interaction {
+    /*border: 1px solid #ddd;*/
+    padding-top: 60px;
+}
+
+
+.feed-interaction h3 {
+    font-size: 100%;
+    color: #aaa;
+    text-transform: uppercase;
+    margin-top: 0;
+}
+
+.feed-interaction h4 {
+    font-size: 120%;
+    margin: 0 0 .2em 0;
+}
+
+.feed-interaction p {
+    font-size: 90%;
+    margin: 0;
+    padding: 0;
+}
+.feed-interaction-name {
+    color: #00adef;
+    text-transform: uppercase;
+    font-size: 80%;
+    font-weight: bold;
+}
+
+.feed-interaction-text {
+    margin-bottom: 8px;
+}
+.feed-interaction-footer {
+    margin-top: 8px;
+    height: 30px;
+    position: relative;
+}
+.feed-interaction-participators {
+    /*text-align: right;*/
+    /*margin-right: 180px;*/
+    color: #aaa;
+}
+.feed-interaction-cta {
+    min-width: 96px;
+    height: 30px;
+    border: none;
+    background: transparent url(../img/feed-interaction-cta.png) no-repeat left center;
+    vertical-align: middle;
+    color: white;
+    font-size: 100%;
+    font-weight: bold;
+    text-align: center;
+    padding-left: 32px;
+
+    text-transform: capitalize;
+    margin-bottom: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.feed-interaction-picture {
+    margin-top: 8px;
+}
+
+.new-intro-heading {
+    text-align: center;
+    color: #00adef;
+    margin-top: 0;
+}
+
+.new-intro-text {
+    margin-top: 16px;
+}
+.new-intro-text p {
+    margin: 5px;
+    padding: 0;
+}

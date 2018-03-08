@@ -1,0 +1,137 @@
+﻿@if (!User.Identity.IsAuthenticated || ViewBag.About == true || ViewBag.Public == true || ViewBag.Layout == "signup") {
+    <header class="responsive-header">
+        <button class="responsive-menu-open" ng-click="openMenu()"></button>
+        <button class="responsive-search-open" ng-click="openSearch()"></button>
+
+        <div class="responsive-menu" id="responsive-menu">
+            <div class="responsive-panel-header">
+                <button class="responsive-back" ng-click="closeMenu()">Back</button>
+            </div>
+            <div class="responsive-menu-logo">
+                <img src="/Areas/Beta/img/regit-logotype-light.svg">
+            </div>
+        @if (!User.Identity.IsAuthenticated) {
+            <div class="responsive-signin" ng-controller="PublicSigninController">
+
+                <form class="responsive-signin-form" ng-submit="$event.preventDefault();signIn()">
+                    <input class="responsive-signin-input" type="email" ng-model="signModel.Email" autofocus placeholder="email"/>
+                    <input class="responsive-signin-input" type="password" ng-model="signModel.Password"
+                           placeholder="password"/>
+                    <button class="responsive-signin-submit" ng-click="$event.preventDefault();signIn()">Sign In</button>
+                    <div class="public-signin-message responsive-signin-message">
+                        <span class="public-signin-message-text responsive-signin-message-text"></span>
+                    </div>
+                    <div class="responsive-menu-actions">
+                        <a class="responsive-menu-action" href="/User/Trouble">Forgot password?</a>
+                        <a class="responsive-menu-action" href="/User/SignUp">Create an account</a>
+                    </div>
+                </form>
+            </div>
+        }
+
+            <div class="responsive-menu-actions">
+            @if (User.Identity.IsAuthenticated) {
+                <a class="responsive-menu-action" href="/">Regit Home</a>
+                <a class="responsive-menu-action" href="#" ng-click="$event.preventDefault();logout()">Log Out</a>
+            }
+
+            </div>
+            <div class="responsive-menu-links">
+                @if (ViewBag.About == true)
+                {
+                    if (ViewBag.Page == "about-business")
+                    {
+                        <a class="responsive-menu-link" href="/about">Regit for Individual</a>
+                    }
+                    else
+                    {
+                        <a class="responsive-menu-link" href="/about/business">Regit for Business</a>
+                    }
+                }
+                else {}
+                <a class="responsive-menu-link" href="/about/privacy-policy">Legal &amp; Privacy</a>
+            </div>
+        </div>
+
+        <div class="responsive-search" id="responsive-search">
+            <button class="responsive-close" ng-click="closeSearch()">Close</button>
+            <form class="responsive-search-form" name="formSearch" action="/Search/Public" method="get">
+                <input name="query" class="main-search-input" autofocus placeholder="Search Regit">
+                <button class="responsive-search-submit">Search</button>
+            </form>
+        </div>
+
+    </header>
+} else {
+<header class="responsive-header">
+    <button class="responsive-menu-open" ng-click="openMenu()"></button>
+    <div class="responsive-header-notif" ng-controller="NotificationController2">
+        <!--<a href="#" data-title="Notifications" data-placement="bottom-right" popover-class="popover-responsive-notif"-->
+           <!--popover-placement="bottom" popover-trigger="'outsideClick'"-->
+           <!--popovertitle="" uib-popover-template="'notifications.popover.html'"-->
+           <!--popover-is-open="currentView.showingNotifications">-->
+        <!--<span ng-if="CountNewNotifycation" class="badge main-nav-badge" ng-bind="CountNewNotifycation"></span></a>     -->
+        <a href="/Notification">
+        <span ng-if="CountNewNotifycation" class="badge main-nav-badge" ng-bind="CountNewNotifycation"></span></a>
+    </div>
+    <button class="responsive-search-open" ng-click="openSearch()"></button>
+
+    <div class="responsive-menu responsive-user-menu" id="responsive-menu">
+        <div class="responsive-panel-header">
+            <button class="responsive-back" ng-click="closeMenu()">Back</button>
+        </div>
+        <div class="responsive-panel responsive-user-profile">
+            <div class="responsive-user-avatar"><img  ng-src="{{user.PhotoUrl ? user.PhotoUrl : '/Areas/Beta/img/intro-profile-picture.svg'}}"></div>
+            <div class="responsive-user-name" ng-bind="user.DisplayName"></div>
+        </div>
+
+        <div class="responsive-panel responsive-user-menu-actions">
+            @if (ViewBag.Tier == "individual")
+            {
+                <a class="responsive-user-menu-action responsive-user-menu-home" href="/">Regit Home</a>
+                <a class="responsive-user-menu-action responsive-user-menu-vault" href="/VaultInformation">Information Vault</a>
+                <a class="responsive-user-menu-action responsive-user-menu-network" href="/User/Network">Network</a>
+                <a class="responsive-user-menu-action responsive-user-menu-delegate" href="/DelegationManager">Delegate</a>
+            <a class="responsive-user-menu-action responsive-user-menu-settings" href="/User/Settings">Account Settings</a>
+            <a class="responsive-user-menu-action responsive-user-menu-activity-log" href="/ActivityLog">Activity Log</a>
+                <a class="responsive-user-menu-action responsive-user-menu-interactions" href="/CampaignUser/ManagerCampaign">Manage Interactions</a>
+                <a class="responsive-user-menu-action responsive-user-menu-syncs" href="/CampaignUser/ManageSyncs">Manage Syncs</a>
+            }
+            else
+            {
+                <a class="responsive-user-menu-action responsive-user-menu-settings" href="/BusinessAccount/Settings">Account Management</a>
+                <a class="responsive-user-menu-action responsive-user-menu-interactions" href="/Campaign/ManagerCampaign">Manage Interactions</a>
+            }
+
+        </div>
+
+        <div class="responsive-user-menu-links responsive-panel">
+            <a class="responsive-user-menu-link responsive-user-logout" href="#" ng-click="$event.preventDefault();logout()">Log Out</a>
+        </div>
+
+        <div class="responsive-user-menu-links responsive-panel">
+            <a class="responsive-user-menu-link" href="/about">About Regit</a>
+            @if (ViewBag.Tier == "individual")
+            {
+                <a class="responsive-user-menu-link" href="/BusinessAccount">Regit for Business</a>
+            }
+            else
+            {
+                <a class="responsive-user-menu-link" href="/">Regit for Individual</a>
+            }
+            <a class="responsive-user-menu-link" href="/about/privacy-policy">Legal &amp; Privacy</a>
+        </div>
+
+    </div>
+
+    <div class="responsive-search" id="responsive-search">
+        <button class="responsive-close" ng-click="closeSearch()">Close</button>
+        <form class="responsive-search-form" name="formSearch" action="/Search" method="get">
+            <input name="query" class="main-search-input" autofocus placeholder="Search Regit">
+            <button class="responsive-search-submit">Search</button>
+        </form>
+    </div>
+
+</header>
+
+}

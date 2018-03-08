@@ -1,0 +1,33 @@
+﻿<footer class="about-footer">
+    <div class="footer-content">
+        <div class="social-links">
+            <a href="https://twitter.com/regit_today" class="social-twitter"></a>
+            <a href="https://www.facebook.com/regit.today" class="social-facebook"></a>
+            <a href="https://www.linkedin.com/company/regit-pte.ltd." class="social-linkedin"></a>
+            <a href="https://plus.google.com/u/0/110749894511422865273" class="social-google"></a>
+
+        </div>
+        <ul class="about-footnav">
+            @if (ViewBag.Area=="support" || ViewBag.AboutSecondary == true) {
+            <li><a href="/about">About Regit</a></li>
+            } else {
+            if (ViewBag.Page == "about-business") {
+            <li><a href="/about">Regit for Individual</a></li>
+            } else {
+            <li><a href="/about/business">Regit for Business</a></li>
+            }
+            }
+            <!--<li><a href="/about/developers">Developers</a></li>-->
+            <li><a href="/support/help">Help Center</a></li>
+            <li><a href="http://www.regitblog.com">Regit Blog</a></li>
+            <li><a href="mailto:info@regit.today">Contact</a></li>
+            <li><a href="/about/privacy-policy">Legal &amp; Privacy</a></li>
+        </ul>
+        <div class="about-copyright">
+            <a href="http://qudy.com.sg" class="qudy-link">
+                <img src="~/Areas/About/Content/img/qudy-logo.svg" alt="Designed by Qudy">
+            </a>
+            <p>&copy; 2017 Regit Pte. Ltd.</p>
+        </div>
+    </div>
+</footer>

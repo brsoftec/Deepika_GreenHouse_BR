@@ -1,0 +1,24 @@
+﻿﻿@model GH.Core.ViewModels.InteractionViewModel
+@{
+    ViewBag.Title = Html.Raw(Model.Name) + " - Interaction Editor";;
+    Layout = "~/Areas/User/Views/Shared/_InteractionEditorLayout.cshtml";
+    var interactionId = Model.Id;
+    ViewBag.Interaction = Model;
+}
+
+@section body {
+    <div class="module module-main module-interaction-editor">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/BusinessAccount">&laquo; Business Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="/Campaign/ManagerCampaign">Interaction Module</a>
+            </li>
+            <li class="breadcrumb-item active">Interaction Editor</li>
+        </ol>
+        <div class="interaction-editor-container">
+            
+        </div>
+    </div>
+}

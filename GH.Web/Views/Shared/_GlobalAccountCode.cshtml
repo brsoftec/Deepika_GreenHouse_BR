@@ -1,0 +1,71 @@
+﻿@using GH.Web.Areas.User.ViewModels
+
+<script>
+    var regitGlobal = regitGlobal || {};
+    regitGlobal.server = {
+            baseUrl: "@ViewBag.BaseUrl", 
+            isProduction: @Json.Encode(ViewBag.IsProduction) 
+        };
+
+    regitGlobal.ngApp = "@ViewBag.NgApp";
+    
+    @if (ViewBag.IsPublic == true)
+    {
+        @:regitGlobal.isPublic = true;
+    }
+    else if (ViewBag.Account != null)
+    {
+        <text>
+    regitGlobal.userAccount =
+    {
+        id: "@ViewBag.Account.Id",
+        accountId: "@ViewBag.Account.AccountId",
+        accountType: "@ViewBag.Account.AccountType",
+        displayName: "@Html.Raw(ViewBag.Account.Profile.DisplayName)",
+        avatar: "@Html.Raw(ViewBag.Account.Profile.PhotoUrl)"
+    };
+
+
+    @if (ViewBag.IsBusinessMember != null)
+    {
+        @:regitGlobal.userAccount.isBusinessMember = @Json.Encode(ViewBag.IsBusinessMember);
+    }
+
+    regitGlobal.activeAccount = regitGlobal.userAccount;
+    regitGlobal.businessAccount = false;
+    @if (ViewBag.BusinessAccount != null)
+    {
+        <text>
+            regitGlobal.businessAccount =
+            {
+                hasBusinessMember: true,
+                id: "@ViewBag.BusinessAccount.Id",
+                accountId: "@ViewBag.BusinessAccount.AccountId",
+                accountType: "Business",
+                displayName: "@Html.Raw(ViewBag.BusinessAccount.Profile.DisplayName)",
+                avatar: "@Html.Raw(ViewBag.BusinessAccount.Profile.PhotoUrl)"
+            };
+        </text>
+        if (ViewBag.AsBusinessMember == true)
+        {
+            @: regitGlobal.activeAccount = regitGlobal.businessAccount;
+        }
+    }
+    else
+    {
+    }
+    @if (ViewBag.IsBusinessView == true)
+    {
+        @: regitGlobal.asBusiness = true;
+    }
+
+    regitGlobal.controller = "@ViewBag.Controller";
+    regitGlobal.action = "@ViewBag.Action";
+    regitGlobal.viewTier = "@(ViewBag.IsBusinessView == true ? "business" : "")";
+    regitGlobal.activeAccountObjId = "@Html.Raw(ViewBag.ActiveAccount.Id)";
+    regitGlobal.activeAccountId = "@Html.Raw(ViewBag.ActiveAccount.AccountId)";
+        </text>
+    }
+    
+
+</script>

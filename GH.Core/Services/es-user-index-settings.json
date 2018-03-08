@@ -1,0 +1,125 @@
+{
+  "index": {
+    "_index": "users",
+    "_type": "user",
+    "_id": "579885bde6515c312cc85e1e"
+  }
+} [
+  {
+    "Id": "579885bde6515c312cc85e1e",
+    "Name": "Tan Hoang",
+    "Type": "Personal",
+    "Related": [ "5799dee69d85a40e78b0b4e0" ]
+  },
+  {
+    "Id": "579886dbe6515c312cc85e21",
+    "Name": "Tinh Tinh",
+    "Type": "Personal",
+    "Related": [ ]
+  },
+  {
+    "Id": "5799dee69d85a40e78b0b4e0",
+    "Name": "Mercedes Viet Nam",
+    "Type": "Business",
+    "Related": [ ]
+  },
+  {
+    "Id": "57a053cc9d85a622347e1950",
+    "Name": "Futurify",
+    "Type": "Personal",
+    "Related": [ ]
+  }
+] {
+  "index": {
+    "_index": "users",
+    "_type": "user",
+    "_id": "579886dbe6515c312cc85e21"
+  }
+} [
+  {
+    "Id": "579885bde6515c312cc85e1e",
+    "Name": "Tan Hoang",
+    "Type": "Personal",
+    "Related": [ "5799dee69d85a40e78b0b4e0" ]
+  },
+  {
+    "Id": "579886dbe6515c312cc85e21",
+    "Name": "Tinh Tinh",
+    "Type": "Personal",
+    "Related": [ ]
+  },
+  {
+    "Id": "5799dee69d85a40e78b0b4e0",
+    "Name": "Mercedes Viet Nam",
+    "Type": "Business",
+    "Related": [ ]
+  },
+  {
+    "Id": "57a053cc9d85a622347e1950",
+    "Name": "Futurify",
+    "Type": "Personal",
+    "Related": [ ]
+  }
+] {
+  "index": {
+    "_index": "users",
+    "_type": "user",
+    "_id": "5799dee69d85a40e78b0b4e0"
+  }
+} [
+  {
+    "Id": "579885bde6515c312cc85e1e",
+    "Name": "Tan Hoang",
+    "Type": "Personal",
+    "Related": [ "5799dee69d85a40e78b0b4e0" ]
+  },
+  {
+    "Id": "579886dbe6515c312cc85e21",
+    "Name": "Tinh Tinh",
+    "Type": "Personal",
+    "Related": [ ]
+  },
+  {
+    "Id": "5799dee69d85a40e78b0b4e0",
+    "Name": "Mercedes Viet Nam",
+    "Type": "Business",
+    "Related": [ ]
+  },
+  {
+    "Id": "57a053cc9d85a622347e1950",
+    "Name": "Futurify",
+    "Type": "Personal",
+    "Related": [ ]
+  }
+] {
+  "index": {
+    "_index": "users",
+    "_type": "user",
+    "_id": "57a053cc9d85a622347e1950"
+  }
+} [
+  {
+    "Id": "579885bde6515c312cc85e1e",
+    "Name": "Tan Hoang",
+    "Type": "Personal",
+    "Related": [ "5799dee69d85a40e78b0b4e0" ]
+  },
+  {
+    "Id": "579886dbe6515c312cc85e21",
+    "Name": "Tinh Tinh",
+    "Type": "Personal",
+    "Related": [ ]
+  },
+  {
+    "Id": "5799dee69d85a40e78b0b4e0",
+    "Name": "Mercedes Viet Nam",
+    "Type": "Business",
+    "Related": [ ]
+  },
+  {
+    "Id": "57a053cc9d85a622347e1950",
+    "Name": "Futurify",
+    "Type": "Personal",
+    "Related": [ ]
+  }
+]

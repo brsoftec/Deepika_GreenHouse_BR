@@ -1,0 +1,392 @@
+
+body {
+    font: normal 14px/1.4 "Roboto", "Helvetica Neue", Helvetica, Arial, Geneva, sans-serif;
+    margin: 0;
+    padding: 0 0 0 0;
+    width: 100%;
+
+}
+
+.help-page-header {
+    width: 100%;
+    min-height: 100px;
+    background: transparent url(../img/help-banner.png) no-repeat;
+    color: white;
+    padding: 20px 0 20px 0;
+    position: relative;
+}
+
+.help-page .about-signin {
+    right: 10px;
+    /*height: 200px;*/
+    bottom: 10px;
+}
+
+h2, h3 {
+    text-align: center;
+    width: 600px;
+    margin: 10px auto;
+    font-weight: 300;
+}
+
+.help-page-heading {
+    background: transparent url(../img/regit-logotype-light.svg) no-repeat center top;
+    background-size: auto 100px;
+    padding-top: 110px;
+    font-size: 200%;
+}
+
+.help-page-subhead {
+    font-size: 120%;
+    color: white;
+}
+
+.help-search {
+    width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+}
+
+.help-search-input {
+    width: 60%;
+    border: 1px solid #00adef;
+    border-radius: 6px;
+    background: white url(../img/help-search.svg) no-repeat 10px center;
+    background-size: 20px;
+    height: 40px;
+    margin: 20px 0;
+    text-align: center;
+    color: black;
+    display: inline-block;
+}
+
+.clear-search {
+    width: 20px;
+    height: 40px;
+    border: none;
+    background: transparent url(../img/clear-search.svg) no-repeat center center;
+    margin: 20px 0;
+    margin-left: -32px;
+    background-size: 14px;
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+}
+
+.search-highlight {
+    font-weight: bold;
+    background: yellow !important;
+    font-size: 110%;
+}
+
+.help-section {
+    min-height: 300px;
+    padding-bottom: 30px;
+}
+
+.help-nav {
+    background: #e6e7e8;
+    /*height: 40px;*/
+}
+
+.help-nav ul {
+    width: 700px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+}
+
+.help-nav-item {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+
+.help-nav-item a {
+    display: inline-block;
+    padding: 8px 26px !important;
+    color: #585858;
+    font-weight: 500;
+}
+
+.help-nav-item a:hover {
+    background: white;
+}
+
+.help-nav-item a.active {
+    border-bottom: 2px solid #00adef;
+}
+
+.help-section-heading {
+    text-align: center;
+    font-weight: 400;
+    font-size: 140%;
+    margin: 40px 0 30px 0;
+}
+
+.help-more {
+    width: 180px;
+    margin: 0 auto;
+}
+
+.help-more img {
+    width: 100%;
+}
+
+.contact-support {
+    text-align: center;
+    width: 400px;
+    margin: 30px auto;
+}
+
+.contact-support p {
+    font-size: 80%;
+
+}
+
+.contact-support h5 {
+    font-size: 120%;
+    margin-bottom: 10px;
+}
+
+.help-topics ul {
+    margin: 20px 0;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+}
+
+.help-topic-item {
+    width: 160px;
+    min-height: 180px;
+    margin: 0;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: center 20px;
+    background-size: auto 40px;
+    padding: 80px 10px 20px 10px;
+    border: 1px solid #ccc;
+    border-right-color: transparent;
+    cursor: pointer;
+    vertical-align: top;
+    text-align: center;
+}
+
+.support-container .help-topic-item {
+    min-height: 80px;
+}
+
+.help-topic-item:last-child {
+    border-right-color: #ccc;
+    background-size: auto 50px;
+}
+
+.help-topic-item:hover {
+    background-color: #fefefe;
+}
+
+.help-topic-item-heading {
+    font-size: 120%;
+    margin-bottom: 10px;
+}
+
+.support-container .help-topic-item-heading {
+    font-weight: 400;
+}
+
+.help-topic-item-text {
+    font-size: 80%;
+}
+
+.help-topic-item-using {
+    background-image: url(../img/topic-using.svg);
+}
+
+.help-topic-item-manage-account {
+    background-image: url(../img/topic-account.svg);
+}
+
+.help-topic-item-delegation {
+    background-image: url(../img/topic-delegation.svg);
+}
+
+.help-topic-item-interaction {
+    background-image: url(../img/topic-interaction.svg);
+}
+
+.section-nav {
+    width: 200px;
+    margin: 20px 10px 0 100px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.section-nav-heading {
+    font-size: 120%;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.section-nav-item {
+    color: #666 !important;
+    display: block;
+    padding: 6px 0;
+    position: relative;
+}
+
+.section-nav-item.active {
+    color: black;
+    font-weight: bold;
+
+}
+
+.section-nav-item.active:before {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    border-bottom: 2px solid #00adef;
+    position: absolute;
+    left: -16px;
+    top: 20px;
+}
+
+.subject-content {
+    width: 600px;
+    margin: 30px 10px 0 0;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.help-item {
+    margin: 0 0 20px 0;
+}
+
+.help-item-title {
+    color: #00adef;
+    font-size: 120%;
+    font-weight: 400;
+    margin: 0 0 10px;
+}
+
+.search-results {
+    width: 600px;
+    margin: 20px 10px 20px 270px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.search-results.no-results {
+    margin: 0 0 0 240px;
+}
+
+.search-item {
+    margin: 0 0 20px 0;
+
+}
+
+/*Help content list styling*/
+.help-item-text ul li {
+    margin-left: 1.2em;
+}
+
+.help-item-text ol {
+    counter-reset: li; /* Initiate a counter */
+    margin-left: 0; /* Remove the default left margin */
+    padding-left: 0; /* Remove the default left padding */
+}
+
+.help-item-text ol > li {
+    position: relative; /* Create a positioning context */
+    margin: 0 0 6px 2em; /* Give each list item a left margin to make room for the numbers */
+    padding: 4px 8px; /* Add some spacing around the content */
+    list-style: none; /* Disable the normal item numbering */
+    border-top: 2px solid #aaa;
+    background: #f6f6f6;
+}
+
+.help-item-text ol > li:before {
+    content: counter(li); /* Use the counter as content */
+    counter-increment: li; /* Increment the counter by 1 */
+    /* Position and style the number */
+    position: absolute;
+    top: -2px;
+    left: -2em;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 2em;
+    /* Some space between the number and the content in browsers that support
+       generated content but not positioning it (Camino 2 is one example) */
+    margin-right: 8px;
+    padding: 4px;
+    border-top: 2px solid #aaa;
+    color: #fff;
+    background: #aaa;
+    font-weight: bold;
+    text-align: center;
+}
+
+.help-item-text li ol,
+.help-item-text li ul {
+    margin-top: 6px;
+}
+
+.help-item-text ol ol > li {
+    border: none;
+    padding-top: 0;
+
+}
+
+.help-item-text ol ol > li:before {
+    content: counter(li,lower-alpha); /* Use abc counter */
+    background: none;
+    border: 1px solid #aaa;
+    color: #aaa;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: top;
+    /*width: 1.5em; height: 1.5em;*/
+
+}
+
+.help-item-text ol ol li:last-child {
+    margin-bottom: 0;
+}
+
+.help-item-text h5 {
+    font-size: 110%;
+    margin: .2em 0 .4em 0;
+}
+
+.help-item-text h6 {
+    font-size: 100%;
+    margin-bottom: 0.4em;
+}
+
+@media only screen and (max-width: 840px) {
+    h2, h3 {
+        width: 100%;
+    }
+
+    .help-search {
+        width: 100% !important;
+    }
+
+    .help-nav ul {
+        width: 100%;
+    }
+
+    .section-nav, .subject-content, .search-results {
+        display: block;
+        width: 100%;
+        margin: 0;
+        color: black !important;
+        padding: 10px;
+    }
+
+    .search-results {
+        margin: 0;
+    }
+}

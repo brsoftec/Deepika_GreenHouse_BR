@@ -1,0 +1,128 @@
+﻿@{
+    ViewBag.Title = "Calendar";
+    Layout = "~/Areas/User/Views/Shared/_LayoutDefault.cshtml";
+}
+
+
+
+@* BODY *@
+<div ng-controller="CalendarCtrl">
+    <div class="module module-main module-calendar">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/">&laquo; Home</a></li>
+            <li class="breadcrumb-item active">Calendar</li>
+        </ol>
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <div class="calendar-header-day">
+                    {{activeDay | fullDate}}
+                </div>
+                <div class="calendar-header-actions">
+                    <button class="btn-new-event" ng-click="newEvent()" bs-tooltip data-title="Add new event">New Event</button>
+                </div>
+                <div class="calendar-header-nav">
+                    <button class="calendar-nav" ng-class="{active:activeView==='today'}" ng-click="gotoView('today')">
+                        Today
+                    </button>
+                    <button class="calendar-nav" ng-class="{active:activeView==='day'}" ng-click="gotoView('day')">Day</button>
+                    <button class="calendar-nav" ng-class="{active:activeView==='week'}" ng-click="gotoView('week')">
+                        Week
+                    </button>
+                </div>
+            </div>
+            <div class="calendar-view">
+                <table class="calendar-grid calendar-grid-day" ng-if="activeView==='today' || activeView==='day'">
+                    <tr>
+                        <th>{{utcOffsetText}}</th>
+                        <td></td>
+                    </tr>
+                    <tr ng-repeat="hour in dayHours">
+                        <th>{{hour}}</th>
+                        <td>
+                            <div class="calendar-grid-event-list" ng-if="eventsByHour[$index].length">
+                                <div class="calendar-grid-event"
+                                     ng-repeat="event in eventsByHour[$index] | orderBy: 'start.date'"
+                                     popover-placement="auto" popover-trigger="'outsideClick'" popovertitle=""
+                                     popover-is-open="showingEventPopup" uib-popover-template="'event-popup.html'">
+                                    {{event.start.date | shortTime}} - {{event.end.date | shortTime}}:
+                                    <span class="event-name">{{event.summary}}</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <table class="calendar-grid calendar-grid-week" ng-if="activeView==='week'">
+                    <tr class="grid-header">
+                        <th>{{utcOffsetText}}</th>
+                        <td class="calendar-weekday-header" ng-repeat="day in weekDays">{{day | weekDayHeader}}</td>
+                    </tr>
+                    <tr ng-repeat="hour in dayHours" ng-init="index=$index">
+                        <th>{{hour}}</th>
+                        <td ng-repeat="day in weekDays">
+                            <div class="calendar-grid-event-list" ng-if="day.eventsByHour[index].length">
+                                <div class="calendar-grid-event"
+                                     ng-repeat="event in day.eventsByHour[index] | orderBy: 'start.date'"
+                                     popover-placement="auto" popover-trigger="'outsideClick'" popovertitle=""
+                                     popover-is-open="showingEventPopup" uib-popover-template="'event-popup.html'">
+                                    {{event.start.date | shortTime}} - {{event.end.date | shortTime}}:
+                                    <span class="event-name">{{event.summary}}</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <script type="text/ng-template" id="event-popup.html">
+            <div class="calendar-event-popup">
+                <div class="calendar-event-popup-header">
+                    <h4>Event Details</h4>
+                </div>
+                <div class="calendar-event-details">
+                    <div class="calendar-event-details-row">
+                        <div class="calendar-event-details-label">Event Name</div>
+                        <div class="calendar-event-details-value"><span class="event-name">{{event.summary}}</span></div>
+                    </div>
+                    <div class="calendar-event-details-row">
+                        <div class="calendar-event-details-label">Source</div>
+                        <div class="calendar-event-details-value">{{event.source}}</div>
+                    </div>
+                    <div class="calendar-event-details-row">
+                        <div class="calendar-event-details-label">Description</div>
+                        <div class="calendar-event-details-value">{{event.description}}</div>
+                    </div>
+                    <div class="calendar-event-details-row">
+                        <div class="calendar-event-details-label">Organized by</div>
+                        <div class="calendar-event-details-value">{{event.organizer}}</div>
+                    </div>            <div class="calendar-event-details-row">
+                        <div class="calendar-event-details-label">Date</div>
+                        <div class="calendar-event-details-value">{{event.start.date | fullDate}}</div>
+                    </div>
+                    <div class="calendar-event-details-row">
+                        <div class="calendar-event-details-label">Time</div>
+                        <div class="calendar-event-details-value">From {{event.start.date | fullTime}} to {{event.end.date | fullTime}}</div>
+                    </div>
+                    <div class="calendar-event-details-row">
+                        <div class="calendar-event-details-label">Location</div>
+                        <div class="calendar-event-details-value">{{event.location}}</div>
+                    </div>
+                    <div class="calendar-event-details-row" ng-if="event.theme">
+                        <div class="calendar-event-details-label">Theme</div>
+                        <div class="calendar-event-details-value">{{event.theme}}</div>
+                    </div>
+                    <div class="calendar-event-details-row" ng-if="event.note">
+                        <div class="calendar-event-details-label">Note</div>
+                        <div class="calendar-event-details-value">{{event.note}}</div>
+                    </div>
+                </div>
+                <div class="calendar-event-popup-actions">
+                    <a href="#" ng-click="$event.preventDefault();gotoEvent(event)">Edit Event</a>
+                    <a href="#" ng-click="$event.preventDefault();deleteEvent(event.id)">Delete Event</a>
+                </div>
+            </div>
+        </script>
+    </div>
+
+
+</div>

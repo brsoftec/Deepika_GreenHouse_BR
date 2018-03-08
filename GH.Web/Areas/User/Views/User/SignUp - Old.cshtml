@@ -1,0 +1,291 @@
+﻿@using GH.Lang;
+
+@{
+    ViewBag.Title = "Sign Up";
+    Layout = "~/Areas/User/Views/Shared/_SignupLayout.cshtml";
+    ViewBag.BodyClass = "signup";
+}
+@section styles{
+<link href="@Url.Versioned("~/Areas/Beta/css/signin.css")" rel="stylesheet" />
+}
+@section initscripts{
+    <script>
+        var regitGlobal = regitGlobal || {};
+        regitGlobal.inviteId = "@ViewBag.InviteId";
+    </script>
+}
+
+@* BODY *@
+<div class="section section-public section-signup">
+    <div class="public-container signup-container" ng-controller="SignUpController">
+        <div class="public-aside">
+            <div class="aside-logo">
+                <img src="~/Areas/Beta/img/regit-logotype.svg">
+            </div>
+        </div>
+        <div class="signup-form" ng-init="outsiteId = '@ViewBag.Id'">
+            <h1>New Regit account</h1>
+
+            <h2 ng-if="progress.Step == 'REGISTER'">
+                You’re one step closer to taking control of your life!
+            </h2>
+
+            <form name="signUpForm" class="pure-form public-form form-signup" novalidate>
+                <div ng-if="progress.Step == 'REGISTER'" class="row register-step">
+                    <div class="public-form-row">
+                        <input type="text" ng-class="{'control-error': progress.Errors.Step1.FirstName}" class="form-control inline-control" placeholder="@Regit.First_Name.ToUpper()" ng-model="account.FirstName" />
+                        <input type="text" ng-class="{'control-error': progress.Errors.Step1.LastName}" class="form-control inline-control inline-control-right" placeholder="@Regit.Last_Name.ToUpper()" ng-model="account.LastName" />
+                        <div class="form-error">{{progress.Errors.Step1.FirstName}}</div>
+                        <div class="form-error">{{progress.Errors.Step1.LastName}}</div>
+                    </div>
+
+                    <div class="public-form-row">
+                        <input type="text" ng-class="{'control-error': progress.Errors.Step1.Email}" class="form-control" placeholder="@Regit.Email.ToUpper()" ng-model="account.Email" />
+                        <div class="form-error">{{progress.Errors.Step1.Email}}</div>
+                    </div>
+                    <div class="public-form-row">
+                        <input type="text" ng-class="{'control-error': progress.Errors.Step1.confirmEmail}" class="form-control" placeholder="CONFIRM EMAIL" ng-model="account.confirmEmail" />
+                        <div class="form-error">{{progress.Errors.Step1.ConfirmEmail}}</div>
+                    </div>
+                    <div class="public-form-row">
+                        <rgu-phone-input name="signupPhoneInput" placeholder="PHONE NUMBER" ng-model="account.PhoneNumber"
+                                         phone-code="account.PhoneNumberCountryCallingCode" initial-country="auto">
+                        </rgu-phone-input>
+
+                        <div class="form-error">{{progress.Errors.Step1.PhoneNumber}}</div>
+                        <div class="public-form-notes">
+                            <ol type="i">
+                                <li>For the protection of  your account, you will be asked to verify your phone number in the next screen.</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="public-form-row">
+                        <ui-select ng-model="countryCity.Country" theme="bootstrap" remove-selected="false">
+                            <ui-select-match placeholder="@Regit.Select_Country.ToUpper()">{{$select.selected.Name}}</ui-select-match>
+                            <ui-select-choices repeat="country.Name as country in countries | filter: $select.search">
+                                <span ng-bind-html="country.Name | highlight: $select.search"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                        <input type="text" ng-class="{'control-error': progress.Errors.Step1.City}" class="form-control inline-control"
+                               placeholder="@Regit.SELECT_CITY.ToUpper()" ng-model="countryCity.City" />
+
+                        <div class="form-error">{{progress.Errors.Step1.City}}</div>
+                        <div class="form-error">{{progress.Errors.Step1.Country}}</div>
+                    </div>
+
+                    <div class="public-form-row">
+                        <input type="password" ng-class="{'control-error': progress.Errors.Step1.Password}" class="form-control" ng-disabled="registerExternal" placeholder="@Regit.Password.ToUpper()" ng-model="account.Password" />
+                        <div class="form-error">{{progress.Errors.Step1.Password}}</div>
+                    </div>
+
+                    <div class="public-form-row">
+                        <input type="password" ng-class="{'control-error': progress.Errors.Step1.ConfirmPassword}" class="form-control"
+                               ng-disabled="registerExternal" placeholder="@Regit.ConfirmPassword.ToUpper()" ng-model="account.ConfirmPassword"
+                               ng-enter="register()" />
+                        <div class="form-error">{{progress.Errors.Step1.ConfirmPassword}}</div>
+                    </div>
+
+                    <div class="public-form-row">
+                        <label class="checkbox-square"><input type="checkbox" ng-model="account.AgreeTermsAndCondition" /><span></span> <span>I agree to the  <a href="/about/terms-conditions" target="_blank">Terms &amp; Conditions</a></span></label>
+
+                    </div>
+
+                    <div class="public-form-row public-form-actions">
+                        <button type="button" class="btn btn-primary public-form-btn" ng-click="register()">
+                            Next
+                        </button>
+                    </div>
+
+                </div>
+
+                <div ng-if="progress.Step == 'AUTHENTICATION'" class="authentication-step">
+
+                    <!--check phone-->
+
+                    <div class="sms-auth-content signin-auth">
+                        <div class="sms-auth-intro">
+
+                            <p ng-if="!sentOtp">
+                                Please click GET OTP to receive an SMS or voice PIN on your registered phone number:
+                                {{account.PhoneNumberCountryCallingCode}}{{account.PhoneNumber}}.
+                            </p>
+                            <button class="otp-send-action" ng-disabled="disableSend" ng-click="GetConfirmSMS()">{{otpButtonLabel}}</button>
+
+                            <p ng-if="sentOtp">
+                                The PIN has been sent to your phone number:
+                                {{account.PhoneNumberCountryCallingCode}}{{account.PhoneNumber}}. If you did not receive the PIN, please click resend OTP after 60 seconds.
+                            </p>
+                        </div>
+                        <div class="sms-auth-input-row" ng-if="sentOtp">
+                            <p>Please enter the PIN below to proceed.</p>
+                            <input ng-model="authentication.PIN" type="password" autofocus class="input-pin sms-auth-input" placeholder="_ _ _ _"
+                                   ng-enter="checkPinSMS(authentication.PIN)">
+                        </div>
+
+                        <div class="button-group sms-auth-actions">
+                            <button type="button" ng-click="cancelOtp()" class="btn btn-default sms-auth-btn">
+                                Cancel
+                            </button>
+                            <button type="submit" ng-click="checkPinSMS(authentication.PIN);" class="btn btn-primary sms-auth-btn" ng-disabled="">
+                                Next
+                            </button>
+                        </div>
+                        <div style="padding-top:20px">
+                            <span>{{errors.PIN}}</span>
+                            <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+                                <div ng-bind-html="messageBox"></div>
+                            </uib-alert>
+                        </div>
+                    </div>
+
+                    <!--end check phone-->
+
+                    @*<div class="signup-sms-auth-container">
+
+                        <h2 class="sms-auth-heading"><i class="sms-auth-heading-icon"></i>SMS Authentication</h2>
+
+                        <div class="sms-auth-content">
+                            <div class="sms-auth-intro">
+                                <p>A temporary PIN has been sent to your phone. It may take a few moments to arrive.</p>
+                                <p>Enter the PIN below to authenticate your account.</p>
+                            </div>
+
+                            <div class="sms-auth-input-row">
+                                <input type="password" autofocus ng-class="{'control-error': progress.Errors.Step2.PIN}"
+                                       class="form-control pin-input sms-auth-input" placeholder="_ _ _ _" ng-model="authentication.PIN" />
+                                <div class="form-error pin-error">{{progress.Errors.Step2.PIN}}</div>
+
+                            </div>
+                            <div class="sms-auth-help">
+                                <p>Didn't receive a PIN? &nbsp;&nbsp;<a ng-click="ReSendPin()" href="#">Re-send PIN</a></p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="public-form-row public-form-actions">
+                        <button type="button" class="btn btn-primary public-form-btn sms-auth-btn" ng-click="authenticate()">
+                            Authenticate
+                        </button>
+                    </div>*@
+                </div>
+
+                <div ng-if="progress.Step == 'STATIC_PIN'" class="authentication-step">
+                    <div class="signup-sms-auth-container">
+                        <h2 class="sms-auth-heading"><i class="sms-auth-heading-icon"></i>STATIC PIN</h2>
+                        <div class="sms-auth-intro pin-auth-intro">
+                            <p>Also create a permanent PIN to authenticate you with critical operations like accessing the information vault.</p>
+                            <p>Enter 4 to 6 digits. If you forget later, you can reset it in your account settings.</p>
+                        </div>
+                        <div class="sms-auth-content">
+                            <div class="sms-auth-input-row">
+                                <input type="password" ng-class="{'control-error': progress.Errors.Step3.StaticPIN}" class="form-control pin-input sms-auth-input"
+                                       placeholder="@Regit.StaticPIN.ToUpper()" ng-model="authentication.StaticPIN" />
+                                <div class="pin-auth-create-error">{{progress.Errors.Step3.StaticPIN}}</div>
+                            </div>
+
+                            <div class="sms-auth-input-row">
+                                <input type="password" ng-class="{'control-error': progress.Errors.Step3.ConfirmStaticPIN}" class="form-control pin-input sms-auth-input"
+                                       placeholder="@Regit.ConfirmStaticPIN.ToUpper()" ng-model="authentication.ConfirmStaticPIN" />
+                                <div class="pin-auth-create-error">{{progress.Errors.Step3.ConfirmStaticPIN}}</div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="public-form-row public-form-actions">
+                        <button type="button" class="btn btn-primary public-form-btn sms-auth-btn" ng-click="setStaticPIN()">
+                            Set PIN
+                        </button>
+                    </div>
+                </div>
+
+                <div ng-if="progress.Step == 'SECURITY_QUESTIONS'" class="row security-questions-step">
+                    <h2>Authenticated </h2>
+                    <div class="public-form-instruction">
+                        Please enter your answers to three questions below. You will be prompted for these answers when we need to verify you in case of password recovery.
+                    </div>
+                    <h3>Security Questions</h3>
+
+                    <div class="public-form-row">
+                        <ui-select ng-class="{'control-error': progress.Errors.Step4.Question1}" class="question-select full-width" ng-model="security.Question1.QuestionId" theme="bootstrap" search-enabled="false" remove-selected="false">
+                            <ui-select-match placeholder="@Regit.Select_The_Security_Question.ToUpper() 1">{{$select.selected.Question}}</ui-select-match>
+                            <ui-select-choices repeat="question.Id as question in filtered=(securityQuestions| questionFilter: [security.Question2, security.Question3])">
+                                <span ng-bind-html="question.Question"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                        <div class="form-error">{{progress.Errors.Step4.Question1}}</div>
+                    </div>
+                    <div class="public-form-row">
+                        <input ng-class="{'control-error': progress.Errors.Step4.Answer1}" type="text" class="form-control" placeholder="@Regit.Your_Answer.ToUpper()" ng-model="security.Question1.Answer" ng-disabled="!security.Question1.QuestionId" />
+                        <div class="form-error">{{progress.Errors.Step3.Answer1}}</div>
+                    </div>
+
+
+                    <div class="public-form-row">
+                        <ui-select ng-class="{'control-error': progress.Errors.Step4.Question2}" class="question-select full-width" ng-model="security.Question2.QuestionId" theme="bootstrap" search-enabled="false" remove-selected="false">
+                            <ui-select-match placeholder="@Regit.Select_The_Security_Question.ToUpper() 2">{{$select.selected.Question}}</ui-select-match>
+                            <ui-select-choices repeat="question.Id as question in filtered=(securityQuestions| questionFilter: [security.Question1, security.Question3])">
+                                <span ng-bind-html="question.Question"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                        <div class="form-error">{{progress.Errors.Step4.Question2}}</div>
+                    </div>
+                    <div class="public-form-row">
+                        <input ng-class="{'control-error': progress.Errors.Step4.Answer2}" type="text" class="form-control" placeholder="@Regit.Your_Answer.ToUpper()" ng-model="security.Question2.Answer" ng-disabled="!security.Question2.QuestionId" />
+                        <div class="form-error">{{progress.Errors.Step4.Answer2}}</div>
+                    </div>
+
+
+                    <div class="public-form-row">
+                        <ui-select ng-class="{'control-error': progress.Errors.Step4.Question3}" class="question-select full-width" ng-model="security.Question3.QuestionId" theme="bootstrap" search-enabled="false" remove-selected="false">
+                            <ui-select-match placeholder="@Regit.Select_The_Security_Question.ToUpper() 3">{{$select.selected.Question}}</ui-select-match>
+                            <ui-select-choices repeat="question.Id as question in filtered=(securityQuestions| questionFilter: [security.Question1, security.Question2])">
+                                <span ng-bind-html="question.Question"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                        <div class="form-error">{{progress.Errors.Step4.Question3}}</div>
+                    </div>
+                    <div class="public-form-row">
+                        <input ng-class="{'control-error': progress.Errors.Step4.Answer3}" type="text" class="form-control" placeholder="@Regit.Your_Answer.ToUpper()" ng-model="security.Question3.Answer" ng-disabled="!security.Question3.QuestionId" />
+                        <div class="form-error">{{progress.Errors.Step4.Answer3}}</div>
+                    </div>
+
+
+                    <div class="public-form-row public-form-actions">
+                        <div ng-if="!checkSubmit">
+                            <button type="button" class="btn btn-primary public-form-btn" ng-click="saveSecurityQuestions(); checkSubmit=!checkSubmit;">
+                                Submit
+                            </button>
+                        </div>
+                        <div ng-if="checkSubmit">
+                            <button type="button" class="btn btn-primary public-form-btn">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div ng-if="progress.Step == 'CONGRATULATION'">
+
+                    <h3>Email Verification</h3>
+                    <p>Only one more step. An email has been sent to your registerd email. Please click on the link in the email to activate your account.</p>
+
+                    @*<div class="verifying-email-container">
+                            @Html.Raw(Server.HtmlDecode(Regit.Send_Link_Verify_Message))
+                        </div>*@
+                    <div class="public-form-row public-form-actions">
+                        <a href="/User/SignIn" class="btn btn-primary public-form-btn">
+                            Continue to Sign in
+                        </a>
+                    </div>
+
+                </div>
+
+
+            </form>
+
+
+        </div>
+
+    </div>
+</div>

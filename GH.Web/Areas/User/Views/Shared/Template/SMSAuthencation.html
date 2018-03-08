@@ -1,0 +1,54 @@
+﻿
+<div class="sms-auth-container">
+
+    <h2 class="sms-auth-heading"><i class="sms-auth-heading-icon"></i>SMS Authentication</h2>
+
+    <div class="sms-auth-content">
+
+        <div class="sms-auth-intro">
+            <p>To change settings related to access control, you need to authenticate.</p>
+            <p>A PIN has been sent to your phone. It may take a few moments to arrive.</p>
+            <p>Enter the PIN below:</p>
+        </div>
+
+        <div class="sms-auth-input-row">
+            <input ng-model="PIN" type="password" class="input-pin sms-auth-input" placeholder="_ _ _ _">
+        </div>
+        <div class="sms-auth-help">
+            <p>Didn't receive a PIN? &nbsp;&nbsp;<a ng-click="ReSendPin()" href="#">Re-send PIN</a></p>
+        </div>
+        <div class="button-group sms-auth-actions">
+            <button type="button" ng-click="Cancel()" class="btn btn-default sms-auth-btn">Cancel</button>
+            <button type="submit" ng-click="Authencation()" class="btn btn-primary sms-auth-btn">Authenticate</button>
+        </div>
+
+        <div style="padding-top:20px">
+            <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+                <div ng-bind-html="messageBox"></div>
+            </uib-alert>
+        </div>
+    </div>
+</div>
+
+<!--<div class="sms-auth-container">
+    <h2 class="sms-auth-heading"><i class="sms-auth-heading-icon"></i>PIN Authentication</h2>
+    <div class="sms-auth-content">
+        <div class="sms-auth-intro pin-auth-intro">
+            <p>To access the information vault, you need to authenticate.</p>
+            <p>Enter your PIN below. If you don't remember it, change it in account settings.</p>
+        </div>
+        <div class="sms-auth-input-row">
+            <input ng-model="PIN" type="password" class="input-pin sms-auth-input" placeholder="_ _ _ _">
+        </div>
+        <div class="button-group sms-auth-actions">
+            <button type="button" ng-click="Cancel()" class="btn btn-default sms-auth-btn">Cancel</button>
+            <button type="submit" ng-click="Authencation()" class="btn btn-primary sms-auth-btn">Authenticate</button>
+        </div>
+        <div style="padding-top:20px">
+            <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+                <div ng-bind-html="messageBox"></div>
+            </uib-alert>
+        </div>
+    </div>
+</div>-->
+

@@ -1,0 +1,74 @@
+﻿<div bs-modal bs-modal-on-hidden="AdvancePostClose()" bs-modal-show="IsPostAdvance" class="modal fade share-social-post-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body ba-post-comment-container">
+                <div class="row ">
+                    <div class="ba-post-header" ng-if="isEdit">
+                        <div class="ba-post-comment-item">
+                            <div class="ba-post-comment-title">Approver's Comment</div>
+                            Post then wait for approve from reviewer!
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-sx-12 pull-right">
+                            <a ng-click="NewPost.Message=''" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </a>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <textarea rows="10" ng-model="NewPost.Message" class="form-control bd-none" placeholder="Write something ..."></textarea>
+                            </div>
+                            <div class="col-md-12 ba-post-images">
+                                <div class="img-post-item" ng-repeat="image in NewPost.Photos">
+                                    <i class="close-icon" ng-click="removepicture($index)"></i>
+                                    <img ng-if="image.thumb" ng-src="{{image.thumb}}">
+                                    <img ng-if="image.Url" ng-src="{{image.Url}}">
+                                </div>
+                                <div class="img-post-item" ng-if="!NewPost.Photos.length || NewPost.Photos.length < 1">
+                                    <div upload-control class="img-post-add" on-file-selected="picturesSelected()" files-store="postingImages">
+                                        <i class="fa fa-2x fa-plus" aria-hidden="true"></i>
+                                        <input type="file" multiple accept="image/*" />
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ba-post-footer col-xs-12 ">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6 text-left">
+                                <a ng-if="!isEdit" class="ba-post-send-approve regit" ng-click="PostANewPost()">SEND FOR APPROVAL</a>
+                                <a ng-if="isEdit" class="ba-post-send-approve regit" ng-click="PostANewPost()">RE-SEND FOR APPROVAL</a>
+                            </div>
+                            <div class="col-xs-12 col-md-6 text-right">
+                                <div class="ba-post-pri">
+                                    <span class="r-public" style="color: #a8a9ae; margin-right: 10px"> Public</span>
+                                    <a class="left-menu-color pull-right dropdown-toggle" data-toggle="dropdown">Post to <span class="caret"></span></a>
+                                        <ul class="dropdown-menu from-right" prevent-inside-click-close>
+                                        <li>
+                                            <div class="checkbox">
+                                                    <label class="checkbox-square"><input type="checkbox" ng-model="NewPost.IsPostGreenHouse" /><span></span> <span class="regit-color" style="font-size: 20px">regit</span></label>
+                                            </div>
+                                        </li>
+                                        <li ng-if="linkedNetworks.Facebook">
+                                            <div class="checkbox">
+                                                    <label class="checkbox-square"><input type="checkbox" ng-model="NewPost.IsPostFacebook" /><span></span> <span class="btn-facebook-color" style="font-size: 20px">facebook</span></label>
+                                            </div>
+                                        </li>
+                                        <li ng-if="linkedNetworks.Twitter">
+                                            <div class="checkbox">
+                                                    <label class="checkbox-square"><input type="checkbox" ng-model="NewPost.IsPostTwitter" /><span></span> <span class="regit-color" style="font-size: 20px">twitter</span></label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="privacy-control privacy-value-{{model}}">
+    <button type="button" class="privacy-control-action" ng-click="openPrivacySelector($event)">Privacy</button>
+    <div class="privacy-control-selector" ng-if="rguView.openingMoreActions===controlId">
+            <button class="privacy-selector-item privacy-selector-public" ng-class="{active:view.selectedPrivacy==='public'}" ng-click="selectPrivacy('public')">
+                Public
+            </button>
+            <button class="privacy-selector-item privacy-selector-private" ng-class="{active:view.selectedPrivacy==='private'}" ng-click="selectPrivacy('private')">
+                Private
+            </button>
+            <button ng-if="view.hidable || model==='hidden'" class="privacy-selector-item privacy-selector-hidden" ng-class="{active:view.selectedPrivacy==='hidden'}" ng-click="selectPrivacy('hidden')">
+                Hidden
+            </button>
+    </div>
+</div>
+

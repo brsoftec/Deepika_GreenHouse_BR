@@ -1,0 +1,1 @@
+﻿var myApp = getApp("myApp", ['TranslationModule', 'UserModule', 'SocialModule', 'CommonDirectives', 'oitozero.ngSweetAlert', 'ui.bootstrap', 'NotificationModule', 'infinite-scroll'], true);

@@ -1,0 +1,200 @@
+﻿@model string
+@{
+    ViewBag.Title = "Customer Manager";
+
+    Layout = "~/Areas/User/Views/Shared/_BusinessCustomersLayout.cshtml";
+}
+
+@section prescripts {
+    <script>
+        regitGlobal = regitGlobal || {};
+        regitGlobal.interactionId = "@Html.Raw(Model)";
+    </script>
+}
+
+@section body {
+    <div class="module module-main module-customers">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/BusinessAccount">&laquo; Business Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="/Campaign/ManagerCampaign">Interaction Module</a>
+            </li>
+            <li class="breadcrumb-item active">Manage Customers</li>
+        </ol>
+        <div class="customers-container" ng-controller="BusinessCustomersController">
+            <div class="interaction-details">
+                <div class="interaction-form" ng-if="view.interactionLoaded">
+                    <button class="interaction-form-toggler" ng-click="toggleForm()" ng-class="{expanded:view.formExpanded}">{{view.formExpanded ? 'Hide' : 'Show'}} Form</button>
+                    <div class="interaction-group" ng-if="view.formExpanded" ng-repeat="group in interaction.groups">
+                        <div class="interaction-group-heading">
+                            {{group.displayName}}
+                        </div>
+                        <div class="interaction-group-fields">
+                            <div ng-repeat="field in interaction.fields | filterByGroup:group.name"
+                                 class="interaction-form-field vault-entry vault-entry-type-{{field.type}}">
+                                <div class="interaction-form-field-label">{{field.displayName}} <span ng-if="!field.optional">*</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="interaction-info">
+                    @*     ---------   Interaction Selector  ------------  *@
+                    <div class="interaction-select-panel">
+                        <div class="interaction-select">
+                            <button class="interaction-select-action" ng-click="openInteractionSelector();$event.stopPropagation();">Select Interaction</button>
+                            <div class="interaction-selector" ng-if="view.interactionSelectorShowing">
+                                <input class="interaction-selector-input" ng-model="interactionSelector.query"
+                                       placeholder="Type interaction name" ng-enter="submitInteractionQuery()" ng-click="$event.stopPropagation();"/>
+                                <div class="interaction-selector-list">
+                                    <a class="interaction-selector-item"
+                                       ng-repeat="interaction in interactions | filterInteractionsByQuery:interactionSelector.query as matchedInteractions track by interaction.id"
+                                       ng-class="{high:$first&&!interactionSelector.hovering || interactionSelector.hovering===interaction.id}" ng-click="selectInteraction(interaction)"
+                                       ng-mouseenter="mouseEnterInteraction(interaction)" ng-mouseleave="mouseLeaveInteraction(interaction)">
+                                        <interaction-stub ng-model="interaction" participants="true">
+                                        </interaction-stub>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="interaction-select-all-action" ng-click="selectAllInteractions()" ng-disabled="view.allCustomers">Select All Interactions</button>
+                    </div>
+                    <div class="interaction-info-row" ng-if="view.interactionLoaded && !view.allCustomers">
+                        <div class="interaction-info-label">Interaction Name</div>
+                        <div class="interaction-info-value interaction-info-name">
+                            <span class="interaction-type-badge" ng-bind="interaction.type"></span>{{interaction.name}}
+                        </div>
+                    </div>
+                    <div class="interaction-info-row" ng-if="view.interactionLoaded && !view.allCustomers">
+                        <div class="interaction-info-label">Launched</div>
+                        <div class="interaction-info-value">
+                            {{interaction.since | friendlyTime}} <span ng-if="!interaction.indefinite">until {{interaction.until | friendlyTime}}</span>
+                        </div>
+                    </div>
+
+                    @*     ---------   Interaction Statistics ------------  *@
+                    <div class="interaction-statistics" ng-if="view.customersLoaded">
+                        <p><span class="interaction-statistics-count participants" ng-bind="countAllParticipants()"></span> registered customers</p>
+                        <p ng-if="countAllParticipants(true)"><span class="interaction-statistics-count" ng-bind="countAllParticipants(true)"></span> pending invitations</p>
+                    </div>
+                    <div class="interaction-statistics extra" ng-if="view.allCustomers && view.customersLoaded">
+                        <p><span class="interaction-statistics-count participants" ng-bind="countParticipations()"></span> registrations</p>
+                        <p><span class="interaction-statistics-count interactions" ng-bind="countInteractions()"></span> interactions</p>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <div class="add-customer-panel" ng-if="!view.allCustomers">
+                <button class="interaction-select-action" ng-click="toggleAddCustomer();$event.stopPropagation();">Add Customer</button>
+                <user-select ng-if="view.addCustomerShowing" type="customer" class="expandable-user-select customer-user-select"
+                             ignores="customers" invites="invites" on-add="inviteCustomer(user)"></user-select>
+            </div>
+
+            <div class="customers-grid">
+                <div>
+                    <div class="customers-message" ng-if="interaction.type==='broadcast'">Registration not applicable for Broadcast</div>
+                    <div class="customers-message" ng-if="!view.customersLoaded && view.interactionLoaded"><rgu-spinner></rgu-spinner>Loading customers</div>
+                </div>
+                <div class="grid-controller" ng-if="view.customersLoaded && customers.length">
+
+                    <div class="filter-status-select">
+                        <button type="button" class="filter-select-action" ng-bind="grid.filterStatus.options[grid.filterStatus.activeIndex].label"
+                                ng-click="openFilterStatus();$event.stopPropagation();">
+                        </button>
+                        <div class="filter-select-dropdown" ng-if="grid.filterStatus.opening">
+                            <a class="filter-select-item" ng-repeat="option in grid.filterStatus.options"
+                               ng-bind="option.label"
+                               ng-disabled="option.name===grid.filterStatus.value"
+                               ng-click="selectFilterStatus(option,$index);">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="customers-search">
+                        <input class="customers-search-input" ng-model="grid.search.query" autofocus
+                               placeholder="Type customer name or data" ng-change="updateCustomersByQuery()"/>
+                        <button type="button" class="customers-search-clear" ng-click="clearCustomersQuery()">Clear</button>
+                    </div>
+                </div>
+                <table class="" ng-if="view.customersLoaded && customers.length">
+                    <tr>
+                        <th></th>
+                        <th>Customer Name</th>
+                        <th ng-if="view.allCustomers" class="customer-interactions">Interactions</th>
+                        <th><span ng-if="view.allCustomers">Last </span>Registered</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat-start=
+                        "customer in customers | filterCustomersByStatus:grid.filterStatus.value:view.allCustomers | orderBy:sortCustomers | filterCustomersByQuery:grid.search.query track by customer.id"
+                        ng-click="toggleRow(customer)" ng-class="{odd:!$even, active:customer.view.expanded, fresh: customer.fresh}">
+                        <td class="customer-avatar-cell">
+                            <div class="customer-avatar">
+                                <img ng-src="{{customer.profile.avatar | avatarUrl}}"/>
+                            </div>
+                        </td>
+                        <td class="customer-name" ng-bind-html="customer.profile.displayName | searchHighlight:grid.search.query"></td>
+                        <td class="customer-interactions" ng-if="view.allCustomers" ng-bind="customer.participations.length"></td>
+                        <td class="customer-participated">
+                            {{getLastParticipation(customer) | participatedDate}}
+                        </td>
+                        <td class="customer-actions">
+                            <div class="customer-row-toggler" ng-class="{expanded:customer.view.expanded}"></div>
+                        </td>
+                    </tr>
+                    <tr ng-repeat-end class="customer-details-row" ng-class="{odd:!$even}" ng-if="customer.view.expanded">
+                        <td></td>
+                        <td colspan="{{view.allCustomers?4:3}}">
+                            <div class="customer-participation"
+                                 ng-repeat="participation in customer.participations | filterParticipationsByStatus:grid.filterStatus.value | orderBy:sortParticipations">
+                                @*                                <pre>{{participation | json}}</pre>*@
+                                <a class="participation-toggler" ng-if="view.allCustomers" ng-class="{expanded:participation.view.expanded}"
+                                   ng-click="toggleParticipation(participation);$event.preventDefault();">
+                                    <interaction-stub ng-model="participation.interaction"></interaction-stub>
+                                    <span class="participation-participated" ng-bind="participation | participatedDate">
+                                    </span>
+                                </a>
+                                <div class="participation-actions" ng-if="!view.allCustomers || participation.view.expanded" ng-class="{inline:participation.status === 'pending'}">
+                                    <button type="button" class="customer-action action-resend" ng-if="participation.status === 'pending'"
+                                            ng-click="resendParticipation(participation, customer)">
+                                        Resend
+                                    </button>
+                                    <button type="button" class="customer-action action-terminate" ng-click="removeParticipation(participation, customer)">
+                                        Remove
+                                    </button>
+                                </div>
+                                <div class="customer-data" ng-if="(!view.allCustomers || participation.view.expanded) && participation.status!=='pending'">
+                                    <div class="customer-data-group" ng-repeat="group in participation.interaction.groups" ng-class="{wide:group.name==='userInformation'}">
+                                        <div class="customer-data-group-heading">
+                                            {{group.displayName}}
+                                        </div>
+                                        <div class="customer-data-group-content">
+                                            <div class="customer-data-row" ng-repeat="field in participation.fields | filterUserFieldsByGroup:group.name:participation.interaction.fields">
+                                                <div class="customer-data-label">{{field.displayName}}</div>
+                                                <div class="customer-data-value" ng-bind-html="field | fieldValue | searchHighlight:grid.search.query"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="customer-data" ng-if="participation.status==='pending' && (!view.allCustomers || participation.view.expanded)">
+                                    <p>
+                                        This customer is pending registration.
+                                        <span ng-if="participation.participatedAt">Invitation sent {{participation.participatedAt | friendlyTime}}</span>
+                                    </p>
+                                </div>
+                                <div style="clear:both"></div>
+
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="customers-footer"></div>
+
+        </div>
+    </div>
+}

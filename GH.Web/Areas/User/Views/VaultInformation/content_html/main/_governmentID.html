@@ -1,0 +1,40 @@
+﻿     <!-- GovernmentID -->
+<div ng-controller="GroupGovernmentIDController">
+    <div ng-if="group._name !='' ">
+        <div class="vault-group">
+
+            <!--HEADER -->
+            <div class="vault-group-header">
+                <h4>{{group._label}}</h4>
+                <button class="btn-vault-group-collapse" ng-init="hide_GovBody=false;"
+                        ng-click="$event.preventDefault();hide_GovBody=!hide_GovBody;"></button>
+            </div>
+            <div ng-hide="hide_GovBody">
+                <!--Birth Certificate-->
+                <div ng-include="vm._birthday_certificate"></div>
+                <!--  //  -->
+                <!--Driver License-->
+                <div ng-include="vm._driver_license_card"></div>
+                <!--  //  Health Card -->
+                <div ng-include="vm._health_card"></div>
+                <!--  //  Medical Card-->
+                <div ng-include="vm._medical_card"></div>
+                <!--  //  Passport ID-->
+                <div ng-include="vm._passport"></div>
+
+                <!--  //  social card ID-->
+                <div ng-include="vm._social_card"></div>
+                
+                <!--  //  _permanent_card ID-->
+                <div ng-include="vm._permanent_card"></div>
+                <!--  //  _permanent_card ID-->
+                <div ng-include="vm._nationalid"></div>
+                <!--  //  tax ID-->
+                <div ng-include="vm._taxid"></div>
+
+                <!--  //  Custom ID -->
+                <div ng-include="vm._custom"></div>
+            </div>
+        </div>
+    </div>
+</div>

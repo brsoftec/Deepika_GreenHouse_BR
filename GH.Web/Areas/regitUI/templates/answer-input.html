@@ -1,0 +1,13 @@
+<form>
+    <table class="answer-input-grid table table-striped">
+        <tr ng-repeat="choice in model track by $index">
+            <td><input type="text" class="answer-input" ng-model="choice.value" placeholder="Enter answer"></td>
+            <td class="choice-actions">
+                <button type="button" class="choice-action choice-delete" ng-if="$index>0" ng-click="removeChoice($index)">Remove choice
+                </button>
+                <button type="button" class="choice-action choice-add" ng-if="$last" ng-click="addChoice()">Add choice
+                </button>
+            </td>
+        </tr>
+    </table>
+</form>

@@ -1,0 +1,162 @@
+﻿@{
+    ViewBag.Title = "Interaction Module";
+    Layout = "~/Areas/User/Views/Shared/_LayoutDefaultBusiness.cshtml";
+}
+
+@* BODY *@
+    <div class="module module-main module-business module-interactions" ng-controller="InteractionManagerCtrl">
+        <ol class="breadcrumb">
+
+            <li class="breadcrumb-item"><a href="#/">&laquo; Business Home</a></li>
+            <li class="breadcrumb-item active">Interaction Module</li>
+        </ol>
+        <h1>Interaction Manager</h1>
+        <div class="interaction-manager clearfix">
+
+            <form class="form-horizontal form-campaigns">
+                <div class="interaction-cta-prefix">
+                    New Interaction
+                </div>
+                <div class="interaction-cta-list">
+                    <button type="button" class="interaction-cta interaction-cta-ad" ng-click="$event.preventDefault();gotoNew('Advertisement')">Advertisement</button>
+                    <button type="button" class="interaction-cta interaction-cta-evt" ng-click="$event.preventDefault();gotoNew('Event')">Event</button>
+                    <button type="button" class="interaction-cta interaction-cta-reg" ng-click="$event.preventDefault();gotoNew('Registration')">Registration</button>
+                    <button type="button" class="interaction-cta interaction-cta-srfi" ng-click="$event.preventDefault();gotoNew('SRFI')">SRFI</button>
+                </div>
+
+                <div class="campaigns-grid">
+                    <div class="grid-dropdown-filters">
+                        <rgu-dropdown-filter id="dd-campaign-type" items="filterCampaignTypes"
+                                             selected="selectedCampaignType"></rgu-dropdown-filter>
+                        <rgu-dropdown-filter id="dd-campaign-status" items="filterCampaignStatuses"
+                                             selected="selectedCampaignStatus"></rgu-dropdown-filter>
+                    </div>
+                    <table class="table table-striped interactions-grid">
+                        <thead>
+                            <tr>
+                                <th class="campaigns-name">Interactions</th>
+                                <th>Launch</th>
+                                <th>Expire</th>
+                                <th>Views/Target</th>
+                                <th>Participants</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="campaign in data.interactions | filter:filterCampaigns | orderBy:sortCampaigns"
+                                ng-init="status=campaign.CampaignStatus.toLowerCase();" ng-class="'campaign-status-' + status">
+                                <td class="campaigns-name">
+                                    <campaign-indicator type="{{campaign.CampaignType}}" status="{{status}}" />
+                                    {{campaign.CampaignName}}
+                                </td>
+                                <td class="campaigns-launch"><span ng-if="status==='active'||status==='pending'">{{campaign.StartDate | date:'MMM d'}}</span></td>
+                                <td class="campaigns-expires"><span ng-if="status=='active'||status==='pending'">{{campaign.EndDate | date:'MMM d'}}</span></td>
+                                <td class="campaigns-target"><span ng-if="status!=='expired'">0/{{campaign.TargetMembers}}</span></td>
+                                <td class="campaigns-participants"><span ng-if="status!=='pending'">{{campaign.Members}}</span></td>
+                                <td class="campaigns-actions">
+                                    <a href="#" class="btn-campaigns-edit" ng-click="$event.preventDefault();gotoEdit(campaign)">Edit</a>
+                                    <a href="#" class="btn-campaigns-boost"
+                                       ng-click="openBoost($event,campaign)">Boost</a>
+                                    <a href="#/Business/Analytics" class="btn-campaigns-analytics">Analytics</a>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    <ul uib-pagination boundary-links="true" total-items="totalCampaigns" ng-model="currentPage"
+                        class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;"
+                        first-text="&laquo;" last-text="&raquo;"></ul>
+                </div>
+                <div class="grid-heading">
+                    <button class="btn grid-tab-btn" ng-class="{'btn-primary':!showTemplates}"
+                            ng-click="$event.preventDefault();showTemplates=false;">
+                        Drafts
+                    </button>
+                    <button class="btn grid-tab-btn" ng-class="{'btn-primary':showTemplates}"
+                            ng-click="$event.preventDefault();showTemplates=true;">
+                        Templates
+                    </button>
+                </div>
+                <div class="campaigns-grid campaigns-drafts" ng-if="!showTemplates">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="campaigns-name">Draft Name</th>
+                                <th>Created</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="campaign in data.interactions | filter:filterDrafts | orderBy:sortCampaigns"
+                                class="campaign-draft">
+                                <td class="campaigns-name">
+                                    <campaign-indicator type="{{campaign.CampaignType}}" status="{{status}}" />
+                                    {{campaign.CampaignName}}
+                                </td>
+                                <td class="campaigns-created">{{campaign.CreatedDate | date:'MMM d'}}</td>
+                                <td class="campaigns-actions">
+                                    <a href="#" class="btn-campaigns-edit" ng-click="$event.preventDefault();gotoEdit(campaign)">Edit</a>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    <div uib-pagination boundary-links="true" total-items="totalCampaigns" ng-model="currentDraftPage"
+                         class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;"
+                         first-text="&laquo;" last-text="&raquo;"></div>
+                    <script type="text/ng-template" id="modal-boost.html">
+                        <div class="modal-container modal-alert">
+                            <h3 class="">Boost Campaign</h3>
+                            <div class="modal-alert-text">
+                                <h4>
+                                    Boost your campaign <span class="campaign-name">{{campaign.name}}</span>: higher visiblity,
+                                    wider reach, more engagement!
+                                </h4>
+                                <p>
+                                    Current cost ${{campaign.cost}}. You will be charged an additional ${{boostCost}}. Total:
+                                    ${{campaign.cost + boostCost}}.
+                                </p>
+                            </div>
+                            <div class="button-group">
+                                <button type="button" class="btn btn-primary btn-lg" ng-click="submit()">Yes, Boost It</button>
+                                <button type="button" class="btn btn-default btn-lg" ng-click="cancel()">No</button>
+                            </div>
+            </form>
+        </div>
+        </script>
+    </div>
+    <div class="campaigns-grid campaigns-templates" ng-if="showTemplates">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="campaigns-name">Template</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="campaign in data.interactions | filter:filterTemplates | orderBy:sortCampaigns"
+                    class="campaign-template">
+                    <td class="campaigns-name">
+                        <campaign-indicator type="{{campaign.CampaignType}}" status="{{status}}" />
+                        {{campaign.CampaignName}}
+                    </td>
+                    <td class="campaigns-description">{{campaign.Description}}</td>
+                    <td class="campaigns-actions">
+                        <a href="#" class="btn-campaigns-edit" ng-click="$event.preventDefault();gotoNewFromTemplate(campaign.CampaignId)">New Campaign</a>
+                        <a href="#" class="btn-campaigns-edit" ng-click="$event.preventDefault();gotoEdit(campaign)">Edit Template</a>
+                    </td>
+                </tr>
+
+
+            </tbody>
+        </table>
+        <div uib-pagination boundary-links="true" total-items="totalCampaigns" ng-model="currentDraftPage"
+             class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;"
+             first-text="&laquo;" last-text="&raquo;"></div>
+    </div>
+    </form>
+</div>
+        </div>

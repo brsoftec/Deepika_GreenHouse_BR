@@ -1,0 +1,157 @@
+﻿ <!--Investment-->
+<div ng-controller="InvestmentController">
+    <div ng-if="_form._name !='' ">
+
+        <div class="vault-group-content" ng-repeat="value in _listForm">
+            <div class="vault-row">
+
+                <div class="vault-group-actions">
+                    <button ng-hide="value.IsEdit" class="btn-vault-action btn-vault-edit" ngclipboard data-clipboard-target="#form-investment{{$index}}">
+                        Copy text
+                    </button>
+                    <button ng-hide="value.IsEdit" class="btn-vault-action btn-vault-edit" ng-click="value.IsEdit = !value.IsEdit">
+                        Edit
+                    </button>
+                    <button ng-hide="!value.IsEdit" class="btn-vault-action btn-vault-save" ng-click="Save()">
+                        Save
+                    </button>
+                    <button ng-hide="!value.IsEdit" class="btn-vault-action btn-vault-cancel btn-cancel"
+                            ng-click="Cancel()">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+
+            <div class="vault-row" ng-hide="value.IsEdit"  id="form-investment{{$index}}">
+                <div class="vault-label">
+                    <label ng-if="$index == 0"> Investment </label>
+                </div>
+                <div class="vault-field">
+                    <div class="vault-field-value">
+                        <span ng-if="value.description != ''">
+                            <strong> Description: </strong> {{value.description }}
+                        </span>
+
+                        <div ng-show="value.description == _form._default" class="vault-is-default">default</div> <br />
+                        <span ng-if="value.fullName != ''">
+                            <strong> Full name: </strong> {{value.fullName }} <br />
+                        </span>
+
+                        <span ng-if="value.accountType != ''">
+                            <strong> Account type: </strong> {{value.accountType }} <br />
+                        </span>
+                        <span ng-if="value.accountNumber != ''">
+                            <strong> Account number: </strong> {{value.accountNumber }} <br />
+                        </span>
+                        <span ng-if="value.investmentFirm != ''">
+                            <strong> Investment firm: </strong> {{value.investmentFirm }} <br />
+                        </span>
+
+
+                        <span ng-if="value.note != ''">
+                            <strong> Note: </strong> {{value.note }} <br />
+                        </span>
+                        <div class="vault-privacy-indicator" ng-class="{'privacy-on': value.privacy}"
+                             bs-tooltip
+                             data-title="{{value.privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                             data-placement="bottom-left">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- //  edit Investment-->
+            <div ng-hide="!value.IsEdit">
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>Decription</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-control type="textbox" ng-model="value.description">
+                        </rgu-control>
+                        <button class="btn-vault-privacy" ng-class="{'privacy-on': value.privacy}"
+                                ng-click="value.privacy = !value.privacy"
+                                bs-tooltip
+                                data-title="{{value.privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                                data-placement="bottom-left"></button>
+                    </div>
+                    <button class="vault-field-remove" ng-click="removeForm(value)">Remove</button>
+                </div>
+
+                <!--firstName -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>Full name</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-control type="textbox" ng-model="value.fullName"></rgu-control>
+                    </div>
+                </div>
+
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>Account type</label>
+                    </div>
+                    <div class="vault-field-edit">
+
+                        <rgu-control type="select" class="short" options="['Trading Account','Education Investment Accounts', 'Retirement Saving accounts']" ng-model="value.accountType" />
+
+                    </div>
+                </div>
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>Account number</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <input ng-model="value.accountNumber" />
+                    </div>
+                </div>
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>Investment firm</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-control type="textbox" ng-model="value.investmentFirm"></rgu-control>
+                    </div>
+                </div>
+                <!-- note -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>Note</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <textarea ng-model="value.note"></textarea>
+                    </div>
+                </div>
+
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>Default</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <label class="checkbox-square"><input type="checkbox" ng-model="value._default" /><span></span></label>
+                        <!--<rgu-control type="checkbox" ng-model="value._default" />-->
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- // -->
+        <div class="vault-row">
+            <div class="vault-label">
+                <label> </label>
+
+            </div>
+            <div class="vault-field-actions">
+                <a href="#" class="vault-field-add"
+                   ng-click="$event.preventDefault(); vm.AlphaRedirectTask('investment.html') ">+ Add more Investment</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--  //  -->

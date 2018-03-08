@@ -1,0 +1,37 @@
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "greenhouse_index_analyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "asciifolding",
+            "word_delimiter"
+          ]
+        },
+        "greenhouse_search_analyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "asciifolding",
+            "word_delimiter"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "post": {
+      "properties": {
+        "Message": {
+          "type": "string",
+          "analyzer": "greenhouse_index_analyzer",
+          "search_analyzer": "greenhouse_search_analyzer"
+        }
+      }
+    }
+  }
+}

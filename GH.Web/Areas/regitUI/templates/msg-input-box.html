@@ -1,0 +1,113 @@
+<div class="msg-conversation-input" class="form-msg-input">
+    <div class="msg-input-box" contentEditable="true" placeholder="Type a message"></div>
+
+</div>
+
+<div class="msg-input-btn-group">
+    <button type="button" class="btn-msg btn-drfi" popover-placement="top-left"
+            uib-popover-template="'msg-drfi.html'" popover-title="" popover-is-open="view.openingDRFIPopover"
+    ></button>
+    <!--<button type="button" class="btn-msg btn-emojis" popover-placement="top-left"
+            uib-popover-template="'msg-emojis-selector.html'" popover-title="" popover-is-open="openingPopover"
+            popover-trigger="'outsideClick'">
+    </button>-->
+    <button type="button" class="btn-msg btn-emojis" ng-click="openEmojiPopup($event);">
+    </button>
+</div>
+
+<div class="wdt-emoji-popup">
+    <a href="#" class="wdt-emoji-popup-mobile-closer"> × </a>
+    <button class="emoji-popup-closer" ng-click="closeEmojiPopup()"> × </button>
+    <div class="wdt-emoji-menu-content">
+        <div id="wdt-emoji-menu-header">
+             <!--<a class="wdt-emoji-tab active" data-group-name="Recent"></a>-->
+            <a class="wdt-emoji-tab active" data-group-name="People"></a>
+            <a class="wdt-emoji-tab" data-group-name="Nature"></a>
+            <a class="wdt-emoji-tab" data-group-name="Foods"></a>
+            <a class="wdt-emoji-tab" data-group-name="Activity"></a>
+            <a class="wdt-emoji-tab" data-group-name="Places"></a>
+            <a class="wdt-emoji-tab" data-group-name="Objects"></a>
+            <a class="wdt-emoji-tab" data-group-name="Symbols"></a>
+            <!--<a class="wdt-emoji-tab" data-group-name="Flags"></a>-->
+            <!-- a class="wdt-emoji-tab" data-group-name="Custom"></a -->
+        </div>
+        <div class="wdt-emoji-scroll-wrapper">
+            <div id="wdt-emoji-menu-items">
+                <input id="wdt-emoji-search" type="text" placeholder="Search">
+                <h3 id="wdt-emoji-search-result-title">Search Results</h3>
+                <div class="wdt-emoji-sections"></div>
+                <div id="wdt-emoji-no-result">No emoji found</div>
+            </div>
+        </div>
+        <div id="wdt-emoji-footer">
+            <div id="wdt-emoji-preview">
+                <span id="wdt-emoji-preview-img"></span>
+                <div id="wdt-emoji-preview-text">
+                    <div id="wdt-emoji-preview-name"></div>
+                    <div id="wdt-emoji-preview-aliases"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/ng-template" id="msg-emojis-selector.html">
+    <div class="msg-emoji-selectors">
+        <a href="#" ng-repeat="i in emojis track by $index" ng-init="index=$index+1"
+           ng-click="$event.preventDefault();insertEmoji(index)">
+            <img ng-src="/Areas/regitUI/img/emojis/{{index<10?'0':''}}{{index}}.png">
+        </a>
+    </div>
+
+</script>
+
+
+<script type="text/ng-template" id="msg-drfi.html">
+    <div class="msg-drfi" ng-controller="DrfiController">
+
+        <!--<div class="popover-intro popover-row drfi-intro">Ask <a class="drfi-from" href="/User/Profile?id={{conversation.from.id}}">{{conversation.from.name}}</a> for his/her personal information.</div>-->
+        <div class="drfi-search">
+            <input id="msg-drfi-input" class="msg-drfi-input" ng-model="matchedField" placeholder="Search more information"
+                   autofocus typeahead-template-url="msg-drfi-item.html"
+                   uib-typeahead="field as field.label for field in fields | filter:filterEntry | filter:{fullName:$viewValue} | filter:filterMatches"
+                   typeahead-on-select="pickMatchedField()" typeahead-show-hint="false" typeahead-min-length="0">
+        </div>
+
+      
+        <div class="drfi-picked popover-row" ng-if="formEntries.length">
+            <div 
+                 ng-repeat="field in formEntries track by $index">
+                <div class="drfi-picked-item" id='{{field.id}}' ng-class="{'last-in-group':$index===6}">
+                <!--<p>{{field | json}}</p>-->
+               <rgu-checkbox  id='chk{{field.id}}' ng-model="field.selected" label=""></rgu-checkbox>
+                <span class="drfi-item-name" ng-bind-html="field.displayName" uib-tooltip uib-tooltip-html="field.fullName + (field.leaf ? '' : ' (Form)')"></span>
+                <span ng-if="!field.leaf" class="form-badge"></span>
+                <!--<button type="button" class="btn-delete-field drfi-delete-field" ng-click="deleteField(field)">-->
+                    <!--Delete field-->
+                <!--</button>-->
+                </div>
+            </div>
+        </div>
+
+        <div class="drfi-actions popover-row">
+            <button class="btn btn-default drfi-action" ng-click="close()">Cancel</button>
+            <button class="btn btn-primary drfi-action" ng-disabled="!canSend()" ng-click="sendDrfi()">Send Request</button>
+            <!--<pre>{{formEntries | json}}</pre>-->
+
+        </div>
+    </div>
+</script>
+
+<script type="text/ng-template" id="msg-drfi-item.html">
+    <a ng-if="!addedToForm(match.model)" class="msg-drfi-item vault-entry vault-entry-type-{{match.model.type}}">
+        <span class="drfi-item-label" ng-bind-html="match.model.fullName | uibTypeaheadHighlight:query"></span>
+    </a>
+    <!--<div ng-if="addedToForm(match.model)" class="msg-drfi-item disabled vault-entry vault-entry-type-{{match.model.type}}"-->
+    <!--&gt;-->
+    <!--<span class="drfi-item-label" ng-bind-html="match.model.fullName | uibTypeaheadHighlight:query"></span>-->
+    <!--</div>-->
+</script>
+
+
+

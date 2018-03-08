@@ -1,0 +1,133 @@
+﻿
+<div ng-controller="emergencyPassportIDController">
+    <!-- //  edit Health Card  -->
+    <div>
+        <div class="vault-row">
+            <div class="vault-label">
+                <label></label>
+            </div>
+            <div class="vault-field-edit">
+                <strong> Passport ID </strong>
+            </div>
+        </div>
+        <div class="vault-row">
+            <div class="vault-label">
+                <label>Decription</label>
+            </div>
+            <div class="vault-field-edit">
+                <rgu-control type="textbox" ng-model="newForm.description">
+                </rgu-control>
+
+            </div>
+        </div>
+
+        <!--firstName -->
+        <div class="vault-row">
+            <div class="vault-label">
+                <label>First name</label>
+            </div>
+            <div class="vault-field-edit">
+                <rgu-control type="textbox" ng-model="newForm.firstName"></rgu-control>
+            </div>
+        </div>
+        <div class="vault-row">
+            <div class="vault-label">
+                <label>Middle name</label>
+            </div>
+            <div class="vault-field-edit">
+                <rgu-control type="textbox" ng-model="newForm.middleName"></rgu-control>
+            </div>
+        </div>
+        <div class="vault-row">
+            <div class="vault-label">
+                <label>Last name</label>
+            </div>
+            <div class="vault-field-edit">
+                <rgu-control type="textbox" ng-model="newForm.lastName"></rgu-control>
+            </div>
+        </div>
+        <div class="vault-row">
+            <div class="vault-label">
+                <label>Nationality/ Cityzenship </label>
+            </div>
+            <div class="vault-field-edit">
+                <rgu-control type="textbox" ng-model="newForm.nationality"></rgu-control>
+            </div>
+        </div>
+        <div class="vault-row">
+            <div class="vault-label">
+                <label>Card number</label>
+            </div>
+            <div class="vault-field-edit">
+                <rgu-control type="textbox" ng-model="newForm.cardNumber"></rgu-control>
+            </div>
+        </div>
+        <!--startDate -->
+
+        <div class="vault-row">
+            <div class="vault-label">
+                <label>Issued date</label>
+            </div>
+            <div class="vault-field-edit">
+                <rgu-date-input type="combo" ng-model="newForm.issuedDate"></rgu-date-input>
+            </div>
+        </div>
+        <!-- Indefinite-->
+        <div class="vault-row">
+            <div class="vault-label">
+                <label>Indefinite</label>
+            </div>
+            <div class="vault-field-edit">
+                <label class="checkbox-square"><input type="checkbox" ng-model="newForm.indefiniteDate" /><span></span></label>
+                <!--<rgu-control type="checkbox" ng-model="newForm.indefiniteDate" />-->
+            </div>
+        </div>
+        <div class="vault-row" ng-show="!newForm.indefiniteDate">
+            <div class="vault-label">
+                <label>Expiry date:</label>
+            </div>
+            <div class="vault-field-edit">
+                <rgu-date-input type="combo" ng-model="newForm.expiryDate" after="newForm.issuedDate"></rgu-date-input>
+            </div>
+        </div>
+        <!-- end Indefinite-->
+
+
+        <div class="vault-row">
+            <div class="vault-label">
+                <label>Issued in</label>
+            </div>
+            <div class="vault-field-edit">
+                <rgu-control type="textbox" ng-model="newForm.issuedIn"></rgu-control>
+            </div>
+        </div>
+        <div class="vault-row">
+            <div class="vault-label">
+                <label>Issued by</label>
+            </div>
+            <div class="vault-field-edit">
+                <rgu-control type="textbox" ng-model="newForm.issuedBy"></rgu-control>
+            </div>
+        </div>
+       
+        <!-- note -->
+        <div class="vault-row">
+            <div class="vault-label">
+                <label>Note</label>
+            </div>
+            <div class="vault-field-edit">
+                <textarea ng-model="newForm.note"></textarea>
+            </div>
+        </div>
+
+        <div class="vault-row">
+            <div class="vault-label">
+                <label></label>
+            </div>
+            <div class="vault-field-edit">
+                <button class="btn btn-default" ng-click="Cancel()" href="#">Cancel</button>
+                <button class="btn btn-primary " ng-disabled="newForm.description==''" ng-click="Save()" href="#">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

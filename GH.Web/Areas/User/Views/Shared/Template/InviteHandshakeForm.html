@@ -1,0 +1,123 @@
+﻿
+<script type="text/ng-template" id="modal-open-invite-member.html">
+    <div class="modal-container">
+        <h3 class="reg-title">Invite Members</h3>
+        <div class="stamp-regit">Powered by Regit</div>
+        <div ng-if="!showingMember && subscription.exceededQuota" class="billing-quota-container">
+            <div class="billing-quota-alert">
+                <p>Your intended usage will exceed limit of total {{subscription.plan.handshakeRelationships}} handshake relationships, as imposed by {{subscription.plan.label}}.</p>
+                <p><a href="/BusinessAccount/Billing">Upgrade your plan</a> to reach more.</p>
+            </div>
+        </div>
+        <form class="form-horizontal form-registration sync-invite-form">
+            <fieldset>
+                <legend>Members</legend>
+                <div class="form-group form-row">
+                    <div class="col-sm-3">
+                        <label>Invite</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="radiogroup">
+                            <div class="radio">
+                                <input checked id="option-member" name="input-title" ng-click="showingmember=true;"
+                                       ng-model="pushtype" type="radio" value="member">
+                                <label for="option-member">By Member</label>
+                            </div>
+                            <div class="radio">
+                                <input id="option-email" name="input-title" ng-click="showingmember=false;"
+                                       ng-model="pushtype" type="radio" value="email">
+                                <label for="option-email">By Email</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="showingmember" class="form-group form-row">
+                    <div class="col-sm-3">
+                        <label>Select Member</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <select ng-options="f as f.DisplayName for f in ListMemberBus" ng-model="memberBusSelected"
+                                class="" id="select-delegate"></select>
+
+                        <div class="form-field-details-row" ng-if="memberBusSelected==null || !memberBusSelected">
+                            <span class="form-field-message" style="color:red">
+                                Please select a member
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+                <div ng-show="!showingmember" class="form-group form-row">
+                    <div class="col-sm-3">
+                        <label>Send To</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="sync-invite-recipients">
+                            <div class="form-notes">
+                                <p>
+                                    Enter list of email addresses to receive invitation to join the handshake.
+                                    Separate multiple emails by comma, semicolon or space.
+                                </p>
+                                <p>
+                                    If an email address is found with a Regit user, the invitation is sent as
+                                    notification. Otherwise, an email is sent to invite the person to join
+                                    Regit.
+                                </p>
+                            </div>
+                            <textarea ng-model="invite.recipientsText" rows="5" ng-change="parseRecipients()"
+                                      placeholder="Recipient email addresses"></textarea>
+                            <div class="form-row-message" ng-if="invite.message">
+                                <div class="form-message-text" ng-bind="invite.message"></div>
+                            </div>
+                            <div class="form-notes form-results">
+                                <p ng-if="listEmailInsite.length">
+                                    Invitation sent to Regit users:
+                                    {{listEmailInsite.join(", ")}}
+                                </p>
+                                <p ng-if="listEmailOutsite.length">
+                                    Invitation email sent to people outside Regit:
+                                    {{listEmailOutsite.join(", ")}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group form-row">
+                    <div class="col-sm-3">
+                        <label> Comment </label>
+                    </div>
+                    <div class="col-sm-9">
+                        <input type="text" ng-model="posthandshakecomment" />
+                    </div>
+
+                </div>
+            </fieldset>
+            <div ng-if="isshowplanupgrade" class="billing-quota-container">
+                <div class="billing-quota-alert">
+                    <p>
+                    <p>Your usage has reached limit of total {{maxnumber}} handshake relationships, as imposed by {{plan.label}}.</p>
+                    <p><a href="/BusinessAccount/Billing">Upgrade your plan</a> to reach more.</p>
+                    <p><a href="/BusinessAccount/Billing">Upgrade your plan</a> to remove this limitation.</p>
+                </div>
+            </div>
+            <div style="padding-top:20px;color:red;text-align:center">
+                <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+                    <div ng-bind-html="messageBox"></div>
+                </uib-alert>
+            </div>
+            <div class="button-group">
+                <button type="button" ng-click="cancel()" class="btn btn-default">
+                    <span ng-if="closing">Close</span> <span ng-if="!closing"> Cancel </span>
+                </button>
+                <button ng-if="!closing" type="button" ng-disabled="showingMember && !memberBusSelected || !showingMember && subscription.exceededQuota" ng-click="RegisterCampaign()"
+                        class="btn btn-primary">
+                    Send Invitation
+                </button>
+
+            </div>
+        </form>
+    </div>
+</script>
+

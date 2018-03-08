@@ -1,0 +1,133 @@
+﻿@{
+    Layout = "~/Areas/User/Views/Shared/_LayoutDefaultBusinessApply.cshtml";
+    ViewBag.Title = "Handshake Request Manager";
+}
+
+
+@section scripts {
+    <script src="~/Areas/Beta/js/vendor/alasql.min.js"></script>
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/HandshakeRequestController.js")"></script>
+}
+@section body {
+    <div class="module module-main module-business module-interactions" rgu-event-listener ng-controller="RequestManageController">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/BusinessAccount">&laquo; Business Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                Handshake Request Manager
+            </li>
+
+        </ol>
+        <h1>Handshake Requests</h1>
+        <div class="interaction-dashboard sync-members-dashboard">
+            <button type="button" class="interaction-cta interaction-cta-export-all" ng-click="exportAllData()">
+                Export All
+            </button>
+            <button type="button" class="interaction-cta interaction-cta-email-notif"
+                    popover-placement="bottom-left"
+                    popovertitle="" uib-popover-template="'hsr-email-notif.html'"
+                    popover-is-open="view.showingHsrNotifPopover">
+                Email Notification
+            </button>
+        </div>
+
+    
+    
+        <div class="sync-members-pending-heading">
+            <switch ng-model="enableRequest" switcher-on-text="On" switcher-off-text="Off" ng-change="setRequest()"></switch>
+            Enable Handshake Requests
+        </div>
+        <div class="campaigns-grid">
+
+            <table class="table table-striped interactions-grid">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Request Date</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="hs in listRequest" class="hsr-status-{{hs.Status.toLowerCase()}}" ng-if="hs.Status!=='Delete'">
+                    <td class="hsr-user-name">
+                        <a href="#" ng-click="$event.preventDefault();openHsrViewer(hs)">{{hs.FirstName}} {{hs.LastName}}</a>
+                    </td>
+                    <td class="hsr-date">
+                        {{hs.CreatedDate | friendlyTime}}
+                    </td>
+                    <td class="">
+                        <span class="hsr-status-text" ng-if="hs.Status==='Complete' || hs.Status==='Read'">Completed</span>
+                    </td>
+
+                    <td class="more-actions">
+                        <button class="grid-action action-more" ng-click="view.openMoreActions(hs.Id, $event)">More</button>
+                        <div class="more-actions-dropdown" ng-if="view.openingMoreActions===hs.Id">
+                            <button class="more-action" ng-if="!hs.Status" ng-click="mark(hs)">
+                                Mark As Completed
+                            </button>
+                            <button class="more-action" ng-if="hs.Status!=='Complete'" ng-click="openlistHandShakeForm(hs)">
+                                Send Handshake
+                            </button>
+                            <button class="more-action" ng-click="delete(hs)">
+                                Delete
+                            </button>
+
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+<script type="text/ng-template" id="hsr-email-notif.html">
+    <div class="sync-email-notif form-popover" ng-controller="HsrEmailNotifController">
+        <div class="form-heading">Handshake Email Notification</div>
+        <div class="form-intro">Receive member updates of this handshake by email</div>
+        <form class="email-notif-form">
+            <div class="form-row" ng-if="notif.option !== 'none'">
+                <div class="form-label-col">Recipients</div>
+                <div class="form-control-col">
+                    <div>
+                        <rgu-checkbox class="" ng-model="notif.sendMe" style="display:inline-block"
+                                      label=""></rgu-checkbox><label style="display:inline-block">Notify my account ({{myEmail}})</label>
+                    </div>
+                    <rgu-checkbox class="" ng-model="notif.sendMore"
+                                  label="Notify other recipients"></rgu-checkbox>
+                </div>
+            </div>
+
+            <div class="form-row" ng-if="notif.option !== 'none' && notif.sendMore">
+                <div class="form-label-col">Other Recipients</div>
+                <div class="form-control-col">
+                    <textarea class="form-input-control" ng-model="notif.recipientsText" rows="5"
+                              placeholder="List of email addresses, separated by comma, semicolon or space"></textarea>
+                </div>
+            </div>
+            <div class="form-message form-row-message" ng-if="notif.message">
+                <div class="form-row-message-text" ng-bind="notif.message"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-label-col">Option</div>
+                <div class="form-control-col">
+                    <select rgu-select ng-model="notif.option"
+                            ng-options="option.name as option.label for option in notif.options"></select>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-default  form-action" ng-click="close()">
+                    Cancel
+                </button>
+                <button type="button" class="btn btn-primary action-save form-action" ng-click="save()">
+                    Save
+                </button>
+            </div>
+        </form>
+    </div>
+</script>
+
+
+}

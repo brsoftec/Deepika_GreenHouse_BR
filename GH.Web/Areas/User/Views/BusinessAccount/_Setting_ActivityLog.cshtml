@@ -1,0 +1,66 @@
+﻿@if (ViewBag.IsBusinessMaster == true)
+{
+
+    <div ng-controller="ActivityLogSettingsController" id="activity-log" class="account-activity-log">
+
+        <div class="account-form-row">
+            <div class="acccunt-form-label">
+                <span class="field-title">Keep a record of your logging in/out Regit</span>
+            </div>
+            <div class="account-form-control control-float-right">
+                <switcher ng-model="activityLogSettings.RecordAccess" switcher-on-text="Yes" switcher-off-text="No" on-changed="saveActivityLogSetting('RecordAccess')"></switcher>
+            </div>
+        </div>
+
+        <div class="account-form-row">
+            <div class="account-form-label">
+                <span class="field-title">Keep a record of business page editing</span>
+            </div>
+            <div class="acccount-form-control control-float-right">
+                <switcher ng-model="activityLogSettings.RecordProfileBusiness" switcher-on-text="Yes" switcher-off-text="No" on-changed="saveActivityLogSetting('RecordProfileBusiness')"></switcher>
+            </div>
+        </div>
+
+        <div class="account-form-row">
+            <div class="account-form-label">
+                <span class="field-title">Keep a record of business account management changes</span>
+            </div>
+            <div class="account-form-control control-float-right">
+                <switcher ng-model="activityLogSettings.RecordAccountBusiness" switcher-on-text="Yes" switcher-off-text="No" on-changed="saveActivityLogSetting('RecordAccountBusiness')"></switcher>
+            </div>
+        </div>
+
+        <div class="account-form-row">
+            <div class="account-form-label">
+                <span class="field-title">Keep a record of customer management activities</span>
+            </div>
+            <div class="account-form-control control-float-right">
+                <switcher ng-model="activityLogSettings.RecordBusinessSystem" switcher-on-text="Yes" switcher-off-text="No" on-changed="saveActivityLogSetting('RecordBusinessSystem')"></switcher>
+            </div>
+        </div>
+
+
+        <div class="account-form-row">
+            <div class="account-form-label">
+                <span class="field-title">Keep a record of campaign operations</span>
+            </div>
+            <div class="account-form-control control-float-right">
+                <switcher ng-model="activityLogSettings.RecordCampaign" switcher-on-text="Yes" switcher-off-text="No" on-changed="saveActivityLogSetting('RecordCampaign')"></switcher>
+            </div>
+        </div>
+
+        <div class="account-form-row">
+            <div class="account-form-label">
+                <span class="field-title">Keep a record of your business social activities</span>
+            </div>
+            <div class="account-form-control control-float-right">
+                <switcher ng-model="activityLogSettings.RecordWorkflow" switcher-on-text="Yes" switcher-off-text="No" on-changed="saveActivityLogSetting('RecordWorkflow')"></switcher>
+            </div>
+        </div>
+
+    </div>
+}
+else
+{
+    <p style="margin-top: 10px">Access to this section restricted to business master account only</p>
+}

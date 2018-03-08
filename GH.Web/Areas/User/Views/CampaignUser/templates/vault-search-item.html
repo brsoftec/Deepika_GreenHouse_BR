@@ -1,0 +1,4 @@
+<a class="vault-search-item vault-search-item-level-{{match.model.level}}" ng-class="{'vault-search-item-group':!match.model.leaf}">
+    <span class="vault-search-item-label" ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
+    <span class="vault-search-item-path" ng-bind-html="match.model.path | vaultPath"></span>
+</a>

@@ -1,0 +1,48 @@
+rgu-checkbox {
+    margin-right: 10px !important;
+}
+rgu-checkbox label {
+    font-weight: normal !important;
+}
+
+.betatest-feedbacks-options {
+    margin-bottom: 10px !important;
+}
+
+.betatest-feedbacks-grid table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.betatest-feedbacks-grid td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.betatest-feedback-type-bug .betatest-feedback-grid-summary {
+    background: transparent url(../img/betatest-bug.png) no-repeat left center;
+    padding-left: 20px;
+
+}
+
+.betatest-feedbacks-grid-time {
+    font-size: 90%;
+    color: #999;
+}
+
+.betatest-feedbacks-details {
+    border-bottom: 1px solid #ddd;
+}
+
+.betatest-feedbacks-details p {
+    margin: 0; padding: 0;
+}
+
+.betatest-feedbacks-details-label {
+       color: #999;
+}
+
+.betatest-feedback-image {
+    height: 80px;
+}

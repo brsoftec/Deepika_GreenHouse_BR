@@ -1,0 +1,80 @@
+﻿﻿@model GH.Core.ViewModels.InteractionViewModel
+  
+@{
+    ViewBag.Title = Model.Name + " - " + Model.Business.Name + " - Regit Interaction";
+   
+    ViewBag.NgApp = "regitInteraction";
+    //    Layout = ViewBag.IsPublic ? "~/Areas/User/Views/Shared/_PublicInteractionLayout.cshtml" : "~/Areas/User/Views/Shared/_LayoutFullApply.cshtml";
+    Layout = "~/Areas/User/Views/Shared/_InteractionLayout.cshtml";
+    var interactionId = Model.Id;
+    ViewBag.Interaction = Model;
+}
+@section styles{
+
+}
+@section prescripts {
+
+    <script>
+        var regitGlobal = regitGlobal || {};
+        regitGlobal.isPublic = @Json.Encode(ViewBag.IsPublic);
+        regitGlobal.interaction = {
+            id: "@Model.Id",
+            type: "@Model.Type.ToLower()",
+            name: "@Html.Raw(Model.Name)",
+            description: @Html.Raw(Json.Encode(Model.Description)),
+            business: {
+                id: "@Model.Business.Id",
+                accountId: "@Model.Business.AccountId",
+                name: "@Html.Raw(Model.Business.Name)",
+                avatar: "@Html.Raw(Model.Business.Avatar)",
+                following: @Json.Encode(Model.Business.Following)
+            },
+            from: "@Model.From.ToString("o")",
+            until: "@(((DateTime) Model.Until).ToString("o"))",
+            image: "@Model.Image",
+            url: "@Model.TargetLink",
+            verb: "@Model.Verb",
+            socialShare: "@Model.SocialShare",
+            expired: @Json.Encode(Model.Expired),
+            participants: @Json.Encode(Model.Participants),
+            publicUrlEncoded: "@Url.Encode(Request.RawUrl)"
+        }
+        @if (Model.EventInfo != null)
+        {
+            @:regitGlobal.interaction.eventInfo = @Html.Raw(Json.Encode(Model.EventInfo));
+        }       
+         @if ((Model.Type == "registration" || Model.Type == "event") && Model.paid )
+        {
+            @:regitGlobal.interaction.paid = true;
+            @:regitGlobal.interaction.price = "@Model.price";
+            @:regitGlobal.interaction.priceCurrency = "@Model.priceCurrency";
+        }
+        @if (Model.Participations != null && Model.Participations.Count > 0)
+        {
+            <text>
+        regitGlobal.interaction.participations = [
+            @foreach (var participation in Model.Participations)
+            {
+                <text>
+            {
+                actor: "@participation.Actor",
+                actorName: "@participation.ActorName",
+                delegationId: "@participation.DelegationId",
+                participated: new Date("@participation.Participated")
+            }, 
+                </text>
+            }
+        ];
+            </text>
+        }
+        
+    </script>
+}
+@section initscripts {
+    <script src="@Url.Versioned("~/Areas/regitUI/js/modules/social.js")"></script>
+}
+@section body {
+    <div class="module module-main module-interaction">
+        <interaction ng-model="regitGlobal.interaction"></interaction>
+    </div>
+}

@@ -1,0 +1,34 @@
+﻿<header class="about-header">
+
+    @if (ViewBag.IsBusinessView==true || ViewBag.Action == "business") {
+    <a href="/" class="about-header-logo about-header-logo-business">
+        <img src="~/Areas/About/Content/img/regit-business-logo.svg">
+    </a>
+    } else {
+    <a href="/" class="about-header-logo">
+        <img src="~/Areas/About/Content/img/regit.svg">
+    </a>
+    }
+    <div class="about-nav">
+        @if (ViewBag.Controller == "interaction" || ViewBag.Controller=="support" || ViewBag.AboutSecondary == true) {
+        <a href="/about">About Regit</a>
+        } else {
+        if (ViewBag.Page == "about-business") {
+        <a href="/about">Regit for Individual</a>
+        } else {
+        <a href="/about/business">Regit for Business</a>
+        }
+        }
+        <a href="http://www.regitblog.com">Regit Blog</a>
+    </div>
+
+    <div class="about-search">
+        <form name="formSearch" action="/Search/Public" method="get">
+            <input name="query" class="about-search-input" placeholder="Search Regit">
+        </form>
+    </div>
+
+
+</header>
+
+@Html.Partial("_ResponsiveHeaderPartial")

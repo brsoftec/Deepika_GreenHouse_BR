@@ -1,0 +1,5 @@
+<div class="interaction-feed" infinite-scroll="pullFeed()" infinite-scroll-immediate-check="false">
+    <div class="interaction-feed-item module module-main module-feed" ng-repeat="interaction in interactions | filter:filterInteractions">
+        <interaction ng-model="interaction"></interaction>
+    </div>
+</div>

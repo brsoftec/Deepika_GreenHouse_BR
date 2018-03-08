@@ -1,0 +1,298 @@
+﻿@using GH.Lang
+<div ng-controller="ManageNetworkController" id="network" class="manage-network" rgu-event-listener>
+
+    @*
+    <div class="network-section">
+        <div class="network-row">
+            <div class="network-invite-label">
+                Invite your friends on Regit to join your network
+            </div>
+            <div class="network-invite-control">
+                <div class="network-invite-input">
+                    <span class="no-result" ng-show="searchFriendNoResult">@Regit.No_Results_Found</span>
+                    <input type="text" ng-model="invitation" placeholder="Find your friends"
+                           uib-typeahead="friend as friend.DisplayName for friend in findFriends($viewValue)"
+                           typeahead-no-results="searchFriendNoResult" typeahead-wait-ms="500"
+                           typeahead-editable="false" typeahead-template-url="network-invite-search.html"/>
+                </div>
+                <div class="network-invite-submit">
+                    <button class="btn btn-blue" ng-click="invite()">Invite</button>
+
+                </div>
+            </div>
+            <script type="text/ng-template" id="network-invite-search.html">
+                <div class="network-invite-search-item">
+                    <div class="network-invite-search-avatar">
+                        <img class="" ng-src="{{match.model.Avatar | avatarUrl}}">
+                    </div>
+                    <div class="network-invite-search-name"
+                         ng-bind-html="match.model.DisplayName | uibTypeaheadHighlight:query"></div>
+                </div>
+
+            </script>
+        </div>
+    </div>
+
+
+    <div class="network-section">
+        <div class="network-row">
+            <div class="network-invite-label">
+                Not on Regit? Invite them onto the Regit Network
+            </div>
+            <div class="network-invite-control">
+                <div class="network-invite-input">
+                    <input ng-model="_invitedEmail" class="" placeholder="Email address" rules="email">
+                </div>
+                <div class="network-invite-submit">
+                    <button class="btn btn-blue" ng-click="inviteByEmail(_invitedEmail)">Invite</button>
+                </div>
+            </div>
+        </div>
+        <div class="network-row">
+            <div class="network-invite-results">
+                <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+                    <div ng-bind-html="messageBox"></div>
+                </uib-alert>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div class="network-section">
+        <div class="network-invitations" ng-if="invitations.length">
+            <div>{{invitations.length}} people inviting you to join their network.</div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="friends">
+                        <div ng-repeat="invitation in invitations" class="friend">
+
+                            <div class="network-pending-row" ng-if="invitation.NetworkName != 'Emergency Network'">
+                                <div class="col-md-8">
+                                    <a href="/User/Profile?id={{invitation.Sender.Id}}">
+                                        <img class="network-invite-search-avatar" ng-src="{{invitation.Sender.Avatar | avatarUrl}}">
+                                    </a>
+
+                                    <a href="/User/Profile?id={{invitation.Sender.Id}}">
+                                        {{invitation.Sender.DisplayName}}
+                                    </a>
+                                </div>
+                                <div class="col-md-4 text-right action">
+                                    <a ng-click="accept(invitation, $index)">@Regit.AcceptBtn</a> <a ng-click="deny(invitation, $index)" class="x-mark-circle"></a>
+                                </div>
+                            </div>
+                            <div class="network-pending-row" ng-if="invitation.NetworkName == 'Emergency Network'">
+                                <div class="col-md-8">
+                                    <a href="/User/Profile?id={{invitation.Sender.Id}}">
+                                        <img class="network-invite-search-avatar" ng-src="{{invitation.Sender.Avatar | avatarUrl}}">
+                                    </a>
+
+                                    <a href="/User/Profile?id={{invitation.Sender.Id}}">
+                                        <strong> {{invitation.Sender.DisplayName}} </strong> has invited you to be an emergency contact.
+                                    </a>
+                                </div>
+                                <div class="col-md-4 text-right action">
+
+                                    <a ng-click="ViewInvitation(invitation, $index)" class="btn btn-default">View Invitation</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<label class="checkbox-square"><input type="checkbox" ng-model="showSendInvitations" ng-click="getSend()" /><span></span>Show pending outgoing invitations</label>
+
+<div class="network-invitations" ng-if="showSendInvitations">
+
+        <div ng-if="sendInvitations.length > 0" class="friends">
+            <div ng-repeat="sendInvitation in sendInvitations" class="friend">
+           
+                <div class="network-pending-row">
+                    <div class="network-pending-key">
+                        <a class="avatar-prefix" href="/User/Profile?id={{sendInvitation.Receiver.Id}}">
+                            <img class="" ng-src="{{sendInvitation.Receiver.Avatar | avatarUrl}}">
+                        </a>
+                            <a class="network-pending-name" href="/User/Profile?id={{sendInvitation.Receiver.Id}}">
+                                {{sendInvitation.Receiver.DisplayName}}
+                            </a>
+                    </div>
+                    <div class="network-pending-type">
+                        {{sendInvitation.NetworkName}}
+                    </div>
+                    <div class="network-pending-time">
+                        {{sendInvitation.SentAt | friendlyTime}}
+                    </div>
+
+                </div>
+                <hr ng-if="!$last"/>
+            </div>
+
+        </div>
+        <div ng-if="sendInvitations.length === 0">
+            <div class="friends">
+                <div class="friend">No pending invitations</div>
+            </div>
+        </div>
+
+    </div>
+    *@
+
+
+<div class="network-section network-container">
+    <div class="network-invite-links">
+        <h5>People not on Regit?</h5>
+        <p>Invite from your social networks</p>
+        <div class="network-invite-link-list">
+            <a class="network-invite-link google-contacts" href="~/User/Invite">
+                Google Contacts
+            </a>
+            <a class="network-invite-link facebook-friends" href="~/User/Invite?facebook">
+                Facebook Friends
+            </a>
+        </div>
+    </div>
+    <div class="network-heading network-type-trusted">
+        Invite to Network
+    </div>
+
+
+    <rgu-user-grid type="network">
+
+    </rgu-user-grid>
+</div>
+
+@*
+    <div class="network-section network-container">
+
+
+        <div ng-if="!trustedNetwork.Friends.length" class="account-message">
+            <p>You have no one in your trust network. Add someone you trust from your normal network.</p>
+        </div>
+        <table ng-if="trustedNetwork.Friends.length" class="network-grid table table-striped">
+            <tr class="network-row" ng-repeat="friend in trustedNetwork.Friends">
+
+                <td class="network-cell network-key">
+                    <div class="avatar-prefix">
+                        <a href="/User/Profile?id={{friend.Id}}"><img ng-src="{{friend.Avatar | avatarUrl}}"/></a>
+                    </div>
+                    <div class="network-member-name-group">
+
+                        <a class="network-member-name" href="/User/Profile?id={{friend.Id}}">{{friend.DisplayName}}</a>
+                        <div class="network-member-relationship" ng-if="friend.Relationship && !friend.Editting">
+                            {{friend.Relationship}}
+                        </div>
+                        <div class="network-member-relationship" ng-if="friend.Editting">
+
+                        </div>
+                    </div>
+                </td>
+                <td class="network-emergency">
+                    <div ng-if="friend.IsEmergency && !friend.Editting">
+                        Emergency #{{friend.Rate}}
+                        {{isTrustEmergency }}
+                    </div>
+                    <div ng-if="friend.Status">
+                        Emergency ({{friend.Status}})
+                    </div>
+                    <div ng-if="friend.Editting" class="edit-form">
+                        <div ng-if="friend.Status ===''">
+                            <div class="edit-form-row">
+                                <label>Select this member's relationship with you</label>
+                                <rgu-smart-select list="relationships" ng-model="friend.Relationship">
+                                </rgu-smart-select>
+                            </div>
+                            <div class="edit-form-row">
+                                <label class="checkbox-square"><input type="checkbox" ng-model="friend.IsEmergency"  /><span></span>Select this member as an emergency contact</label>
+                            </div>
+                            <div class="edit-form-row" ng-if="friend.IsEmergency">
+                                <label>Priority</label>
+                                <rgu-picker class="control-inline" items="list_rate" ng-model="friend.Rate">
+                                </rgu-picker>
+                            </div>
+                        </div>
+                        <div ng-if="friend.Status ==='Pending'">
+                            <div ng-repeat="send in sendInvitations" class="friend">
+                                <div ng-if="send.Receiver.Id == friend.Id && send.IsEmergency">
+                                    <p>You invited {{friend.DisplayName}} as your emergency contact.</p>
+                                    <span ng-if="send.Relationship">Relationship:  {{send.Relationship}}</span> <br/>
+                                    <span ng-if="send.Rate > 0">Rate :{{send.Rate}}</span>
+                                    <p> Sent: {{send.SentAt | friendlyTime}}</p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td class="more-actions">
+                    <button class="grid-action action-cancel" ng-if="friend.Editting" ng-click="cancelEditing(friend)">
+                        <span ng-if="friend.Status !== ''"> Close </span> <span
+                            ng-if="friend.Status  === ''"> Cancel </span>
+                    </button>
+                    <button class="grid-action action-ok"
+                            ng-if="friend.Editting && friend.SetEmergency && friend.Status === ''"
+                            ng-click="updateEditing(friend)"> Update
+                    </button>
+                    <button class="grid-action action-ok"
+                            ng-if="friend.Editting && !friend.SetEmergency && friend.Status === ''"
+                            ng-click="addEditing(friend)">
+                        Save
+                    </button>
+                    <button class="grid-action action-more" ng-if="!friend.Editting"
+                            ng-click="openMoreActions(friend.Id,$event)">
+                        More
+                    </button>
+                    <div class="more-actions-dropdown" ng-if="rguView.openingMoreActions===friend.Id">
+                        <button class="more-action" ng-click="beginEditing(friend)">Edit</button>
+                        <button class="more-action"
+                                ng-click="moveFriend(friend, trustedNetwork, normalNetwork, $index)">
+                            Move to Normal
+                        </button>
+                        <button class="more-action" ng-click="removeFriend(friend, trustedNetwork, $index)">
+                            Remove from Network
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+
+        <div class="network-heading">
+            {{normalNetwork.Name}}
+        </div>
+
+
+        <div ng-if="!normalNetwork.Friends.length" class="account-message">
+            <p>You have no one in your normal network. Invite your friends here.</p>
+        </div>
+
+        <table ng-if="normalNetwork.Friends.length" class="network-grid business-network-grid table table-striped">
+            <tr class="network-row" ng-repeat="friend in normalNetwork.Friends">
+                <td class="network-cell network-key">
+                    <div class="avatar-prefix">
+                        <a href="/User/Profile?id={{friend.Id}}"><img ng-src="{{friend.Avatar | avatarUrl}}"></a>
+                    </div>
+                    <a class="network-member-name" href="/User/Profile?id={{friend.Id}}">{{friend.DisplayName}}</a>
+                </td>
+                <td class="more-actions">
+                    <button class="grid-action action-more" ng-click="openMoreActions(friend.Id,$event)">
+                        More
+                    </button>
+                    <div class="more-actions-dropdown" ng-if="rguView.openingMoreActions===friend.Id">
+                        <button class="more-action"
+                                ng-click="moveFriend(friend, normalNetwork, trustedNetwork, $index)">
+                            Move to Trust
+                        </button>
+                        <button class="more-action" ng-click="removeFriend(friend, normalNetwork, $index)">
+                            Remove from Network
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    *@
+
+</div>

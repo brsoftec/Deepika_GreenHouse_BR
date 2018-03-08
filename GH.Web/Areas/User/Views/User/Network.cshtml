@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Network";
+    Layout = "~/Areas/User/Views/Shared/_LayoutDefaultApply.cshtml";
+    var Networks = new[]
+    {
+        new {Name = "personal", Label = "Personal Network", Template = "_Setting_Network"},
+        new {Name = "business", Label = "Business Network", Template = "_Setting_BusinessNetwork"}
+    };
+}
+@section styles {
+
+    @Styles.Render("~/bundles/user/account-settings/css")
+<link rel="stylesheet" href="@Url.Versioned("~/Areas/Beta/css/network.css")">
+}
+@section scripts {
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Services/BusinessAccountService.js")"></script>
+    @Scripts.Render("~/bundles/user/network-ctrl")
+    @Scripts.Render("~/bundles/BusinessUserSystem")
+
+}
+
+<div class="module module-main module-account" ng-controller="NetworkController">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/">&laquo; Home</a>
+        </li>
+        <li class="breadcrumb-item active">Network Management</li>
+    </ol>
+    <h1>Network</h1>
+
+    <div class="settings-container">
+        @foreach (var Network in Networks)
+        {
+            <div class="account-accordion" ng-class="{open:accordionsOpen['@Network.Name']}">
+                <div class="account-summary" ng-click="toggleAccordion('@Network.Name')">@Network.Label</div>
+                <div class="account-details" id="#@Network.Name" ng-show="accordionsOpen['@Network.Name']">
+                    @Html.Partial(Network.Template)
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,83 @@
+<div class="modal modal-box modal-form-box add-business-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <button type="button" class="modal-box-close" ng-click="closeAddBusinessModal($hide)">Close</button>
+    <div class="modal-box-header">Add a Business</div>
+    <form class="modal-box-form add-business-form" name="addBusinessForm">
+        <div class="modal-box-form-row">
+            <div class="modal-box-form-control">
+                <div class="upload-thumbnail" ng-class="{uploaded:savedFileName}">
+                    <div ng-if="!savedFileName">Business Logo</div>
+                <img ng-if="savedFileName" ng-src="{{savedFileName}}">
+                </div>
+                <div class="upload-component">
+                    <button class="upload-action">Add Business Logo</button>
+                    <input type="file" name="ucbAvatar" rgu-upload>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-box-form-row">
+            <div class="modal-box-form-control">
+                <input class="modal-box-form-input" ng-model="model.name" ng-required autofocus
+                       placeholder="Business Name">
+            </div>
+        </div>
+        <div class="modal-box-form-row">
+            <div class="modal-box-form-control">
+                <rgu-smart-input type="industry" ng-model="model.industry" placeholder="Industry"
+                                 class="modal-box-form-input-component"></rgu-smart-input>
+            </div>
+        </div>
+        <div class="modal-box-form-row">
+            <div class="modal-box-form-control">
+                <input country-input class="modal-box-form-input-component" ng-model="model.country"
+                       placeholder="Country">
+            </div>
+        </div>
+        <div class="modal-box-form-row">
+            <div class="modal-box-form-control">
+                <input class="modal-box-form-input" ng-model="model.city" placeholder="City">
+            </div>
+        </div>
+        <div class="modal-box-form-row">
+            <div class="modal-box-form-control">
+                <input class="modal-box-form-input" ng-model="model.address" placeholder="Address">
+            </div>
+        </div>
+        <div class="modal-box-form-row">
+            <div class="modal-box-form-control">
+                <rgu-phone-input class="modal-box-form-input-component" name="businessPhone" ng-model="model.phone"
+                                 phone-type="full" placeholder="Phone">
+                </rgu-phone-input>
+            </div>
+        </div>
+        <div class="modal-box-form-row">
+            <div class="modal-box-form-control">
+                <input class="modal-box-form-input" ng-model="model.email" placeholder="Email">
+            </div>
+        </div>
+        <div class="modal-box-form-row">
+            <div class="modal-box-form-control">
+                <input class="modal-box-form-input" ng-model="model.website" placeholder="Website">
+            </div>
+        </div>
+        <div class="modal-box-form-row">
+            <div class="modal-box-form-control">
+                <textarea class="modal-box-form-input" rows="3" ng-model="model.description" placeholder="Business Description"></textarea>
+            </div>
+        </div>
+
+
+        <div class="modal-box-form-actions">
+
+            <button type="button" ng-click="closeAddBusinessModal($hide)"
+                    class="modal-box-form-action modal-box-form-action-cancel">Cancel
+            </button>
+            <button type="button" class="modal-box-form-action form-action-primary form-action-submit"
+                    ng-disabled="!canSend()" ng-click="sendAddBusiness($hide)">
+                Send
+            </button>
+
+        </div>
+    </form>
+</div>

@@ -1,0 +1,30 @@
+﻿<button type="button" class="betatest-button" popover-placement="bottom-left" popover-trigger="'outsideClick'"
+        popovertitle="" uib-popover-template="'betatest.popover.html'" popover-is-open="currentView.showingBetaTestPopover"
+        bs-tooltip data-title="Beta Test Information" data-placement="auto"
+        ng-click="openBetaTestPopover($event)">
+    Beta
+</button>
+<script type="text/ng-template" id="betatest.popover.html">
+    <div class="betatest-popover" ng-controller="BetaTestController">
+        <p class="betatest-popover-heading">Regit Beta System Info</p>
+        <p>User ID: {{user.Id}}</p>
+        @if (ViewBag.Tier == "individual")
+        {
+            <p>Individual Account</p>
+        }
+        else
+        {
+            <p ng-if="user.AccountType=='Business'">Business Account</p>
+            <p ng-if="user.AccountType!=='Business'">Invidual Account as member of Business</p>
+        }
+        <p>IP: @Request.UserHostAddress</p>
+        <p>Locale: {{locale}}</p>
+        <p>Local Time: {{getCurrentTime() | date:'yyyy-MM-dd HH:mm'}}</p>
+        <p>UTC Time: {{getCurrentTime() | date:'yyyy-MM-dd HH:mm':'+0000' }}</p>
+
+        <p class="betatest-popover-instruction">Help us improve by sending feedback. Found a bug? Propose change? Click Feedback! button on footer below.</p>
+
+        <p>Learn more in <a href="/BetaTest">Beta Test Center</a></p>
+
+    </div>
+</script>

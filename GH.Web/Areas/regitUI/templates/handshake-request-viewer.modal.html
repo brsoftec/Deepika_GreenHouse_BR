@@ -1,0 +1,50 @@
+<div class="modal modal-box modal-form-box hsr-viewer-modal" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <button type="button" class="modal-box-close" ng-click="closeHsrViewer($hide)">Close</button>
+    <div class="modal-box-header">Handshake Request User Information</div>
+
+    <form class="modal-form modal-box-form hsr-viewer-form">
+        <div class="modal-form-row">
+            <div class="modal-form-label">
+                <label>First Name</label>
+            </div>
+            <div class="modal-form-control">
+                {{hsrViewer.firstName}}
+            </div>
+        </div>
+        <div class="modal-form-row">
+            <div class="modal-form-label">
+                <label>Last Name</label>
+            </div>
+            <div class="modal-form-control">
+                {{hsrViewer.lastName}}
+            </div>
+        </div>
+        <div class="modal-form-row">
+            <div class="modal-form-label">
+                <label>Mobile Phone</label>
+            </div>
+            <div class="modal-form-control">
+                {{hsrViewer.phoneNumber}}
+            </div>
+        </div>
+        <div class="modal-form-row">
+            <div class="modal-form-label">
+                <label>Personal Email</label>
+            </div>
+            <div class="modal-form-control">
+                {{hsrViewer.email}}
+            </div>
+        </div>
+        <div class="modal-form-row tall">
+            <div class="modal-form-label">
+                <label>Message</label>
+            </div>
+            <div class="modal-form-control" ng-bind-html="hsrViewer.message | textToHtml">
+            </div>
+        </div>
+        <div class="modal-form-actions">
+            <button type="button" ng-click="closeHsrViewer($hide)" class="modal-form-action form-action-cancel">Close</button>
+</div>
+    </form>
+</div>

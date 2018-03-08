@@ -1,0 +1,38 @@
+﻿
+
+<div ng-controller="SearchBasicController">
+    <div class="vault-group-content">
+        <!--First Name-->
+        <div class="vault-row">
+            <div class="vault-label">
+                <label>{{field.label}}</label>
+            </div>
+            <div class="vault-field">
+                <div class="vault-field-edit">
+                    <input ng-model="field.value" rules="name" class="form-control" />
+                    <!--
+                        <rgu-control type="textbox" ng-model="firstName_value" rules="name"  />
+                        -->
+                </div>
+            </div>
+        </div>
+
+        <div class="vault-row">
+            <div class="vault-label">
+                <label></label>
+            </div>
+            <div class="vault-field">
+                <button type="button"
+                        class="btn-edit-vault-field-action btn-edit-vault-field-cancel"
+                        ng-click="$event.preventDefault();cancelField(entry)">
+                    Cancel
+                </button>
+                <button type="button" class="btn-edit-vault-field-action"
+                        ng-click="Save()">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div> 

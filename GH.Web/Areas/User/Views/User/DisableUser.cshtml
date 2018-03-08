@@ -1,0 +1,34 @@
+﻿@using GH.Lang
+@model GH.Core.Models.DisabledUser
+@{
+    ViewBag.Title = "Disable User";
+}
+@section styles{
+    @Styles.Render("~/User/login")
+}
+@section scripts {
+    @Scripts.Render("~/bundles/login-ctrl")
+}
+
+<div class="container">
+    <div class="congratulation-box">
+        <div class="disable-user-container">
+            <h1>
+                <span>@Regit.The_User_Was_Disabled</span>
+                <span>
+                    @*@Html.Raw(Regit.Until_Title + Model.Until.Date.ToString("d"))*@
+                </span> @{
+                    if (!string.IsNullOrEmpty(Model.Reason))
+                    {
+                        <span>
+                            @Html.Raw(Regit.Reason_Title + Model.Reason)
+                        </span>
+                    }
+                }
+            </h1>
+            <h1>
+                @Html.Raw(Regit.Please_Contact_Admin)
+            </h1>
+        </div>
+    </div>
+</div>

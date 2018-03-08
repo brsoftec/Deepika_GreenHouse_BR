@@ -1,0 +1,902 @@
+﻿@{
+    ViewBag.Title = "Pust To Vault";
+    Layout = "~/Areas/User/Views/Shared/_LayoutDefaultBusinessApply.cshtml";
+}
+@section styles {
+    @Styles.Render("~/bundles/css/feed")
+ }
+
+@section scripts {
+
+    @Scripts.Render("~/bundles/BusinessUserSystem")
+    @*@Scripts.Render("~/bundles/NewFeeds")*@
+    @Scripts.Render("~/bundles/Campaign")
+    @Scripts.Render("~/bundles/CampaignService")
+}
+
+<div class="appview module module-main module-business module-interaction-editor" ng-controller="InsertRegistrationCampaignController" style="margin-top:20px">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/BusinessAccount">&laquo; Business Home</a></li>
+        <li class="breadcrumb-item"><a href="/Campaign/ManagerCampaign">Interaction Module</a></li>
+        <li class="breadcrumb-item active">Interaction Editor</li>
+    </ol>
+    <h1 ng-show="isshowtitle">{{pageTitle}}</h1>
+    <div ng-show="isshowstatus" class="campaign-role-indicator">{{status}}</div>
+    <div class="top-buttons">
+        <button ng-click="SaveAsDraff()" ng-show="isshowdraff" type="button" class="btn btn-default">Save As Draft</button>
+        <button type="button" ng-show="isshowbackcampaign" ng-click="savebackcampaign()" class="btn btn-primary">Save Back As Campaign</button>
+        <button ng-click="SaveAsTemplate()" ng-show="isshowtemplate" type="button" class="btn btn-default">Save As Template</button>
+    </div>
+    <div ng-show="($parent.step==1)" class="steps">
+        <ul>
+            <li class="active">1</li>
+            <li class="">2</li>
+            <li class="">3</li>
+            <li class="last">4</li>
+        </ul>
+    </div>
+    <form ng-show="($parent.step==1)" name="formCE" class="form-horizontal form-campaign">
+        <fieldset>
+            <legend>Interaction: Push Form</legend>
+
+            <div ng-show="(commentsFromSupervisor!='')" class="form-group form-row campaign-comment-row campaign-comment-row-main">
+                <div class="col-sm-3">
+                    <label for="input-name">Approver's Comment</label>
+                </div>
+                <div class="col-sm-9">
+                    <div class="form-campaign-value campaign-comment">{{commentsFromSupervisor}}</div>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm-3">
+                    <label for="input-name">Push Form Name</label>
+                </div>
+                <div class="col-sm-9">
+                    <input required maxlength="30" name="campaignName" class="form-control" id="input-name" placeholder="Push Form Name" ng-model="AdName" value="">
+                    <div name="campaignName" ng-messages="formCE.campaignName.$error" role="alert">
+                        <div ng-message="required">Please enter a name for the campaign.</div>
+                        <div ng-message="maxlength">Campaign can be at most 30 characters long.</div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm-3">
+                    <label for="input-desc">Description</label>
+                </div>
+                <div class="col-sm-9">
+                    <textarea ng-model="Description" class="form-control" id="input-desc" rows="10" placeholder="Description of the push form"></textarea>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm-3">
+                    <label for="select-country">Registration Type</label>
+                </div>
+                <div class="col-sm-9">
+                    <select rgu-select class="form-control" ng-model="RegistrationType" ng-options="c as c for c in RegistrationTypes"></select>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="campaign-criteria">
+            <legend>Criteria</legend>
+            <div ng-show="(commentsCriteria!='')" class="form-group form-row campaign-comment-row">
+                <div class="col-sm-3">
+                    <label for="input-name">Approver's Comment</label>
+                </div>
+                <div class="col-sm-9">
+                    <div class="form-campaign-value campaign-comment">{{commentsCriteria}}</div>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm-3">
+                    <label>Age</label>
+                </div>
+                <div class="col-sm-9">
+                    From <input class="input-shortnum" ng-change="changeAge()" id="input-age-from" ng-model="Target.FromAge" placeholder="" value="16">
+                    To <input class="input-shortnum" ng-change="changeAge()" id="input-age-to" placeholder="" ng-model="Target.ToAge">
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm-3">
+                    <label for="select-location">Location</label>
+                </div>
+                <div class="col-sm-9">
+                    <select rgu-select class="selector select-location"
+                            ng-options="c as c for c in locationTypes"
+                            ng-model="locationType" ng-change="updateLocationType()"></select>
+                </div>
+            </div>
+            <div class="form-group form-row locsel-country" ng-if="locationType==='Continent'">
+                <div class="col-sm-3">
+                    <label for="select-continent" class="control-label">Continent</label>
+                </div>
+                <div class="col-sm-9">
+                    <select rgu-select class="select-continent" id="select-continent"
+                            ng-options="continent for continent in continents" ng-model="continent"></select>
+                </div>
+            </div>
+            <div class="form-group form-row locsel-country" ng-show="locationType==='Country/City'">
+                <div class="col-sm-3">
+                    <label for="select-country" class="control-label">Country</label>
+                </div>
+                <div class="col-sm-9">
+                    <select rgu-select class="select-country" ng-change="changeCity()" ng-model="Target.Country" ng-options="c as c.Name for c in listCountries">
+                        <option value="">
+                            Select Country
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group form-row locsel-city" ng-show="locationType==='Country/City'">
+                <div class="col-sm-3">
+                    <label for="select-city" class="control-label">City</label>
+                </div>
+                <div class="col-sm-9">
+                    <select rgu-select class="select-city" ng-change="changeCityTarget()" ng-model="Target.City" ng-options="c as c.Name for c in listcities">
+                        <option value="">
+                            Select City
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm-3">
+                    <label for="select-target">Target</label>
+                </div>
+                <div class="col-sm-9">
+                    <select rgu-select ng-model="Target.TargetNetwork" class="" id="select-target" ng-change="changeTargetNetwork()">
+                        <option>Regit Network (Public)</option>
+                        <option>Regit Customers (Private)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm-3">
+                    <label>Gender</label>
+                </div>
+                <div class="col-sm-9">
+                    <div class="btn-group">
+                        <label class="btn btn-default btn-option" ng-click="GenderChange()" ng-model="Target.Gender" uib-btn-radio="'All'">All</label>
+                        <label class="btn btn-default btn-option" ng-click="GenderChange()" ng-model="Target.Gender" uib-btn-radio="'Male'">Male</label>
+                        <label class="btn btn-default btn-option" ng-click="GenderChange()" ng-model="Target.Gender" uib-btn-radio="'Female'">Female</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm-3">
+                    <label>Keywords</label>
+                </div>
+                <div class="col-sm-9">
+                    <rgu-control on-change="ChangeCost()" type="smartinput" options="keywords" ng-model="Target.keywords">
+                    </rgu-control>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Budget &amp; Time</legend>
+            <div ng-show="(commentsBudgetTime!='')" class="form-group form-row campaign-comment-row">
+                <div class="col-sm-3">
+                    <label for="input-name">Approver's Comment</label>
+                </div>
+                <div class="col-sm-9">
+                    <div class="form-campaign-value campaign-comment">{{commentsBudgetTime}}</div>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm-3">
+                    <label>Budget</label>
+                </div>
+                <div class="col-sm-9">
+                    @*<div class="input-group">
+                        <input required min="1" name="campaignBudget" type="number" id="input-budget" class="" placeholder="" value="" ng-model="Target.Cost" ng-change="ChangeCost()">
+
+
+                        <div class="input-group-btn btngroup-unit">
+                            <button type="button" class="btn btn-default dropdown-toggl" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{unitmodel}}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li ng-click="unitmodel='USD';"><a href="#">USD</a></li>
+                                <li ng-click="unitmodel='VND';"><a href="#">VND</a></li>
+                            </ul>
+                        </div>
+
+                        <div ng-messages="formCE.campaignBudget.$error"
+                             role="alert">
+                            <div ng-message="required">Please enter budget for the campaign.</div>
+                            <div ng-message="min">Please enter $1 or more for budget.</div>
+                            <div ng-message="number">You did not enter a valid number</div>
+                        </div>
+                    </div>*@
+                    <rgu-input-group name="campaignBudget" measure="currency" ng-model="Target.Cost" unit-model="unitmodel"
+                                     on-change="ChangeCost()"></rgu-input-group>
+                    <div ng-messages="formCE.campaignBudget.$error"
+                         role="alert">
+                        <div ng-message="required">Please enter budget for the interaction.</div>
+                        <div ng-message="min">Please enter $1 or more for budget.</div>
+                        <div ng-message="number">You did not enter a valid number</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-row reach">
+                <div class="col-sm-3">
+                    <label>Estimated Reach</label>
+                </div>
+                <div class="col-sm-9">
+
+                    <p class="reach-text">{{Target.People}} out of {{Target.MaxPeople}} people on Regit network</p>
+                    <uib-progressbar class="progress-striped" max="Target.MaxPeople" value="Target.People" type="warning"></uib-progressbar>
+
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm-3">
+                    <label class="control-label"></label>
+                </div>
+                <div class="col-sm-9">
+                    <div class="radiogroup">
+                        <div class="radio">
+                            <input checked id="option-daily" name="input-title" ng-click="Target.showingEndDate=false;" ng-model="Target.TimeType" type="radio" value="Daily">
+                            <label for="option-daily">Daily until cancelled</label>
+                        </div>
+                        <div class="radio">
+                            <input id="option-duration" name="input-title" ng-click="Target.showingEndDate=true;" ng-model="Target.TimeType" type="radio" value="Duration">
+                            <label for="option-duration">Campaign Duration</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm-3">
+                    <label for="date-from">Effective Date</label>
+                </div>
+                <div class="col-sm-9">
+                    <rgu-date-input ng-if="Target.showingEndDate" name="campaignStartDate" ng-model="Target.ToDate" required></rgu-date-input>
+                    <div ng-if="Target.showingEndDate" ng-messages="formCE.campaignStartDateInput.$error"
+                         role="alert">
+                        <div ng-message="required">Please enter an effective date to start campaign.</div>
+                        <div ng-message="date">You did not enter a valid date.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-row" ng-show="Target.showingEndDate">
+                <div class="col-sm-3">
+                    <label for="date-to">End Date</label>
+                </div>
+                <div class="col-sm-9">
+                    <rgu-date-input name="campaignEndDate" after="Target.ToDate" ng-model="Target.FromDate" required></rgu-date-input>
+                    <div ng-messages="formCE.campaignEndDateInput.$error"
+                         role="alert">
+                        <div ng-message="required">Please enter an expiry date for campaign.</div>
+                        <div ng-message="date">You did not enter a valid date.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm-3">
+                    <label>Price</label>
+                </div>
+                <div class="col-sm-9">
+                    <div class="radiogroup">
+                        <div class="radio">
+                            <input id="usercodetype-free" checked name="campaignCost" ng-click="usercodetype=='Free';" ng-model="usercodetype" type="radio" value="Free">
+                            <label for="usercodetype-free">Free</label>
+                        </div>
+                        <div class="radio">
+                            <input id="usercodetype-pay" name="campaignCost" ng-click="usercodetype=='Pay';" ng-model="usercodetype" type="radio" value="Pay">
+                            <label for="usercodetype-pay">Pay</label>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="form-group form-row" ng-show="usercodetype=='Pay'">
+                <div class="col-sm-3">
+                    <label>Pay per user</label>
+                </div>
+                <div class="col-sm-9">
+                    <div class="input-group">
+                        <input ng-if="usercodetype=='Pay'" required id="input-user-code" type="number" class="" placeholder="" name="usercode" ng-model="Target.usercode">
+
+                        <div class="input-group-btn btngroup-unit">
+                            <button type="button" class="btn btn-default dropdown-toggl" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{usercodecurrentcy}}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li ng-click="usercodecurrentcy='USD';"><a href="#">USD</a></li>
+                                <li ng-click="usercodecurrentcy='VND';"><a href="#">VND</a></li>
+                            </ul>
+                        </div>
+                        <div ng-messages="formCE.usercode.$error"
+                             role="alert">
+                            <div ng-message="required">Please enter usercode for the campaign.</div>
+                            <div ng-message="min">Please enter $1 or more for usercode.</div>
+                            <div ng-message="number">You did not enter a valid number</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+
+        <fieldset>
+            <div ng-show="(commentsMedia!='')" class="form-group form-row campaign-comment-row">
+                <div class="col-sm-3">
+                    <label for="input-name">Approver's Comment</label>
+                </div>
+                <div class="col-sm-9">
+                    <div class="form-campaign-value campaign-comment">{{commentsMedia}}</div>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm-3">
+                    <label>Add to Business Feed</label>
+                </div>
+                <div class="col-sm-9">
+                    <div class="radiogroup">
+                        <div class="radio">
+                            <input type="radio" name="option-addfeed" id="option-yesfeed" ng-model="AddtoBusinessFeed" value="Yes" checked>
+                            <label for="option-yesfeed">Yes</label>
+                        </div>
+                        <div class="radio">
+                            <input type="radio" name="option-addfeed" id="option-nofeed" ng-model="AddtoBusinessFeed" value="No">
+                            <label for="option-nofeed">No</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-hide="true" class="form-group form-row">
+                <div class="col-sm-3">
+                    <label>Create QR Code</label>
+                </div>
+                <div class="col-sm-9">
+                    <div class="radio">
+                        <input type="radio" name="option-qr" id="option-yesqr" ng-model="CreateQRCode" value="Yes">
+                        <label for="option-yesqr">Yes</label>
+                    </div>
+                    <div class="radio">
+                        <input type="radio" name="option-qr" id="option-noqr" ng-model="CreateQRCode" value="No" checked>
+                        <label for="option-noqr">No</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group form-row">
+                <div class="col-sm-3">
+                    <label for="input-media">Upload Media</label>
+                </div>
+                <div class="col-sm-9">
+                    <div class="upload-group">
+                        <input type="file" onchange='angular.element(this).scope().uploadFile(this)' id="input-media" class="input-file">
+                        <img ng-hide="(CampaignImage=='')" class="upload-img img-responsive" ng-src="{{CampaignImage}}">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm-3">
+                    <label for="input-media">Upload Terms &amp; Conditions</label>
+                </div>
+                <div class="col-sm-9">
+                    <div class="upload-group">
+                        <input type="file" onchange='angular.element(this).scope().uploadFileConditions(this)' id="input-media-file" class="input-file">
+                        <a ng-hide="(termsAndConditionsFile=='')" href="{{termsAndConditionsFile}}">{{termsAndConditionsFile}}</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dragon-law-referral"></div>
+
+            <div class="form-group form-row">
+                <div class="col-sm-3">
+                    <label for="input-url">Link URL</label>
+                </div>
+                <div class="col-sm-9">
+                    <input class="form-control" ng-model="URLLink" id="input-url" placeholder="URL for the ad" value="">
+                </div>
+            </div>
+
+
+            <div ng-if="status=='Active'" class="form-group form-row">
+                <div class="col-sm-3">
+                    <label>Public URL</label>
+                </div>
+                <div class="col-sm-9">
+                    <div class="interaction-url">
+                        <a href="{{qr.PublicURL}}" target="_blank">{{qr.PublicURL}}</a>
+
+                        <button class="copy-url-btn btn btn-default" ngclipboard data-clipboard-text="{{qr.PublicURL}}">Copy Link</button>
+                    </div>
+                    <rgu-checkbox name="campaignCreateQRCode" ng-model="qr.AllowCreateQrCode"
+                                  label="Show QR Code"></rgu-checkbox>
+                    <div class="interaction-qr" ng-if="qr.AllowCreateQrCode">
+                        <qr size="200" text="qr.PublicURL"></qr>
+                        <a class="qr-export-btn btn btn-default" ng-click="exportQR($event)">Save As Image</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div style="padding-top:20px">
+                <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"><div ng-bind-html="messageBox"></div></<uib-alert>
+            </div>
+        </fieldset>
+        <div class="button-group interaction-editor-actions">
+            <button id="btstep1" ng-click="NextToPreview()" ng-hide="true" type="submit">
+                Create Account
+            </button>
+
+            <button ng-click="Cancel()" type="button" class="btn btn-default">Cancel</button>
+            <a ng-click="NextToPreview()" href="#" class="btn btn-primary">Next to Preview</a>
+            @*<a onclick="$('#btstep1').click();" href="#" class="btn btn-primary">Next to Preview</a>*@
+        </div>
+    </form>
+    @*step 2*@
+
+    <div ng-show="($parent.step == 2)" class="steps">
+        <ul>
+            <li class="passed">1</li>
+            <li class="active">2</li>
+            <li class="">3</li>
+            <li class="last">4</li>
+        </ul>
+    </div>
+    <form ng-show="($parent.step == 2)" class="form-horizontal form-form-editor">
+        <fieldset>
+            <legend>Template</legend>
+            <div class="form-group form-row">
+                <div class="col-sm-3">
+                    <label for="select-template" id="label-select-template">Choose a form template</label>
+                </div>
+                <div class="col-sm-9">
+                    <select rgu-select class="select-template short" id="select-template" ng-change="onSelectTemplate()"
+                            ng-model="selectedTemplate" ng-options="template as template.name for template in formTemplates">
+                        <option value="">Blank Form</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="form-editor-container">
+            <div class="form-editor-pane form-editor-source col-sm-7" ng-keyup="onVaultEntryKeyPress($event)">
+                <h3 class="form-editor-pane-heading">From Vault &gt;&gt;</h3>
+                <div class="form-editor-vault-search">
+                    <input class="search-vault" id="vault-tree-search-input" placeholder="Search vault fields" autofocus
+                           ng-model="vaultPane.searchQuery" ng-change="onVaultSearchInput()">
+                </div>
+                <div class="vault-tree" ng-class="{searching:vaultPane.searchQuery, showfull:!vaultPane.searchQuery}">
+                    <a ng-repeat="entry in matchedEntries = (vaultEntries | filter: filterEntriesByQuery)"
+                       class="vault-entry vault-entry-level-{{entry.level}} vault-entry-type-{{entry.type}}"
+                       ng-class="{'vault-entry-group':!entry.leaf, active: isActiveEntry(entry,$index),
+                   draggable: !entry.undraggable, disabled: entry.undraggable || addedToForm(entry), enabled: !addedToForm(entry)}"
+                       ng-mouseover="gotoVaultEntry($index)" ng-click="$event.preventDefault();selectVaultEntry($index)">
+                        <span class="vault-entry-label"
+                              ng-bind-html="entry.label | vaultEntryHighlightLabel:vaultPane.searchQuery"></span>
+                        <span class="vault-entry-path" ng-bind-html="entry.path | vaultEntryPath"></span>
+                    </a>
+                </div>
+                <div class="qa-add">
+                    <button class="btn btn-default qa-add-btn" ng-click="addQA()">Add Custom Question</button>
+                </div>
+
+            </div>
+            <div class="form-editor-pane form-editor-target col-sm-5">
+                <h3 class="form-editor-pane-heading">&gt;&gt; Add To Form</h3>
+                <div class="form-tree">
+                    <a ng-repeat="field in formEntries | filter:filterRequired"
+                       class="form-entry vault-entry-type-{{field.type}}"
+                       popover-placement="auto"
+                       popovertitle="" uib-popover-template="'form-field-popup.html'"
+                       popover-is-open="$parent.formPane.showingFieldPopup[getUniqueId(field)]">
+                        <span class="vault-entry-label" ng-bind-html="field.displayName"></span>
+                        <div class="form-field-details-row" ng-if="field.type==='static' && !field.value">
+                            <span class="form-field-message" style="color:red">
+                                Please enter value
+                            </span>
+                        </div>
+
+                        <div class="form-field-details-row" ng-if="field.type==='range' && !IsvalidRange(field)">
+                            <span class="form-field-message" style="color:red">
+                                Please create ranges
+                            </span>
+                        </div>
+                        <button type="button" class="btn-delete-field" ng-if="isDeletable(field)"
+                                ng-click="deleteField(field)">
+                            Delete field
+                        </button>
+                    </a>
+                    <h5 ng-if="hasMembership()">Membership</h5>
+                    <a ng-if="hasMembership()" ng-repeat="field in membershipFields = (formEntries | filter:filterMembership | orderBy:'type!==\'static\'')"
+                       class="form-entry vault-entry-type-{{field.type}}"
+                       popover-placement="auto"
+                       popovertitle="" uib-popover-template="'form-field-popup.html'"
+                       popover-is-open="$parent.formPane.showingFieldPopup[getUniqueId(field)]">
+                        <span class="vault-entry-label" ng-bind-html="field.displayName"></span>
+                        <div class="form-field-details-row" ng-if="field.type==='static' && !field.value">
+                            <span class="form-field-message" style="color:red">
+                                Please enter value
+                            </span>
+                        </div>
+
+                        <div class="form-field-details-row" ng-if="field.type==='range' && !IsvalidRange(field)">
+                            <span class="form-field-message" style="color:red">
+                                Please create ranges
+                            </span>
+                        </div>
+                        <button type="button" class="btn-delete-field" ng-if="isDeletable(field)"
+                                ng-click="deleteField(field,true)">
+                            Delete field
+                        </button>
+                    </a>
+                    <h5 ng-if="qaFields.length">Custom Questions</h5>
+                    <a ng-repeat="field in qaFields = (formEntries | filter:filterQA)"
+                       class="form-entry vault-entry-type-qa"
+                       popover-placement="right"
+                       popovertitle="" uib-popover-template="'form-field-popup.html'"
+                       popover-is-open="$parent.formPane.showingFieldPopup[getUniqueId(field)]">
+                        <span class="vault-entry-label" ng-bind-html="field.displayName"></span>
+                        <div class="form-field-details-row" ng-if="field.type==='static' && !field.value">
+                            <span class="form-field-message" style="color:red">
+                                Please enter value
+                            </span>
+                        </div>
+
+                        <div class="form-field-details-row" ng-if="field.type==='range' && !IsvalidRange(field)">
+                            <span class="form-field-message" style="color:red">
+                                Please create ranges
+                            </span>
+                        </div>
+                        <button type="button" class="btn-delete-field" ng-if="isDeletable(field)"
+                                ng-click="deleteField(field)">
+                            Delete field
+                        </button>
+                    </a>
+
+
+                    <h5 ng-if="optionalFields.length">Optional Fields</h5>
+                    <a ng-repeat="field in optionalFields = (formEntries | filter:filterOptional)"
+                       class="form-entry vault-entry-type-{{field.type}}"
+                       popover-placement="auto"
+                       popovertitle="" uib-popover-template="'form-field-popup.html'"
+                       popover-is-open="$parent.formPane.showingFieldPopup[getUniqueId(field)]">
+                        <span class="vault-entry-label" ng-bind-html="field.displayName"></span>
+                        <div class="form-field-details-row" ng-if="field.type==='static' && !field.value">
+                            <span class="form-field-message" style="color:red">
+                                Please enter value
+                            </span>
+                        </div>
+
+                        <div class="form-field-details-row" ng-if="field.type==='range' && !IsvalidRange(field)">
+                            <span class="form-field-message" style="color:red">
+                                Please create ranges
+                            </span>
+                        </div>
+                        <button type="button" class="btn-delete-field" ng-if="isDeletable(field)"
+                                ng-click="deleteField(field)">
+                            Delete field
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <script type="text/ng-template" id="form-field-popup.html">
+                <div class="form-field-popup">
+                    <div class="form-field-popup-header">
+                        <h4>Field Details</h4>
+                    </div>
+                    <div class="form-field-details">
+                        <div class="form-field-details-row">
+                            <div class="form-field-details-label">Field Name</div>
+                            <div class="form-field-details-value">
+                                <span class="field-name">{{field.label}}</span>
+                            </div>
+                        </div>
+                        <div class="form-field-details-row">
+                            <div class="form-field-details-label">Path in Vault</div>
+                            <div class="form-field-details-value">
+                                <span class="field-path" ng-bind-html="field.path | formFieldPath"></span>
+                            </div>
+                        </div>
+                        <div class="form-field-details-row">
+                            <div class="form-field-details-label">Field Control</div>
+                            <div class="form-field-details-value">
+                                <span class="field-control vault-entry vault-entry-type-{{field.type}}"
+                                      ng-bind-html="field.type | controlTypeName"></span>
+                            </div>
+                        </div>
+                        <div class="form-field-details-row">
+                            <div class="form-field-details-label">Display Name</div>
+                            <div class="form-field-details-value"><input ng-model="field.displayName2"></div>
+                        </div>
+                        <div class="form-field-details-row" ng-if="field.type==='qa'">
+                            <div class="form-field-details-label">User Answer</div>
+                            <div class="form-field-details-value">
+                                <rgu-radio-group type="boolean" values="['Free text','Define answers']" ng-model="field.choices"></rgu-radio-group>
+                            </div>
+                            <div class="form-field-details-label" ng-if="field.choices"></div>
+                            <div class="form-field-details-value" ng-if="field.choices">
+                                <rgu-answer-input type="choices"
+                                                  ng-model="field.model"></rgu-answer-input>
+                            </div>
+                        </div>
+                        <div class="form-field-details-row" ng-if="field.type==='history'">
+                            <div class="form-field-details-label" ng-if="!field.options">History</div>
+                            <div class="form-field-details-label" ng-if="field.options==='address'">Address History</div>
+                            <div class="form-field-details-value">
+                                <span>Past</span>
+                                <rgu-picker items="[1,2,3,4,5]" ng-model="field.model"></rgu-picker>
+                                <span>years</span>
+                            </div>
+                        </div>
+                        <div class="form-field-details-row" ng-if="field.type==='static'">
+                            <div class="form-field-details-label">{{field.label}}</div>
+                            <div class="form-field-details-value"><input ng-model="field.value"></div>
+                        </div>
+                        <div class="form-field-details-row" ng-if="field.type==='static' && !field.value">
+                            <span class="form-field-message" style="color:red">
+                                Please enter value
+                            </span>
+                        </div>
+                        <div class="form-field-details-row">
+                            <div class="form-field-details-label"></div>
+                            <div class="form-field-details-value">
+                                <input ng-disabled="field.type==='static' ||   field.membership" type="checkbox" ng-model="field.optional2"><label>Optional</label>
+                            </div>
+                        </div>
+                        <div class="form-field-details-row" ng-if="field.type==='range'">
+                            <div class="form-field-details-label">Enter Ranges</div>
+                            <div class="form-field-details-value">
+                                <rgu-range-input ng-if="!field.options" ng-model="field.model"></rgu-range-input>
+                                <rgu-range-input ng-if="field.options==='age'" type="age" ng-model="field.model"></rgu-range-input>
+                                <rgu-range-input ng-if="field.options==='currency'" type="currency" ng-model="field.model" unit-model="field.unitModel"></rgu-range-input>
+                            </div>
+                        </div>
+
+                        <div class="form-field-details-row" ng-if="field.type==='range' && !IsvalidRange(field)">
+                            <span class="form-field-message" style="color:red">
+                                Please create ranges
+                            </span>
+                        </div>
+                        <div class="form-field-details-row form-field-preview-header">
+                            <h5>Preview</h5>
+                        </div>
+                        <div class="form-field-details-row form-field-preview">
+                            <div class="form-field-details-label"> {{field.displayName}}</div>
+                            <div class="form-field-details-value">
+                                <rgu-control ng-if="field.type==='static'" type="static" value="{{field.value}}" ng-model="field.model"></rgu-control>
+                                <rgu-control ng-if="field.type!=='static' && field.type!=='numinput' && field.type!=='tagsinput' &&   field.type!=='qa'  && field.type!=='range' && field.type!=='history'" type="{{field.type}}"
+                                             ng-required="field.optional" rules="{{field.rules}}"
+                                             ng-model="field.model" options="field.options"></rgu-control>
+                                <rgu-control ng-if="field.type==='numinput'" type="{{field.type}}" ng-model="field.model" options="field.options"
+                                             unit-model="field.unitModel" ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+                                <rgu-control ng-if="field.type==='tagsinput'" type="{{field.type}}" ng-model="field.model" options="field.options"
+                                             placeholder="Add {{field.label.toLowerCase()}}" ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+                                <rgu-control ng-if="field.type==='range'" type="range" subtype="{{field.options}}" ng-model="field.range" options="field.model"
+                                             unit-model="field.unitModel" ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+                                <rgu-control ng-if="field.type==='qa'" type="qa" choices="{{field.choices}}"
+                                             ng-model="field.choice" options="field.model" ng-required="true"
+                                             rules="{{field.rules}}"></rgu-control>
+                                <rgu-control ng-if="field.type==='history'" type="history" subtype="{{field.options}}"
+                                             ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-field-popup-actions">
+                        <a href="#" ng-click="$event.preventDefault();close(field)">Cancel</a>
+                        <a href="#" ng-click="$event.preventDefault();saveField(field)">Save Field</a>
+                    </div>
+                </div>
+            </script>
+        </div>
+
+        <div class="button-group interaction-editor-actions">
+            <a href="#" ng-click="Back2()" class="btn btn-default">Back</a>
+            <a href="#" ng-click="NexttoPreview2()" class="btn btn-primary">Next to Preview</a>
+            <span ng-if="false" class="form-field-message" style="color:red">
+                Please check fields
+            </span>
+        </div>
+    </form>
+
+    @*step 3*@
+
+    <div ng-show="($parent.step == 3)" class="steps">
+        <ul>
+            <li class="passed">1</li>
+            <li class="passed">2</li>
+            <li class="active">3</li>
+            <li class="last">4</li>
+        </ul>
+    </div>
+
+
+
+    <form ng-show="($parent.step == 3)" class="form-horizontal form-reg-preview form-campaign">
+        <div class="feed-entry feed-interaction feed-reg">
+            <div class="feed-header">
+                <div class="feed-avatar">
+                    <img src="http://placehold.it/40x40">
+                </div>
+
+                @*<div class="feed-fromwhen">
+                        <div class="feed-from">
+                            <a href="#">{{interaction.BusinessName}}</a>
+                        </div>
+                        <div class="feed-when">
+                            Posted {{campaign.SpendEffectDate | friendlyTime:'inDay'}}
+                        </div>
+                    </div>*@
+
+                <div class="feed-follow">
+                    <button type="button" class="follow-cta"
+                            ng-click="interaction.followed=!interaction.followed"
+                            ng-class="{followed:!interaction.followed,following:interaction.followed}"
+                            ng-bind="interaction.followed?'Following':'Follow'"></button>
+                </div>
+                <div class="feed-menu">
+                    <div uib-dropdown>
+                        <button type="button" class="feed-dropdown" uib-dropdown-toggle></button>
+                        <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="feed-dropdown">
+                            <li><a href="#">Delele Post</a></li>
+                            <li><a href="#">Report Abuse</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class="feed-content">
+                <h3 class="feed-campaign-type-heading">REGISTRATION</h3>
+
+                <h4 class="feed-interaction-name">{{Name3.toUpperCase()}}</h4>
+
+                <div class="feed-interaction-text" ng-bind-html="Description3 | textToHtml">
+                </div>
+
+                <div ng-show="(Usercodetype=='Pay')" class="campaign-details">
+                    <p>Price: <span class="value campaign-user-cost">{{UserCost}}</span></p>
+                </div>
+
+                <div class="feed-interaction-picture">
+                    <a class="img-campaign img-reg">
+                        <img ng-hide="(ImageUrl3=='')" src="{{ImageUrl3}}" class="img-responsive">
+                    </a>
+                </div>
+
+                <div class="feed-interaction-footer">
+                    <div class="feed-interaction-participators">
+                        123 registered
+                    </div>
+                    <button type="button" class="feed-interaction-cta" ng-click="open3()">Register</button>
+                </div>
+
+
+                <script type="text/ng-template" id="formregister.html">
+                    <div class="modal-container">
+                        <h3 class="reg-title">{{campaign.name}} - Registration Form</h3>
+                        <div class="stamp-regit">Powered by Regit</div>
+                        <form class="form-horizontal form-registration">
+                            <fieldset>
+                                <legend>Personal Information</legend>
+
+                                <div class="form-group form-row" ng-repeat="field in campaign.fields | filter: filterRequired">
+                                    <div class="col-sm-3">
+                                        <label>{{field.displayName}}</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <rgu-control ng-if="field.type!=='numinput' && field.type!=='tagsinput' && field.type!=='range' && field.type!=='history'"
+                                                     type="{{field.type}}"
+                                                     ng-model="field.model" options="field.options"></rgu-control>
+                                        <rgu-control ng-if="field.type==='numinput'" type="{{field.type}}" ng-model="field.model"
+                                                     options="field.options"
+                                                     unit-model="field.unitModel"></rgu-control>
+                                        <rgu-control ng-if="field.type==='tagsinput'" type="{{field.type}}" ng-model="field.model"
+                                                     options="field.options"
+                                                     placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                                        <rgu-control ng-if="field.type==='range'" type="range" subtype="{{field.options}}" ng-model="field.range" options="field.model"
+                                                     unit-model="field.unitModel" ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+                                        <rgu-control ng-if="field.type==='history'" type="history" subtype="{{field.options}}"
+                                                     ng-model="field.history" options="field.model"
+                                                     ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-row" ng-if="membershipFields.length">
+                                    <div class="col-sm-12">
+                                        <h5 class="form-optional-heading">Membership</h5>
+                                    </div>
+                                </div>
+                                <div class="form-group form-row" ng-if="membershipFields.length"
+                                     ng-repeat="field in membershipFields = (campaign.fields | filter: filterMembership)">
+                                    <div class="col-sm-3">
+                                        <label>{{field.displayName}}</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <rgu-control ng-if="field.type==='static'" type="static" value="{{field.value}}" ng-model="field.model"></rgu-control>
+                                        <rgu-control ng-if="field.type!=='static' && field.type!=='numinput' && field.type!=='tagsinput' "
+                                                     type="{{field.type}}"
+                                                     ng-model="field.model" options="field.options"></rgu-control>
+                                        <rgu-control ng-if="field.type==='numinput'" type="{{field.type}}" ng-model="field.model"
+                                                     options="field.options"
+                                                     unit-model="field.unitModel"></rgu-control>
+                                        <rgu-control ng-if="field.type==='tagsinput'" type="{{field.type}}" ng-model="field.model"
+                                                     options="field.options"
+                                                     placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                                    </div>
+                                </div>
+                                <div class="form-group form-row" ng-if="qaFields.length">
+                                    <div class="col-sm-12">
+                                        <h5 class="form-optional-heading">Answer Question</h5>
+                                    </div>
+                                </div>
+                                <div class="form-group form-row" ng-if="qaFields.length"
+                                     ng-repeat="field in qaFields = (campaign.fields | filter: filterQA)">
+                                    <div class="col-sm-3">
+                                        <label>{{field.displayName}}</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <rgu-control type="qa" choices="{{field.choices}}" options="field.model"
+                                                     ng-model="field.choice"></rgu-control>
+                                    </div>
+                                </div>
+                                <div clss="form-group form-row" ng-if="optionalFields.length">
+                                    <div class="col-sm-12">
+                                        <h5 class="form-optional-heading">Optional</h5>
+                                    </div>
+                                </div>
+                                <div class="form-group form-row" ng-if="optionalFields.length"
+                                     ng-repeat="field in optionalFields = (campaign.fields | filter: filterOptional)">
+                                    <div class="col-sm-3">
+                                        <input type="checkbox" ng-model="field.selected"><label>{{field.displayName}}</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <rgu-control ng-if="field.type!=='numinput' && field.type!=='tagsinput' && field.type!=='range' && field.type!=='history'"
+                                                     type="{{field.type}}"
+                                                     ng-model="field.model" options="field.options"></rgu-control>
+                                        <rgu-control ng-if="field.type==='numinput'" type="{{field.type}}" ng-model="field.model"
+                                                     options="field.options"
+                                                     unit-model="field.unitModel"></rgu-control>
+                                        <rgu-control ng-if="field.type==='tagsinput'" type="{{field.type}}" ng-model="field.model"
+                                                     options="field.options"
+                                                     placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                                        <rgu-control ng-if="field.type==='range'" type="range" subtype="{{field.options}}" ng-model="field.range" options="field.model"
+                                                     unit-model="field.unitModel" ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+                                        <rgu-control ng-if="field.type==='history'" type="history" subtype="{{field.options}}"
+                                                     ng-model="field.history" options="field.model"
+                                                     ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="form-group form-row">
+                                <div class="col-sm-3">
+                                    <label></label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input id="option-agreed" type="checkbox" value="agreed">
+                                    <label for="option-agreed"> I have read and agreed to the <a href="#"> Terms &amp;  Conditions. </a></label>
+                                    <p ng-show="(campaign.usercodetype=='Pay')" class="campaign-agree-cost">I agree to pay an amount of <span class="campaign-user-cost">{{campaign.usercode}} {{campaign.usercodecurrentcy}}</span> registration fee.</p>
+                                </div>
+                            </div>
+                            <div class="button-group">
+                                <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+                                <button type="button" class="btn btn-primary" ng-click="cancel()">Register</button>
+                            </div>
+                        </form>
+                    </div>
+                </script>
+            </div>
+
+        </div>
+
+        <div class="button-group interaction-editor-actions">
+            <a href="#" ng-click="Back3()" class="btn btn-default">Back</a>
+            <a ng-show="!isshowbttemplate" href="#" ng-click="SaveandClose()" class="btn btn-default">Save and Close</a>
+            <a ng-show="!isshowbttemplate" href="#" ng-click="Done3()" class="btn btn-primary">Save and Send for Review</a>
+            <a ng-show="isshowbttemplate" ng-click="SaveAsTemplate()" href="#" class="btn btn-primary">Save as Template</a>
+        </div>
+    </form>
+</div>
+
+

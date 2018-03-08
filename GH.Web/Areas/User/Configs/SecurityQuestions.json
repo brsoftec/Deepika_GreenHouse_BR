@@ -1,0 +1,82 @@
+﻿[
+  {
+    "Code": "Q1",
+    "Question": "What was your childhood nickname?"
+  },
+  {
+    "Code": "Q2",
+    "Question": "When you were young, what did you want to be when you grew up?"
+  },
+  {
+    "Code": "Q3",
+    "Question": "Who was your childhood hero?"
+  },
+  {
+    "Code": "Q4",
+    "Question": "What is the name of your favorite childhood friend?"
+  },
+  {
+    "Code": "Q5",
+    "Question": "What street did you live on in third grade?"
+  },
+  {
+    "Code": "Q6",
+    "Question": "What was the name of your elementary / primary school?"
+  },
+  {
+    "Code": "Q7",
+    "Question": "What was the last name of your third grade teacher?"
+  },
+  {
+    "Code": "Q8",
+    "Question": "In what city did you meet your spouse/significant other?"
+  },
+  {
+    "Code": "Q9",
+    "Question": "In what city does your best friend work?"
+  },
+  {
+    "Code": "Q10",
+    "Question": "What is your oldest sibling’s birthday month and year?"
+  },
+  {
+    "Code": "Q11",
+    "Question": "What is the middle name of your oldest child?"
+  },
+  {
+    "Code": "Q12",
+    "Question": "What school did you attend for sixth grade?"
+  },
+  {
+    "Code": "Q13",
+    "Question": "What is your oldest cousin's first and last name?"
+  },
+  {
+    "Code": "Q14",
+    "Question": " In what city or town did your mother and father meet?"
+  },
+  {
+    "Code": "Q15",
+    "Question": "In what city or town does your nearest sibling live?"
+  },
+  {
+    "Code": "Q16",
+    "Question": "What is your maternal grandmother's maiden name?"
+  },
+  {
+    "Code": "Q17",
+    "Question": "In what city or town was your first job?"
+  },
+  {
+    "Code": "Q18",
+    "Question": "What is the name of the place your wedding reception was held?"
+  },
+  {
+    "Code": "Q19",
+    "Question": "What is the name of a college you applied to but didn't attend?"
+  },
+  {
+    "Code": "Q20",
+    "Question": "Where were you when you had your first alcoholic drink (or cigarette)?"
+  }
+]

@@ -1,0 +1,118 @@
+@{
+
+    ViewBag.NgApp = "regitInteraction";
+    ViewBag.Area = "interaction";
+    ViewBag.BaseUrl = Request.Url.GetLeftPart(UriPartial.Authority);
+
+    bool isPublic;
+
+    if (Request.IsAuthenticated)
+    {
+        isPublic = false;
+        ViewBag.ContainerClass = "support-container";
+        Layout = ViewBag.IsBusinessView ? "~/Areas/User/Views/Shared/_MainBusinessLayoutApply.cshtml" : "~/Areas/User/Views/Shared/_LayoutFullApply.cshtml";
+//        Layout = "~/Areas/User/Views/Shared/_MainLayout.cshtml";
+    }
+    else
+    {
+        isPublic = true;
+        ViewBag.ContainerClass = "module module-main";
+        Layout = "~/Areas/User/Views/Shared/_AboutNewLayout.cshtml";
+    }
+}
+@section meta {
+    <meta property="og:title" content="@ViewBag.Title" />
+    <meta property="og:type" content="interaction.@ViewBag.Interaction.Type" />
+    <meta property="og:url" content="@Request.Url.AbsoluteUri" />
+    <meta property="og:description" content="@ViewBag.Interaction.Description" />
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="@ViewBag.Title">
+    <meta property="twitter:description" content="@ViewBag.Interaction.Description" />
+    <meta name="twitter:creator" content="Regit">
+    <meta name="twitter:url" content="@Request.Url.AbsoluteUri">
+    <meta name="twitter:domain" content="regit.today">
+    
+    @if (ViewBag.Interaction.Image != null)
+    {
+        <meta property="og:image" content="@(ViewBag.BaseUrl + ViewBag.Interaction.Image)"/>
+        <meta property="twitter:image" content="@(ViewBag.BaseUrl + ViewBag.Interaction.Image)"/>
+    }
+    else
+    {
+        <meta property="og:image" content="@(ViewBag.BaseUrl + "/Areas/Beta/img/regit-logotype.png")"/>
+        <meta property="twitter:image" content="@(ViewBag.BaseUrl + "/Areas/Beta/img/regit-logotype.png")"/>
+    }
+}
+
+@section styles {
+    @if (!isPublic)
+    {
+        <link rel="stylesheet" href="~/Content/styles/bootstrap.min.css">
+    }
+    @RenderSection("styles", required: false)
+    <link rel="stylesheet" href="@Url.Versioned("~/Areas/Beta/css/interaction.css")">
+    <link rel="stylesheet" href="@Url.Versioned("~/Areas/Beta/css/social.css")">
+}
+
+
+@section prescripts {
+    @if (!isPublic)
+    {
+        <script>
+            var regitGlobal = regitGlobal || {};
+            regitGlobal.ngApp = 'regitInteraction';
+        </script>
+    }
+    else
+    {
+        <script src="~/Scripts/moment.min.js"></script>
+    }
+
+    @RenderSection("prescripts", required: false)
+}
+@section initscripts {
+
+    @if (isPublic)
+    {
+        <script>
+            angular.module('regitAbout', ['ngCookies', 'UserModule']);
+            angular.module('regitInteraction', ['regitAbout', 'rgu',  'campaigns', 'interaction']);
+        </script>
+        <script src="~/Scripts/angular-momentjs.js"></script>
+    }
+    else
+    {
+        <script>
+            angular.module('regitInteraction', ['myApp', 'campaigns', 'interaction']);
+        </script>
+    }
+
+
+    @RenderSection("initscripts", required: false)
+}
+
+@section scripts {
+    @RenderSection("scripts", required: false)
+
+    <script src="@Url.Versioned("~/Areas/regitUI/js/modules/rgu.js")"></script>
+    <script src="@Url.Versioned("~/Areas/regitUI/js/modules/campaigns.js")"></script>
+    <script src="@Url.Versioned("~/Areas/regitUI/js/modules/interaction.js")"></script>
+    @if (!isPublic)
+    {
+        <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/InteractionFormController.js")"></script>
+    }
+}
+
+@*  FULL WIDTH LAYOUT   *@
+
+<div class="body-cols body-cols-full">
+
+    <div class="body-col body-col-full">
+        <!-- MAIN COLUMN -->
+        @RenderBody()
+        @RenderSection("body", required: false)
+    </div>
+
+
+</div>

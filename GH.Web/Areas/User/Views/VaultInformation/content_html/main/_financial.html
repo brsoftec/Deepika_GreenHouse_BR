@@ -1,0 +1,33 @@
+﻿  <!-- Financial -->
+<div ng-controller="GroupFinancialController">
+    <div ng-if="group._name !='' ">
+        <div class="vault-group">
+
+            <!--HEADER -->
+            <div class="vault-group-header">
+                <h4>{{group._label}}</h4>
+                <button class="btn-vault-group-collapse" ng-init="hide_GovBody=false;"
+                        ng-click="$event.preventDefault();hide_GovBody=!hide_GovBody;"></button>
+            </div>
+            <div ng-hide="hide_GovBody">
+                <!--Bank account-->
+                <div ng-include="vm._bank_account"></div>
+                <!--  //  -->
+                <!--Bank card-->
+                <div ng-include="vm._bank_card"></div>
+                <!--Master card-->
+                <div ng-include="vm._master_card"></div>
+                <!--Visa card-->
+                <div ng-include="vm._visa_card"></div>
+                <!--Paypal-->
+                <div ng-include="vm._paypal"></div>
+                <!--Investment-->
+                <div ng-include="vm._investment"></div>
+                <!--  //  -->
+                <!--Insurance-->
+                <div ng-include="vm._insurance"></div>
+                <!--  //  -->
+            </div>
+        </div>
+    </div>
+</div>

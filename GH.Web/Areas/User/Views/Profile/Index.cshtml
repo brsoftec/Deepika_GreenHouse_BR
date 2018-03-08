@@ -1,0 +1,116 @@
+﻿﻿@model GH.Web.Areas.User.ViewModels.UserCreatedBusinessModel
+@{
+    ViewBag.Title = Model.name + " - Regit User Created Business Profile";
+    ViewBag.NgApp = "myApp";
+    Layout = ViewBag.IsBusinessView ? "~/Areas/User/Views/Shared/_LayoutWideBusinessApply.cshtml" : "~/Areas/User/Views/Shared/_LayoutWideApply.cshtml";
+}
+@section styles{
+    <link href="~/Content/css/jquery.fancybox-plus.css" rel="stylesheet"/>
+    <link href="@Url.Versioned("~/Areas/Beta/css/profile.css")" rel="stylesheet"/>
+    <link rel="stylesheet" href="@Url.Versioned("~/Areas/Beta/css/business-profile.css")">
+    <link rel="stylesheet" href="@Url.Versioned("~/Areas/Beta/css/interaction.css")">
+}
+
+@section prescripts {
+
+    <script>
+        var regitGlobal = regitGlobal || {};
+        regitGlobal.isPublic = @Json.Encode(ViewBag.IsPublic);
+        regitGlobal.ucb = {
+            id: "@Model.id",
+            name: "@Html.Raw(Model.name)",
+            industry: @Html.Raw(Json.Encode(Model.industry)),
+            country: @Html.Raw(Json.Encode(Model.country)),
+            city: @Html.Raw(Json.Encode(Model.city)),
+            address: @Html.Raw(Json.Encode(Model.address)),
+            phone: @Html.Raw(Json.Encode(Model.phone)),
+            email: @Html.Raw(Json.Encode(Model.email)),
+            website: @Html.Raw(Json.Encode(Model.website)),
+            avatar: @Html.Raw(Json.Encode(Model.avatar)),
+            description: @Html.Raw(Json.Encode(Model.description))
+        };
+        regitGlobal.viewedProfileId = "@Model.id";
+        regitGlobal.viewedProfileType = "ucb";
+
+    </script>
+}
+@section initscripts {
+    <script src="~/Content/scripts/jquery.fancybox-plus.min.js"></script>
+}
+
+@section scripts {
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/UserCreatedBusinessController.js")"></script>
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/HandshakeRequestController.js")"></script>
+}
+
+@section left {
+    <div ng-controller="UcbProfileController">
+        <div class="module module-left module-profile">
+
+            <div class="feed-profile-header clearfix">
+                <img ng-if="!viewedProfile.avatar" class="feed-profile-avatar thumbnail"
+                     ng-src="{{viewedProfile.avatar | avatarUrl:true}}">
+                <a ng-show="viewedProfile.avatar" class="profile-avatar-link" href="{{viewedProfile.avatar}}"
+                   title="{{viewedProfile.displayName}}'s Profile Picture">
+                    <img class="feed-profile-avatar thumbnail"
+                         ng-src="{{viewedProfile.avatar | avatarUrl:true}}">
+                </a>
+                <div class="feed-profile-name" ng-bind="viewedProfile.displayName"></div>
+            </div>
+
+            <div class="business-profile-actions">
+                <button type="button" class="business-profile-action" ng-click="claimBusiness()">Claim This Business</button>
+            </div>
+            <div class="feed-profile-details business-feed-profile-details">
+                
+                <div class="feed-profile-heading">About Us</div>
+                <div class="feed-profile-about" ng-bind-html="viewedProfile.description | textToHtml"></div>
+
+                <div class="feed-profile-fields">
+
+                    <div ng-if="viewedProfile.industry" class="feed-profile-field feed-profile-field-industry" ng-bind-html="viewedProfile.industry | industryToHtml"></div>
+                    <div ng-if="viewedProfile.publicPhone" class="feed-profile-field feed-profile-field-phone">{{viewedProfile.publicPhone}}</div>
+                    <div ng-if="viewedProfile.publicEmail" class="feed-profile-field feed-profile-field-email">
+                        <a href="mailto:{{viewedProfile.publicEmail}}">{{viewedProfile.publicEmail}}</a>
+                    </div>
+                    <div ng-if="viewedProfile.website" class="feed-profile-field feed-profile-field-website">
+                        <a href="{{viewedProfile.website | properUrl}}" target="_blank">{{viewedProfile.website}}</a>
+                    </div>
+
+                    <div ng-if="viewedProfile.location.country || viewedProfile.location.city || viewedProfile.location.street" 
+                         class="feed-profile-field feed-profile-field-address" ng-bind-html="viewedProfile.location | locationToHtml">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+@if (ViewBag.IsBusinessView != true)
+        {
+            <div ng-controller="HandshakeRequestController">
+                <div ng-if="enableRequest" class="module module-left module-hsr">
+                    <p>Get ready for a handshake relationship with this business.</p>
+                    <button type="button" class="hsr-open-action" ng-click="openHsr()">Request For Handshake</button>
+                </div>
+            </div>
+        }
+
+    </div>
+}
+
+@section body {
+
+    <div class="module module-main module-chromeless">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/">&laquo; Home</a>
+            </li>
+            <li class="breadcrumb-item active">Business Profile</li>
+        </ol>
+        <div class="profile-page-container profile-page-private">
+            <div class="profile-page-private-heading">Unofficial</div>
+            <div class="profile-page-private-text">
+                <p>This business profile was a user generated content and only shares public information.</p>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,125 @@
+﻿@{
+ViewBag.Title = "Personal Calendar - New Event";
+    Layout = "~/Areas/User/Views/Shared/_LayoutDefaultApply.cshtml";
+}
+@section scripts {
+    @Scripts.Render("~/bundles/EventCalendar")
+}
+<div ng-controller="EventEditorCtrl">
+    <div class="module module-main module-calendar-event-editor">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">&laquo; Home</a></li>
+            <li class="breadcrumb-item"><a href="/EventCalendar/Calendar">Calendar</a></li>
+            <li class="breadcrumb-item active">Event Editor</li>
+        </ol>
+
+        <div class="event-editor-container">
+            <form name="formcalendar" class="form-editor form-editor-event">
+
+                <fieldset>
+                    <legend>Event Details</legend>
+                    <div class="form-editor-row">
+                        <label class="form-editor-label">Event Name</label>
+                        <div class="form-editor-control">
+                            <input required maxlength="30" name="EventName" class="form-editor-textfield" ng-model="event.name">
+                            <div name="EventName" ng-messages="formcalendar.EventName.$error" role="alert">
+                                <div ng-message="required">Please enter a name .</div>
+                                <div ng-message="maxlength">Name can be at most 30 characters long.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-editor-row">
+                        <label class="form-editor-label">Event Description</label>
+                        <div class="form-editor-control">
+                            <textarea cols="2" ng-model="event.description"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-editor-row">
+                        <label class="form-editor-label">Time</label>
+                        <div class="form-editor-control">
+                            <rgu-radio-group name="eventDuration" ng-model="event.detail.timetype"
+                                             values="['One time','Full day','More days']"></rgu-radio-group>
+                        </div>
+                    </div>
+                    <div class="form-editor-row">
+                        <label class="form-editor-label">Start</label>
+                        <div class="form-editor-control">
+                            <rgu-time-input required name="eventStartTime" ng-model="event.detail.starttime"></rgu-time-input>
+                            <rgu-date-input required name="eventStartDate" ng-model="event.detail.startdate"></rgu-date-input>
+                            <div ng-messages="formcalendar.eventStartTimeInput.$error"
+                                 role="alert">
+                                <div ng-message="required">Please enter an start time for event.</div>
+                                <div ng-message="date">You did not enter a valid time.</div>
+                            </div>
+                            <div ng-messages="formcalendar.eventStartDateInput.$error"
+                                 role="alert">
+                                <div ng-message="required">Please enter an start date for event.</div>
+                                <div ng-message="date">You did not enter a valid date.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-editor-row">
+                        <label class="form-editor-label">End</label>
+                        <div class="form-editor-control">
+                            <rgu-time-input required name="eventEndTime" ng-if="event.detail.timetype!=='Full day'"
+                                            ng-model="event.detail.endtime"></rgu-time-input>
+                            <rgu-date-input required name="eventEndDate" ng-if="event.detail.timetype==='More days'"
+                                            ng-model="event.detail.enddate"></rgu-date-input>
+                            <div ng-messages="formcalendar.eventEndTimeInput.$error"
+                                 role="alert">
+                                <div ng-message="required">Please enter an end time for event.</div>
+                                <div ng-message="date">You did not enter a valid time.</div>
+                            </div>
+                            <div ng-messages="formcalendar.eventEndDateInput.$error"
+                                 role="alert">
+                                <div ng-message="required">Please enter an end date for event.</div>
+                                <div ng-message="date">You did not enter a valid date.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-editor-row">
+                        <label class="form-editor-label">Location</label>
+                        <div class="form-editor-control">
+                            <input required name="location" id="eventLocationInput" class="form-editor-textfield" ng-model="event.detail.location"
+                                   placeholder="Enter a location">
+                            <div ng-messages="formcalendar.location.$error"
+                                 role="alert">
+                                <div ng-message="required">Please enter location for event.</div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-editor-row">
+                        <location-map inputid="eventLocationInput"></location-map>
+                    </div>
+
+                </fieldset>
+                <fieldset>
+                    <legend>User Settings</legend>
+                    <div class="form-editor-row">
+                        <label class="form-editor-label">Note</label>
+                        <div class="form-editor-control">
+                            <textarea cols="2" ng-model="event.UserSettings.note"></textarea>
+                        </div>
+                    </div>
+                    <!--<div class="form-editor-row">-->
+                        <!--<label class="form-editor-label">Sync with other calendar</label>-->
+                        <!--<div class="form-editor-control">-->
+                            <!--<input type="checkbox" name="syncGoogleCalendar" ng-model="event.UserSettings.syncgoogle" value="sync"><label>Google Calendar</label>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                </fieldset>
+
+                <div class="button-group">
+                    <button class="btn btn-default" ng-click="closeEvent()">Cancel</button>
+                    <button class="btn btn-primary" ng-click="saveEvent()">Save Event</button>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+
+

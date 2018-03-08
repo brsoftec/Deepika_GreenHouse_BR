@@ -1,0 +1,81 @@
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog support-case-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="btn-modal-close" ng-click="$hide()">Close</button>
+                <h4 class="modal-title">New Case</h4></div>
+        </div>
+        <div class="modal-body">
+            <form class="modal-form support-case-form">
+                <div class="support-case-form-row">
+                    <div class="support-case-form-label">Regarding</div>
+                    <div class="support-case-form-control">
+                        <select rgu-select ng-model="support.newCase.type"
+                                ng-options="type for type in supportConfig.caseTypes"></select>
+                    </div>
+                </div>
+                <div class="support-case-form-row">
+                    <div class="support-case-form-label">Category</div>
+                    <div class="support-case-form-control">
+                        <ui-select ng-model="support.newCase.category">
+                            <ui-select-match>
+                                <span ng-bind="$select.selected.label"></span>
+                            </ui-select-match>
+                            <ui-select-choices repeat="cat in (supportConfig.caseCategories | filter: $select.search)">
+                                <span ng-bind="cat.label"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="support-case-form-row">
+                    <div class="support-case-form-label">Subject</div>
+                    <div class="support-case-form-control">
+                        <input class="support-case-form-control-input" ng-model="support.newCase.subject">
+                    </div>
+                </div>
+                <div class="support-case-form-row">
+                    <div class="support-case-form-label">Description</div>
+                    <div class="support-case-form-control">
+                        <textarea class="" ng-model="support.newCase.description" rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="support-case-form-row">
+                    <div class="support-case-form-label">Severity</div>
+                    <div class="support-case-form-control">
+                        <select rgu-select ng-model="support.newCase.severity"
+                                ng-options="sev for sev in supportConfig.caseSeverities"></select>
+                    </div>
+                </div>
+                <div class="support-case-form-row">
+                    <div class="support-case-form-label">Support language</div>
+                    <div class="support-case-form-control">
+                        <select rgu-select ng-model="support.newCase.lang"
+                                ng-options="lang for lang in supportConfig.caseLanguages"></select>
+                    </div>
+                </div>
+                <div class="support-case-form-row">
+                    <div class="support-case-form-label">Contact method</div>
+                    <div class="support-case-form-control">
+                        <select rgu-select ng-model="support.newCase.contactBy"
+                                ng-options="by for by in supportConfig.caseContactMethods"></select>
+                        <!--<rgu-radio-group ng-model="support.newCase.contactBy" values="supportConfig.caseContactMethods"></rgu-radio-group>-->
+                    </div>
+                </div>
+                <div class="support-case-form-row"  ng-if="support.newCase.contactBy==='Phone'">
+                    <div class="support-case-form-label">Contact phone number</div>
+                    <div class="support-case-form-control">
+                        <!--<input class="support-case-form-control-input" ng-model="support.newCase.phone">-->
+                        <rgu-phone-text-input name="supportCasePhone" ng-model="support.newCase.phone"></rgu-phone-text-input>
+                    </div>
+                </div>
+                <div class="support-case-actions modal-actions">
+                    <button class="btn btn-default modal-action support-case-action" ng-click="$hide()">Cancel</button>
+                    <button class="btn btn-primary modal-action support-case-action" ng-disabled="!canSaveCase()"
+                            ng-click="saveNewCase($hide)">Create
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,5 @@
+<div class="social-provider-select">
+    <button type="button" class="social-provider-switch social-provider-switch-{{provider}}" ng-disabled="mode==='static'" ng-repeat="provider in providerNames"
+            ng-class="{active:providers[provider]}" ng-click="toggleProvider(provider)">
+    </button>
+</div>

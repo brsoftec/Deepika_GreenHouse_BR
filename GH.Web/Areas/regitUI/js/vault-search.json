@@ -1,0 +1,2235 @@
+﻿{
+  "_id": "573dbe599e9e822c74ccdbb1",
+  "userId": "",
+  "dateCreate": "",
+  "basicInformation": {
+    "_id": "",
+    "label": "Basic Information",
+    "name": "Basic Information",
+    "privacy": true,
+    "default": "_",
+    "value": {
+      "title": {
+        "_id": "",
+        "label": "Title",
+        "value": "",
+        "privacy": true,
+        "options" : "",
+        "rules" : "",
+        "controlType" : "textbox",
+        "hiddenForm" : false,
+        "undraggable" : false
+      },
+      "fullName": {
+        "_id": "",
+        "label": "Full Name",
+        "value": "",
+        "privacy": true,
+        "options" : "",
+        "rules" : "name",
+        "controlType" : "textbox",
+        "hiddenForm" : false,
+        "undraggable" : false
+      },
+      "firstName": {
+        "_id": "",
+        "label": "First Name",
+        "value": "",
+        "privacy": true,
+        "options" : "",
+        "rules" : "name",
+        "controlType" : "textbox",
+        "hiddenForm" : false,
+        "undraggable" : false
+      },
+      "middleName": {
+        "_id": "",
+        "label": "Middle Name",
+        "value": "",
+        "privacy": true,
+        "options" : "",
+        "rules" : true,
+        "controlType" : "textbox",
+        "hiddenForm" : false,
+        "undraggable" : false
+      },
+      "lastName": {
+        "_id": "",
+        "label": "Last Name",
+        "value": "",
+        "privacy": true,
+        "options" : "",
+        "rules" : "name",
+        "controlType" : "textbox",
+        "hiddenForm" : false,
+        "undraggable" : false
+      },
+      "alias": {
+        "_id": "",
+        "value": "",
+        "label": "Alias",
+        "privacy": true,
+        "options" : "",
+        "rules" : "",
+        "controlType" : "textbox",
+        "hiddenForm" : false,
+        "undraggable" : false
+      },
+      "dob": {
+        "_id": "",
+        "label": "Date Of Birth",
+        "value": "",
+        "privacy": true,
+        "options" : "",
+        "rules" : "",
+        "controlType" : "datecombo",
+        "hiddenForm" : false,
+        "undraggable" : false
+      },
+      "gender": {
+        "_id": "",
+        "label": "Gender",
+        "value": "",
+        "privacy" : true,
+                "controlType" : "radio",
+                "hiddenForm" : false,
+                "undraggable" : false
+      },
+      "sexuality": {
+        "_id": "",
+        "label": "Sexuality",
+        "value": "",
+        "privacy": true,
+        "options" : "",
+        "rules" : "",
+        "controlType" : "textbox",
+        "hiddenForm" : false,
+        "undraggable" : false
+      },
+      "languages": {
+        "_id": "",
+        "label": "Languages",
+        "value": "",
+        "privacy": true,
+        "options" : "language",
+        "rules" : "",
+        "controlType" : "smartinput",
+        "hiddenForm" : false,
+        "undraggable" : false
+
+      },
+      "ethnicity": {
+        "_id": "",
+        "label": "Ethnicity",
+        "value": "",
+        "privacy": true,
+         "options" : "",
+        "rules" : "",
+        "controlType" : "tagsinput",
+        "hiddenForm" : false,
+        "undraggable" : false
+
+      },
+      "religion": {
+        "_id": "",
+        "label": "Religion",
+        "value": "",
+        "privacy": true,
+         "options" : "",
+        "rules" : "",
+        "controlType" : "smartinput",
+        "hiddenForm" : false,
+        "undraggable" : false
+      },
+      "disability": {
+        "_id": "",
+        "label": "Disability",
+        "value": "",
+        "privacy": true,
+         "options" : "",
+        "rules" : "",
+        "controlType" : "tagsinput",
+        "hiddenForm" : false,
+        "undraggable" : false
+
+      },
+      "note": {
+        "_id": "",
+        "label": "Note",
+        "value": "",
+        "privacy": true,
+         "options" : "",
+        "rules" : "",
+        "controlType" : "textarea",
+        "hiddenForm" : false,
+        "undraggable" : false
+      }
+    }
+  },
+  "contact": {
+    "_id": "",
+    "label": "Contact",
+    "name": "Contact",
+    "privacy": true,
+    "default": "_",
+    "value": {
+      "mobile": {
+        "_id": "",
+        "label": "Mobile",
+        "name": "Mobile",
+        "value": [
+          {
+            "id": "",
+            "value": ""
+          }
+        ],
+        "privacy": true,
+         "options" : "",
+        "rules" : "",
+        "controlType" : "textbox",
+        "hiddenForm" : false,
+        "undraggable" : false
+      },
+      "home": {
+        "_id": "",
+        "label": "Home phone",
+        "name": "",
+        "value": [
+          {
+            "id": "",
+            "value": ""
+          }
+        ],
+        "privacy": true,
+         "options" : "",
+        "rules" : "",
+        "controlType" : "textbox",
+        "hiddenForm" : false,
+        "undraggable" : false
+      },
+      "office": {
+        "_id": "",
+        "label": "Office",
+        "name": "",
+        "value": [
+          {
+            "id": "",
+            "value": ""
+          }
+        ],
+        "privacy": true,
+         "options" : "",
+        "rules" : "",
+        "controlType" : "textbox",
+        "hiddenForm" : false,
+        "undraggable" : false
+      },
+      "fax": {
+        "_id": "",
+        "label": "Fax",
+        "name": "",
+        "value": [
+          {
+            "id": "",
+            "value": ""
+          }
+        ],
+        "privacy": true,
+         "options" : "",
+        "rules" : "",
+        "controlType" : "textbox",
+        "hiddenForm" : false,
+        "undraggable" : false
+      },
+      "email": {
+        "_id": "",
+        "label": "Email",
+        "name": "",
+        "default": "_",
+        "privacy": true,
+         "options" : "",
+        "rules" : "",
+        "controlType" : "textbox",
+        "hiddenForm" : false,
+        "undraggable" : false,
+        "value": [
+          {
+            "id": "",
+            "value": ""
+          }
+        ]
+      },
+      "note": {
+        "_id": "",
+        "label": "Note",
+        "name": "",
+        "value": "",
+        "privacy": true,
+         "options" : "",
+        "rules" : "",
+        "controlType" : "textbox",
+        "hiddenForm" : false,
+        "undraggable" : false
+      }
+    }
+  },
+  "address": {
+    "_id": "",
+    "label": "Address",
+    "name": "",
+    "default": "_",
+    "privacy": true,
+    "value": {
+      "livingAddress": {
+        "_id": "",
+        "label": "Living Address",
+        "name": "Living Address",
+        "default": false,
+        "privacy": true,
+        "value": {
+          "description": {
+            "_id": "",
+            "label": "Description",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "addressLine1": {
+            "_id": "",
+            "label": "Address",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+
+          "addressLine1_lat": {
+            "_id": "",
+            "label": "Latitude address",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "addressLine1_lng": {
+            "_id": "",
+            "label": "Longitude address",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "addressLine2": {
+            "_id": "",
+            "label": "Address line 2",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "addressLine2_lat": {
+            "_id": "",
+            "label": "Latitude address line 2",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "addressLine2_lng": {
+            "_id": "",
+            "label": "Longitude address line 2",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "country": {
+            "_id": "",
+            "label": "Country",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "state": {
+            "_id": "",
+            "label": "State/ Province/ Region",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "city": {
+            "_id": "",
+            "label": "City",
+            "value": ""
+          },
+          "zipCode": {
+            "_id": "",
+            "label": "ZIP / Postal Code",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "startDate": {
+            "_id": "",
+            "label": "Since",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "endDate": {
+            "_id": "",
+            "label": "Moving date",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "note": {
+            "_id": "",
+            "label": "Note",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          }
+        }
+      },
+      "temporaryAddress": {
+        "_id": "",
+        "label": "Temporary Address",
+        "name": "Temporary Address",
+        "default": false,
+        "privacy": true,
+        "value": {
+          "description": {
+            "_id": "",
+            "label": "Description",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "addressLine1": {
+            "_id": "",
+            "label": "Address",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+
+          "addressLine1_lat": {
+            "_id": "",
+            "label": "Latitude address",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "addressLine1_lng": {
+            "_id": "",
+            "label": "Longitude address",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "addressLine2": {
+            "_id": "",
+            "label": "Address line 2",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "addressLine2_lat": {
+            "_id": "",
+            "label": "Latitude address line 2",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "addressLine2_lng": {
+            "_id": "",
+            "label": "Longitude address line 2",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "country": {
+            "_id": "",
+            "label": "Country",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "state": {
+            "_id": "",
+            "label": "State/ Province/ Region",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "city": {
+            "_id": "",
+            "label": "City",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "zipCode": {
+            "_id": "",
+            "label": "ZIP / Postal Code",
+            "value": ""
+          },
+          "startDate": {
+            "_id": "",
+            "label": "Since",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "endDate": {
+            "_id": "",
+            "label": "Moving date",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "note": {
+            "_id": "",
+            "label": "Note",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          }
+        }
+      },
+      "mailingAddress": {
+        "_id": "",
+        "label": "Mailing Address",
+        "name": "Mailing Address",
+        "default": false,
+        "privacy": true,
+        "value": {
+          "description": {
+            "_id": "",
+            "label": "Description",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "addressLine1": {
+            "_id": "",
+            "label": "Address",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+
+          "addressLine1_lat": {
+            "_id": "",
+            "label": "Latitude address",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "addressLine1_lng": {
+            "_id": "",
+            "label": "Longitude address",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "addressLine2": {
+            "_id": "",
+            "label": "Address line 2",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "addressLine2_lat": {
+            "_id": "",
+            "label": "Latitude address line 2",
+            "value": ""
+          },
+          "addressLine2_lng": {
+            "_id": "",
+            "label": "Longitude address line 2",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "country": {
+            "_id": "",
+            "label": "Country",
+            "value": ""
+          },
+          "state": {
+            "_id": "",
+            "label": "State/ Province/ Region",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "city": {
+            "_id": "",
+            "label": "City",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "zipCode": {
+            "_id": "",
+            "label": "ZIP / Postal Code",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "startDate": {
+            "_id": "",
+            "label": "Since",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "endDate": {
+            "_id": "",
+            "label": "Moving date",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "note": {
+            "_id": "",
+            "label": "Note",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          }
+        }
+      },
+      "pobox": {
+        "_id": "",
+        "label": "P.O Box",
+        "name": "P.O Box",
+        "default": false,
+        "privacy": true,
+        "value": {
+          "description": {
+            "_id": "",
+            "label": "Description",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "address": {
+            "_id": "",
+            "label": "Address",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+
+          "address_lat": {
+            "_id": "",
+            "label": "Latitude address",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+          "address_lng": {
+            "_id": "",
+            "label": "Longitude address",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          },
+
+          "note": {
+            "_id": "",
+            "label": "Note",
+            "value": "",
+             "options" : "",
+             "rules" : "",
+             "controlType" : "textbox",
+            "hiddenForm" : false,
+            "undraggable" : false
+          }
+        }
+      }
+    }
+  },
+  "financial": {
+    "_id": "",
+    "label": "Financial",
+    "name": "",
+    "default": "_",
+    "privacy": true,
+    "note": "",
+    "value": {
+      "bankAccount": {
+        "_id": "",
+        "label": "Bank account",
+        "name": "Bank account",
+        "default": false,
+        "privacy": true,
+        "value": {
+          "_id": "",
+          "description": {
+            "_id": "",
+            "label": "Description",
+            "value": ""
+          },
+
+          "bankName": {
+            "_id": "",
+            "label": "Bank name",
+            "value": ""
+          },
+
+          "bankBranch": {
+            "_id": "",
+            "label": "Bank branch",
+            "value": ""
+          },
+
+          "accountType": {
+            "_id": "",
+            "label": "Account type",
+            "value": ""
+          },
+
+          "bankAddress": {
+            "_id": "",
+            "label": "Bank address",
+            "value": ""
+            
+          },
+            "bankAddress_lat": {
+            "_id": "",
+            "label": "Latitude Bank address",
+              "value": ""
+              
+          },     
+          "bankAddress_lng": {
+            "_id": "",
+            "label": "Longitude Bank address",
+            "value": ""
+          },
+          "country": {
+            "_id": "",
+            "label": "Country",
+            "value": ""
+          },
+
+          "state": {
+            "_id": "",
+            "label": "State/ Province/ Region",
+            "value": ""
+          },
+
+          "city": {
+            "_id": "",
+            "label": "City",
+            "value": ""
+          },
+
+          "zipCode": {
+            "_id": "",
+            "label": "ZIP / Postal Code",
+            "value": ""
+          },
+
+          "issuedDate": {
+            "_id": "",
+            "label": "Issued date",
+            "value": ""
+          },
+
+          "expiryDate": {
+            "_id": "",
+            "label": "Expiry date",
+            "value": ""
+          },
+
+          "nonExpiry": {
+            "_id": "",
+            "label": "No expiry",
+            "value": ""
+          },
+
+          "note": {
+            "_id": "",
+            "label": "Note",
+            "value": ""
+          }
+
+        }
+      },
+      "bankCard": {
+        "_id": "",
+        "label": "Bank Card",
+        "name": "Bank Card",
+        "default": false,
+        "privacy": true,
+        "value": {
+          "_id": "",
+          "description": {
+            "_id": "",
+            "label": "Description",
+            "value": ""
+          },
+
+          "bankName": {
+            "_id": "",
+            "label": "Bank name",
+            "value": ""
+          },
+
+          "bankBranch": {
+            "_id": "",
+            "label": "Bank branch",
+            "value": ""
+          },
+
+          "cardNumber": {
+            "_id": "",
+            "label": "Card number",
+            "value": ""
+          },
+
+          "bankAddress": {
+            "_id": "",
+            "label": "Bank address",
+            "value": ""
+          },
+           "bankAddress_lat": {
+            "_id": "",
+            "label": "Latitude Bank address",
+            "value": ""
+          },     
+          "bankAddress_lng": {
+            "_id": "",
+            "label": "Longitude Bank address",
+            "value": ""
+          },
+          "country": {
+            "_id": "",
+            "label": "Country",
+            "value": ""
+          },
+
+          "state": {
+            "_id": "",
+            "label": "State/ Province/ Region",
+            "value": ""
+          },
+
+          "city": {
+            "_id": "",
+            "label": "City",
+            "value": ""
+          },
+
+          "zipCode": {
+            "_id": "",
+            "label": "ZIP / Postal Code",
+            "value": ""
+          },
+
+          "issuedDate": {
+            "_id": "",
+            "label": "Issued date",
+            "value": ""
+          },
+
+          "expiryDate": {
+            "_id": "",
+            "label": "expiry date",
+            "value": ""
+          },
+
+          "nonExpiry": {
+            "_id": "",
+            "label": "Non Expiry",
+            "value": ""
+          },
+
+          "note": {
+            "_id": "",
+            "label": "Note",
+            "value": ""
+          }
+
+        }
+      },
+      "investment": {
+        "_id": "",
+        "label": "Investment Account",
+        "name": "Investment Account",
+        "default": false,
+        "privacy": true,
+        "value": {
+          "_id": "",
+          "description": {
+            "_id": "",
+            "label": "Description",
+            "value": ""
+          },
+
+          "fullName": {
+            "_id": "",
+            "label": "Full name",
+            "value": ""
+          },
+
+          "accountType": {
+            "_id": "",
+            "label": "Account type",
+            "value": ""
+          },
+
+          "accountNumber": {
+            "_id": "",
+            "label": "Account number",
+            "value": ""
+          },
+
+          "investmentFirm": {
+            "_id": "",
+            "label": "Investment Firm",
+            "value": ""
+          },
+
+          "note": {
+            "_id": "",
+            "label": "Note",
+            "value": ""
+          }
+
+        }
+      },
+      "insurance": {
+        "_id": "",
+        "label": "Insurance",
+        "name": "Insurance",
+        "default": false,
+        "privacy": true,
+        "value": {
+          "_id": "",
+          "discription": {
+            "_id": "",
+            "label": "Description",
+            "value": ""
+          },
+
+          "insurer": {
+            "_id": "",
+            "label": "Insurer",
+            "value": ""
+          },
+
+          "insuranceType": {
+            "_id": "",
+            "label": "Insurance type",
+            "value": ""
+          },
+
+          "policyNumber": {
+            "_id": "",
+            "label": "Policy number",
+            "value": ""
+          },
+
+          "startDate": {
+            "_id": "",
+            "label": "Start date",
+            "value": ""
+          },
+
+          "expiryDate": {
+            "_id": "",
+            "label": "Expiry date",
+            "value": ""
+          },
+
+          "nonExpiry": {
+            "_id": "",
+            "label": "Non expiry",
+            "value": ""
+          },
+
+          "note":  {"_id": "", "label": "Description", "value": ""}
+        }
+      },
+      "visaCard": {
+        "_id": "",
+        "label": "Visa Card",
+        "name": "Visa Card",
+        "default": false,
+        "privacy": true,
+        "value": {
+          "_id": "",
+          "description": {
+            "_id": "",
+            "label": "Description",
+            "value": ""
+          },
+
+          "nameCardHolder": {
+            "_id": "",
+            "label": "Name card holder",
+            "value": ""
+          },
+
+          "cardNumber": {
+            "_id": "",
+            "label": "Cad number",
+            "value": ""
+          },
+
+          "securityCode": {
+            "_id": "",
+            "label": "Security code",
+            "value": ""
+          },
+
+          "expiryDate": {
+            "_id": "",
+            "label": "Expiry date",
+            "value": ""
+          },
+
+          "note":  {"_id": "", "label": "Note", "value": ""}
+        }
+      },
+      "masterCard": {
+        "_id": "",
+        "label": "Master Card",
+        "name": "Master Card",
+        "default": false,
+        "privacy": true,
+        "value": {
+          "_id": "",
+          "description": {
+            "_id": "",
+            "label": "Description",
+            "value": ""
+          },
+
+          "nameCardHolder": {
+            "_id": "",
+            "label": "Name card holder",
+            "value": ""
+          },
+
+          "cardNumber": {
+            "_id": "",
+            "label": "Card number",
+            "value": ""
+          },
+
+          "securityCode": {
+            "_id": "",
+            "label": "Security code",
+            "value": ""
+          },
+
+          "expiryDate": {
+            "_id": "",
+            "label": "Expiry date",
+            "value": ""
+          },
+
+          "note": {
+            "_id": "",
+            "label": "Note",
+            "value": ""
+          }
+
+         
+        }
+      },
+      "payPalCard": {
+        "_id": "",
+        "label": "Paypal Card",
+        "name": "Paypal Card",
+        "default": false,
+        "privacy": true,
+        "value": {
+          "_id": "",
+          "description": {
+            "_id": "",
+            "label": "Description",
+            "value": ""
+          },
+
+          "fullName": {
+            "_id": "",
+            "label": "Full name",
+            "value": ""
+          },
+
+          "serviceProvider": {
+            "_id": "",
+            "label": "Service provider",
+            "value": ""
+          },
+
+          "email": {
+            "_id": "",
+            "label": "Email",
+            "value": ""
+          },
+
+          "address": {
+            "_id": "",
+            "label": "Address",
+            "value": ""
+          },
+           "Address_lat": {
+            "_id": "",
+            "label": "Latitude address",
+            "value": ""
+          },     
+          "bankAddress_lng": {
+            "_id": "",
+            "label": "Longitude address",
+            "value": ""
+          },
+          "country": {
+            "_id": "",
+            "label": "Country",
+            "value": ""
+          },
+
+          "state": {
+            "_id": "",
+            "label": "State/ Province/ Region",
+            "value": ""
+          },
+
+          "city": {
+            "_id": "",
+            "label": "City",
+            "value": ""
+          },
+
+          "zipCode": {
+            "_id": "",
+            "label": "ZIP / Postal Code",
+            "value": ""
+          },
+
+          "note": {"_id": "", "label": "Note", "value": ""}
+        }
+      }
+    }
+  },
+  "governmentID": {
+     "_id": "",
+    "label": "Government ID",
+    "name": "",
+    "default": "_",
+    "privacy": true,
+    "note": "",
+
+    "value": {
+      "birthCertificate": {
+        "_id": "",
+        "label": "Birthday Certificate",
+        "name": "Birthday Certificate",
+         "default": false,
+        "privacy": true,
+        "value": {
+          "_id": "",
+          "certificateNumber": {
+            "_id": "",
+            "label": "Certificate number",
+            "value": ""
+          },
+          "firstName": {
+            "_id": "",
+            "label": "First name",
+            "value": ""
+          },
+
+          "middleName": {
+            "_id": "",
+            "label": "Middle name",
+            "value": ""
+          },
+
+          "lastName": {
+            "_id": "",
+            "label": "Last name",
+            "value": ""
+          },
+
+          "issuedDate": {
+            "_id": "",
+            "label": "Issued date",
+            "value": ""
+          },
+          "expiryDate": {
+            "_id": "",
+            "label": "Expiry date",
+            "value": ""
+          },
+          "issuedIn": {
+            "_id": "",
+            "label": "Issued in",
+            "value": ""
+          },
+
+          "issuedBy": {
+            "_id": "",
+            "label": "Issued by",
+            "value": ""
+          },
+
+          "countryOfBirth": {
+            "_id": "",
+            "label": "Country of birth",
+            "value": ""
+          },
+
+          "cityOfBirth": {
+            "_id": "",
+            "label": "City of birth",
+            "value": ""
+          },
+
+          "note": {
+            "_id": "",
+            "label": "Note",
+            "value": ""
+          }
+
+        }
+      },
+      "driverLicenseCard": {
+         "_id": "",
+        "label": "Driver License Card",
+        "name": "Driver License Card",
+         "default": false,
+        "privacy": true,
+        "value": {
+          "_id": "",
+          "cardType": {
+            "_id": "",
+            "label": "Card type",
+            "value": ""
+          },
+
+          "cardNumber": {
+            "_id": "",
+            "label": "Card number",
+            "value": ""
+          },
+          "firstName": {
+            "_id": "",
+            "label": "First name",
+            "value": ""
+          },
+
+          "middleName": {
+            "_id": "",
+            "label": "Middle name",
+            "value": ""
+          },
+
+            "lastName": {
+            "_id": "",
+            "label": "Last name",
+            "value": ""
+          },
+
+          "issuedDate": {
+            "_id": "",
+            "label": "Issued date",
+            "value": ""
+          },
+
+          "expiryDate": {
+            "_id": "",
+            "label": "Expiry date",
+            "value": ""
+          },
+
+          "class": {
+            "_id": "",
+            "label": "Class",
+            "value": ""
+          },
+
+          "note": {
+            "_id": "",
+            "label": "Note",
+            "value": ""
+          }
+
+        }
+      },
+      "healthCard": {
+        "_id": "",
+        "label": "Health Card", 
+        "name": "Health Card",
+        "default": false,
+        "privacy": true,
+        "value": {
+          "_id": "",
+          "firstName": {
+            "_id": "",
+            "label": "First name",
+            "value": ""
+          },
+
+          "middleName": {
+            "_id": "",
+            "label": "Middle name",
+            "value": ""
+          },
+
+          "lastName": {
+            "_id": "",
+            "label": "Last name",
+            "value": ""
+          },
+          "cardNumber": {
+            "_id": "",
+            "label": "Card number",
+            "value": ""
+          },
+
+          "bloodType": {
+            "_id": "",
+            "label": "Blood type",
+            "value": ""
+          },
+
+          "issuedDate": {
+            "_id": "",
+            "label": "Isssued date",
+            "value": ""
+          },
+
+          "expiryDate": {
+            "_id": "",
+            "label": "Expiry date",
+            "value": ""
+          },
+
+          "note": {
+            "_id": "",
+            "label": "Note",
+            "name": ""
+          }
+        }
+      },
+      "medicalBenifitCard": {
+          "_id": "",
+        "label": "Medical Benifit Card",
+        "name": "Medical Benifit Card",
+         "default": false,
+        "privacy": true,
+        "value": {
+          "_id": "",
+          "firstName": {
+            "_id": "",
+            "label": "First name",
+            "value": ""
+          },
+
+          "middleName": {
+            "_id": "",
+            "label": "Middle name",
+            "value": ""
+          },
+
+          "lastName": {
+            "_id": "",
+            "label": "Last name",
+            "value": ""
+          },
+
+          "cardNumber": {
+            "_id": "",
+            "label": "Card number",
+            "value": ""
+          },
+
+          "issuedDate": {
+            "_id": "",
+            "label": "Issued date",
+            "value": ""
+          },
+
+          "expiryDate": {
+            "_id": "",
+            "label": "Expiry date",
+            "value": ""
+          },
+
+          "tier": {
+            "_id": "",
+            "label": "Tier",
+            "value": ""
+          },
+
+          "note": {
+            "_id": "",
+            "label": "Note",
+            "value": ""
+          }
+
+        }
+      },
+      "passportId": {
+        "_id": "",
+        "label": "Passport ID",
+        "name": "Passport ID",
+         "default": false,
+        "privacy": true,
+
+        "value": {
+          "firstName": {
+            "_id": "",
+            "label": "First name",
+            "value": ""
+          },
+
+          "middleName": {
+            "_id": "",
+            "label": "Middle name",
+            "value": ""
+          },
+
+          "lastName": {
+            "_id": "",
+            "label": "Last name",
+            "value": ""
+          },
+
+          "nationality": {
+            "_id": "",
+            "label": "Nationality",
+            "value": ""
+          },
+          "cardNumber": {
+            "_id": "",
+            "label": "Card number",
+            "value": ""
+          },
+          "issuedDate": {
+            "_id": "",
+            "label": "Issued date",
+            "value": ""
+          },
+          "expiryDate": {
+            "_id": "",
+            "label": "Expiry date",
+            "value": ""
+          },
+          "issuedBy": {
+            "_id": "",
+            "label": "Issued by",
+            "value": ""
+          },
+          "issuedIn": {
+            "_id": "",
+            "label": "Issued in",
+            "value": ""
+          },
+          "note": {
+            "_id": "",
+            "label": "Note",
+            "value": ""
+          }
+        }
+      },
+      "permanentResidenceIdCard": {
+
+         "_id": "",
+        "label": "Permanent Residence Card",
+        "name": "Permanent Residence Card",
+         "default": false,
+        "privacy": true,
+        "value": {
+
+          "firstName": {
+            "_id": "",
+            "label": "First name",
+            "value": ""
+          },
+
+          "middleName": {
+            "_id": "",
+            "label": "Middle name",
+            "value": ""
+          },
+
+          "lastName": {
+            "_id": "",
+            "label": "Last name",
+            "value": ""
+          },
+
+          "cardNumber": {
+            "_id": "",
+            "label": "Card number",
+            "value": ""
+          },
+          "issuedDate": {
+            "_id": "",
+            "label": "Issued date",
+            "value": ""
+          },
+          "expiryDate": {
+            "_id": "",
+            "label": "Expiry date",
+            "value": ""
+          },
+          "issuedBy": {
+            "_id": "",
+            "label": "Issued by",
+            "value": ""
+          },
+          "issuedIn": {
+            "_id": "",
+            "label": "Issued in",
+            "value": ""
+          },
+          "countryOfResidence": {
+            "_id": "",
+            "label": "Country of residence",
+            "value": ""
+          },
+          "note": {
+            "_id": "",
+            "label": "Note",
+            "value": ""
+          }
+        }
+      },
+      "socialInsuranceCard": {
+         "_id": "",
+        "label": "Social Insurance Card",
+        "name": "Social Insurance Card",
+         "default": false,
+        "privacy": true,
+
+        "value": {
+          "firstName": {
+            "_id": "",
+            "label": "First name",
+            "value": ""
+          },
+
+          "middleName": {
+            "_id": "",
+            "label": "Middle name",
+            "value": ""
+          },
+
+          "lastName": {
+            "_id": "",
+            "label": "Last name",
+            "value": ""
+          },
+
+          "cardNumber": {
+            "_id": "",
+            "label": "Card number",
+            "value": ""
+          },
+          "issuedDate": {
+            "_id": "",
+            "label": "Issued date",
+            "value": ""
+          },
+          "expiryDate": {
+            "_id": "",
+            "label": "Expiry date",
+            "value": ""
+          },
+          "note": {
+            "_id": "",
+            "label": "Note",
+            "name": ""
+          }
+        }
+      },
+      "taxCard": {
+          "_id": "",
+        "label": "Tax Card",
+        "name": "Tax Card",
+         "default": false,
+        "privacy": true,
+        "value": {
+          "firstName": {
+            "_id": "",
+            "label": "First name",
+            "value": ""
+          },
+
+          "middleName": {
+            "_id": "",
+            "label": "Middle name",
+            "value": ""
+          },
+
+          "lastName": {
+            "_id": "",
+            "label": "Last name",
+            "value": ""
+          },
+
+          "cardNumber": {
+            "_id": "",
+            "label": "Card number",
+            "value": ""
+          },
+          "issuedDate": {
+            "_id": "",
+            "label": "Issued date",
+            "value": ""
+          },
+          "expiryDate": {
+            "_id": "",
+            "label": "Expiry date",
+            "value": ""
+          },
+          "issuedBy": {
+            "_id": "",
+            "label": "Issued by",
+            "value": ""
+          },
+          "note": {
+            "_id": "",
+            "label": "Note",
+            "value": ""
+          }
+        }
+      }
+    }
+  },
+  "family": {
+    "_id": "",
+    "label": "Family",
+    "name": "",
+   "default": false,
+   "privacy": true,
+    "value": [
+      {
+        "_id": "",
+        "firstName": "",
+        "middleName": "",
+        "lastName": "",
+        "DOB": "",
+        "gender": "",
+        "email": "",
+        "relationship": ""
+      }
+    ]
+  },
+  "membership": {
+     "_id": "",
+    "label": "Membership",
+    "name": "Membership",
+   "default": false,
+   "privacy": true,
+    "value": {
+      "businessName": {
+        "_id": "",
+        "label": "Business name",
+        "value": ""
+      },
+
+      "membershipProgramName": {
+        "_id": "",
+        "label": "Membership program name",
+        "value": ""
+      },
+
+      "holder":  {"_id": "", "label": "Holder", "value": ""},
+      "membershipClass": {
+        "_id": "",
+        "label": "Membership class",
+        "value": ""
+      },
+      "membershipNumber": {
+        "_id": "",
+        "label": "Membership number",
+        "value": ""
+      },
+
+      "expiryDate": {
+        "_id": "",
+        "label": "Expiry date",
+        "value": ""
+      },
+      "note": {
+        "_id": "",
+        "label": "Note",
+        "value": ""
+      },
+      "loginId": {
+        "_id": "",
+        "label": "Login Id",
+        "value": ""
+      },
+      "password": {
+        "_id": "",
+        "label": "Password",
+        "value": ""
+      },
+      "loginSite": {
+        "_id": "",
+        "label": "Login site",
+        "value": ""
+      },
+      "serviceProvider": {
+        "_id": "",
+        "label": "Service provider",
+        "value": ""
+      },
+      "noteOnline": {
+        "_id": "",
+        "label": "Note",
+        "value": ""
+      }
+    }
+  },
+  "employment": {
+     "_id": "",
+    "label": "Employment",
+    "name": "",
+   "default": false,
+    "privacy": true,
+    "value": [
+      {
+        "_id": "",
+        "description": {
+          "_id": "",
+          "label": "Description",
+          "value": ""
+        },
+
+        "companyName": {
+          "_id": "",
+          "label": "Company name",
+          "value": ""
+        },
+
+        "title": {
+          "_id": "",
+          "label": "Title",
+          "value": ""
+        },
+
+        "email": {
+          "_id": "",
+          "label": "Email",
+          "value": ""
+        },
+
+        "phoneNumber": {
+          "_id": "",
+          "label": "Phone number",
+          "value": ""
+        },
+
+        "fax": {
+          "_id": "",
+          "label": "Fax",
+          "value": ""
+        },
+
+        "mobileNumber": {
+          "_id": "",
+          "label": "Mobile number",
+          "value": ""
+        },
+
+        "salary": {
+          "_id": "",
+          "label": "Salary",
+          "value": ""
+        },
+
+        "employmentStatus": {
+          "_id": "",
+          "label": "Employment status",
+          "value": ""
+        },
+
+        "startDate": {
+          "_id": "",
+          "label": "Start date",
+          "value": ""
+        },
+
+        "endDate": {
+          "_id": "",
+          "label": "End date",
+          "value": ""
+        },
+
+        "addressLine1": {
+          "_id": "",
+          "label": "Address",
+          "value": ""
+        },
+
+        "addressLine1_lat": {
+          "_id": "",
+          "label": "Latitude address",
+          "value": ""
+        },
+        "addressLine1_lng": {
+          "_id": "",
+          "label": "Longitude address",
+          "value": ""
+        },
+        "addressLine2": {
+          "_id": "",
+          "label": "Address line 2",
+          "value": ""
+        },
+        "addressLine2_lat": {
+          "_id": "",
+          "label": "Latitude address line 2",
+          "value": ""
+        },
+        "addressLine2_lng": {
+          "_id": "",
+          "label": "Longitude address line 2",
+          "value": ""
+        },
+        "country": {
+          "_id": "",
+          "label": "Country",
+          "value": ""
+        },
+
+        "state": {
+          "_id": "",
+          "label": "State/ Province/ Region",
+          "value": ""
+        },
+
+        "city": {
+          "_id": "",
+          "label": "City",
+          "value": ""
+        },
+
+        "zipCode": {
+          "_id": "",
+          "label": "ZIP / Postal Code",
+          "value": ""
+        },
+
+        "note": {
+          "_id": "",
+          "label": "Note",
+          "value": ""
+        }
+
+      }
+    ]
+  },
+  "education": {
+    "_id": "",
+    "label": "Education",
+    "name": "",
+    "default": false,
+    "privacy": true,
+
+    "value": {
+      "_id": "",
+      "description": {
+        "_id": "",
+        "label": "Description",
+        "value": ""
+      },
+      "schoolName": {
+        "_id": "",
+        "label": "School name",
+        "value": ""
+      },
+      "major": {
+        "_id": "",
+        "label": "Major",
+        "value": ""
+      },
+      "minor": {
+        "_id": "",
+        "label": "Minor",
+        "value": ""
+      },
+      "schoolId": {
+        "_id": "",
+        "label": "School Id",
+        "value": ""
+      },
+      "expiryDate": {
+        "_id": "",
+        "label": "Expiry date",
+        "value": ""
+      },
+      "certificationType": {
+        "_id": "",
+        "label": "Certification type",
+        "value": ""
+      },
+      "grade": {
+        "_id": "",
+        "label": "Grade",
+        "value": ""
+      },
+      "certificateNumber": {
+        "_id": "",
+        "label": "Certificate number",
+        "value": ""
+      },
+      "graduatedDate": {
+        "_id": "",
+        "label": "Graduate date",
+        "value": ""
+      },
+      "note": {
+        "_id": "",
+        "label": "Note",
+        "value": ""
+      }
+
+    }
+  },
+  "others": {
+    "_id": "",
+    "label": "Others",
+    "name": "",
+    "default": "_",
+    "privacy": true,
+
+    "value": {
+      "preference": {
+        "_id": "",
+        "label": "Preference",
+        "name": "Preference",
+        "default": false,
+        "privacy": true,
+        "value": {
+          "interesting": {
+            "_id": "",
+            "label": "Interesting",
+            "value": ""
+          },
+          "food": {
+            "_id": "",
+            "label": "Food",
+            "value": ""
+          },
+          "seat": {
+            "_id": "",
+            "label": "Seat (plan/train/boat/ect)",
+            "value": ""
+          },
+           "season": {
+            "_id": "",
+            "label": "Season",
+            "value": ""
+          },
+          "note": {
+            "_id": "",
+            "label": "Note",
+            "value": ""
+          }
+        }
+      },
+      "favourite": {
+        "_id": "",
+        "label": "Favourite",
+        "name": "Favourite",
+        "default": false,
+        "privacy": true,
+        "value": {
+          "colour": {
+            "_id": "",
+            "label": "Clour",
+            "value": ""
+          },
+          "holiday": {
+            "_id": "",
+            "label": "Holiday",
+            "value": ""
+          },
+          "movie": {
+            "_id": "",
+            "label": "Movie",
+            "value": ""
+          },
+          "music_type": {
+            "_id": "",
+            "label": "Music type",
+            "value": ""
+          },
+          "song": {
+            "_id": "",
+            "label": "Song",
+            "value": ""
+          },
+          "tv_show": {
+            "_id": "",
+            "label": "TV Show",
+            "value": ""
+          },
+          "personality": {
+            "_id": "",
+            "label": "Personality",
+            "value": ""
+          },
+          "preferred_time": {
+            "_id": "",
+            "label": "Preferred time of day",
+            "value": ""
+          },
+          "note": {
+            "_id": "",
+            "label": "Note",
+            "value": ""
+          }
+        }
+      },
+       "body": {
+        "_id": "",
+        "label": "Body",
+        "name": "Body",
+        "default": false,
+        "privacy": true,
+        "value": {
+          "hair_colour": {
+            "_id": "",
+            "label": "Hair Clour",
+            "value": ""
+          },
+          "eye_colour": {
+            "_id": "",
+            "label": "Eye colour",
+            "value": ""
+          },
+          "height": {
+            "_id": "",
+            "label": "Height",
+            "value": "",
+            "unit": ""
+          },
+          "weight": {
+            "_id": "",
+            "label": "Weight",
+            "value": "",
+            "unit": ""
+          },
+           "type": {
+            "_id": "",
+            "label": "Body type",
+            "value": ""
+          },
+          "note_body": {
+            "_id": "",
+            "label": "Note",
+            "value": ""
+          },
+          "neck": {
+            "_id": "",
+            "label": "Neck circumference",
+            "value": "",
+            "unit": ""
+          },
+           "chest": {
+            "_id": "",
+            "label": "Chest circumference",
+            "value": "",
+            "unit": ""
+          },
+          "arm": {
+            "_id": "",
+            "label": "Length of arm",
+            "value": "",
+            "unit": ""
+          },
+           "leg": {
+            "_id": "",
+            "label": "Length of leg",
+            "value": "",
+            "unit": ""
+          },
+          "inner": {
+            "_id": "",
+            "label": "Inner thigh circumference",
+            "value": "",
+            "unit": ""
+          },
+           "bicep": {
+            "_id": "",
+            "label": "Bicep circumference",
+            "value": "",
+            "unit": ""
+          },
+          "shoes": {
+            "_id": "",
+            "label": "Shoes size",
+            "value": "",
+            "unit": ""
+          },
+            "ring": {
+            "_id": "",
+            "label": "Ring size",
+            "value": "",
+            "unit": ""
+          },
+          "note_tailor": {
+            "_id": "",
+            "label": "Note",
+            "value": ""
+          },
+          "right_eye": {
+            "_id": "",
+            "label": "Right eye prescription",
+            "value": ""
+          },
+          "left_eye": {
+            "_id": "",
+            "label": "Left eye prescription",
+            "value": ""
+          },
+            "note_eye": {
+            "_id": "",
+            "label": "Note",
+            "value": ""
+          }
+        }
+      }
+    }
+  }
+ 
+} 
+
+
+

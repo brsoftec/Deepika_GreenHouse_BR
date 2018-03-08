@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Auth";
+    Layout = "~/Areas/User/Views/Shared/_LayoutWideApply.cshtml";
+    ViewBag.NgApp = "authApp";
+}
+@section styles{
+    <link href="@Url.Versioned("~/Areas/Beta/css/home.css")" rel="stylesheet"/>
+    <link rel="stylesheet" href="@Url.Versioned("~/Areas/Beta/css/social.css")">
+}
+@section prescripts {
+
+    <script>
+    </script>
+
+}
+@section initscripts {
+
+    <script>
+        angular.module('authApp', ['myApp'])
+    </script>
+}
+@section scripts {
+
+    @Scripts.Render("~/bundles/user-home-ctrl")
+
+    <script src="@Url.Versioned("~/Areas/regitUI/js/modules/social.js")"></script>
+
+
+}
+@section left {
+
+}
+
+@*BODY*@
+
+@section body {
+    <div ng-controller="AuthController">
+
+        <div class="module module-main module-auth">
+Test
+        </div>
+
+    </div>
+
+}

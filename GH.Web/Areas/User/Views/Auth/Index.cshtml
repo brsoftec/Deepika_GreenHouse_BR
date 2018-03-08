@@ -1,0 +1,622 @@
+﻿@{
+    ViewBag.Title = "Home page";
+    Layout = "~/Areas/User/Views/Shared/_LayoutWideApply.cshtml";
+    ViewBag.NgApp = "feedApp";
+}
+@section styles{
+    <link href="~/Content/css/jquery.fancybox-plus.css" rel="stylesheet"/>
+    @Styles.Render("~/bundles/css/feed")
+    @Styles.Render("~/regitCampaign/css")
+    <link href="@Url.Versioned("~/Areas/Beta/css/home.css")" rel="stylesheet"/>
+    <link href="@Url.Versioned("~/Areas/Beta/css/search.css")" rel="stylesheet"/>
+    <link href="@Url.Versioned("~/Areas/Beta/css/interactions.css")" rel="stylesheet"/>
+    <link rel="stylesheet" href="@Url.Versioned("~/Areas/Beta/css/interaction.css")">
+    <link rel="stylesheet" href="@Url.Versioned("~/Areas/Beta/css/social.css")">
+    <link rel="stylesheet" href="@Url.Versioned("~/Areas/Beta/css/handshake.css")">
+}
+@section prescripts {
+
+    <script>
+        regitGlobal.viewPreferences = {
+            introVault: @Json.Encode(ViewBag.ViewPreferences.ShowIntroVault),
+            introBusiness: @Json.Encode(ViewBag.ViewPreferences.ShowIntroBusiness),
+            introSlides: @Json.Encode(ViewBag.ViewPreferences.ShowIntroSlides),
+            businessIntroSlides: @Json.Encode(ViewBag.ViewPreferences.ShowBusinessIntroSlides)
+        };
+    </script>
+    
+        <script type="text/javascript">
+      function handleClientLoad() {
+        // Loads the client library and the auth2 library together for efficiency.
+        // Loading the auth2 library is optional here since `gapi.client.init` function will load
+        // it if not already loaded. Loading it upfront can save one network request.
+        gapi.load('client:auth2', initClient);
+      }
+
+      function initClient() {
+        // Initialize the client with API key and People API, and initialize OAuth with an
+        // OAuth 2.0 client ID and scopes (space delimited string) to request access.
+        gapi.client.init({
+            apiKey: 'KYikoEpQFJuyUuaCYp-xu9hu',
+            discoveryDocs: ["https://people.googleapis.com/$discovery/rest?version=v1"],
+            clientId: '684473435765-nsaffkkt0clcp0cruu24rlh77mqlprp3.apps.googleusercontent.com',
+            scope: 'profile'
+        }).then(function () {
+          // Listen for sign-in state changes.
+          gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+          // Handle the initial sign-in state.
+          updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+        });
+      }
+
+      function updateSigninStatus(isSignedIn) {
+        // When signin status changes, this function is called.
+        // If the signin status is changed to signedIn, we make an API call.
+        if (isSignedIn) {
+          makeApiCall();
+        }
+      }
+
+      function handleSignInClick(event) {
+        // Ideally the button should only show up after gapi.client.init finishes, so that this
+        // handler won't be called before OAuth is initialized.
+        gapi.auth2.getAuthInstance().signIn();
+      }
+
+      function handleSignOutClick(event) {
+        gapi.auth2.getAuthInstance().signOut();
+      }
+
+      function makeApiCall() {
+        // Make an API call to the People API, and print the user's given name.
+        gapi.client.people.people.get({
+          'resourceName': 'people/me',
+          'requestMask.includeField': 'person.names'
+        }).then(function(response) {
+          console.log('Hello, ' + response.result.names[0].givenName);
+        }, function(reason) {
+          console.log('Error: ' + reason.result.error.message);
+        });
+      }
+    </script>
+    <script async defer src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+
+}
+@section initscripts {
+
+    <script src="~/Content/scripts/jquery.fancybox-plus.min.js"></script>
+    <script src="~/Content/scripts/ng-infinite-scroll.min.js"></script>
+
+    <script>
+        angular.module('feedApp', ['myApp', 'interaction', 'infinite-scroll'])
+    </script>
+    <script src="~/Areas/Beta/js/vendor/xlsx.core.min.js"></script>
+    <script src="~/Areas/Beta/js/vendor/alasql.min.js"></script>
+    <script src="~/Areas/Beta/js/vendor/FileSaver.js"></script>
+    <script src="~/Areas/Beta/js/vendor/json-export-excel.js"></script>
+}
+@section scripts {
+
+    @Scripts.Render("~/bundles/user-home-ctrl")
+    @Scripts.Render("~/bundles/BusinessUserSystem")
+    @Scripts.Render("~/bundles/NewFeeds")
+    @Scripts.Render("~/bundles/sms-authencation-popup-ctrl")
+
+    <script src="@Url.Versioned("~/Areas/regitUI/js/modules/social.js")"></script>
+
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/ProfileController.js")"></script>
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/HomeFeedController.js")"></script>
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/HelpIntroController.js")"></script>
+
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/search-result-ctrl.js")"></script>
+
+@*    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/InteractionFormController.js")"></script>*@
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/HandshakeController.js")"></script>
+
+}
+@section left {
+    <div class="module module-left module-profile" ng-controller="MainProfileController">
+
+        <div class="feed-profile-header clearfix">
+            <img ng-if="!profile.avatar" class="feed-profile-avatar thumbnail" ng-src="{{profile.avatar | avatarUrl}}">
+            <a ng-show="profile.avatar" class="profile-avatar-link" href="{{profile.avatar}}"
+               title="{{profile.displayName}}'s Profile Picture">
+                <img class="feed-profile-avatar thumbnail"
+                     ng-src="{{profile.avatar | avatarUrl}}">
+            </a>
+            <div class="feed-profile-name">{{profile.displayName}}</div>
+            <div class="feed-profile-edit">
+                <a href="/User/Settings/#profile">Edit Profile</a>
+            </div>
+            <div class="feed-profile-edit">
+                <a ng-click="SMSAuthencationVault()">Edit Vault</a>
+            </div>
+
+            <div ng-if="user.IsAdmin" class="feed-profile-edit">
+                <a ng-click="Exportuser()">Export Users</a>
+            </div>
+        </div>
+        <div class="feed-profile-details">
+            <div class="feed-profile-heading">About Me</div>
+
+            <div class="feed-profile-about">{{profile.description}}</div>
+
+        </div>
+    </div>
+
+
+    <div ng-controller="PushVaultUserController" ng-hide="pushtovaults.length==0" class="module module-left module-push">
+
+        <a href="#" class="btn-push" ng-click="$event.preventDefault();openSRFIList()"
+           popover-placement="bottom" popover-trigger="'outsideClick'"
+           popovertitle="" uib-popover-template="'srfi-select.html'"
+           popover-is-open="showingPushToVaultSelect">
+            Push To Vault <span class="badge" ng-bind="pushtovaults.length"></span>
+        </a>
+    </div>
+
+    <script type="text/ng-template" id="srfi-select.html">
+    <div class="srfi-select">
+        <ul>
+            <li ng-repeat="pustovault in pushtovaults">
+                <a href="#" ng-click="$event.preventDefault();selectPushToVault(pustovault)"
+                   ng-bind="pustovault.Name"></a>
+            </li>
+        </ul>
+
+    </div>
+</script>
+    <script type="text/ng-template" id="modal-feed-open-reg-pushtovault.html">
+    <div class="modal-container">
+        <h3 class="reg-title">{{campaign.Name}} - Push To Vault</h3>
+        <div class="stamp-regit">Powered by Regit</div>
+        <form class="form-horizontal form-registration">
+            <fieldset>
+                <legend>Friends</legend>
+
+                <div class="form-group form-row">
+                    <div class="col-sm-3">
+                        <label class="control-label"></label>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="radiogroup">
+                            <div class="radio">
+                                <input checked id="option-member" name="input-title" ng-click="showingmember=true;"
+                                       ng-model="pushtype" type="radio" value="member">
+                                <label for="option-member">Friends</label>
+                            </div>
+                            <div class="radio">
+                                <input id="option-email" name="input-title" ng-click="showingmember=false;"
+                                       ng-model="pushtype" type="radio" value="email">
+                                <label for="option-email">Email</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="showingmember" class="form-group form-row">
+                    <div class="col-sm-3">
+                        <label for="input-delegate"> By Friends</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <select ng-options="f as f.DisplayName for f in ListMemberBus" ng-model="memberBusSelected"
+                                class="" id="select-delegate"></select>
+                        <div class="form-field-details-row" ng-if="memberBusSelected==null || !memberBusSelected">
+                                <span class="form-field-message" style="color:red">
+                                    Please select a member
+                                </span>
+                        </div>
+                    </div>
+
+                </div>
+                <div ng-show="!showingmember" class="form-group form-row">
+                    <div class="col-sm-3">
+                        <label for="input-delegate"> By Email</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <input type="text" ng-model="usernotifycationemail"/>
+                        <div class="form-field-details-row"
+                             ng-if="usernotifycationemail==null || !usernotifycationemail">
+                                <span class="form-field-message" style="color:red">
+                                    Please enter email
+                                </span>
+                        </div>
+                    </div>
+
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Personal Information</legend>
+
+
+                <div class="form-group form-row" ng-repeat="field in dataregisterform  | filter: filterRequired">
+                    <div class="col-sm-3">
+                        <label>{{field.displayName}}</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <rgu-control
+                                ng-if="field.type!=='numinput' && field.type!=='tagsinput' && ($parent.Mode!='Read') &&  field.type!=='range' &&  field.type!=='history'"
+                                type="{{field.type}}"
+                                ng-model="field.model" options="field.options"></rgu-control>
+
+                        <rgu-control ng-if="field.type==='numinput' &&  ($parent.Mode!='Read')" type="{{field.type}}"
+                                     ng-model="field.model"
+                                     options="field.options"
+                                     unit-model="field.unitModel"></rgu-control>
+                        <rgu-control ng-if="field.type==='tagsinput' &&  ($parent.Mode!='Read') " type="{{field.type}}"
+                                     ng-model="field.model"
+                                     options="field.options"
+                                     placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+
+                        <rgu-control ng-if="field.type==='range'&&  ($parent.Mode!='Read') " type="range"
+                                     subtype="{{field.options}}" ng-model="field.model" options="field.modelarrays"
+                                     unit-model="field.unitModel" ng-required="field.optional"
+                                     rules="{{field.rules}}"></rgu-control>
+
+                        <rgu-control ng-if="field.type==='history' &&  ($parent.Mode!='Read')" type="history"
+                                     subtype="{{field.options}}"
+                                     ng-model="field.modelarrays" options="field.model"
+                                     ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+
+                        <input ng-if="($parent.Mode=='Read')" disabled="disabled" type="password"
+                               value="{{vaildfiled(field)?field.model:''}}" class="form-control" placeholder="">
+                        <div class="form-field-details-row" ng-if="vaildfiled(field) ==false">
+                                <span class="form-field-message" style="color:red">
+                                    Please enter value
+                                </span>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="form-group form-row" ng-if="membershipFields.length">
+                    <div class="col-sm-12">
+                        <h5 class="form-optional-heading">Membership</h5>
+                    </div>
+                </div>
+
+                <div class="form-group form-row" ng-if="membershipFields.length"
+                     ng-repeat="field in membershipFields = (dataregisterform | filter: filterMembership)">
+                    <div class="col-sm-3">
+                        <label>{{field.displayName}}</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <rgu-control ng-if="field.type==='static'  && ($parent.Mode!='Read')" type="static"
+                                     value="{{field.model}}" ng-model="field.model"></rgu-control>
+
+                        <rgu-control
+                                ng-if="field.type!=='static' && field.type!=='numinput' && field.type!=='tagsinput'  && ($parent.Mode!='Read') "
+                                type="{{field.type}}"
+                                ng-model="field.model" options="field.options"></rgu-control>
+                        <rgu-control ng-if="field.type==='numinput'  && ($parent.Mode!='Read')" type="{{field.type}}"
+                                     ng-model="field.model"
+                                     options="field.options"
+                                     unit-model="field.unitModel"></rgu-control>
+                        <rgu-control ng-if="field.type==='tagsinput'  && ($parent.Mode!='Read')" type="{{field.type}}"
+                                     ng-model="field.model"
+                                     options="field.options"
+                                     placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                        <input ng-if="($parent.Mode=='Read')" disabled="disabled" type="password"
+                               value="{{vaildfiled(field)?field.model:""}}" class="form-control" placeholder="">
+
+                        <div class="form-field-details-row" ng-if="vaildfiled(field) ==false">
+                                <span class="form-field-message" style="color:red">
+                                    Please enter value
+                                </span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group form-row" ng-if="qaFields.length">
+                    <div class="col-sm-12">
+                        <h5 class="form-optional-heading">Answer Question </h5>
+                    </div>
+                </div>
+                <div class="form-group form-row" ng-if="qaFields.length"
+                     ng-repeat="field in qaFields = (dataregisterform | filter: filterQA)">
+                    <div class="col-sm-3">
+                        <label>{{field.displayName}}</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <rgu-control ng-if="($parent.Mode!='Read')" type="qa" choices="{{field.choices}}"
+                                     options="field.modelarrays"
+                                     ng-model="field.model"></rgu-control>
+                        <input ng-if="($parent.Mode=='Read')" disabled="disabled" type="password"
+                               value="{{ vaildfiled(field)?field.model:""}}" class="form-control" placeholder="">
+                        <div class="form-field-details-row" ng-if="vaildfiled(field) ==false">
+                                <span class="form-field-message" style="color:red">
+                                    Please enter value
+                                </span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div clss="form-group form-row" ng-if="optionalFields.length">
+                    <div class="col-sm-12">
+                        <h5 class="form-optional-heading">Optional</h5>
+                    </div>
+                </div>
+                <div class="form-group form-row" ng-if="optionalFields.length"
+                     ng-repeat="field in optionalFields = (dataregisterform | filter: filterOptional)">
+                    <div class="col-sm-3">
+                        <input type="checkbox" ng-model="field.selected"> <label>{{field.displayName}}</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <rgu-control
+                                ng-if="field.type!=='numinput' && field.type!=='tagsinput' && ($parent.Mode!='Read') && field.type!=='range' && field.type!=='history'"
+                                type="{{field.type}}"
+                                ng-model="field.model" options="field.options"></rgu-control>
+                        <rgu-control ng-if="field.type==='numinput' &&  ($parent.Mode!='Read')" type="{{field.type}}"
+                                     ng-model="field.model"
+                                     options="field.options"
+                                     unit-model="field.unitModel"></rgu-control>
+                        <rgu-control ng-if="field.type==='tagsinput' &&  ($parent.Mode!='Read') " type="{{field.type}}"
+                                     ng-model="field.model"
+                                     options="field.options"
+                                     placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                        <rgu-control ng-if="field.type==='range' &&  ($parent.Mode!='Read') " type="range"
+                                     subtype="{{field.options}}" ng-model="field.model" options="field.modelarrays"
+                                     unit-model="field.unitModel" ng-required="field.optional"
+                                     rules="{{field.rules}}"></rgu-control>
+                        <rgu-control ng-if="field.type==='history' &&  ($parent.Mode!='Read')" type="history"
+                                     subtype="{{field.options}}"
+                                     ng-model="field.modelarrays" options="field.model"
+                                     ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+                        <input ng-if="($parent.Mode=='Read')" disabled="disabled" type="password"
+                               value="{{ vaildfiled(field)?field.model:""}}" class="form-control" placeholder="">
+                        <div class="form-field-details-row" ng-if="vaildfiled(field) ==false && field.selected==true">
+                                <span class="form-field-message" style="color:red">
+                                    Please enter value
+                                </span>
+                        </div>
+
+                    </div>
+                </div>
+
+            </fieldset>
+            <div ng-if="false" class="form-group form-row">
+                <div class="col-sm-3">
+                    <label></label>
+                </div>
+                <div class="col-sm-9">
+                    <input id="option-agreed" ng-model="TermsConditions" type="checkbox" value="agreed">
+                    <label for="option-agreed">
+                        I have read and agreed to the <a href="{{campaign.termsAndConditionsFile}}">
+                        Terms &amp; Conditions
+                    </a>.
+                    </label>
+                    <p ng-show="(campaign.usercodetype=='Pay')" class="campaign-agree-cost">I agree to pay an amount of
+                        <span class="campaign-user-cost">{{campaign.usercode}} {{campaign.usercodecurrentcy}}</span> registration fee.</p>
+                </div>
+
+            </div>
+            <div style="padding-top:20px;color:red">
+                <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+                    <div ng-bind-html="messageBox"></div>
+                </
+                <uib-alert>
+            </div>
+            <div class="button-group">
+                <button type="button" ng-click="cancel()" class="btn btn-default">Cancel</button>
+                <button type="button" ng-click="RegisterCampaign()" class="btn btn-primary">Push</button>
+
+            </div>
+        </form>
+    </div>
+</script>
+
+    <div class="module module-left module-quicklinks">
+        <h4 class="module-heading">Quick Links</h4>
+        <div class="quicklinks ist-group">
+            <a class="list-group-item list-group-item-action" href="/User/Settings">Account Settings</a>
+            <a class="list-group-item list-group-item-action" href="/User/Network#personal">Personal Network</a>
+            <a class="list-group-item list-group-item-action" href="/User/Network#business">Business Network</a>
+            @*            <a class="list-group-item list-group-item-action" href="/CampaignUser/ManagerCampaign">Manage Interactions</a>*@
+            <a class="list-group-item list-group-item-action" href="/CampaignUser/ManageSyncs">Manage Handshakes</a>
+        </div>
+    </div>
+
+    <div class="module module-left module-nearbusinesses" ng-controller="DiscoveryController">
+        <h4 class="module-heading">Businesses Near You</h4>
+
+        <div ng-if="listAdBusiness.length" ng-repeat="business in listAdBusiness | orderBy:sortBusinesses" ng-init="avatar = business.PrivacyProfile.Profile==='public' && business.PrivacyProfile.PhotoUrl==='public' ? business.avatar : '' ">
+
+            <div class="near-business-item" ng-class="{'search-user-followed':business.following}">
+                <div class="near-business-header">
+                    <a href="/BusinessAccount/Profile?id={{business.id}}" class="near-business-avatar">
+                        <img class="" ng-src="{{avatar | avatarUrl:true}}"/>
+                    </a>
+                    <a href="/BusinessAccount/Profile?id={{business.id}}" class="near-business-name"
+                       ng-bind-html="business.displayName">
+                    </a>
+                    <span class="user-follow-badge badge" ng-if="business.following">Following</span>
+                </div>
+                <div class="near-business-details">
+                    <div class="near-business-actions">
+                        <button type="button" class="btn btn-primary near-business-action"
+                                ng-if="!business.following" ng-click="followBus(business); business.following = !business.following ">
+                            Follow
+                        </button>
+                        <button type="button" class="btn btn-default near-business-action"
+                                ng-if="business.following" ng-click="unfollowBus(business); business.following = !business.following">
+                            Unfollow
+                        </button>
+                    </div>
+                    <div html-from-text class="near-business-desc" ng-model="business.desc" data-expandable="true">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="search-load-more" ng-if="checkLoadMore">
+            <button type="button" class="feed-load-more" ng-click="loadMore();">Find more</button>
+        </div>
+    </div>
+
+}
+
+@*BODY*@
+
+@section body {
+    <div ng-controller="HomeFeedController">
+        @if (ViewBag.ViewPreferences.ShowIntroSlides == true)
+        {
+            <div class="help-intro-container" ng-controller="HelpIntroController">
+            </div>
+        }
+
+        @if (ViewBag.NoSecurityQuestions == true)
+        {
+            <div class="module module-main module-closable module-alert">
+                <button type="button" ng-click="closeModule($event)" class="module-close"></button>
+                <div class="intro-welcome">Hello, {{user.DisplayName}}</div>
+                <div class="module-alert-text">
+
+                    <p>Just one more step for your own safety. Please set your security questions to verify you in case of password recovery.</p>
+                    <p>
+                        <a href="/User/Settings#access">Set it now</a> in Account Settings.
+                    </p>
+
+                </div>
+            </div>
+        }
+
+        <div class="module module-main module-home-dashboard">
+
+            <div class="home-dashboard-container">
+                <div class="home-dashboard-intro">
+                    Here are some of things you can do on Regit to get started.
+                </div>
+                <div class="home-dashboard-row">
+                    <div class="home-dashboard-cta-box">
+                        <a href="#" ng-click="SMSAuthencationVault()"
+                           class="home-dashboard-cta home-dashboard-cta-vault">
+                            Vault
+                        </a>
+                        <div class="home-dashboard-cta-desc">
+                            Organize your information
+                        </div>
+                    </div>
+                    <div class="home-dashboard-cta-box">
+                        <a href="/User/Network" class="home-dashboard-cta home-dashboard-cta-network">Network</a>
+                        <div class="home-dashboard-cta-desc">Expand your trust network and invite someone today</div>
+                    </div>
+                    <div class="home-dashboard-cta-box">
+                        <a href="/DelegationManager" class="home-dashboard-cta home-dashboard-cta-delegation">Delegate</a>
+                        <div class="home-dashboard-cta-desc">
+                            Delegate your information so others can help you when you need it
+                        </div>
+                    </div>
+
+                    <div class="home-dashboard-cta-box cta-handshake" ng-controller="HandshakeController">
+                        <a href="#" class="home-dashboard-cta home-dashboard-cta-handshake" ng-click="$event.preventDefault();openHandshakeNewModal()">Handshake</a>
+                        <div class="home-dashboard-cta-desc">
+                            Create a personal handshake to notify others when there is a change to your information automatically
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        @if (ViewBag.NoAvatar == true)
+        {
+            <div class="module module-main module-closable module-intro module-intro-1">
+                <button type="button" ng-click="closeModule($event)" class="module-close"></button>
+                <div class="intro-welcome">Hello, {{user.DisplayName}}</div>
+                <div class="intro-heading">
+                    <span class="intro-heading-ord">1</span>Upload your profile picture
+                </div>
+                <div class="intro-picture-container">
+                    <div class="intro-picture">
+                        <img class="intro-picture-img"
+                             ng-src="{{user.PhotoUrl ? user.PhotoUrl : '/Areas/Beta/img/intro-profile-picture.svg'}}" width="200">
+                    </div>
+                    <div class="intro-picture-actions">
+                        <a href="/User/Settings#profile" class="add-photo-action">Add Photo</a>
+                        <p class="intro-picture-settings-link">
+                            Or go to <a href="/User/Settings">Account Settings</a> to update your basic information
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        }
+
+        @if (ViewBag.ViewPreferences.ShowIntroVault == true)
+        {
+            <div class="module module-main module-closable module-intro module-intro-2">
+                <button type="button" ng-click="closeModule($event)" class="module-close"></button>
+                <div class="intro-heading">
+                    <span class="intro-heading-ord" ng-if="!user.PhotoUrl">2</span>Get to know how to Store &amp; Organize your
+                    information
+                </div>
+                <div class="intro-text">
+                    <p>
+                        Information stored in your VAULT will be protected with added security and is fully controlled by you &ndash;
+                        No one will be able to see what is inside!
+                    </p>
+
+                    <p>
+                        The information vault is for you to organize and manage all your information. Put the information you want so
+                        that you can search and use it easily in the future. Remember that your information is never shared without
+                        your consent. You have control!
+                    </p>
+                </div>
+
+                <div class="intro-vault-tour-picture">
+                    <img src="/Areas/Beta/img/intro-vault-tour.svg"/>
+                </div>
+
+                <div class="intro-view-options">
+                    <rgu-checkbox ng-model="view.preferences.hideIntroVault" on-change="updateViewPreferences('introVault')"
+                                  label="I got it, do not show this again">
+                    </rgu-checkbox>
+                </div>
+
+            </div>
+        }
+
+        @if (ViewBag.ViewPreferences.ShowIntroBusiness == true)
+        {
+            <div class="module module-main module-closable module-intro module-intro-3">
+                <button type="button" ng-click="closeModule($event)" class="module-close"></button>
+                <div class="intro-heading">
+                    <span class="intro-heading-ord" ng-if="!user.PhotoUrl">3</span>Expand your Network to Business
+                </div>
+                <div class="intro-text">
+                    <p>Regit aims to make it easy to interact with the businesses you trust. Find and add them to your network</p>
+                </div>
+
+                <div class="intro-search-business-picture">
+                    <img src="/Areas/Beta/img/intro-search-business.svg"/>
+                </div>
+
+                <div class="intro-view-options">
+                    <rgu-checkbox ng-model="view.preferences.hideIntroBusiness" on-change="updateViewPreferences('introBusiness')"
+                                  label="I got it, do not show this again">
+                    </rgu-checkbox>
+                </div>
+
+            </div>
+        }
+
+
+        <!-- Ad business -->
+
+        <!-- End Ad business -->
+
+
+        @*        <div class="feed feed-individual" ng-view></div>*@
+
+        <interaction-feed type="personal"></interaction-feed>
+
+    </div>
+
+}

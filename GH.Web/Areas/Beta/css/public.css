@@ -1,0 +1,375 @@
+body {
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, Geneva, sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0;
+    overflow: hidden;
+}
+
+.regit-public {
+    width: 100%;
+    overflow: auto;
+}
+
+.signup, .signin {
+    background: transparent url(../img/signup-bg.jpg) no-repeat center center;
+    background-size: cover;
+}
+
+.public-signin-form {
+    float: right;
+    margin-left: 30px;
+}
+
+.public-signin-input {
+    display: inline-block;
+    color: #999;
+    width: 10em !important;
+    height: 30px !important;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 90% !important;
+    padding: 6px 12px !important;
+}
+
+.public-signin-action {
+    display: inline-block;
+    border: none;
+    background: none;
+    color: white;
+    text-transform: uppercase;
+    outline: none;
+    margin-top: 6px;
+}
+
+.public-signin-message {
+    font-size: 90%;
+}
+
+.public-signin-message-text {
+    display: inline-block;
+    color: yellow;
+    margin-right: 1em;
+    min-width: 9.5em;
+}
+
+.public-signin-message a {
+    color: white;
+    text-decoration: underline;
+}
+/*.regit-business.signup {
+    background-image: url(../img/business-bg.jpg);
+}*/
+
+.main-header {
+    height: 60px !important;
+    position: relative;
+    width: 100%;
+    background: #00adef;
+    color: white;
+    padding: 0;
+}
+
+.main-header-logo img {
+    height: 50px;
+    margin: 6px;
+}
+
+.header-action-signup-business {
+    display: none;
+}
+
+.page-business .header-action-signup-business {
+    display: inline-block;
+}
+
+.signup-business .header-action-signup-business {
+    display: none;
+}
+
+.signup .header-action-signup, .page-business .header-action-signup {
+    display: none;
+}
+
+#footer .nav li a {
+    font-weight: lighter !important;
+}
+
+.main-body {
+    width: 100%; /*400px;*/
+    margin: 0 auto;
+    /*text-align: center;*/
+}
+
+.module-main {
+    width: 600px;
+    margin: 0 auto;
+}
+
+.login-logo {
+    margin-bottom: 40px;
+}
+
+    .login-logo img {
+        width: 200px;
+    }
+
+.login-form {
+    color: #999;
+    margin-left: 0;
+}
+
+.login-form-row {
+    margin-bottom: 10px;
+    vertical-align: middle;
+}
+
+.login-form label {
+    width: 6em;
+    vertical-align: middle;
+    padding-top: 5px;
+    font-weight: normal !important;
+}
+
+.login-form-input {
+    width: 280px !important;
+    border: 1px solid #999 !important;
+    border-radius: 3px !important;
+    height: 32px !important;
+    padding: 8px 12px !important;
+    color: #999 !important;
+}
+
+.login-form-submit {
+    background: #00adef;
+    color: white;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 3px;
+    width: 280px;
+    padding: 6px;
+    font-weight: bold;
+    margin: 20px auto;
+}
+
+.login-help {
+    margin-top: 20px;
+    text-align: left;
+}
+
+    .login-help a {
+        margin: 5px;
+    }
+
+.auth-form-app-desc {
+    margin: 30px 0 30px 0;
+}
+
+.auth-form-permissions {
+    margin-bottom: 20px;
+}
+
+    .auth-form-permissions ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        border-top: 1px solid #ccc;
+    }
+
+    .auth-form-permissions li {
+        margin: 0;
+        padding: 30px 0 30px 60px;
+        background: transparent url(../img/auth-form-permission.png) no-repeat left center;
+        border-bottom: 1px solid #ccc;
+        text-align: left;
+    }
+
+.auth-form-disclaimer {
+    font-size: 90%;
+    margin: 40px;
+}
+
+.auth-form-actions {
+    margin: 20px;
+}
+
+.auth-form-btn {
+    background: #d0d0d0;
+    border: none;
+    padding: 6px 60px;
+    margin: 5px;
+}
+
+.auth-form-btn-primary {
+    background: #00adef;
+    color: white;
+}
+
+.info-error {
+    width: 500px;
+    margin: 0 auto;
+    background: transparent url(../img/info-error.png) no-repeat 0 10px;
+    padding: 0 0 0 140px;
+    text-align: left;
+}
+
+.error-heading {
+    margin-bottom: 5px;
+}
+
+.error-title {
+    margin: 0 0 16px 0;
+}
+
+
+/*PUBLIC SIGN UP*/
+
+.section-public {
+    width: 100%;
+}
+
+.public-container {
+    width: 800px;
+    margin: 8% auto;
+    position: relative;
+    min-height: 400px;
+    text-align: left;
+}
+
+.login-container {
+    width: 680px;
+}
+
+.section-public h1 {
+    text-transform: none;
+    font-size: 250%;
+    font-weight: 500;
+    color: #00adef;
+}
+
+.section-public h2 {
+    font-size: 140%;
+    color: #aaa;
+    margin-bottom: 20px;
+}
+
+.public-form h3 {
+    font-size: 140%;
+    color: #00adef;
+    margin-bottom: 20px;
+}
+
+.public-aside {
+    position: absolute;
+    left: 0;
+    width: 300px;
+}
+
+.aside-logo {
+    width: 200px;
+}
+
+
+.signup-form, .login-form {
+    margin-left: 300px;
+    text-align: left;
+}
+
+.form-signup {
+    margin: 0 0 0 0;
+}
+
+.form-login {
+    margin: 0 0 0 0;
+}
+
+.public-form-row {
+    vertical-align: top;
+    padding: 4px;
+    width: 100%;
+}
+
+
+
+.inline-control {
+    display: inline-block;
+    width: 49%;
+    margin-right: 3px;
+    vertical-align: top;
+}
+
+.inline-control-right {
+    float: right;
+    margin: 0;
+}
+
+.public-form-actions {
+    margin-top: 20px;
+}
+
+.public-form-btn {
+    outline: none;
+    border: none;
+    font-size: 120%;
+    padding: 10px 30px;
+    text-transform: uppercase;
+    color: white !important;
+}
+
+.public-form-btn-secondary {
+    color: #999 !important;
+    background: #eee !important;
+    border: 1px solid #999 !important;
+}
+
+.public-form-section {
+    text-align: center;
+    background: white;
+    width: 70%;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.public-form-notes {
+    margin: 0;
+    padding: 10px;
+    font-size: 90%;
+    color: #666;
+}
+
+.pin-error {
+    text-align: center;
+}
+
+.public-form-notes ol {
+    margin: 4px;
+    padding: 0;
+    font-size: 90%;
+}
+
+.public-form-notes li {
+    margin: 0;
+    padding: 0;
+}
+
+.page-message-heading {
+    color: #00adef;
+}
+
+.page-message-subhead {
+}
+
+.signup-industry-input input {
+    height: 30px !important;
+}
+
+    .signup-industry-input input::-webkit-input-placeholder {
+        font-size: 100%;
+    }
+
+.pin-auth-create-error {
+    color: red;
+    text-align: center;
+}
+

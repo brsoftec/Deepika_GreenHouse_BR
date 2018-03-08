@@ -1,0 +1,151 @@
+.network-grid {
+    width: 100% !important;
+    border: none;
+    margin: 10px 0;
+}
+
+.network-grid td {
+    padding: 4px;
+}
+.network-cell {
+}
+
+.network-member-name-group {
+    display: inline-block;
+}
+.network-member-name {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.network-member-name-group .network-member-name {
+    display: block;
+}
+.network-member-relationship {
+    display: block;
+    color: #aaa;
+    font-size: 80%;
+}
+
+.edit-form-row {
+    display: block;
+}
+.control-inline {
+    display: inline-block;
+}
+
+.network-section {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.network-row {
+    clear: both;
+    margin-bottom: 20px;
+}
+.network-notes {
+}
+
+.network-invite-label {
+    float: left;
+    vertical-align: middle;
+}
+.network-invite-control {
+    float: right;
+}
+.network-invite-input {
+    display: inline-block;
+
+}
+.network-invite-input input {
+    height: 32px;
+    border: 1px solid #ccc;
+    padding: 4px 8px;
+    width: 14em !important;
+}
+.network-invite-submit {
+    display: inline-block;
+}
+
+.network-invite-search-item {
+    width: 16em;
+    cursor: pointer;
+}
+.active .network-invite-search-item {
+    background: #00adef;
+    color: white;
+}
+.network-invite-search-avatar {
+    margin: 2px;
+    display: inline-block;
+    width: 30px; height: 30px;
+}
+
+.network-invite-search-avatar img {
+    width: 100%;
+}
+.network-invite-search-name {
+    display: inline-block;
+}
+
+.network-pending-row {
+    padding: 4px 0;
+}
+
+.network-pending-key, .network-pending-type, .network-pending-time {
+    display: inline-block;
+    height: 30px;
+    vertical-align: top;
+    padding: 4px;
+}
+
+.network-pending-name {
+        display: inline-block;
+    color: #00adef !important;
+    vertical-align: top;
+}
+
+.network-invite-links {
+    width: 240px;
+    float: right;
+    padding: 10px;
+    text-align: center;
+    position: relative;
+    z-index: 20;
+    margin-top: -10px;
+}
+
+.network-invite-links h5 {
+    font-weight: 500;
+    margin-bottom: 0;
+
+}.network-invite-links p {
+     font-size: 90%;
+
+}
+.network-invite-link {
+    display: inline-block;
+    width: 45%;
+background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center 12px;
+    background-size: auto 50px;
+    padding: 66px 20px 10px 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 100%;
+
+    margin-right: 6px;
+}
+
+.network-invite-link:hover {
+    border-color: chocolate;
+}
+
+.network-invite-link.google-contacts {
+    background-image: url(../img/invite-google.png);
+}
+
+.network-invite-link.facebook-friends {
+    background-image: url(../img/invite-facebook.png);
+}

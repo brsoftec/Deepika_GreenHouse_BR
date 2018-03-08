@@ -1,0 +1,52 @@
+﻿@using GH.Lang
+<div ng-controller="RelationshipSettingsController as ctrl" collapse-base-on-route="/manage-business-relationship" class="collapse-item">
+    <div class="collapse-header">
+        <a href="#/manage-business-relationship" class="regit-color" data-toggle="collapse" aria-expanded="false" data-target="#manageBusRelCollapseContent">@Regit.Manage_Business_Relationship_Title</a>
+    </div>
+    <div class="collapse-content">
+        <div class="collapse no-padding-bottom" id="manageBusRelCollapseContent">
+            <form id="businessRelationshipForm">
+                <div class="row custom-row field border-bottom" ng-repeat="followee in ctrl.Followees.Data track by followee.Id">
+                    <div class="col-md-4 text-left">
+                        <span class="field-title"><a class="regit-color">{{followee.DisplayName}}</a></span>
+                    </div>
+                    <div class="col-md-4">
+                        <div>
+                            <span class="field-value">{{followee.Time| date:'MM/dd/yyyy'}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <a class="regit-color r-eye" ng-click="ctrl.open(followee)"></a>
+                        <a class="regit-color" ng-click="ctrl.unfollow(followee)">@Regit.UnFollowBtn</a>
+                    </div>
+                </div>
+                <ul uib-pagination ng-show="ctrl.Followees.Total > 0" boundary-links="true" items-per-page="ctrl.followParameter.Length" total-items="ctrl.Followees.Total" ng-model="ctrl.currentPage" ng-change="ctrl.pageChanged()" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+            </form>
+        </div>
+    </div>
+    <script type="text/ng-template" id="transactionDetail.html">
+        <div class="modal-content relationship-container">
+            <div class="modal-header text-center">
+                <a class="close" aria-label="Close">
+                    <i class="close-icon" ng-click="cancel()"></i>
+                </a>
+                <span class="relationship-title">@Regit.Your_Transactions_With_Message.ToUpper() {{follow.DisplayName}}</span>
+            </div>
+            <div class="modal-body">
+                <div class="relationship-retail-list" scroll-modal>
+                    <div class="row field border-bottom relationship-retail-item" ng-repeat="transaction in transactions">
+                        <div class="col-md-2 text-left">
+
+                            <span class="field-title" ng-bind="transaction.Date | date:'dd MMM yyyy'"></span>
+                        </div>
+                        <div class="col-md-10 text-left">
+                            <div>
+                                <span class="field-title">{{transaction.Description}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+</div>

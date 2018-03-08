@@ -1,0 +1,449 @@
+﻿.dashboard-row {
+    margin-bottom: 20px;
+}
+
+.user-name {
+    font-size: larger;
+    font-weight: bold;
+    /*padding-right: 5px;*/
+}
+
+.row-feed {
+    margin-bottom: 10px;
+}
+
+    .row-feed .row-feed-hr .hr {
+        border-top: 1px;
+        border-top-style: solid;
+        border-top-color: #ccc;
+    }
+
+.header-bg-absolute-wrapper {
+    position: relative;
+}
+
+.social-title {
+    color: #00aeef;
+    font-weight: 200;
+}
+
+.header-bg-absolute {
+    display: inline-block;
+    background: #fff;
+    position: absolute;
+    z-index: 1;
+    margin: 0;
+    padding: 0 20px;
+    top: -15px;
+}
+
+.feed-content-wrapper {
+}
+
+.message-content {
+    word-wrap: break-word;
+}
+
+.border-dash {
+    border-bottom: 1px;
+    border-bottom-style: dashed;
+    padding-top: 20px;
+}
+
+.facebook-post-wrapper {
+    padding-top: 10px;
+}
+
+.icon-facebook {
+    padding-left: 0px;
+}
+
+.facebook-post:hover .facebook-action {
+    display: block;
+}
+
+.facebook-action {
+    display: none;
+}
+
+.facebook-action-wrapper {
+    position: absolute;
+    top: -44px;
+    right: 15px;
+    z-index: 1;
+    background: #fff;
+}
+
+.facebook-action-item {
+    display: block;
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+    border: 1px solid #aaa;
+}
+
+    .facebook-action-item .facebook-action-img {
+        width: 100%;
+        height: 100%;
+    }
+
+.like-cursor:hover {
+    cursor: pointer;
+}
+
+.like-icon {
+    height: 22px;
+    width: 19px;
+}
+
+.share-action {
+    width: 800px;
+    right: 0;
+    left: auto;
+}
+
+.post-action {
+    width: 800px;
+    left: 0;
+    right: auto;
+}
+
+.share-on {
+    padding-top: 13px;
+}
+
+.share-on-text {
+    color: #00adee;
+}
+
+.share-button {
+    padding-top: 13px;
+}
+
+.input-no-border {
+    border: none;
+}
+
+.new-post-btn {
+    padding-bottom: 15px;
+}
+
+.new-post-padding {
+    padding-bottom: 5px;
+}
+
+.photo-feeds .photo-feed:nth-child(6n+1) {
+    padding-right: 4px;
+    padding-left: 0px;
+}
+
+.photo-feeds .photo-feed:nth-child(6n), .photo-feeds .photo-feed:last-child {
+    padding-left: 4px;
+    padding-right: 0px;
+}
+
+.photo-feeds .photo-feed:first-child:last-child {
+    padding: 0;
+}
+
+.photo-feed {
+    float: left;
+    display: inline-block;
+    vertical-align: top;
+    padding: 0 2px;
+}
+
+.photo-count-1 .photo-feed {
+    width: 100%;
+}
+
+.photo-count-2 .photo-feed {
+    width: 50%;
+}
+
+.photo-count-3 .photo-feed {
+    width: 33.33333333%;
+}
+
+.photo-count-4 .photo-feed {
+    width: 25%;
+}
+
+.photo-count-5 .photo-feed {
+    width: 20%;
+}
+
+.photo-count-6 .photo-feed {
+    width: 16.66666667%;
+}
+
+.photo-feed-wrapper {
+    width: 100%;
+    padding-bottom: 100%;
+    position: relative;
+    cursor: zoom-in;
+}
+
+    .photo-feed-wrapper img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+.photo-feed-wrapper-backdrop {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.40);
+    color: #fff;
+    text-align: center;
+    font-size: 30px;
+}
+
+    .photo-feed-wrapper-backdrop:after {
+        display: inline-block;
+        vertical-align: middle;
+        content: '';
+    }
+
+.lightbox-modal .modal-content {
+    background: none;
+}
+
+.lightbox-modal .lightbox-buttons {
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+    .lightbox-modal .lightbox-buttons a {
+        margin: 0 15px;
+        color: inherit;
+    }
+
+.sp-action-icon {
+    font-size: 20px;
+}
+
+.liked-color {
+    color: #a30000;
+}
+
+.social-post-video {
+    width: 100%;
+}
+
+/* Comment Modal, Share Modal */
+.comment-social-post-modal, .share-social-post-modal {
+    text-align: center;
+}
+
+    .comment-social-post-modal:before, .share-social-post-modal:before {
+        display: inline-block;
+        vertical-align: middle;
+        content: '';
+        margin-right: -3px;
+        height: 100%;
+    }
+
+    .comment-social-post-modal .modal-dialog, .share-social-post-modal .modal-dialog {
+        display: inline-block;
+        vertical-align: middle;
+        margin: auto;
+    }
+
+    .comment-social-post-modal .modal-content, .share-social-post-modal .modal-content {
+        text-align: left;
+        border-radius: 0;
+        border: 1px solid #808080;
+    }
+
+
+    .comment-social-post-modal .modal-header {
+        padding: 5px 7px;
+        border: none;
+    }
+
+    .comment-social-post-modal .modal-body {
+        padding-right: 50px;
+    }
+
+        .comment-social-post-modal .modal-body .social-post-comments {
+            max-height: 300px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+    .comment-social-post-modal textarea {
+        resize: none;
+        min-height: 73.16px;
+    }
+
+    .comment-social-post-modal .comment-social-post {
+        margin-bottom: 10px;
+    }
+
+    .comment-social-post-modal .comment-social-post-avatar {
+        padding-right: 5px;
+    }
+
+    .comment-social-post-modal .comment-social-post-comment {
+        padding-left: 5px;
+    }
+
+    .comment-social-post-modal .comment-social-post-avatar-wrapper {
+        width: 100%;
+        padding-bottom: 100%;
+        position: relative;
+    }
+
+    .comment-social-post-modal .comment-social-post-avatar img {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .comment-social-post-modal .comment-content {
+        word-wrap: break-word;
+    }
+
+        .comment-social-post-modal .comment-content .commentator-username {
+            color: #00aeef;
+            font-weight: bold;
+        }
+
+    .comment-social-post-modal .comment-reply-text {
+        color: #00aeef;
+    }
+
+    .share-social-post-modal textarea {
+        resize: none;
+        min-height: 73.16px;
+        border: none;
+        box-shadow: none;
+    }
+
+    .share-social-post-modal .share-social-post-content {
+        /*border: 2px solid #999;*/
+        border: 1px solid #ccc;
+        margin: 15px 0;
+    }
+
+    .share-social-post-modal .share-social-post-content-text.col-xs-12 {
+        padding-left: 30px;
+    }
+
+    .share-social-post-modal .share-social-post-content-text {
+        word-wrap: break-word;
+        padding: 15px 30px 15px 5px;
+    }
+
+    .share-social-post-modal .share-social-post-content-image {
+        padding: 15px 5px 15px 30px;
+    }
+
+    .share-social-post-modal .share-social-post-options .share-social-post-actions {
+        text-align: center;
+    }
+
+    .share-social-post-modal .share-social-post-options .btn {
+        width: 49%;
+        text-align: center;
+        font-weight: 600;
+    }
+/* End Comment Modal, Share Modal*/
+
+.feed-content {
+    border: 1px solid #d7d7d7;
+}
+
+.feed-logo-width {
+    margin-right: 10px;
+}
+
+.feed-logo-width, .feed-user {
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+}
+
+    .feed-logo-width img {
+        width: 40px;
+        height: 40px;
+    }
+
+.feed-action {
+    margin-right: 15px;
+}
+
+    .feed-action .feed-source, .feed-action .action-dropdown {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .feed-action .action-dropdown {
+        margin-left: 20px;
+    }
+
+    .feed-action .feed-source img {
+        vertical-align: middle;
+        display: inline-block;
+        margin: 0 5px;
+    }
+
+.feed-time-live {
+    color: rgb(177, 177, 177);
+}
+
+.feed-btn-bar {
+    border-top: 1px solid #d7d7d7;
+}
+
+.feed-btn-count {
+    padding-left: 5px;
+    font-weight: 300;
+    font-size: 20px;
+}
+
+.share-result {
+    text-align: left;
+}
+
+    .share-result .share-success, .share-result .share-error {
+        margin-bottom: 10px;
+    }
+
+        .share-result .share-success .glyphicon, .share-result .share-error .glyphicon {
+            margin-right: 3px;
+            display: inline-block;
+        }
+
+        .share-result .share-success .glyphicon {
+            color: #A5DC86;
+        }
+
+        .share-result .share-error .glyphicon.glyphicon-remove-circle {
+            color: #F27474;
+        }
+
+    .share-result .share-to {
+        font-weight: bold;
+    }
+
+.share-social-post-content-text {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.feed-user-container {
+    cursor: pointer;
+}
+
+    .feed-user-container:hover {
+        cursor: pointer;
+    }

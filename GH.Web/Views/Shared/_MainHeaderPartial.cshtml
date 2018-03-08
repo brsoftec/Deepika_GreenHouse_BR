@@ -1,0 +1,66 @@
+﻿<header class="main-header">
+    <a href="#/" class="main-header-logo">
+        <img src="/Areas/Beta/img/regit-light.svg">
+    </a>
+    <div class="main-search">
+        <input class="main-search-input" placeholder="Search Regit">
+        <button class="main-search-options">
+            Search options
+        </button>
+    </div>
+    <div class="main-nav">
+        <a ng-if="!user.business" href="#/Vault" class="main-nav-item main-nav-vault">Vault</a>
+        <a ng-if="user.business" href="#/Interactions/Manage" class="main-nav-item main-nav-interactions">Interactions</a>
+        <a href="#" class="main-nav-item main-nav-item main-nav-notice"
+           popover-placement="bottom" popover-trigger="'outsideClick'" ng-click="$event.preventDefault()"
+           popovertitle="" uib-popover-template="'notifications.popover.html'"
+           popover-is-open="currentView.showingNotifications">
+            <span class="badge main-nav-badge"
+                  ng-bind="notifications.length"></span>
+        </a>
+
+        <script type="text/ng-template" id="notifications.popover.html">
+            <div class="notifications-popover">
+                <div class="notifications-list">
+                    <div class="notification-item" ng-repeat="notif in notifications">
+                        <div class="notification-desc">
+                            {{notif.desc}} <span class="notification-when"
+                                                 ng-bind="whenNotification(notif)"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="notifications-actions">
+                    <a href="Beta/Notifications" ng-click="gotoNotifications()">View all notifications</a>
+                </div>
+            </div>
+        </script>
+    </div>
+    <div class="main-user-nav">
+        <a href="#" class="main-user-nav" popover-placement="bottom" popover-trigger="'outsideClick'"
+           popovertitle="" uib-popover-template="'user-nav.menu.html'"
+           popover-is-open="currentView.showingUserMenu" ng-click="openMainUserMenu($event)">
+            <img class="main-user-avatar" ng-src="~/Content/{{user.avatar}}">
+            <div class="main-user-name" ng-bind="user.fullName"></div>
+        </a>
+
+        <script type="text/ng-template" id="user-nav.menu.html">
+            <div class="rgu-dropdown user-nav-menu">
+                <ul>
+                    <li>
+                        <a href="#/ActivityLog">Activity Log</a>
+                    </li>
+                    <li ng-if="!user.business">
+                        <a href="#/Account">Account Settings</a>
+                    </li>
+                    <li ng-if="user.business">
+                        <a href="#/Business/Account">Account Management</a>
+                    </li>
+                    <li class="rgu-dd-divider"></li>
+                    <li>
+                        <a href="#">Log Out</a>
+                    </li>
+                </ul>
+            </div>
+        </script>
+    </div>
+</header>

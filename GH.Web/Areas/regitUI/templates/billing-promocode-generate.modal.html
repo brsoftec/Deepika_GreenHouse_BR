@@ -1,0 +1,53 @@
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog promocode-generate-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="btn-modal-close" ng-click="$hide()">Close</button>
+                <h4 class="modal-title">Generate Promo Code</h4></div>
+        </div>
+        <div class="modal-body">
+            <form class="promocode-generate-form modal-form">
+                <div class="promocode-generate-form-row">
+                    <div class="promocode-generate-form-label">
+                        Select plan
+                    </div>
+                    <div class="promocode-generate-form-control">
+                        <select rgu-select ng-model="promo.plan" ng-options="plan for plan in promo.plans"
+                        ng-change="promo.code=''"></select>
+                    </div>
+                </div>
+                <div class="promocode-generate-form-row">
+                    <div class="promocode-generate-form-label">
+                        Duration
+                    </div>
+                    <div class="promocode-generate-form-control">
+                        <select rgu-select ng-model="promo.duration" ng-options="duration for duration in promo.durations"
+                        ng-change="promo.code=''"></select>
+                    </div>
+                </div>
+                <div class="promocode-generate-form-row">
+                    <div class="promocode-generate-form-label">
+                        Usage Limit
+                    </div>
+                    <div class="promocode-generate-form-control">
+                        <select rgu-select ng-model="promo.usage" ng-options="usage for usage in promo.usages"
+                        ng-change="promo.code=''"></select>
+                    </div>
+                </div>
+                <div class="promocode-generate-form-row">
+                    <div class="promocode-generate-form-label">
+                        Promo code
+                    </div>
+                    <div class="promocode-generate-form-control">
+                        <div class="promocode-generate-value" ng-bind="promo.code"></div>
+                    </div>
+                </div>
+                <div class="promocode-generate-actions modal-form-actions">
+                    <button class="btn btn-default modal-action promocode-generate-action" ng-click="$hide()">Close</button>
+                    <button class="btn btn-primary modal-action promocode-generate-action" ng-click="generateCode()">Generate Code</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,354 @@
+.calendar-container {
+    border: 1px solid #eee;
+    font-size: 90%;
+}
+
+.calendar-header {
+    width: 100%;
+    height: 60px;
+    padding: 14px;
+}
+
+.calendar-header-day {
+    color: #00adef;
+    font-size: 120%;
+    float: left;
+}
+
+.calendar-header-actions {
+    position: absolute;
+    right: 400px;
+}
+
+.btn-new-event {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: transparent url(../img/btn-new-event.png) no-repeat center center;
+    text-indent: -99999px;
+    border: none;
+}
+
+.calendar-header-nav {
+    font-size: 120%;
+    float: right;
+}
+
+.calendar-nav {
+    display: inline-block;
+    border: 1px solid #999;
+    padding: 2px 30px;
+    background-color: white;
+    text-transform: uppercase;
+    color: #999;
+    margin-right: -5px;
+}
+
+.calendar-nav.active {
+    border-color: #00adef;
+    background-color: #00adef;
+    color: white;
+    text-transform: uppercase;
+}
+
+.calendar-grid {
+    width: 100%;
+}
+
+.calendar-grid th, .calendar-grid td {
+    padding: 6px 6px 6px 8px;
+    border: 1px #ddd;
+    font-weight: normal;
+    border-style: solid none none solid;
+}
+
+.calendar-grid th {
+    width: 5em;
+    border-left-style: none;
+}
+
+.calendar-grid-week td {
+    width: 12.5%;
+}
+
+.calendar-grid-event {
+    background-color: #e5f7fd;
+    padding: 4px;
+    cursor: pointer;
+}
+
+.calendar-weekday-header {
+    text-align: center;
+}
+
+.time-hour {
+    font-size: 90%;
+}
+
+.calendar-event-popup {
+    padding: 10px;
+    font-size: 90%;
+}
+
+.calendar-grid .popover {
+    width: 600px !important;
+}
+
+.calendar-event-popup-header h4 {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 140%;
+}
+
+.calendar-event-popup-actions {
+    padding: 10px;
+}
+
+
+.calendar-event-details-row {
+    border-bottom: 1px solid #ddd;
+    padding: 4px;
+}
+
+.calendar-event-details-row > div {
+    display: inline-block;
+
+}
+
+.calendar-event-details-label {
+    width: 6em;
+    text-align: right;
+    margin-right: 30px;
+    color: #999;
+}
+
+.calendar-event-details-value {
+    /*width: 15em;*/
+}
+
+.calendar-event-popup-actions {
+    width: 20em;
+    margin: 0 20%;
+}
+
+.calendar-event-popup-actions a {
+    display: block;
+    text-align: center;
+}
+
+.calendar-event-popup-actions a {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+/*MINI CALENDAR*/
+
+.mini-calendar {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.mini-calendar-header {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.mini-calendar-header-month {
+    display: block;
+    text-align: center;
+    font-size: 150%;
+    color: #00adef;
+    vertical-align: top;
+    line-height: 26px;
+    background: none;
+    border: none;
+    margin: 0 auto;
+    outline: none
+}
+
+.mini-calendar-header-month .month-name {
+    font-weight: bold;
+}
+
+.mini-calendar-month-nav {
+    float: left;
+    background: transparent url(../img/mini-calendar-month-nav-prev.png) no-repeat center center;
+    width: 16px;
+    height: 26px;
+    border: none;
+    text-indent: -99999px;
+    outline: none;
+}
+
+.mini-calendar-month-nav-next {
+    float: right;
+    background-image: url(../img/mini-calendar-month-nav-next.png);
+}
+
+.mini-calendar-view {
+    min-height: 16em;
+}
+
+.mini-calendar-grid {
+    width: 100%;
+}
+
+.mini-calendar-grid th, .mini-calendar-grid td {
+    text-align: center;
+    font-size: 120%;
+    color: #00adef;
+}
+
+.mini-calendar-grid th {
+    padding: 8px;
+    text-align: left;
+
+}
+
+.mini-calendar-cell {
+    display: block;
+    /*padding: 8px;*/
+    color: #00adef;
+    font-weight: 300;
+    border-radius: 1.2em;
+    width: 1.8em;
+    height: 1.7em;
+    line-height: 1.7em;
+    vertical-align: middle;
+}
+
+.mini-calendar-cell:hover {
+    background-color: white;
+}
+
+.mini-calendar-grid .not-in-month .mini-calendar-cell {
+    color: #bbb;
+}
+
+.is-today .mini-calendar-cell {
+    border: 1px solid #00adef;
+    font-weight: bold;
+    padding-left: 0px;
+}
+
+.is-active-day .mini-calendar-cell, .is-active-day .mini-calendar-cell:link, .is-active-day .mini-calendar-cell:visited,
+.is-active-day .mini-calendar-cell:hover, .is-active-day .mini-calendar-cell:active {
+    background-color: #00adef;
+    color: white !important;
+}
+
+.calendar-weekday-header {
+    font-weight: 600 !important;
+}
+
+.has-events .mini-calendar-cell-text:after {
+    content: '\0025CF';
+    color: #f7941e;
+    font-size: 60%;
+    margin-top: -14px;
+    display: inline-block;
+    /*vertical-align: 12px;*/
+}
+
+.mini-calendar-grid .popover {
+    width: 420px !important;
+}
+
+.mini-calendar-popup {
+    min-width: 260px;
+    /*width: 100%;*/
+    font-size: 100%;
+}
+
+.mini-calendar-popup-header h4 {
+    text-align: center;
+    font-size: 120%;
+}
+
+.mini-calendar-popup-event-message {
+    text-align: center;
+    color: #999;
+    border-bottom: 1px solid #bbb;
+    padding-bottom: 20px;
+}
+
+.mini-calendar-popup-event-list {
+    border-top: 1px solid #bbb;
+}
+
+.mini-calendar-popup-event {
+    color: #999;
+    border-bottom: 1px solid #bbb;
+    display: block;
+    width: 100%;
+}
+
+.mini-calendar-popup-event-time {
+    padding: 10px;
+    width: 6em;
+    display: inline-block;
+    /*float: left;*/
+    vertical-align: top;
+
+}
+
+.mini-calendar-popup-event-time .time-hour {
+    display: block;
+}
+
+.mini-calendar-popup-event-summary {
+    padding: 10px;
+    display: inline-block;
+    /*float: left;*/
+    width: 12em;
+    vertical-align: top;
+    border-left: 1px solid #bbb;
+}
+
+.event-name {
+    font-weight: bold;
+    color: #00adef;
+}
+
+.mini-calendar-popup-actions {
+    padding: 10px;
+    clear: both;
+}
+
+.mini-calendar-popup-actions a {
+    display: block;
+    text-align: center;
+}
+
+/*EVENT EDITOR*/
+
+.form-event {
+
+}
+
+.form-editor-row {
+    margin-bottom: 10px;
+}
+
+.form-editor-label {
+    width: 12em;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 4px;
+    color: #888;
+}
+
+.form-editor-control {
+    display: inline-block;
+}
+
+.form-editor-textfield {
+    border: 1px solid #999;
+    padding: 2px;
+}
+
+.form-editor-textfield, .form-editor textarea {
+    min-width: 26em;
+}
+

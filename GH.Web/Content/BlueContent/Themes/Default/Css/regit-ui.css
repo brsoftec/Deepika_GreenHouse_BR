@@ -1,0 +1,500 @@
+.btn-delete {
+    display: inline-block;
+    position: absolute;
+    top: 20%;
+    right: 2px;
+    width: 16px;
+    height: 16px;
+    text-indent: -999999px;
+    background: transparent url(../img/delete.png) no-repeat center center;
+    border: none;
+}
+
+.btn-cell-delete {
+    display: inline-block;
+    width: 16px;
+    height: 22px;
+    text-indent: -999999px;
+    background: transparent url(../img/delete.png) no-repeat 0 center;
+}
+
+.btn-form-delete {
+    display: inline-block;
+    width: 16px;
+    height: 22px;
+    text-indent: -999999px;
+    float: right;
+    background: transparent url(../img/delete.png) no-repeat 0 center;
+}
+
+input[type=number] {
+    height: 30px;
+}
+
+input, select {
+    font-size: 100% !important;
+}
+
+.select select {
+    background: transparent;
+    padding: 2px 20px 4px 8px;
+    border: none;
+    box-shadow: none;
+    background-image: none;
+    width: 100%;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.select {
+    overflow: hidden;
+    background: transparent url(../img/select-icon.png) no-repeat right center;
+    border: 1px solid #999;
+    border-radius: 6px;
+}
+.select.short  {
+    width: 50%;
+}
+.picker select {
+    background: transparent;
+    padding: 2px 8px;
+    margin: 0;
+    box-shadow: none;
+    border-radius: 4px;
+    background-image: none;
+    min-width: 5em;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.picker {
+    background: transparent url(../img/picker-icon.png) no-repeat right center;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.select select, .picker select {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,020202+100&0+0,0.09+100 */
+    background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(2, 2, 2, 0.09) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(2, 2, 2, 0.09) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(2, 2, 2, 0.09) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#17020202', GradientType=0); /* IE6-9 */
+}
+
+
+.radiogroup {
+}
+
+.radio {
+    display: inline-block;
+    margin-right: 12px;
+}
+
+.radio + .radio {
+    margin: 0;
+}
+
+.input[type=checkbox]:not(old),
+.input[type=radio   ]:not(old) {
+    display: inline-block !important;
+    width: 24px !important;
+    height: 24px !important;
+    line-height: 24px;
+    margin: 0 !important;
+    padding: 0 !important;
+    opacity: 0 !important;
+}
+
+.input[type=checkbox]:not(old) + label,
+.input[type=radio   ]:not(old) + label {
+    display: inline-block !important;
+    padding-left: 30px !important;
+    background: url('../img/checks.png') no-repeat 0 0;
+    height: 24px !important;
+    line-height: 24px !important;
+}
+
+input + .input[type=radio]:not(old) + label,
+.input[type=checkbox]:not(old) + label {
+    margin-left: -28px !important;
+}
+
+.input[type=checkbox]:not(old) + label {
+    background-position: 0 -72px;
+}
+
+.input[type=checkbox]:not(old):checked + label {
+    background-position: 0 -24px;
+}
+
+.input[type=radio]:not(old):checked + label {
+    background-position: 0 -48px;
+}
+
+[ng-message] {
+    color: darkorange;
+    clear: both;
+}
+
+.input-shortnum {
+    width: 5em !important;
+    text-align: center;
+}
+
+rgu-input-group {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+rgu-input-group input {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    float: left;
+}
+
+rgu-input-group .picker {
+    width: 5em;
+    display: inline-block;
+    float: left;
+}
+
+rgu-input-group .picker select {
+    height: 34px;
+}
+
+rgu-date-input {
+    width: 7em;
+    /*height: 30px;*/
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+rgu-date-input input {
+    position: relative;
+    display: inline-block;
+    width: 7em;
+    background: transparent url(../img/datepicker.png) no-repeat right center;
+    margin-right: 10px;
+    border: 1px solid #999;
+    padding-left: 4px !important;
+}
+
+rgu-date-input .picker {
+    margin-right: 8px !important;
+}
+
+rgu-date-input .picker select {
+    font-size: 90% !important;
+}
+
+rgu-date-input .picker-month select {
+    width: 8em;
+}
+
+rgu-date-input .picker-year select {
+    width: 5em;
+}
+.form-row rgu-date-input {
+    width: 70%;
+}
+rgu-time-input {
+    display: inline-block !important;
+    vertical-align: top;
+}
+
+rgu-time-input input {
+    width: 6em;
+    background: transparent url(../img/timepicker.png) no-repeat right center;
+    border: 1px solid #999;
+}
+
+rgu-time-input + rgu-date-input {
+    display: inline-block !important;
+
+}
+
+rgu-time-input + rgu-date-input input {
+
+}
+
+.modal-backdrop {
+    opacity: 0.8;
+}
+
+.modal {
+}
+
+.modal-content {
+    border: 1px solid #bbb;
+    /*width: 20em;*/
+    margin: 0 auto;
+}
+
+.modal-header {
+    background-color: #e6e6e6;
+    height: 30px;
+    padding: 2px;
+}
+
+.modal-title {
+    color: black;
+    font-size: 100%;
+}
+
+.modal-body {
+    background-color: white;
+
+}
+
+.btn-modal-close {
+    width: 30px;
+    height: 24px;
+    float: right;
+    background: transparent url(../img/btn-modal-close.png) no-repeat center center;
+    text-indent: -99999px;
+    border: none;
+}
+
+.headpane {
+    border-bottom: 1px solid #666;
+    padding: 4px;
+}
+
+.pane-actions {
+    display: inline-block;
+
+}
+
+.user-picker-container {
+    border: 1px solid #bbb;
+    padding: 2px;
+}
+
+.user-picker-inline input {
+    display: inline-block;
+    font-size: 90% !important;
+    width: 8em;
+    border: none;
+    outline: none;
+}
+
+.uib-typeahead-match {
+    margin: 0;
+    padding: 0;
+}
+
+.uib-typeahead-match li {
+    margin: 0;
+    padding: 0 !important;
+}
+
+.user-picker-item {
+    margin: 2px 0 !important;
+    padding: 0 !important;
+}
+
+.active .user-picker-item {
+    color: white;
+}
+
+.active .user-picker-name {
+    color: white;
+}
+
+.user-picker-item > span {
+    padding: 4px;
+}
+
+.user-picker-avatar {
+    width: 30px;
+    height: 30px;
+}
+
+.user-picker-picked-full {
+    list-style: none;
+    min-width: 10em;
+    margin: 0 auto;
+    padding: 2px;
+
+}
+
+.user-picker-picked-full li {
+    position: relative;
+    width: 100%;
+    height: 44px;
+    line-height: 30px;
+    margin: 0;
+    padding: 4px 0;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.user-picker-picked-full li > div {
+    display: inline-block;
+}
+
+.user-picker-picked-full .btn-delete {
+    top: 10px;
+    right: 0;
+}
+
+.user-picker-role {
+    float: right;
+    text-align: right;
+    color: #bbb;
+}
+
+.user-picker-picked {
+    display: inline-block;
+    list-style: none;
+    margin: 0;
+    padding: 2px;
+}
+
+.user-picker-picked li {
+    position: relative;
+    display: inline-block;
+    font-size: 80%;
+    height: 22px;
+    line-height: 18px;
+    background-color: #E1F4FD;
+    border: 1px solid #ADCCDC;
+    border-radius: 4px;
+    margin: 0 4px 0 0;
+    padding: 0 4px;
+    cursor: pointer;
+}
+
+.user-picker-picked li > div {
+    display: inline-block;
+}
+
+.user-picker-picked .btn-delete {
+    /*top: 6px; right: 20px;*/
+    position: relative;
+    margin-left: 10px;
+}
+
+.btn-input-action {
+    padding: 2px 4px;
+    /*margin: 0 2px 4px 0;*/
+    float: right;
+}
+
+.btn-delete-inline {
+    display: inline-block;
+    width: 10px;
+    height: 20px;
+    background: transparent url(../img/btn-delete-inline.png) no-repeat center center;
+    margin-left: 6px;
+    text-indent: -99999px;
+    border: none;
+}
+
+rgu-location-picker {
+    width: 100%;
+}
+
+rgu-location-picker > * {
+    margin-right: 10px;
+}
+
+rgu-switch {
+    display: inline-block;
+    padding: 20px 0;
+    position: relative;
+}
+
+.rgu-switch-label {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 16px;
+    margin: 2px;
+    vertical-align: middle;
+}
+
+.rgu-switch-true {
+    color: #00adef;
+}
+
+.rgu-switch-false {
+    color: #aaa;
+}
+
+rgu-tag-input {
+    width: 100%;
+}
+rgu-tag-input tags-input {
+    border: 1px solid #eee;
+
+}
+.ui-select-match-item.btn {
+    background: #E1F4FD !important;
+    border: 1px solid #ADCCDC !important;
+    border-radius: 4px;
+}
+
+.richlist-item-prefix {
+    /*display: inline-block;*/
+    margin-right: 6px;
+}
+.richlist-color-slot {
+    display: inline-block;
+    width: 20px; height: 20px;
+}
+
+.ui-select-match input {
+    height: 20px !important;
+}
+
+rgu-control input {
+    min-width: 14em;
+}
+
+.form-field-message {
+    display: inline-block;
+    margin-top: 4px;
+    padding: 4px;
+    border: 1px solid #00adef;
+    border-radius: 4px;
+    color: #00adef;
+    background-color: #ADCCDC;
+}
+.form-field-error {
+    background-color: #fee8c9;
+    color: orangered;
+    border-color: orangered;
+}
+.ng-valid + .form-field-message {
+    display: none;
+}
+
+.form-field-message + input[type=radio] {
+    margin-left: -16px !important;
+}
+
+.location-map {
+    margin-top: 10px;
+}
+.angular-google-map-container {
+    width: 100%;
+    min-height: 400px;
+}
+
+.control-row {
+    width: 100%;
+    margin-bottom: 10px;
+}
+.control-col {
+    display: inline-block;
+    width: 46%;
+    margin-right: 10px;
+}
+.control-label {
+    display: inline-block;
+    width: 8em;
+    margin-right: 10px;
+    vertical-align: top;
+}

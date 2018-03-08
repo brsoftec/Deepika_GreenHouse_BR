@@ -1,0 +1,166 @@
+/* DOCUMENT VAULT */
+
+.vault-documents {
+    font-family: Roboto;
+}
+
+.vault-doc-header {
+
+}
+
+.vault-doc-upload-btn {
+    background: transparent url(../img/vault-doc-upload-btn.png) 12px center no-repeat;
+    color: #959595 !important;
+    border: 1px solid #959595;
+    border-radius: 4px;
+    padding: 10px 30px 10px 40px;
+    display: inline-block;
+}
+
+.vault-doc-upload-control label {
+    word-wrap: break-word;
+}
+
+.vault-doc-search {
+    float: right;
+    margin-top: 6px;
+    margin-bottom: 0;
+    position: relative;
+}
+
+.search-doc-vault {
+    border-color: #aaa !important;
+    font-size: 90% !important;
+}
+
+.vault-doc-container {
+    background: #f0f0f0;
+    padding: 20px;
+}
+
+.vault-documents h3 {
+    color: black;
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    font-size: 130%;
+}
+
+.vault-doc-grid {
+    margin-top: 20px;
+    width: 100%;
+    border-top: 1px solid #d0d0d0;
+}
+
+.vault-doc-grid td {
+    border-top: #d0d0d0;
+    padding: 6px 14px;
+    border-bottom: 1px solid #d0d0d0;
+}
+
+.vault-doc-type-icon {
+    width: 30px;
+    height: 24px;
+    background: transparent url(../img/vault-doc-type-doc.png) no-repeat 4px 10px;
+}
+
+.vault-doc-type-img {
+    background-image: url(../img/vault-doc-type-img.png);
+}
+
+.vault-doc-name {
+    font-weight: bold;
+    display: block;
+    color: black;
+}
+
+.vault-doc-cat {
+    font-size: 80%;
+    line-height: 1;
+}
+
+.vault-doc-date {
+    font-size: 80%;
+}
+
+.vault-doc-actions {
+    width: 20px;
+}
+.vault-doc-delete {
+    background: transparent url(../img/btn-delete.png) no-repeat center center;
+    border: none;
+    text-indent: -99999px;
+     width: 20px !important;
+}
+
+.vault-doc-form {
+    width: 100%;
+}
+
+.vault-doc-editor {
+    width: 65%;
+    display: inline-block;
+    text-align: left;
+}
+
+
+
+.vault-doc-preview {
+    width: 30%;
+    float: right;
+    margin-bottom: 20px;
+}
+
+.vault-doc-preview img {
+    width: 100%;
+}
+
+.vault-doc-upload-control {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.vault-doc-editor-row {
+    margin-bottom: 10px;
+}
+
+.vault-doc-form label {
+    display: block;
+}
+
+.vault-doc-editor-control {
+    display: block;
+}
+
+.vault-doc-editor-control input {
+    width: 100% !important;
+}
+
+.vault-doc-editor-footer {
+    clear: both;
+    text-align: left;
+    margin: 20px 0;
+}
+
+.vault-select-group {
+    margin-top: 0; margin-bottom: 0;
+    /*padding: 0;*/
+}
+.vault-select-disabled {
+
+}
+.vault-select-item {
+    color:black !important;
+}
+
+.vault-form-doc-grid td {
+    padding: 4px 10px 10px 10px;
+    vertical-align: middle;
+}
+.vault-form-doc-grid .vault-doc-name {
+    font-weight: normal;
+}
+
+.vault-doc-download-btn {
+    float: right;
+}

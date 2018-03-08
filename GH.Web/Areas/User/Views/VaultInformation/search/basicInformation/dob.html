@@ -1,0 +1,24 @@
+﻿
+
+<div ng-controller="SearchBasicController">
+    <div class="vault-group-content">
+        <div class="vault-row" ng-if="field.label == 'Date Of Birth'">
+            <!--<input type="date" id={{query.formName}} ng-model="field.value" />-->
+
+            <rgu-date-input type="combo" id={{query.formName}} ng-model="field.value"> </rgu-date-input>
+
+        </div>
+        <div class="vault-row">
+            <button type="button"
+                    class="btn-edit-vault-field-action btn-edit-vault-field-cancel"
+                    ng-click="$event.preventDefault();cancelField(entry)">
+                Cancel
+            </button>
+            <button type="button" class="btn-edit-vault-field-action"
+                    ng-click="Save()">
+                Save
+            </button>
+        </div>
+    </div>
+
+</div> 

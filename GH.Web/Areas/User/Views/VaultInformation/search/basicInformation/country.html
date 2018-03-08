@@ -1,0 +1,66 @@
+﻿
+
+<div ng-controller="SearchBasicController">
+
+    <div ng-if="write">
+        <div class="vault-group-content">
+            <!--First Name-->
+            <div class="vault-row">
+              
+                <div class="vault-label">
+                    
+                </div>
+
+                <div class="vault-field">
+                    <rgu-control type="location" ng-model="countryCity"></rgu-control>
+                </div>
+             </div>
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label></label>
+                </div>
+                <div class="vault-field">
+                    <button type="button"
+                            class="btn-edit-vault-field-action btn-edit-vault-field-cancel"
+                            ng-click="$event.preventDefault();cancelField(entry)">
+                        Cancel
+                    </button>
+                    <button type="button" class="btn-edit-vault-field-action"
+                            ng-click="Save()">
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-if="!write && read">
+        <div class="vault-group-content">
+            <!--First Name-->
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>{{field.label}}</label>
+                </div>
+
+                <div class="vault-field">
+                   
+                        <label> City: {{countryCity.city}} - Country: {{countryCity.country}}</label>
+
+                    
+                </div>
+            </div>
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label></label>
+                </div>
+                <div class="vault-field">
+                    <button type="button"
+                            class="btn-edit-vault-field-action btn-edit-vault-field-cancel"
+                            ng-click="$event.preventDefault(); cancelField(entry)">
+                        Close view
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

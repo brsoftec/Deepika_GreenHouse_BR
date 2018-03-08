@@ -1,0 +1,84 @@
+﻿@{
+ViewBag.Title = "Support Center";
+Layout = "~/Areas/User/Views/Shared/_LayoutDefaultApply.cshtml";
+
+}
+@section styles {
+    
+    
+   <link rel="manifest" href="/manifest.json">
+
+@Styles.Render("~/bundles/css/phone-input")
+<link rel="stylesheet" href="~/Areas/Beta/css/support.css">
+}
+
+@section prescripts {
+
+    <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase-messaging.js"></script>
+@*    <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>*@
+    <script>
+        // Initialize Firebase
+/*        var config = {
+            apiKey: "AIzaSyCGX7JeAbZgdMnQSgvkqsEIgAluMHykGcs",
+            authDomain: "regit-beta-598d2.firebaseapp.com",
+            databaseURL: "https://regit-beta-598d2.firebaseio.com",
+            projectId: "regit-beta-598d2",
+            storageBucket: "regit-beta-598d2.appspot.com",
+            messagingSenderId: "810933907082"
+        };*/
+        var config = {
+            apiKey: "AIzaSyBTON73YMFwoqI8hQQ3vIrs854t1R1ys-U",
+            authDomain: "regitmobile.firebaseapp.com",
+            databaseURL: "https://regitmobile.firebaseio.com",
+            projectId: "regitmobile",
+            storageBucket: "regitmobile.appspot.com",
+            messagingSenderId: "767467205820"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+}
+
+@section scripts {
+
+<script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/SupportController.js")"></script>
+
+}
+
+<div class="module module-main module-account" ng-controller="SupportController">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">&laquo; Home</a></li>
+        <li class="breadcrumb-item active">Support Center</li>
+    </ol>
+    <h1>Support Center</h1>
+    <div class="support-container">
+        <div class="support-intro">Welcome to Regit Support Center. You can see the status of any recent support cases,
+            or open up a new support case. Be sure to check the FAQ for solutions to common problems.
+        </div>
+        <div class="support-cases-manager">
+            <div class="support-actions">
+                <button class="support-action-create" ng-click="createCase()">Create Case</button>
+            </div>
+            <table class="support-cases-grid table table-striped">
+                <tr>
+                    <th>Created</th>
+                    <th>Subject</th>
+                    <th>Case ID</th>
+                    <th>Category</th>
+                    <th>Severity</th>
+                    <th>Status</th>
+                </tr>
+                <tr ng-repeat="case in support.cases" ng-click="editCase(case)">
+                    <!--<td ng-bind="case.created | date:'d MMM yyyy'"></td>-->
+                    <td ng-bind="case.created | friendlyTime"></td>
+                    <td ng-bind="case.subject"></td>
+                    <td ng-bind="case.id"></td>
+                    <td ng-bind="case.category.label"></td>
+                    <td ng-bind="case.severity"></td>
+                    <td ng-bind="case.status"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

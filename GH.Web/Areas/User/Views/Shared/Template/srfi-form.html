@@ -1,0 +1,177 @@
+﻿
+
+    <div class="modal-container">
+       
+        <img class="thumbnail feed-profile-avatar" ng-src="{{profile.avatar | avatarUrl}}"> 
+        <div class="feed-profile-name">{{profile.displayName}} </div>
+        <h3 class="reg-title center">{{campaign.name}} - SRFI</h3>
+        <div class="stamp-regit">Powered by Regit</div>
+        <form class="form-horizontal form-registration">
+            <div class="form-horizontal form-registration sync-invite-form">
+                <fieldset>
+                    <legend>Members</legend>
+                    <div class="form-group form-row">
+                        <div class="col-sm-3">
+                            <label>Invite</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="radiogroup">
+                                <div class="radio">
+                                    <input checked id="option-member" name="input-title" 
+                                           ng-model="inviteType" type="radio" value="member">
+                                    <label for="option-member">By Member</label>
+                                </div>
+                                <div class="radio">
+                                    <input id="option-email" name="input-title"
+                                           ng-model="inviteType" type="radio" value="email">
+                                    <label for="option-email">By Email</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-show="inviteType == 'member'" class="form-group form-row">
+                        <div class="col-sm-3">
+                            <label>Select Member <!--{{ memberSelected | json}}--></label>
+                        </div>
+                        <div class="col-sm-9">
+                            <select ng-options="f as f.DisplayName for f in ListMember" ng-model="memberSelected"
+                                    class="" id="select-delegate"></select>
+
+                            <div class="form-field-details-row" ng-if="memberSelected==null">
+                                <span class="form-field-message" style="color:red">
+                                    Please select a member
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div ng-show="inviteType != 'member'" class="form-group form-row">
+                        <div class="col-sm-3">
+                            <label>Send To</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="sync-invite-recipients">
+                                <div class="form-notes">
+                                    <p>
+                                        Enter list of email addresses to receive invitation to join the SRFI.
+                                        Separate multiple emails by comma, semicolon or space.
+                                    </p>
+                                    <p>
+                                        If an email address is found with a Regit user, the invitation is sent as
+                                        notification. Otherwise, an email is sent to invite the person to join
+                                        Regit.
+                                    </p>
+                                </div>
+                               
+                                <textarea ng-model="recipientsText" rows="5" ng-change="parseRecipients()"
+                                          placeholder="Recipient email addresses"></textarea>
+                                <div class="form-row-message" ng-if="invite.message">
+                                    <div class="form-message-text" ng-bind="invite.message"></div>
+                                </div>
+                                <div class="form-notes form-results">
+                                    <p ng-if="listEmailInsite.length">
+                                        Invitation sent to Regit users:
+                                        {{listEmailInsite.join(", ")}}
+                                    </p>
+                                    <p ng-if="listEmailOutsite.length">
+                                        Invitation email sent to people outside Regit:
+                                        {{listEmailOutsite.join(", ")}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-row">
+                        <div class="col-sm-3">
+                            <label> Comment </label>
+                        </div>
+                        <div class="col-sm-9">
+                            <textarea rows="3" ng-model="comment"></textarea>
+                        </div>
+
+                    </div>
+                </fieldset>
+                <div ng-if="isshowplanupgrade" class="billing-quota-container">
+                    <div class="billing-quota-alert">
+                        <p>
+                        <p>Your usage has reached limit of total {{maxnumber}} handshake relationships, as imposed by {{plan.label}}.</p>
+                        <p><a href="/BusinessAccount/Billing">Upgrade your plan</a> to reach more.</p>
+                        <p><a href="/BusinessAccount/Billing">Upgrade your plan</a> to remove this limitation.</p>
+                    </div>
+                </div>
+                <div style="padding-top:20px;color:red;text-align:center">
+                    <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+                        <div ng-bind-html="messageBox"></div>
+                    </uib-alert>
+                </div>
+                <div class="button-group">
+                    <button type="button" ng-click="cancel()" class="btn btn-default">
+                        <span ng-if="isInvite">Close</span> <span ng-if="!isInvite"> Cancel </span>
+                    </button>
+                    <button ng-if="!isInvite" type="button" ng-click="invite()"
+                            class="btn btn-primary">
+                        Send Form
+                    </button>
+<!--                    <button  ng-click="showForm = !showForm"
+                            class="btn btn-primary" >
+                        <span ng-if="showForm"> Close view form</span> <span ng-if="!showForm"> View Form </span>
+                    </button>          -->
+                    <button  ng-click="viewSrfiForm()" class="btn btn-default view-form-action" >
+                        View Form
+                    </button>
+                </div>
+            </div>
+<!--            <div ng-if="showForm">
+                <fieldset>
+                    <legend>Personal Information</legend>
+                    <div ng-repeat="campaign in groupField">
+                        <div class="interaction-form-group-heading first-group"> {{campaign.name}} </div>
+                        <div class="form-group form-row" ng-repeat="field in campaign.fields">
+
+                            <div class="col-sm-4 text-right interaction-form-label">
+                                <label>{{field.displayName}}</label><span title="Required Field" ng-if="!field.optional && field.type !=='static'" style="color:red;"> *</span>
+                                <switch ng-if="field.optional" ng-model="field.selected" switcher-on-text="Send" switcher-off-text="N/A"></switch>
+                            </div>
+                            <div ng-if="campaign.name != 'Membership' && Mode=='Edit'" class="col-sm-8">
+                                <rgu-control ng-if="field.type!=='numinput' && field.type!=='tagsinput' && field.type!=='range' && field.type!=='history'"
+                                             type="{{field.type}}"
+                                             ng-model="field.model" options="field.options"></rgu-control>
+                                <rgu-control ng-if="field.type==='numinput'" type="{{field.type}}" ng-model="field.model"
+                                             options="field.options"
+                                             unit-model="field.unitModel"></rgu-control>
+                                <rgu-control ng-if="field.type==='tagsinput'" type="{{field.type}}" ng-model="field.model"
+                                             options="field.options"
+                                             placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                                <rgu-control ng-if="field.type==='range'" type="range" subtype="{{field.options}}"
+                                             ng-model="field.range" options="field.model"
+                                             unit-model="field.unitModel" ng-required="field.optional"
+                                             rules="{{field.rules}}"></rgu-control>
+                                <rgu-control ng-if="field.type==='history'" type="history" subtype="{{field.options}}"
+                                             ng-model="field.history" options="field.model"
+                                             ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+                            </div>
+                            <div ng-if="campaign.name == 'Membership' && Mode=='Edit'" class="col-sm-8">
+                                <rgu-control ng-if="field.type==='static'" type="static" value="{{field.value}}"
+                                             ng-model="field.model"></rgu-control>
+                                <rgu-control ng-if="field.type!=='static' && field.type!=='numinput' && field.type!=='tagsinput' "
+                                             type="{{field.type}}"
+                                             ng-model="field.model" options="field.options"></rgu-control>
+                                <rgu-control ng-if="field.type==='numinput'" type="{{field.type}}" ng-model="field.model"
+                                             options="field.options"
+                                             unit-model="field.unitModel"></rgu-control>
+                                <rgu-control ng-if="field.type==='tagsinput'" type="{{field.type}}" ng-model="field.model"
+                                             options="field.options"
+                                             placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </div>-->
+           
+          
+        </form>
+    </div>
+

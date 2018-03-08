@@ -1,0 +1,131 @@
+﻿@using GH.Lang;
+
+@{
+    ViewBag.Title = "Sign Up";
+    Layout = "~/Areas/User/Views/Shared/_SignupLayout.cshtml";
+    ViewBag.BodyClass = "signup";
+}
+@section styles{
+
+}
+@section scripts{
+<script src="~/Areas/User/Scripts/Services/FeedBackService.js"></script>
+<script src="~/Areas/User/Scripts/Controllers/feedback-ctrl.js"></script>
+}
+
+@* BODY  ViewBag.Id *@
+
+   
+    <div class="section section-public section-signup">
+        <div class="public-container signup-container" ng-controller="SignUpController">
+            <div class="public-aside">
+                <div class="aside-logo">
+                    <img src="~/Areas/Beta/img/regit-logotype.svg">
+                </div>
+            </div>
+            <div class="signup-form" ng-init="outsiteId = '@ViewBag.Id'">
+                <h1>New Regit account</h1>
+                <h2 ng-if="progress.Step == 'REGISTER'">
+                    You’re one step closer to taking control of your life!
+                </h2>
+                <form name="signUpForm" class="pure-form public-form form-signup" novalidate>
+                    <div ng-if="progress.Step == 'REGISTER'" class="row register-step">
+                        <div class="public-form-row">
+                            <input type="text" ng-class="{'control-error': progress.Errors.Step1.FirstName}" class="form-control inline-control" placeholder="@Regit.First_Name.ToUpper()" ng-model="account.FirstName" />
+                            <input type="text" ng-class="{'control-error': progress.Errors.Step1.LastName}" class="form-control inline-control inline-control-right" placeholder="@Regit.Last_Name.ToUpper()" ng-model="account.LastName" />
+                            <div class="form-error">{{progress.Errors.Step1.FirstName}}</div>
+                            <div class="form-error">{{progress.Errors.Step1.LastName}}</div>
+                        </div>
+
+                        <div class="public-form-row">
+                            <input type="text" ng-class="{'control-error': progress.Errors.Step1.Email}" class="form-control" placeholder="@Regit.Email.ToUpper()" ng-model="account.Email" />
+                            <div class="form-error">{{progress.Errors.Step1.Email}}</div>
+                        </div>
+                        <div class="public-form-row">
+                            <input type="text" ng-class="{'control-error': progress.Errors.Step1.confirmEmail}" class="form-control" placeholder="CONFIRM EMAIL" ng-model="account.confirmEmail" />
+                            <div class="form-error">{{progress.Errors.Step1.ConfirmEmail}}</div>
+                        </div>
+
+                        <div class="public-form-row">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <rgu-phone-input name="signupPhoneInput" placeholder="PHONE NUMBER" ng-model="account.PhoneNumber"
+                                                         phone-code="account.PhoneNumberCountryCallingCode" initial-country="auto">
+                                        </rgu-phone-input>
+                                    </td>
+                                    <td>
+                                        <div ng-if="sendPin">
+                                            <input type="text" ng-class="{'control-error': progress.Errors.Step1.PIN}" placeholder="_ _ _ _" ng-model="authentication.PIN" />
+
+                                        </div>
+
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="form-error">{{progress.Errors.Step1.PIN}}</div>
+                            <div class="form-error">{{progress.Errors.Step1.PhoneNumber}}</div>
+                            <div class="public-form-notes">
+                                <ol type="i">
+                                    <li>As an additional layer of security to protect your information, we require your phone number to authenticate you in cases of password resets or other changes to your account.</li>
+                                    <li>Note that we will never ask you for your password, or sell your personal information.</li>
+                                </ol>
+                            </div>
+
+                        </div>
+
+                        <div class="public-form-row">
+                            <ui-select ng-model="countryCity.Country" theme="bootstrap" remove-selected="false">
+                                <ui-select-match placeholder="@Regit.Select_Country.ToUpper()">{{$select.selected.Name}}</ui-select-match>
+                                <ui-select-choices repeat="country.Name as country in countries | filter: $select.search">
+                                    <span ng-bind-html="country.Name | highlight: $select.search"></span>
+                                </ui-select-choices>
+                            </ui-select>
+                            <input type="text" ng-class="{'control-error': progress.Errors.Step1.City}" class="form-control inline-control"
+                                   placeholder="@Regit.SELECT_CITY.ToUpper()" ng-model="countryCity.City" />
+
+                            <div class="form-error">{{progress.Errors.Step1.City}}</div>
+                            <div class="form-error">{{progress.Errors.Step1.Country}}</div>
+                        </div>
+
+                        <div class="public-form-row">
+                            <input type="password" ng-class="{'control-error': progress.Errors.Step1.Password}" class="form-control" ng-disabled="registerExternal" placeholder="@Regit.Password.ToUpper()" ng-model="account.Password" />
+                            <div class="form-error">{{progress.Errors.Step1.Password}}</div>
+                        </div>
+
+                        <div class="public-form-row">
+                            <input type="password" ng-class="{'control-error': progress.Errors.Step1.ConfirmPassword}" class="form-control"
+                                   ng-disabled="registerExternal" placeholder="@Regit.ConfirmPassword.ToUpper()" ng-model="account.ConfirmPassword"
+                                   ng-enter="register()" />
+                            <div class="form-error">{{progress.Errors.Step1.ConfirmPassword}}</div>
+                        </div>
+
+                        <div class="public-form-row">
+                            <label class="checkbox-square"><input type="checkbox" ng-model="account.AgreeTermsAndCondition" /><span></span> <span>I agree to the  <a href="/about/terms-conditions" target="_blank">Terms &amp; Conditions</a></span></label>
+                        </div>
+
+                        <div class="public-form-row public-form-actions">
+                            <button type="button" class="btn btn-primary public-form-btn" ng-click="register()">
+                                Sign up
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <div ng-if="progress.Step == 'CONGRATULATION'">
+                        <h3>Almost Done</h3>
+                        <p>Only one more step. A confirmation email has been sent to your address. Please check and click the link in email to activate your account.</p>
+                        <p>Then you can enter Regit and start making your life easier!</p>
+
+                        <div class="public-form-row public-form-actions">
+                            <a href="/User/SignIn" class="btn btn-primary public-form-btn">
+                                Continue to Sign in
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        
+        </div>
+    </div>

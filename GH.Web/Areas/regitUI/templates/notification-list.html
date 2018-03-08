@@ -1,0 +1,41 @@
+<div class="notification-group notification-list">
+
+
+    <div class="interaction-dashboard notifications-dashboard">
+        <button type="button" class="interaction-cta notifications-cta-settings"
+                ng-click="gotoSettings()">
+            Settings
+        </button>
+        <button type="button" class="interaction-cta notifications-cta-mark-all-read last-in-group"
+                ng-click="markAllReadFull()">
+            Mark All As Read
+        </button>
+    </div>
+
+        <div ng-repeat="notif in notifications | filter:filterNotifications | limitTo:view.showCount" class="notification-popover-item notification-list-item notification-cat-{{notif.category}}"
+             ng-class="{unread: !notif.read}">
+            <div class="notification-item-prefix thumbnail">
+                <img ng-src="{{notif.fromAvatar | avatarUrl}}">
+            </div>
+            <div class="notification-item-text">{{notif.text}}
+                <span class="notification-when"
+                      ng-bind="notif.created | friendlyTime"></span>
+
+                <div ng-if="notif.actions && !notif.resolved" class="notification-item-actions">
+                    <a class="notification-item-action" ng-repeat = "action in notif.actions" href="#" ng-click="$event.preventDefault(); handleAction(action, notif)" ng-bind="action.label"></a>
+                </div>
+
+                <div ng-if="notif.Type==='Notify Missing Information Vault For Registration'"
+                     class="notification-item-actions">
+                    <a ng-click="ViewReistrationForm(notif.PreserveBag)">View</a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="notification-list-actions">
+            <button type="button" ng-if="notifications.length >= view.pageSize" class="feed-load-more notificaiton-list-action" ng-click="showMoreNotifications()">Show more...</button>
+        </div>
+
+</div>

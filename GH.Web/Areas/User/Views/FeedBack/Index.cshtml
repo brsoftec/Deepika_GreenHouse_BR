@@ -1,0 +1,200 @@
+﻿@{
+    ViewBag.Title = "Beta Test Feedback Manager";
+    Layout = "~/Areas/User/Views/Shared/_LayoutFullApply.cshtml";
+}
+@section styles {
+    @Styles.Render("~/bundles/css/betatest-feedback")
+}
+@section scripts {
+    @Scripts.Render("~/bundles/js/betatest-feedback")
+  
+}
+
+@*<div class="module module-main module-betatest" ng-controller2="BetaTestController">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">&laquo; Home</a></li>
+        <li class="breadcrumb-item active">Feedback Manager</li>
+    </ol>
+    <h1>Feedbacks</h1>
+    <div class="betatest-feedbacks-grid" ng-controller="BetaTestFeedbacksController">
+        <div class="betatest-feedbacks-options">
+            <div class="betatest-feedbacks-option-row">
+                <rgu-checkbox ng-model="currentView.showingEmails" label="Show email addresses"></rgu-checkbox>
+                <rgu-checkbox ng-model="currentView.showingSystem" label="Show advanced information"></rgu-checkbox>
+            </div>
+            <div class="betatest-feedbacks-option-row">
+                <rgu-checkbox ng-model="currentView.showingBugs" label="Show bugs"></rgu-checkbox>
+                <rgu-checkbox ng-model="currentView.showingSuggestions" label="Show suggestions"></rgu-checkbox>
+            </div>
+        </div>
+        <table class="table table-striped">
+            <tr>
+                <th ng-if="currentView.showingSystem">ID</th>
+                <th>Feedback</th>
+                <th ng-if="currentView.showingSystem">User ID</th>
+                <th ng-if="currentView.showingEmails">Email</th>
+                <th ng-if="currentView.showingSystem">IP</th>
+                <th>Full Name</th>
+                <th>Submitted</th>
+                <th>Component</th>
+                <th>Attachment</th>
+                <th ng-if="currentView.showingSystem">URL</th>
+            </tr>
+            <tr ng-repeat="feedback in filteredFeedbacks = (feedbacks | filter:filterFeedbacks) | limitTo:currentView.pageSize:currentView.pageStart"
+                ng-init="initPages()" ng-class="{'betatest-feedback-type-bug':feedback.type==='Bug'}">
+                <td ng-if="currentView.showingSystem" ng-bind="feedback.id"></td>
+                <td>
+                    <a href="#" class="betatest-feedback-grid-summary" popover-placement="auto" popovertitle="" uib-popover-template="'betatest-feedbacks-description.popover.html'"
+                       popover-trigger="'outsideClick'" popover-is-open="currentView.showingDescription[$index]"
+                       ng-click="openDescription(feedback)">
+                        {{feedback.summary}}
+                    </a>
+                </td>
+                <td ng-if="currentView.showingEmails"><a href="mailto:{{feedback.userEmail}}">{{feedback.userEmail}}</a></td>
+                <td ng-if="currentView.showingSystem" ng-bind="feedback.userId"></td>
+                <td ng-if="currentView.showingSystem">{{feedback.userIP}}</td>
+                <td ng-bind="feedback.userFullName"></td>
+                <td><span class="betatest-feedbacks-grid-time">{{feedback.created | friendlyTime}}</span></td>
+                <td ng-bind="feedback.component"></td>
+                <td><img class="betatest-feedback-image" ng-if="feedback.attachmentUrl" ng-src="{{feedback.attachmentUrl}}" /></td>
+                <td ng-if="currentView.showingSystem">{{feedback.url}}</td>
+            </tr>
+        </table>
+        <div class="betatest-feedback-pager pager" ng-if="filteredFeedbacks.length > currentView.pageSize">
+            <ul>
+                <li ng-repeat="pages in currentView.pages">
+                    <a href="#" ng-click="$event.preventDefault();gotoPage($index)" ng-bind="$index+1"></a>
+                </li>
+            </ul>
+        </div>
+        <script type="text/ng-template" id="betatest-feedbacks-description.popover.html">
+            <div class="betatest-feedbacks-description">
+                {{feedback.description}}
+            </div>
+        </script>
+
+    </div>
+</div>*@
+
+<!--New -->
+
+<div class="module module-main module-betatest">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">&laquo; Home</a></li>
+        <li class="breadcrumb-item active">Feedback Manager</li>
+    </ol>
+    <h1>Feedbacks</h1>
+    <div class="betatest-feedbacks-grid" ng-controller="FeedBackController">
+        <div class="betatest-feedbacks-options">
+            <div class="betatest-feedbacks-option-row">
+                <rgu-checkbox ng-model="currentView.showingEmails" label="Show email addresses"></rgu-checkbox>
+                <rgu-checkbox ng-model="currentView.showingSystem" label="Show advanced information"></rgu-checkbox>
+            </div>
+            <div class="betatest-feedbacks-option-row">
+                <rgu-checkbox ng-model="currentView.showingBugs" label="Show bugs"></rgu-checkbox>
+                <rgu-checkbox ng-model="currentView.showingSuggestions" label="Show suggestions"></rgu-checkbox>
+            </div>
+        </div>
+        <table class="table table-striped" id="tableFilteredFeedbacks">
+            <tr>
+                <th ng-if="currentView.showingSystem">ID</th>
+                <th>Feedback</th>
+                <th ng-if="currentView.showingSystem">User ID</th>
+                <th ng-if="currentView.showingEmails">Email</th>
+                <th ng-if="currentView.showingSystem">IP</th>
+                <th>Full Name</th>
+                <th>Submitted</th>
+                <th>Component</th>
+                <th>Attachment</th>
+                <th ng-if="currentView.showingSystem">URL</th>
+            </tr>
+
+            
+            <tr ng-repeat="feedback in filteredFeedbacks = (getListFullFeedBack | filter:filterFeedbacks) | limitTo:currentView.pageSize:currentView.pageStart"
+                 ng-init="initPages()" ng-class="{'betatest-feedback-type-bug':feedback.Type==='Bug'}">
+                <td ng-if="currentView.showingSystem" ng-bind="feedback.Id"></td>
+               
+               
+                <td>
+                    <a href="#" class="betatest-feedback-grid-summary" popover-placement="auto" popovertitle="" uib-popover-template="'betatest-feedbacks-description.popover.html'"
+                       popover-trigger="'outsideClick'" popover-is-open="currentView.showingDescription[$index]"
+                       ng-click="openDescription(feedback)">
+                        {{feedback.Name}}
+                    </a>
+                </td>
+                <td ng-if="currentView.showingSystem" ng-bind="feedback.UserId"></td>
+                <td ng-if="currentView.showingEmails"><a href="mailto:{{feedback.Email}}">{{feedback.Email}}</a></td>
+               
+                <td ng-if="currentView.showingSystem">{{feedback.UserIP}}</td>
+                <td ng-bind="feedback.DisplayName"></td>
+                <td><span class="betatest-feedbacks-grid-time">{{feedback.DateCreate | friendlyTime}}</span></td>
+                <td ng-bind="feedback.Component"></td>
+                <td><a href="/Content/FeedBack/{{feedback.Attachment}}" ng-if="feedback.Attachment"><img class="betatest-feedback-image" ng-src="/Content/FeedBack/{{feedback.Attachment}}" /></a></td>
+                <td ng-if="currentView.showingSystem">{{feedback.FeedBackURL}}</td>
+            </tr>
+        </table>
+       
+        <div class="betatest-feedback-pager pager" ng-if="filteredFeedbacks.length > currentView.pageSize">
+            <ul>
+                <li ng-repeat="pages in currentView.pages">
+                    <a href="#" ng-click="$event.preventDefault();gotoPage($index)" ng-bind="$index+1"></a>
+                </li>
+            </ul>
+        </div>
+        <script type="text/ng-template" id="betatest-feedbacks-description.popover.html">
+            <div class="betatest-feedbacks-details">
+                <p><span class="betatest-feedbacks-details-label">Feedback ID:</span> {{feedback.Id}}</p>
+                <p><span class="betatest-feedbacks-details-label">Feedback type:</span> {{feedback.Type}}</p>
+                <p><span class="betatest-feedbacks-details-label">Feedback description:</span></p>
+            </div>
+            <div class="betatest-feedbacks-description">
+                {{feedback.Description}}
+            </div>
+        </script>
+
+        <table id="tableExportFeedbacks" style="display:none">
+            <tr>
+                <th ng-if="currentView.showingSystem">Feedback ID</th>
+                <th>Summary</th>
+                <th>Description</th>
+                <th ng-if="currentView.showingSystem">User ID</th>
+                <th>Full Name</th>
+                <th ng-if="currentView.showingEmails">Email</th>
+                <th ng-if="currentView.showingSystem">IP</th>
+
+                <th>Submitted</th>
+                <th>Component</th>
+                <th>Attachment</th>
+                <th ng-if="currentView.showingSystem">URL</th>
+            </tr>
+
+
+            <tr ng-repeat="feedback in filteredExportFeedbacks = (getListFullFeedBack | filter:filterFeedbacks)">
+                <td ng-if="currentView.showingSystem" ng-bind="feedback.Id"></td>
+                <td>{{feedback.Name}}</td>
+                <td>{{feedback.Description}}</td>
+                <td ng-if="currentView.showingSystem" ng-bind="feedback.UserId"></td>
+                <td ng-bind="feedback.DisplayName"></td>
+                <td ng-if="currentView.showingEmails"><a href="mailto:{{feedback.Email}}">{{feedback.Email}}</a></td>
+                <td ng-if="currentView.showingSystem">{{feedback.UserIP}}</td>
+                <td>{{feedback.DateCreate | date:'yyyy-MM-dd hh:mm'}}</td>
+                <td ng-bind="feedback.Component"></td>
+                <td><a href="https://regit.today/Content/FeedBack/{{feedback.Attachment}}" ng-if="feedback.Attachment">Image link</a></td>
+                <td ng-if="currentView.showingSystem">{{feedback.FeedBackURL}}</td>
+            </tr>
+        </table>
+    </div>
+
+
+
+    <div class="betatest-feedbacks-actions">
+        <a download="regit-feedbacks-@(DateTime.Now.ToString("yyyyMMdd-HHmm")).xls" href="#" class="btn btn-primary betatest-feedbacks-action"
+           onclick="return ExcellentExport.excel(this, 'tableExportFeedbacks', 'Regit Beta Tester Feedbacks');">Export to Excel</a>
+    </div>
+
+</div>
+
+
+<!-- end new-->
+
+

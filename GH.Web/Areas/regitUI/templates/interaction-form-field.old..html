@@ -1,0 +1,109 @@
+<div class="interaction-type-{{field.type}}" ng-class="{ novalue: !isStatic && !mode.preview && hasNoValue() && !isIgnored(), invalid:  !isStatic && !mode.preview && field.validate.invalid && !isIgnored(), optional: field.optional, ignored: isIgnored(), fieldsOnly: mode.fieldsOnly }">
+
+    <div class="interaction-field-label form-label" ng-if="mode.fieldsOnly">
+        <label ng-bind="field.displayName"></label>
+     </div>
+    <div class="interaction-field-label form-label" ng-if="!mode.fieldsOnly">
+        <label ng-bind="field.displayName"></label>
+        <switch ng-if="field.optional && !mode.viewOnly" ng-model="field.selected" switcher-on-text="Send"
+                switcher-off-text="N/A"></switch>
+    </div>
+
+    <div class="interaction-field-value form-viewer-field-path form-value" ng-if="mode.fieldsOnly">
+        <span ng-if="field.optional">(Optional) </span><span ng-bind-html="field.jsPath | jsPathToHtml"></span>
+    </div>
+
+
+    <div class="interaction-field-value form-value" ng-if="!mode.fieldsOnly && !mode.viewValues">
+        <div ng-if="!mode.editingForm && !isStatic && !hasNoValue() && !isIgnored()">
+<!--            <button type="button" ng-if="!mode.delegated || mode.super || !mode.regOnly && field.read" class="form-inline-action action-show interaction-field-show-value"
+                    ng-class="{active: field.view.showingValue}"
+                    ng-click="toggleShowValue(field)">Show/hide value
+            </button>
+            <span class="interaction-field-hidden-value" ng-if="!field.view.showingValue">********</span>
+            <span class="interaction-field-static-value" ng-if="field.view.showingValue" ng-bind-html="field | fieldToText"></span>-->
+                <span class="interaction-field-static-value" ng-bind-html="field | fieldToText"></span>
+        </div>
+
+        <div ng-if="isStatic">
+            <span class="interaction-field-static-value" ng-if="field.view.showingValue" ng-bind-html="field | fieldToText"></span>
+        </div>
+
+
+        <div ng-if="mode.editingForm && !isStatic && !isIgnored()">
+            <rgu-control ng-if="field.type === 'static'" type="static" value="{{field.options}}">
+                         </rgu-control>
+
+            <rgu-phone-input ng-if="field.type === 'textbox' && (field.options=='phone' || field.rules==='phone')" name="name" validate="field.validate"
+                             ng-model="field.model" options="field.options" phone-type="full" placeholder="Enter phone number"></rgu-phone-input>
+
+            <rgu-control ng-if="field.type==='numinput'" type="{{field.type}}"
+                         ng-model="field.model"
+                         options="field.options"
+                         unit-model="field.unitModel"></rgu-control>
+            <rgu-control ng-if="field.type==='tagsinput'" type="{{field.type}}"
+                         ng-model="field.model"
+                         options="field.options"
+                         placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+
+            <rgu-control ng-if="field.type==='range' && !interaction.editing" type="range"
+                         subtype="{{field.options}}" ng-model="field.model" options="field.modelarrays"
+                         unit-model="field.unitModel" ng-required="field.optional"
+                         rules="{{field.rules}}"></rgu-control>
+            <div ng-if="field.type==='range' && interaction.editing">
+            <select rgu-select class="inline" ng-model="field.edit.model" ng-options="range as range for range in field.model"></select>
+            </div>
+
+
+            <rgu-control ng-if="field.type==='history'" type="history"
+                         subtype="{{field.options}}"
+                         ng-model="field.modelarrays" options="field.model"
+                         ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+
+            <rgu-control ng-if="field.type==='qa' && (!interaction.editing || !field.choices)" type="qa"
+                         subtype="{{field.modelarrays}}" choices="{{field.choices}}"
+                         ng-model="field.model" options="field.modelarrays"
+                         ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+            <div ng-if="field.type==='qa' && interaction.editing && field.choices">
+               <select rgu-select class="inline" ng-model="field.edit.model" ng-options="choice.value as choice.value for choice in field.model"></select>
+            </div>
+            <div ng-if="field.type==='doc'" class="doc-control-manager">
+                <table class="doc-control-grid">
+
+                    <tr ng-repeat="doc in field.model" ng-class="{selected:doc.selected}">
+                        <td class="doc-fname">
+
+                            <a target="_blank" href="{{doc.filePath + '/' + doc.fileName}}">{{doc.fileName}}</a>
+                        </td>
+                        <td class="doc-control-actions">
+                            <button type="button" class="doc-control-delete"
+                                    ng-click="deleteDoc(field.model, $index)">Delete
+                            </button>
+                        </td>
+                        <td class="doc-control-actions">
+                            <button type="button" class="doc-control-select"
+                                    ng-click="selectDoc(doc)">Select
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+                <div class="upload-group doc-control-upload">
+                    <input type="file" id="{{field.jsPath}}" jsonpath="{{field.jsPath}}" class="input-file" ng-class="{previewing: interaction.editing}"
+                           onchange="angular.element(this).scope().uploadFile(this, angular.element(this).scope().field)"
+                           ng-disabled="interaction.editing">
+                </div>
+            </div>
+
+            <rgu-control ng-if="field.options != 'phone' && field.type!=='numinput' && field.type!=='tagsinput' &&  field.type!=='range'
+            &&  field.type!=='history' &&  field.type!=='doc' &&  field.type!=='qa'"
+                         type="{{field.type}}" ng-model="field.model" options="field.options" rules="{{field.rules}} validate="field.validate"></rgu-control>
+        </div>
+    </div>
+
+
+    <div class="interaction-field-value form-value" ng-if="mode.viewValues">
+        <div>
+            <span class="interaction-field-static-value" ng-bind-html="field | fieldToText"></span>
+        </div>
+    </div>
+</div>

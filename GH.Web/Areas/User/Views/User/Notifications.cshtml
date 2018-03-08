@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Notifications";
+}
+
+@section scripts {
+    <script src="~/Scripts/AngularJS/ng-infinite-scroll.js"></script>
+    <script src="~/Areas/User/Scripts/Controllers/notifications-page.js"></script>
+}
+
+<div class="row notifications-page" ng-controller="NotificationController">
+    <div class="col-md-12">
+        <h2 class="header-text-line"><span class="header-text regit-color">YOUR NOTIFICATIONS</span></h2>
+    </div>
+
+    <div class="col-md-12">
+        <div class="widget">
+            <div class="text-right"><a class="regit-color">Notification Settings</a></div>
+            <div infinite-scroll="getNotifications()" class="notifications">
+                <div ng-class="{'unread': !notification.Read}" ng-repeat="notification in notifications" class="notification" ng-click="read(notification)">
+                    <div class="row">
+                        <div class="col-xs-3 col-sm-1">
+                            <div class="creator-avatar">
+                                <img ng-src="{{!notification.CreatorAvatar ? '/Areas/User/Content/Images/no-pic.png' : notification.CreatorAvatar}}" />
+                            </div>
+                        </div>
+                        <div class="col-xs-9 col-sm-11">
+                            <div class="notification-message">
+                                <span class="notification-creator">{{notification.Creator}}</span> {{notification.Message}}<br /><span class="notification-time" am-time-ago="notification.CreatedAt"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

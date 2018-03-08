@@ -1,0 +1,68 @@
+﻿<div class="vault-group">
+    <div class="vault-panel" ng-controller="GroupGovernmentIDController">
+        <div class="vault-panel-header">
+            <button class="btn-vault-panel-header btn-vault-panel-back" ng-click="vm.AlphaRedirectTask('main_form.html')" href="#"> Back</button>
+            <button class="btn-vault-panel-header btn-vault-panel-close" ng-click="vm.AlphaRedirectTask('main_form.html')" href="#"> Close</button>
+            <h4 class="vault-panel-title">
+                Add a new government ID
+            </h4>
+        </div>
+
+        <div class="vault-panel-body">
+            <form name="formGroup" class="vault-panel-form" novalidate>
+
+                <div class="vault-panel-row">
+
+                    <select rgu-select class="short" ng-model="_select._value" ng-options="group for group in list_group">
+                        <option value="" class="select-heading">{{_select._value}}</option>
+                    </select>
+
+                    <!-- Birthday Certificate -->
+                    <div ng-if="_select._value == 'Birthday Certificate'">
+                        <div ng-include="vm.birthday_certificate"></div>
+                    </div>
+                    <!-- -->
+                    <!--Driver License Card -->
+                    <div ng-if="_select._value == 'Driver License Card'">
+                        <div ng-include="vm.driver_license_card"></div>
+                    </div>
+                    <!-- -->
+                    <!--Health Card -->
+                    <div ng-if="_select._value == 'Health Card'">
+                        <div ng-include="vm.health_card"></div>
+                    </div>
+                    <!--Medical Beneﬁt Card -->
+                    <div ng-if="_select._value == 'Medical Benefit Card'">
+                        <div ng-include="vm.medical_card"></div>
+                    </div>
+                    <!--Passport-->
+                    <div ng-if="_select._value == 'Passport ID'">
+                        <div ng-include="vm.passport"></div>
+                    </div>
+                    <!--permanent card-->
+                    <div ng-if="_select._value == 'Permanent Residence Card'">
+                        <div ng-include="vm.permanent_card"></div>
+                    </div>
+                    <!--National Identity Card -->
+                    <div ng-if="_select._value == 'National Identity Card'">
+                        <div ng-include="vm.nationalid"></div>
+                    </div>
+                    <!--Social Insurance Card-->
+                    <div ng-if="_select._value == 'Social Insurance Card'">
+                        <div ng-include="vm.social_card"></div>
+                    </div>
+                    <!-- Tax ID-->
+                    <div ng-if="_select._value == 'Tax ID'">
+                        <div ng-include="vm.taxid"></div>
+                    </div>
+
+                    <!--Custom -->
+                    <div ng-if="_select._value == 'Citizenship ID'">
+                        <div ng-include="vm.custom"></div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

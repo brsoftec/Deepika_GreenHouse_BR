@@ -1,0 +1,30 @@
+﻿@{
+    string MainLink;
+    if (User.Identity.IsAuthenticated)
+    {
+        MainLink = "";
+    } else
+    {
+        MainLink = "SignUp";
+    }
+}
+
+<footer class="main-footer">
+    <ul class="foot-nav">
+        <li><a href="/about">About Regit</a></li>
+        
+        @if (ViewBag.Area=="support" || ViewBag.Tier=="business")
+        {
+           <li><a href="/User/@MainLink"> Regit for Individual</a></li>
+        }
+        @if (ViewBag.Area=="support" || ViewBag.Tier!="business")
+        {
+            <li><a href="/BusinessAccount/@MainLink">Regit for Business</a></li>
+
+        }
+        <!--<li><a href="/about/developers">Regit for Developer</a></li>-->
+        <li><a href="/support/help">Help Center</a></li>
+        <li><a href="http://www.regitblog.com">Regit Blog</a></li>
+        <li><a href="/about/privacy-policy">Legal &amp; Privacy</a></li>
+    </ul>
+</footer>

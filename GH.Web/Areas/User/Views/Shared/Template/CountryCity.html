@@ -1,0 +1,26 @@
+﻿
+<div class="form-group editing-row" >
+    <div class="col-sm-3">
+        <label for="input-lname">Country</label>
+    </div>
+    <div class="col-sm-9">
+        <select class="form-control" ng-change="changeCity()" ng-model="Country" ng-options="c as c.Name for c in listCountries">
+            <option value="">
+                Select Country
+            </option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group editing-row">
+    <div class="col-sm-3">
+        <label for="input-lname">City</label>
+    </div>
+    <div class="col-sm-9">
+        <select class="form-control" ng-model="City" ng-options="c as c.Name for c in listCities">
+            <option value="">
+                Select City
+            </option>
+        </select>
+    </div>
+</div>

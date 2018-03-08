@@ -1,0 +1,185 @@
+﻿
+@{
+    ViewBag.Title = "Customter Analytics";
+    Layout = "~/Areas/User/Views/Shared/_LayoutDefaultBusinessApply.cshtml"; ;
+}
+@section styles {
+<link rel="stylesheet" href="~/Areas/Beta/css/analytics.css">
+}
+
+@section scripts {
+ 
+    @*@Scripts.Render("~/Blue/Js")*@
+    @Scripts.Render("~/bundles/BusinessUserSystem")
+}
+<div class="module module-main module-business module-analytics">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/BusinessAccount">&laquo; Business Home</a></li>
+        <li class="breadcrumb-item"><a href="/Campaign/ManagerCampaign">Interaction Module</a></li>
+        <li class="breadcrumb-item active">Interaction Analytics</li>
+    </ol>
+    <form class="form-horizontal form-analytics" ng-controller="AnalyticsCustomerListController">
+        <h1 ng-if="!master">Customers by Interaction</h1>
+        <h1 ng-if="master">Master Customer List</h1>
+        <div class="analytics" id="interaction-analytics">
+            <h3 ng-if="!master">{{interaction.name}} - Analytics</h3>
+            <button type="button" class="btn-analytics-export btn btn-primary" ng-click="exportData()">Export Report (PDF)</button>
+            <div class="analytics-header" ng-if="!exportingData">
+                <rgu-control type="radio" options="['Current Week','Current Month']" ng-model="view.selectedView"
+                             on-change="updateChart()"></rgu-control>
+                <rgu-checkbox label="Show unknown gender" ng-model="view.showUnknownGender" on-change="updateChart()"></rgu-checkbox>
+            </div>
+            <div class="analytics-charts" id="interaction-analytics-charts">
+                <div class="analytics-section" id="section-participators">
+                    <h4>General</h4>
+                    <div class="analytics-message" ng-if="!dataLoaded">Loading data...</div>
+                    <div class="analytics-message" ng-if="dataLoaded && !users">No data</div>
+                    <div class="analytics-chart" id="analytics-participators" ng-if="users">
+                        <highchart id="chart-participators" config="chartConfig"></highchart>
+                    </div>
+                </div>
+                <div class="analytics-section" id="section-ages">
+                    <h4>Demographics</h4>
+                    <div class="analytics-message" ng-if="!dataLoaded">Loading data...</div>
+                    <div class="analytics-message" ng-if="dataLoaded && !users">No data</div>
+                    <div class="analytics-chart" id="analytics-ages" ng-if="users">
+                        <highchart id="chart-ages" config="agesChartConfig"></highchart>
+                    </div>
+                </div>
+            </div>
+            <div class="analytics-table-container" ng-if="users">
+                <div class="analytics-table">
+                    <table class="table table-striped">
+                        <colgroup>
+                            <col width="80%" />
+                            <col width="20%" />
+                        </colgroup>
+                        <tr>
+                            <th>Country</th>
+                            <th>Participants</th>
+                        </tr>
+                        <tr ng-repeat="(country,countryObj) in countries" ng-if="countryObj.count">
+                            <td class="clickable" ng-click="showCitiesFromCountry(country)">{{country}}</td>
+                            <td>{{countryObj.count}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="analytics-table">
+                    <table class="table table-striped">
+                        <colgroup>
+                            <col width="80%" />
+                            <col width="20%" />
+                        </colgroup>
+                        <tr>
+                            <th>City</th>
+                            <th>Participants</th>
+                        </tr>
+                        <tr ng-repeat="(city,count) in currentCities" ng-if="count">
+                            <td>{{city}}</td>
+                            <td>{{count}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="analytics-tags" id="interaction-analytics-tags" ng-if="false">
+                <div class="analytics-section">
+                    <h4>Participator Tags</h4>
+                    <div class="analytics-tagcloud">
+                        <jqcloud words="tags" width="650" height="350" steps="50"></jqcloud>
+                    </div>
+                </div>
+            </div>
+            <div class="analytics-data" id="interaction-analytics-data" ng-if="users">
+                <div class="analytics-section clearfix">
+                    <h4>Participator Basic Data</h4>
+                    <rgu-checkbox class="check-show-preview" ng-model="view.showPreview"
+                                  label="Preview 10 of {{participators.length}} participators"></rgu-checkbox>
+                    <a download="interaction-participators.xls" href="#" class="btn btn-primary btn-download-excel"
+                       onclick="return ExcellentExport.excel(this, 'interaction-analytics-grid', 'Participators');">Export Data (Excel)</a>
+                    <table class="analytics-grid-preview table table-striped" ng-if="view.showPreview">
+                        <tr>
+                            <th>User ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Gender</th>
+                            <th>Email</th>
+                            <th>DOB</th>
+                            <th>Country</th>
+                            <th>City</th>
+                            <th>Joined</th>
+                        </tr>
+                        <tr ng-repeat="user in participators | limitTo:10">
+                            <td>{{user.userid | shortenId}}</td>
+                            <td>{{user.firstname}}</td>
+                            <td>{{user.lastname}}</td>
+                            <td>{{user.gender}}</td>
+                            <td>{{user.email}}</td>
+                            <td>{{user.dob | date:'dd-MM-yyyy'}}</td>
+                            <td>{{user.country}}</td>
+                            <td>{{user.city}}</td>
+                            <td>{{user.followed | date:'dd-MM-yyyy'}}</td>
+                        </tr>
+                    </table>
+                    <table class="analytics-grid table table-striped" id="interaction-analytics-grid">
+                        <tr>
+                            <th>User ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Gender</th>
+                            <th>Email</th>
+                            <th>DOB</th>
+                            <th>Country</th>
+                            <th>City</th>
+                            <th>Joined</th>
+                            <th ng-if="view.showKeywords">Keywords</th>
+                        </tr>
+                        <tr ng-repeat="user in participators | limitTo:400">
+                            <td>{{user.userid}}</td>
+                            <td>{{user.firstname}}</td>
+                            <td>{{user.lastname}}</td>
+                            <td>{{user.gender}}</td>
+                            <td>{{user.email}}</td>
+                            <td>{{user.dob | date:'dd-MM-yyyy'}}</td>
+                            <td>{{user.country}}</td>
+                            <td>{{user.city}}</td>
+                            <td>{{user.followed | date:'dd-MM-yyyy'}}</td>
+                            <td ng-if="view.showKeywords">{{user.keywords.join(', ')}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="analytics-section clearfix" ng-if="!master">
+                    <h4>Participator Submitted Data</h4>
+                    <rgu-checkbox class="check-show-preview" ng-model="view.showPreview"
+                                  label="Preview 10 of {{participators.length}} participators"></rgu-checkbox>
+                    <rgu-checkbox class="check-show-keywords" ng-model="view.showKeywords"
+                                  label="Show matched keywords"></rgu-checkbox>
+                    <a download="interaction-participators.xls" href="#" class="btn btn-primary btn-download-excel"
+                       onclick="return ExcellentExport.excel(this, 'interaction-analytics-submitted-grid', 'Participators');">Export Data (Excel)</a>
+                    <table class="analytics-grid-preview table table-striped" ng-if="view.showPreview">
+                        <tr ng-init="fields=participators[0].fields">
+                            <th>User ID</th>
+                            <th ng-repeat="field in fields">{{field.label}}</th>
+                            <th ng-show="view.showKeywords">Keywords</th>
+                        </tr>
+                        <tr ng-repeat="user in participators | limitTo:10">
+                            <td>{{user.userid | shortenId}}</td>
+                            <td ng-repeat="field in user.fields">{{field.value | gridValue}}</td>
+                            <td ng-show="view.showKeywords">{{user.keywords}}</td>
+                        </tr>
+                    </table>
+                    <table class="analytics-grid table table-striped" id="interaction-submitted-analytics-grid">
+                        <tr>
+                            <th>User ID</th>
+                            <th ng-if="view.showKeywords">Keywords</th>
+                        </tr>
+                        <tr ng-repeat="user in participators">
+                            <td>{{user.userid}}</td>
+                            <td ng-if="view.showKeywords">{{user.keywords}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    </div>

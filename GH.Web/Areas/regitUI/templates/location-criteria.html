@@ -1,0 +1,9 @@
+
+<select rgu-select class="inline" ng-model="model.country" ng-change="onChangeCountry()"
+        ng-options="country.Name as country.Name for country in countries">
+    <option value="">Target country</option>
+</select>
+
+<input type="text" class="inline-control" ng-model="model.area" required placeholder="Target area within country (Region/State/Province/City)">
+
+

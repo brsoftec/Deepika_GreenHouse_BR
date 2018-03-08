@@ -1,0 +1,63 @@
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog billing-payment-card-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="btn-modal-close" ng-click="$hide()">Close</button>
+                <h4 class="modal-title">Payment Method</h4></div>
+        </div>
+        <div class="modal-body">
+            <form class="modal-form payment-card-form">
+                <div class="payment-card-form-row">
+                    <div class="payment-card-form-label">Choose a card</div>
+                    <div class="payment-card-form-control">
+                        <div class="card-type-select">
+                            <div class="card-type-select-item" ng-repeat="type in paymentConfig.cardBrands"
+                                 ng-class="{active:type.name===payment.method.cardType}"
+                                 ng-click="selectCardType(type)">
+                                <img ng-src="{{getCardTypeIconUrl(type.name)}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="payment-card-form-row">
+                    <div class="payment-card-form-label">Name on Card</div>
+                    <div class="payment-card-form-control fullsize"><input ng-model="payment.method.fullName"></div>
+                </div>
+                <div class="payment-card-form-row">
+                    <div class="payment-card-form-label">Card Number</div>
+                    <div class="payment-card-form-control fullsize"><input type="{{payment.method.creating ? 'text' : 'password'}}" ng-model="payment.method.cardNumber"></div>
+                </div>
+                <div class="payment-card-form-row card-expires">
+                    <div class="payment-card-form-col">
+                        <div class="payment-card-form-label">Expiry Date</div>
+                        <div class="payment-card-form-control"><input class="input-month"
+                                                                      ng-model="payment.method.expires.month"
+                                                                      placeholder="mm"> /
+                            <input ng-model="payment.method.expires.year" placeholder="yyyy"></div>
+                    </div>
+
+                    <div class="payment-card-form-col right">
+                        <div class="payment-card-form-label">Security Code</div>
+                        <div class="payment-card-form-control"><input ng-model="payment.method.securityCode"></div>
+                    </div>
+                </div>
+                <div class="payment-card-form-row">
+                    <div class="payment-card-form-label"></div>
+                    <div class="payment-card-form-control">
+                        <rgu-checkbox ng-model="payment.method.isDefault" label="Set as Default"
+                                      ng-disabled="!(payment.method.creating && payment.methods.length || payment.methods.length && !payment.methods[payment.method.index].isDefault )">
+                        </rgu-checkbox>
+                    </div>
+                </div>
+                <div class="payment-card-actions modal-actions">
+                    <button class="btn btn-default modal-action" ng-click="$hide()">Cancel</button>
+                    <button class="btn btn-primary modal-action" ng-disabled="!canSaveMethod()"
+                            ng-click="saveMethod($hide)">Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+

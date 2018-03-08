@@ -1,0 +1,115 @@
+﻿
+@using GH.Lang;
+
+@{
+    ViewBag.Page = "signin";
+    ViewBag.Title = "Sign In";
+    Layout = "~/Areas/User/Views/Shared/_PublicLayout.cshtml";
+    ViewBag.BodyClass = "signin";
+
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/login-ctrl")
+    <link href="@Url.Versioned("~/Areas/Beta/css/signin.css")" rel="stylesheet" />
+    <script src="~/Areas/User/Scripts/Services/CommentService.js"></script>
+}
+
+<div class="section-public section-login">
+    <div class="public-container login-container">
+        <div class="public-aside">
+            <div class="aside-logo">
+                <img src="~/Areas/Beta/img/regit-logotype.svg">
+            </div>
+        </div>
+        <div class="login-form">
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <h1>Sign In to Regit</h1>
+                <h2>
+                    Unify your life and digitize your personal information
+                </h2>
+
+                <form name="loginForm" ng-controller="LoginController" class="public-form form-login login-form">
+
+                    <div class="public-form-row">
+                        <label>Email</label>
+                        <input class="login-form-input" autofocus ng-model="signModel.Email" type="email" />
+                    </div>
+
+                    <div class="public-form-row">
+                        <label>Password</label>
+                        <input type="password" class="login-form-input" ng-model="signModel.Password" ng-enter="signIn()" />
+                    </div>
+
+                    <div class="login-help">
+                        <a href="/User/Trouble">Have trouble?</a> &middot; <a href="/User/Signup">Sign up for Regit</a>
+                    </div>
+
+                    <div class="public-form-row public-form-actions">
+                        <button type="submit" class="btn btn-primary public-form-btn login-form-submit" ng-click="signIn()">
+                            Log In
+                        </button>
+                    </div>
+
+                </form>
+
+            }
+            else
+            {
+                <div class="sms-auth-content signin-auth" ng-controller="ConfirmSMSEmailController">
+
+                    <div class="otp-content">
+                        <table>
+                            <tr>
+                                <td style="padding: 5px;">
+                                    <button class="btn btn-primary" ng-disabled="sms.disable" ng-click="getOtpSms()">{{sms.buttonLabel}}</button>
+
+                                </td>
+                                <td style="padding: 5px;">
+                                    <button class="btn btn-info" ng-disabled="email.disable" ng-click="getOtpEmail()">{{email.buttonLabel}}</button>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <p ng-if="!verify.sent">
+                            Choose a method to receive your PIN.
+                        </p>
+                        <p ng-if="verify.sent">
+                            <span ng-if="verify.option == 'email'">
+                                Please enter the code in email.
+                            </span>
+                            <span ng-if="verify.option == 'sms'">
+                                Please enter the code in SMS .
+                            </span>
+                        </p>
+                    </div>
+                    <div class="sms-auth-input-row" ng-if="verify.sent">
+
+                        <input ng-model="verify.pin" type="password" autofocus class="input-pin sms-auth-input" placeholder="_ _ _ _"
+                               ng-enter="verifyOtp(verify.pin)">
+                    </div>
+
+                    <div class="button-group sms-auth-actions">
+                        <button type="button" ng-click="cancelOtp()" class="btn btn-default sms-auth-btn">
+                            Cancel
+                        </button>
+                        <button type="submit" ng-click="verifyOtp(verify.pin);" class="btn btn-primary sms-auth-btn" ng-disabled="!verify.sent">
+                            Authenticate
+                        </button>
+                    </div>
+                    <div style="padding-top:20px">
+                        <span>{{verify.error}}</span>
+
+                    </div>
+
+                </div>
+
+
+            }
+        </div>
+
+    </div>
+</div>
+
+

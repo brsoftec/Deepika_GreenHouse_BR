@@ -1,0 +1,24 @@
+﻿@using GH.Lang
+@model string
+@{
+    ViewBag.Title = "Verifying Email";
+    Layout = "~/Areas/User/Views/Shared/_PublicLayout.cshtml";
+}
+@section styles{
+    @Styles.Render("~/User/login")
+}
+@section scripts {
+    @Scripts.Render("~/bundles/login-ctrl")
+   
+<script src="~/Areas/User/Scripts/Controllers/VerifyEmailController.js"></script>
+}
+
+<div class="module module-main module-verify-email" ng-controller="VerifyEmailController">
+
+        <div class="verifying-email-container">
+
+            @Html.Raw(Server.HtmlDecode(Regit.Verifing_Email_Message)) <a ng-click="resendEmailVerify('@Model')" class="regit-color">@Regit.Send_Link_Verify_Again_Button</a><br />
+            <a class="btn btn-blue">@Regit.Check_Mail_Button.ToUpper()</a>
+        </div>
+
+</div>

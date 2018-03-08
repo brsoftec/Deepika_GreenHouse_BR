@@ -1,0 +1,187 @@
+﻿@if (ViewBag.IsBusinessMaster == true)
+{
+    <div ng-controller="BAManageLoginPasswordController" id="access">
+
+        <div ng-hide="true" ng-if="!pinAuthenticate.Authenticated" class="row field pin-authenticate">
+            <div class="col-md-12 text-center">
+                <label>@GH.Lang.Regit.You_must_be_authenticated</label>
+                <div>
+                    <a ng-click="showPinAuthenticateModal()" class="btn btn-blue">@GH.Lang.Regit.Authenticate</a>
+                </div>
+            </div>
+        </div>
+        <hr ng-if="!pinAuthenticate.Authenticated"/>
+
+        <div class="account-form-row">
+            <div class="acccunt-form-label">
+                <span class="field-title">SMS OTP</span>
+                @*{{SMS.Enable | json}}*@
+            </div>
+            <div class="account-form-control control-float-right">
+                <switcher ng-model="sms.enable" switcher-on-text="On" switcher-off-text="Off" on-changed="setSMSOTP()"></switcher>
+            </div>
+        </div>
+
+        <div class="account-form-row">
+
+            <div class="account-form-label">
+                <span class="field-title h-34">@GH.Lang.Regit.Change_Login_Password</span>
+            </div>
+            <div class="account-form-control">
+                <div ng-if="editting.Password" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">@GH.Lang.Regit.Old_Password</label>
+                        <div class="col-md-9">
+                            <input type="password" class="fix-width-mini" ng-model="changePasswordModel.OldPassword"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">@GH.Lang.Regit.New_Password</label>
+                        <div class="col-md-9">
+                            <input type="password" class="fix-width-mini" ng-model="changePasswordModel.NewPassword"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">@GH.Lang.Regit.Confirm_New_Password</label>
+                        <div class="col-md-9">
+                            <input type="password" class="fix-width-mini" ng-model="changePasswordModel.ConfirmPassword"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <div class="col-md-9">
+                            <a class="btn btn-blue fix-width-mini" ng-click="changePassword()">@GH.Lang.Regit.Save</a>
+                            <a class="btn btn-white fix-width-mini" ng-click="cancelChangePassword()">@GH.Lang.Regit.Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="account-form-control control-float-right">
+                <a class="field-action regit-color" ng-class="{'editting': editting.Password}" ng-click="edit('Password')"><i ng-if="editting.Password" class="fa fa-pencil"></i> @GH.Lang.Regit.Edit</a>
+            </div>
+        </div>
+        <div class="account-form-row">
+            <div class="account-form-label">
+                <span class="field-title h-34">@GH.Lang.Regit.Change_Email</span>
+            </div>
+            <div class="account-form-control">
+                <div ng-if="editting.Email" class="row">
+                    <div class="col-md-10">
+                        <div class="form-horizontal">
+                            <div class="form-group" ng-if="encodedEmail">
+                                <label class="col-md-12 control-label long-spacing">{{encodedEmail}}</label>
+                            </div>
+                            <div ng-if="editting.Email" class="form-group">
+                                <label class="col-md-3 control-label">@GH.Lang.Regit.New_Email</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="fix-width-mini" ng-model="changeEmailModel.Email" ng-blur="checkDuplicatedEmail()"/>
+                                    <div class="error-text-color">{{emailError}}</div>
+                                </div>
+                            </div>
+                            <div ng-if="editting.Email" class="form-group">
+                                <label class="col-md-3 control-label">@GH.Lang.Regit.Password</label>
+                                <div class="col-md-9">
+                                    <input type="password" class="fix-width-mini" ng-model="changeEmailModel.Password"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"></label>
+                                <div class="col-md-9">
+                                    <a class="btn btn-blue fix-width-mini" ng-click="changeEmail()">@GH.Lang.Regit.Save</a>
+                                    <a class="btn btn-white fix-width-mini" ng-click="cancelChangeEmail()">@GH.Lang.Regit.Cancel</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="account-form-control control-float-right">
+                <a class="field-action regit-color" ng-class="{'editting': editting.Email}" ng-click="edit('Email')"><i ng-if="editting.Email" class="fa fa-pencil"></i> @GH.Lang.Regit.Edit</a>
+            </div>
+        </div>
+
+
+        <div class="account-form-row">
+            <div class="account-form-label">
+                <span class="field-title h-34">@GH.Lang.Regit.Phone_Number_For_OTP_Title</span>
+            </div>
+            <div class="account-form-control">
+                <div class="form-horizontal">
+                    <div class="form-group" ng-if="encodedPhoneNumber">
+                        <label class="col-md-12 control-label long-spacing">{{encodedPhoneNumber}}</label>
+                    </div>
+
+                    <div ng-if="editting.PhoneNumber" class="form-group">
+                        <label class="col-md-3 control-label">@GH.Lang.Regit.New_Phone_number</label>
+                        <div class="col-md-9">
+                            <ui-select ng-model="changePhoneNumberModel.NewPhoneNumberCountryCallingCode" theme="bootstrap" search-enabled="true" remove-selected="false">
+                                <ui-select-match placeholder="@GH.Lang.Regit.Select_Country">{{$select.selected.name.common}} (+{{$select.selected.callingCode[0]}})</ui-select-match>
+                                <ui-select-choices repeat="country.callingCode as country in countries | filter: $select.search">
+                                    <span>{{country.name.common}} (+{{country.callingCode[0]}})</span>
+                                </ui-select-choices>
+                            </ui-select>
+                            <input type="text" class="fix-width-mini" ng-model="changePhoneNumberModel.NewPhoneNumber" placeholder="@GH.Lang.Regit.Example_Mobile_Message"/>
+
+                        </div>
+                    </div>
+                    <div ng-if="editting.PhoneNumber" class="form-group">
+                        <label class="col-md-3 control-label">@GH.Lang.Regit.Confirm_New_Phone_Number_Title</label>
+                        <div class="col-md-9">
+                            <ui-select ng-model="changePhoneNumberModel.ConfirmNewPhoneNumberCountryCallingCode" theme="bootstrap" search-enabled="true" remove-selected="false">
+                                <ui-select-match placeholder="@GH.Lang.Regit.Select_Country">{{$select.selected.name.common}} (+{{$select.selected.callingCode[0]}})</ui-select-match>
+                                <ui-select-choices repeat="country.callingCode as country in countries | filter: $select.search">
+                                    <span>{{country.name.common}} (+{{country.callingCode[0]}})</span>
+                                </ui-select-choices>
+                            </ui-select>
+                            <input type="text" class="fix-width-mini" ng-model="changePhoneNumberModel.ConfirmNewPhoneNumber" placeholder="@GH.Lang.Regit.Example_Mobile_Message"/>
+                            @*<rgu-phone-input ng-model="changePhoneNumberModel.ConfirmNewPhoneNumber" phone-code="changePhoneNumberModel.ConfirmNewPhoneNumberCountryCallingCode"
+                            initial-country="auto"></rgu-phone-input>*@
+                        </div>
+                    </div>
+                    <div ng-if="editting.PhoneNumber" class="form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <div class="col-md-9">
+                            <a class="btn btn-blue fix-width-mini" ng-click="changePhoneNumber()">Save</a>
+                            <a class="btn btn-white fix-width-mini" ng-click="cancelChangePhoneNumber()">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="account-form-label text-right" ng-if="!editting.PhoneNumber">
+                <a class="field-action regit-color" ng-class="{'editting': editting.PhoneNumber}" ng-click="edit('PhoneNumber')"><i class="fa fa-pencil"></i> @GH.Lang.Regit.Edit</a>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <div bs-modal bs-modal-on-hidden="onPinAuthenticateModalHidden()" bs-modal-show="configs.ShowPinAuthenticateModal" class="modal fade pin-authenticate-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-right">
+                    <a ng-click="configs.ShowPinAuthenticateModal = false"><i class="close-icon"></i></a>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <div class="regit-color">@GH.Lang.Regit.Please_enter_PIN.</div>
+                        <div><input type="text" ng-model="pinAuthenticate.PIN" placeholder="- - - -"/>
+                        </div>
+                        <div>
+                            @GH.Lang.Regit.Your_PIN_waiting <br/>
+                            @GH.Lang.Regit.Didnt_receive_PIN <br/>
+                            <a class="regit-color">@GH.Lang.Regit.Re_send_PIN</a> | <a class="regit-color">@GH.Lang.Regit.Send_By_Voice</a>
+                        </div>
+                        <div>
+                            <a class="btn btn-blue" ng-click="authenticatePin()">@GH.Lang.Regit.Submit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <p style="margin-top: 10px">Access to this section restricted to business master account only</p>
+}

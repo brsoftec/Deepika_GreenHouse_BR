@@ -1,0 +1,99 @@
+﻿<div bs-modal bs-modal-on-hidden="AdvancePostClose()" bs-modal-show="IsPostAdvance" class="modal fade share-social-post-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body ba-post-comment-container">
+                <div class="row ">
+                    <div class="col-md-12">
+                        <div class="col-sx-12 pull-right">
+                            <a ng-click="NewPost.Message=''" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </a>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <textarea rows="10" ng-model="NewPost.Message" class="form-control bd-none" placeholder="Write something ..."></textarea>
+                            </div>
+                            <div class="col-md-12 ba-post-images">
+                                <div class="img-post-item" ng-repeat="image in NewPost.Photos">
+                                    <i class="close-icon" ng-click="removepicture($index)"></i>
+                                    <img ng-if="image.thumb" ng-src="{{image.thumb}}">
+                                    <img ng-if="image.Url" ng-src="{{image.Url}}">
+                                </div>
+                                <div class="img-post-item" ng-if="!NewPost.Photos.length || NewPost.Photos.length < 1">
+                                    <div upload-control class="img-post-add" on-file-selected="picturesSelected()" files-store="postingImages">
+                                        <i class="fa fa-2x fa-plus" aria-hidden="true"></i>
+                                        <input type="file" multiple accept="image/*" />
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ba-post-footer col-xs-12 ">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6 text-left">
+                                <a ng-click="PostANewPost()" class="regit">BROADCAST! <i class="r-broadcast regit-color"></i></a>
+                            </div>
+                            <div class="col-xs-12 col-md-6 text-right">
+                                <div class="ba-post-pri">
+                                    <div class="dropdown">
+                                        <a data-toggle="dropdown" ng-class="{'r-public':NewPost.Privacy.Public,'r-friends':NewPost.Privacy.Friends,'r-private':NewPost.Privacy.Private}" style="color: #a8a9ae; margin-right: 10px"> {{NewPost.Privacy.Public ? 'Public' : NewPost.Privacy.Friends ? 'Friends' : 'Private'}}</a>
+                                        <ul class="dropdown-menu from-right">
+                                            <li>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <span ng-if="!NewPost.Privacy.Public" style="margin-right: 34px"></span>
+                                                        <i ng-if="NewPost.Privacy.Public" class="r-checked regit-color-disable" style="padding-left: 5px; margin-right: 10px"></i>
+                                                        <a class="r-public" style="color: #a8a9ae" ng-click="setPrivacy('public')"> Public</a>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <span ng-if="!NewPost.Privacy.Friends" style="margin-right: 34px"></span>
+                                                        <i ng-if="NewPost.Privacy.Friends" class="r-checked regit-color-disable" style="padding-left: 5px; margin-right: 10px"></i>
+                                                        <a class="r-friends" style="color: #a8a9ae" ng-click="setPrivacy('friends')"> Friends</a>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <span ng-if="!NewPost.Privacy.Private" style="margin-right: 34px"></span>
+                                                        <i ng-if="NewPost.Privacy.Private" class="r-checked regit-color-disable" style="padding-left: 5px; margin-right: 10px"></i>
+                                                        <a class="r-private" style="color: #a8a9ae" ng-click="setPrivacy('private')"> Private</a>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="dropdown">
+                                        <a class="left-menu-color pull-right dropdown-toggle" data-toggle="dropdown">Post to <span class="caret"></span></a>
+                                        <ul class="dropdown-menu from-right" prevent-inside-click-close>
+                                            <li>
+                                                <div class="checkbox">
+                                                    <label class="checkbox-square"><input type="checkbox" ng-model="NewPost.IsPostGreenHouse" /><span></span> <span class="regit-color" style="font-size: 20px">regit</span></label>
+                                                </div>
+                                            </li>
+                                            <li ng-if="linkedNetworks.Facebook">
+                                                <div class="checkbox">
+                                                    <label class="checkbox-square"><input type="checkbox" ng-model="NewPost.IsPostFacebook" /><span></span> <span class="btn-facebook-color" style="font-size: 20px">facebook</span></label>
+                                                </div>
+                                            </li>
+                                            <li ng-if="linkedNetworks.Twitter">
+                                                <div class="checkbox">
+                                                    <label class="checkbox-square"><input type="checkbox" ng-model="NewPost.IsPostTwitter" /><span></span> <span class="regit-color" style="font-size: 20px">twitter</span></label>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="modal modal-box modal-form-box handshake-new-modal" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <button type="button" class="modal-box-close" ng-click="closeModal($hide)">Close</button>
+    <div class="modal-box-header">View Handshake</div>
+
+    <form class="modal-form modal-box-form handshake-view-form">
+
+        <div class="modal-form-row">
+            <div class="modal-form-label">
+                <label>Sender</label>
+            </div>
+            <div class="modal-form-control">
+                <div class="handshake-user-avatar">
+                    <img ng-src="{{handshake.fromAvatar | avatarUrl}}">
+                </div>
+            </div>
+        </div>
+        <div class="modal-form-row">
+            <div class="modal-form-label">
+                <label>Sender Name</label>
+            </div>
+            <div class="modal-form-control">
+                {{handshake.name}}
+            </div>
+        </div>
+
+
+        <div class="modal-form-row">
+            <div class="modal-form-label">
+                <label>Expiry</label>
+            </div>
+            <div class="modal-form-control">
+                <div ng-if="handshake.expiry.indefinite">Indefinite</div>
+                <div ng-if="!handshake.expiry.indefinite">{{handshake.expiry.date | prettyTime}}</div>
+            </div>
+        </div>
+
+        <div class="modal-form-row tall">
+            <div class="modal-form-label">
+                <label>Description</label>
+            </div>
+            <div class="modal-form-control">
+               {{handshake.description | textToHtml}}
+            </div>
+        </div>
+
+        <div class="modal-form-row" ng-repeat="field in handshake.fields | filter:filterSelectedFields">
+            <div class="modal-form-label">
+                <label ng-bind="field.label"></label>
+            </div>
+            <div class="modal-form-control handshake-field-select-control">
+                {{field.value}}
+            </div>
+        </div>
+
+        <div class="modal-form-actions">
+            <button type="button" ng-click="closeModal($hide)" class="modal-form-action form-action-cancel">Close
+            </button>
+        </div>
+    </form>
+</div>

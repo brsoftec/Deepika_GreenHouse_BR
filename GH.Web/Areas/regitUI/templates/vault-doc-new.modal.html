@@ -1,0 +1,29 @@
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog vault-doc-editor-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="btn-modal-close" ng-click="$hide()">Close</button>
+                <h4 class="modal-title">Add a {{doc.type=='img' ? 'Photo' : 'Document'}}</h4></div>
+            <div class="modal-body">
+                <form>
+                    <div class="vault-doc-editor-preview">
+
+                    </div>
+                    <div class="vault-doc-editor">
+                        <div class="vault-doc-editor-row">
+                            <label>Description</label>
+                            <div class="vault-doc-editor-control">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" ng-click="$hide()">Cancel</button>
+                        <button class="btn btn-primary" ng-click="saveDoc(true);$hide()">Save</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+﻿@model string
+@{
+    ViewBag.Title = "User Personal Profile";
+    Layout = "~/Areas/User/Views/Shared/_LayoutWideApply.cshtml";
+
+
+}
+@section styles{
+    <link href="@Url.Versioned("~/Areas/Beta/css/profile.css")" rel="stylesheet"/>
+    <link href="@Url.Versioned("~/Content/css/jquery.fancybox-plus.css")" rel="stylesheet"/>
+}
+@section initscripts {
+    <script src="~/Content/scripts/jquery.fancybox-plus.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".profile-avatar-link").fancyboxPlus();
+        });
+        var regitGlobal = regitGlobal || {};
+        regitGlobal.viewedProfileId = "@Model";
+
+    </script>
+}
+@section scripts {
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/ProfileController.js")"></script>
+    <script src="~/Areas/User/Scripts/Controllers/user-profile-ctrl.js"></script>
+}
+@section left {
+    <div ng-controller="UserProfileController">
+    <div class="module module-left module-profile" ng-controller="ViewedProfileController">
+
+        <div class="feed-profile-header clearfix">
+            <a href="{{viewedProfile.avatar}}" title="{{viewedProfile.description}}'s Profile Picture">
+                <img class="thumbnail feed-profile-avatar" ng-src="{{viewedProfile.avatar | avatarUrl}}">
+            </a>
+            <div class="feed-profile-name">{{viewedProfile.displayName}}</div>
+            <div ng-if='ProfileViewed.AccountType!="Business"' class="feed-profile-tags">
+                <span class="user-network-badge user-network-badge-trusted badge" ng-if="StatusFriend==='trusted'">
+                    Trusted
+                </span>
+                <span class="user-network-badge user-network-badge-normal badge"
+                      ng-if="StatusFriend==='normal'">
+                    Friend
+                </span>
+                <span class="user-network-badge user-network-badge-pending badge" ng-if="StatusFriend==='pending'">Pending Invitation</span>
+                <span class="user-network-badge user-network-badge-pending badge" ng-if="StatusFriend==='invitation'">Pending</span>
+                <div ng-if="!YourProfile">
+                    <a class="feed-profile-action profile-action-invite-network" ng-if="StatusFriend ==='' "
+                       ng-click="invite()">
+                        Invite Friend
+                    </a>
+                </div>
+                <div ng-if="StatusFriend==='trusted' || StatusFriend==='normal' ">
+                    <a class="btn btn-default"
+                       ng-click="remove()">
+                        Remove from
+                        Network
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="feed-profile-details">
+            <div class="feed-profile-heading">About this person</div>
+            <div class="feed-profile-about">{{viewedProfile.description | textToHtml}}</div>
+            <div class="feed-profile-fields">
+                <div class="feed-profile-fields">
+                    <div class="feed-profile-field feed-profile-field-address" ng-bind-html="viewedProfile.location | locationToHtml">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="module module-left module-quicklinks">
+        <h4 class="module-heading">Quick Links</h4>
+        <div class="quicklinks ist-group">
+            <a class="list-group-item list-group-item-action" href="/User/Settings">Account Settings</a>
+            <a class="list-group-item list-group-item-action" href="/User/Network#personal">Personal Network</a>
+            <a class="list-group-item list-group-item-action" href="/User/Network#business">Business Network</a>
+        </div>
+    </div>
+
+}
+
+
+<div class="module module-main module-chromeless">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/">&laquo; Home</a>
+        </li>
+        <li class="breadcrumb-item active">User Profile</li>
+    </ol>
+    <div class="profile-page-container profile-page-private">
+        <div class="profile-page-private-heading">Private</div>
+        <div class="profile-page-private-text">
+            <p>This user has no other shared information.</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+﻿<div bs-modal bs-modal-on-hidden="onAddCommentToSocialPostModalHidden()" bs-modal-show="configs.ShowAddCommentModal" class="modal fade comment-social-post-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-right">
+                <a ng-click="configs.ShowAddCommentModal = false"><i class="close-icon"></i></a>
+            </div>
+            <div class="modal-body">
+                <div class="row comment-social-post new-comment-social-post" ng-disabled="!isAllowComment()">
+                    <div class="col-xs-6 col-sm-2 comment-social-post-avatar">
+                        <div class="comment-social-post-avatar-wrapper">
+                            <img ng-src="{{currentUserProfile.PhotoUrl ? currentUserProfile.PhotoUrl : '/Areas/User/Content/Images/no-pic.png'}}" />
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-10 comment-social-post-comment">
+                        <textarea ng-disabled="!isAllowComment()" ng-enter="saveAddCommentToSocialPost()" ng-model="newComment.Message" class="form-control" placeholder="Write a comment ..."></textarea>
+                    </div>
+                </div>
+                <div class="social-post-comments">
+                    <div class="row comment-social-post new-comment-social-post" ng-repeat="comment in comments">
+                        <div class="col-xs-6 col-sm-2 comment-social-post-avatar">
+                            <div class="comment-social-post-avatar-wrapper">
+                                <img ng-if="comment.IsUserInSystem" ng-src="{{comment.Account.PhotoUrl ? comment.Account.PhotoUrl : '/Areas/User/Content/Images/no-pic.png'}}" />
+                                <img ng-if="!comment.IsUserInSystem" ng-src="{{comment.SocialAccount.PhotoUrl}}" />
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-10 comment-social-post-comment">
+                            <div ng-if="comment.IsUserInSystem" class="comment-content">
+                                <span ng-if="comment.Account.DisplayName" class="commentator-username">{{comment.Account.DisplayName}}</span>
+                                <span ng-if="!comment.Account.DisplayName" class="commentator-username">{{comment.Account.Email}}</span>
+                                <text ng-bind-html="comment.MessageHtml"></text>
+                            </div>
+                            <div ng-if="!comment.IsUserInSystem" class="comment-content">
+                                <a href="{{comment.SocialAccount.Link}}" target="_blank" class="commentator-username">{{comment.SocialAccount.DisplayName}}</a>
+                                <text ng-bind-html="comment.MessageHtml"></text>
+                            </div>
+                            <div class="comment-info">
+                                <a class="comment-reply-text">Reply</a> <span class="middot">&middot;</span> <span am-time-ago="comment.CreatedOn"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

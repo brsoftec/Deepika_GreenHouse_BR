@@ -1,0 +1,9 @@
+<input ng-model="pickedUser" placeholder="Type a name" ng-keydown="selected=false" />
+<br/>
+
+<ul class="items" ng-hide2="!model.length || selected">
+    <li class="item" ng-repeat="item in items | filter:model  track by $index" ng-click="handleSelection(item.fullName)"
+         style="cursor:pointer" ng-class="{active:isCurrent($index)}" ng-mouseenter="setCurrent($index)">
+        <p class="title">{{item.fullName}}</p>
+    </li>
+</ul>

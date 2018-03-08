@@ -1,0 +1,17 @@
+    <div ng-if="label" ng-bind="label"></div>
+    <div ng-if="render==='static'" ng-bind="text"></div>
+    <div ng-if="render==='raw'" ng-bind="model.toString()"></div>
+    <div ng-if="render==='title'" ng-bind="title"></div>
+    <div ng-if="render==='html'" ng-bind-html="model | textToHtml"></div>
+    <div ng-if="render==='rawHtml'" ng-bind-html="rawHtml"></div>
+    <div ng-if="render==='url'">
+        <a href="{{model | properUrl}}" target="_blank">{{model}}</a>
+    </div>
+    <div ng-if="render==='image'">
+        <img ng-src="{{model}}" class="img-responsive">
+    </div>
+    <div ng-if="render==='money'">
+        <span class="money-currency" ng-bind="currency"></span>
+       <span class="money-amount" ng-bind="model"></span>
+    </div>
+    <div ng-if="render==='label'" ng-bind="text"></div>

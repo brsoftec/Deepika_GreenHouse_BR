@@ -1,0 +1,375 @@
+@model string
+@{
+    ViewBag.Title = "Search Results";
+    Layout = "~/Areas/User/Views/Shared/_LayoutDefaultBusinessApply.cshtml";
+}
+
+@section styles {
+    <link href="@Url.Versioned("~/Areas/Beta/css/search.css")" rel="stylesheet" />
+    <link href="@Url.Versioned("~/Areas/Beta/css/interactions.css")" rel="stylesheet" />
+    @Styles.Render("~/bundles/css/feed")
+}
+
+@section scripts {
+<script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/NewFeeds/RegistrationOnNewFeedController.js")"></script>
+<script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/sms-authencation-popup-ctrl.js")"></script>
+   <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/SearchResultsCtrl.js")"></script>
+
+}
+<div class="module module-main module-search" ng-controller="BusSearchResultsCtrl" ng-init="search.query='@Model';">
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">&laquo; Home</a></li>
+        <li class="breadcrumb-item active">Search: @Model</li >
+    </ol>
+    <h1>Search Results</h1>
+    <div class="search-container">
+        <div class="search-section search-section-individuals">
+            <div class="search-section-heading">People</div>
+            <div ng-repeat="user in searchResultsIndividuals | orderBy:sortIndividuals">
+                <div class="search-item search-user" ng-class="{'search-user-in-network':user.network}">
+                    <div class="search-item-picture">
+                        <img class="thumbnail" ng-src="{{user.avatar | avatarUrl}}" />
+                    </div>
+                    <div class="search-item-details">
+                        <div class="search-item-name">
+                            <a href="" ng-click="viewprofileuser(user)" ng-bind-html="user.displayName | searchHighlight:keyword"></a>
+                            <span class="user-follow-badge badge" ng-if="user.following">Following</span>
+                        </div>
+                        <div class="search-item-desc" ng-bind-html="user.desc">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="searchResultsIndividuals.length>0" class="search-load-more">
+                <button type="button"  class="feed-load-more" ng-click="loadMore('individuals');">See more people</button>
+            </div>
+        </div>
+     
+        <div  class="search-section search-section-businesses">
+            <div class="search-section-heading">Businesses</div>
+            <div ng-repeat="business in searchResultsBusinesses | orderBy:sortBusinesses">
+                <div class="search-item search-user" ng-class="{'search-user-followed':business.following}">
+
+                    <div class="search-item-picture">
+                        <img class="thumbnail" ng-src="{{business.avatar | avatarUrl:true}}" />
+                    </div>
+                    <div class="search-item-details">
+                        <div class="search-item-name">
+                            <a ng-click="viewprofilebus(business)" ng-bind-html="business.displayName | searchHighlight:search.query"></a>
+                            <span ng-if="false" class="user-follow-badge badge" >Following</span>
+
+                        </div>
+                        <div html-from-text class="search-item-desc" ng-model="business.desc" data-expandable="true">
+                        </div>
+
+                    </div>
+                    <div class="search-item-actions">
+                        <button type="button" class="btn btn-primary search-item-action"
+                                ng-if="false" ng-click="followBusiness(business)">
+                            Follow
+                        </button>
+                        <button type="button" class="btn btn-default search-item-action"
+                                ng-if="false" ng-click="unfollowBusiness(business)">
+                            Unfollow
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="search-load-more">
+                <button type="button" class="feed-load-more" ng-click="loadMore('businesses');">See more businesses</button>
+            </div>
+        </div>
+
+        <div class="search-section search-section-interactions">
+            <div class="search-section-heading">Interactions</div>
+            <div class="feed feed-business">
+                <div  ng-init="isReg = campaign.CampaignType==='Registration'; type = isReg ? 'reg' : 'ad';abbr=getInteractionAbbr(campaign);" ng-repeat="campaign in listcampaigns track by $index">
+                    <div class="feed-entry feed-interaction feed-{{abbr}}">
+                        <div class="feed-header">
+                            <div class="feed-avatar">
+                                <img class="thumbnail" src="{{campaign.BusinessImageUrl}}">
+                            </div>
+                            <div class="feed-fromwhen">
+                                <div class="feed-from">
+                                    <a ng-click="goToBusinessProfile(campaign)" href="#test">{{campaign.BusinessName}}</a>
+
+                                </div>
+                                <div class="feed-when">
+                                    Posted {{campaign.SpendEffectDate | friendlyTime:'inDay'}}
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="feed-content">
+                            <h3 class="feed-campaign-type-heading" ng-bind="campaign.CampaignType"></h3>
+                            <h4 class="feed-interaction-name" ng-bind-html="campaign.Name | searchHighlight:search.query"></h4>
+                            <div class="feed-interaction-text" ng-bind-html="campaign.Description | searchHighlight:search.query | textToHtml">
+                            </div>
+                            <div class="feed-interaction-event-details" ng-if="abbr==='evt'">
+                                <p>
+                                    Start time: <span class="value date">{{campaign.starttime  | date:'hh:mm a'}}  {{campaign.startdate | date:'yyyy-MM-dd'}}</span>&nbsp;&nbsp;&nbsp;
+                                </p>
+                                <p>
+                                    End time: <span class="value date">{{campaign.endtime  | date:'hh:mm a'}} {{campaign.enddate | date:'yyyy-MM-dd'}}</span>
+                                </p>
+                                <p ng-if="campaign.location">Location: <span class="value">{{campaign.location}}</span></p>
+                                <p ng-if="campaign.theme">Theme: <span class="value">{{campaign.theme}}</span></p>
+                                <p ng-if="campaign.usercodetype!== 'Free'">
+                                   Price: <span class="value campaign-user-cost">{{campaign.usercode}} {{campaign.usercodecurrentcy}}</span>
+                                </p>
+                            </div>
+                            <div class="feed-interaction-event-details" ng-if="campaign.usercodetype!== 'Free' && abbr==='reg'">
+                                <p ng-if="campaign.usercodetype!== 'Free'">
+                                   Price: <span class="value campaign-user-cost">{{campaign.usercode}} {{campaign.usercodecurrentcy}}</span>
+                                </p>
+                            </div>
+                            <div class="feed-interaction-picture">
+                                <a class="img-campaign img-{{abbr}}" href="{{campaign.TargetLink}}" target="_blank">
+                                    <img src="{{campaign.Image}}" class="img-responsive">
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <script type="text/ng-template" id="modal-feed-open-reg.html">
+                <div class="modal-container">
+                    <h3 class="reg-title">{{campaign.Name}} - Registration Form</h3>
+                    <div class="stamp-regit">Powered by Regit</div>
+                    <form class="form-horizontal form-registration">
+                        <fieldset>
+                            <legend>Delegation</legend>
+                            <div class="form-group form-row">
+                                <div class="col-sm-3">
+                                    <label for="input-delegate">Registering For</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <select ng-change="changedelegate()" ng-options="f as f.FromUserDisplayName for f in ListManagerDelegatedTo" ng-model="DelegationSelected" class="" id="select-delegate"></select>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Personal Information</legend>
+
+
+                            <div class="form-group form-row" ng-repeat="field in dataregisterform  | filter: filterRequired">
+                                <div class="col-sm-3">
+                                    <label>{{field.displayName}}</label>
+                                    <label ng-if="(!field.read && $parent.Iscustomrole && !field.write)" style="color:chocolate;font-size:small">Don't Permission</label>
+                                    <label ng-if="(field.read && $parent.Iscustomrole &&  !field.write)" style="color:chocolate;font-size:small">Read</label>
+                                    <label ng-if="(field.read && field.write && $parent.Iscustomrole )" style="color:chocolate;font-size:small">Read And Write</label>
+
+                                </div>
+                                <div class="col-sm-9">
+                                    <rgu-control ng-if="field.type!=='numinput' && field.type!=='tagsinput' && ($parent.Mode!='Read') &&  field.type!=='range' &&  field.type!=='history' &&  field.type!=='doc'"
+                                                 type="{{field.type}}"
+                                                 ng-model="field.model" options="field.options"></rgu-control>
+
+                                    <rgu-control ng-if="field.type==='numinput' &&  ($parent.Mode!='Read')" type="{{field.type}}" ng-model="field.model"
+                                                 options="field.options"
+                                                 unit-model="field.unitModel"></rgu-control>
+                                    <rgu-control ng-if="field.type==='tagsinput' &&  ($parent.Mode!='Read') " type="{{field.type}}" ng-model="field.model"
+                                                 options="field.options"
+                                                 placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+
+                                    <rgu-control ng-if="field.type==='range'&&  ($parent.Mode!='Read') " type="range" subtype="{{field.options}}" ng-model="field.model" options="field.modelarrays"
+                                                 unit-model="field.unitModel" ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+
+                                    <rgu-control ng-if="field.type==='history' &&  ($parent.Mode!='Read')" type="history" subtype="{{field.options}}"
+                                                 ng-model="field.modelarrays" options="field.model"
+                                                 ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+
+                                    <div ng-if="field.type==='doc' &&  ($parent.Mode!='Read')" class="doc-control-manager">
+                                        <table class="doc-control-grid">
+                                            <tr ng-repeat="doc in field.model">
+                                                <td>
+                                                    <a target="_blank" href="{{field.pathfile +doc.fname}}">{{doc.fname}}</a>
+                                                </td>
+                                                <td class="doc-control-actions">
+                                                    <button class="doc-control-delete" ng-click="$event.preventDefault();deleteDoc( field.model,$index)">Delete</button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <div class="upload-group doc-control-upload">
+                                            <input type="file" id="upload-doc" jsonpath="{{field.jsPath}}" class="input-file" onchange='angular.element(this).scope().uploadFile(this)'>
+                                        </div>
+                                    </div>
+
+                                    <input ng-if="($parent.Mode=='Read')" disabled="disabled" type="password" value="{{vaildfiled(field)?field.model:''}}" class="form-control" placeholder="">
+                                    <div class="form-field-details-row" ng-if="vaildfiled(field) ==false">
+                                        <span class="form-field-message" style="color:red">
+                                            Please enter value
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group form-row" ng-if="membershipFields.length">
+                                <div class="col-sm-12">
+                                    <h5 class="form-optional-heading">Membership</h5>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-row" ng-if="membershipFields.length"
+                                 ng-repeat="field in membershipFields = (dataregisterform | filter: filterMembership)">
+                                <div class="col-sm-3">
+                                    <label>{{field.displayName}}</label>
+                                    <label ng-if="(!field.read && $parent.Iscustomrole && !field.write)" style="color:chocolate;font-size:small">Don't Permission</label>
+                                    <label ng-if="(field.read && $parent.Iscustomrole &&  !field.write)" style="color:chocolate;font-size:small">Read</label>
+                                    <label ng-if="(field.read && field.write && $parent.Iscustomrole )" style="color:chocolate;font-size:small">Read And Write</label>
+
+                                </div>
+                                <div class="col-sm-9">
+                                    <rgu-control ng-if="field.type==='static'  && ($parent.Mode!='Read')" type="static" value="{{field.model}}" ng-model="field.model"></rgu-control>
+
+                                    <rgu-control ng-if="field.type!=='static' && field.type!=='numinput' && field.type!=='tagsinput'  && ($parent.Mode!='Read') "
+                                                 type="{{field.type}}"
+                                                 ng-model="field.model" options="field.options"></rgu-control>
+                                    <rgu-control ng-if="field.type==='numinput'  && ($parent.Mode!='Read')" type="{{field.type}}" ng-model="field.model"
+                                                 options="field.options"
+                                                 unit-model="field.unitModel"></rgu-control>
+                                    <rgu-control ng-if="field.type==='tagsinput'  && ($parent.Mode!='Read')" type="{{field.type}}" ng-model="field.model"
+                                                 options="field.options"
+                                                 placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                                    <input ng-if="($parent.Mode=='Read')" disabled="disabled" type="password" value="{{vaildfiled(field)?field.model:''}}" class="form-control" placeholder="">
+
+                                    <div class="form-field-details-row" ng-if="vaildfiled(field) ==false">
+                                        <span class="form-field-message" style="color:red">
+                                            Please enter value
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-group form-row" ng-if="qaFields.length">
+                                <div class="col-sm-12">
+                                    <h5 class="form-optional-heading">Answer Question</h5>
+                                </div>
+                            </div>
+                            <div class="form-group form-row" ng-if="qaFields.length"
+                                 ng-repeat="field in qaFields = (dataregisterform | filter: filterQA)">
+                                <div class="col-sm-3">
+                                    <label>{{field.displayName}}</label>
+                                    <label ng-if="(!field.read && $parent.Iscustomrole && !field.write)" style="color:chocolate;font-size:small">Don't Permission</label>
+                                    <label ng-if="(field.read && $parent.Iscustomrole &&  !field.write)" style="color:chocolate;font-size:small">Read</label>
+                                    <label ng-if="(field.read && field.write && $parent.Iscustomrole )" style="color:chocolate;font-size:small">Read And Write</label>
+
+                                </div>
+                                <div class="col-sm-9">
+                                    <rgu-control ng-if="($parent.Mode!='Read')" type="qa" choices="{{field.choices}}" options="field.modelarrays"
+                                                 ng-model="field.model"></rgu-control>
+                                    <input ng-if="($parent.Mode=='Read')" disabled="disabled" type="password" value="{{ vaildfiled(field)?field.model:""}}" class="form-control" placeholder="">
+                                    <div class="form-field-details-row" ng-if="vaildfiled(field) ==false">
+                                        <span class="form-field-message" style="color:red">
+                                            Please enter value
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div clss="form-group form-row" ng-if="optionalFields.length">
+                                <div class="col-sm-12">
+                                    <h5 class="form-optional-heading">Optional</h5>
+                                </div>
+                            </div>
+                            <div class="form-group form-row" ng-if="optionalFields.length"
+                                 ng-repeat="field in optionalFields = (dataregisterform | filter: filterOptional)">
+                                <div class="col-sm-3">
+
+                                    <input type="checkbox" ng-model="field.selected">
+                                    <label>{{field.displayName}}</label>
+                                    <label ng-if="(!field.read && $parent.Iscustomrole && !field.write)" style="color:chocolate;font-size:small">Don't Permission</label>
+                                    <label ng-if="(field.read && $parent.Iscustomrole &&  !field.write)" style="color:chocolate;font-size:small">Read</label>
+                                    <label ng-if="(field.read && field.write && $parent.Iscustomrole )" style="color:chocolate;font-size:small">Read And Write</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <rgu-control ng-if="field.type!=='numinput' && field.type!=='tagsinput' && ($parent.Mode!='Read') && field.type!=='range' && field.type!=='history' &&  field.type!=='doc'"
+                                                 type="{{field.type}}"
+                                                 ng-model="field.model" options="field.options"></rgu-control>
+                                    <rgu-control ng-if="field.type==='numinput' &&  ($parent.Mode!='Read')" type="{{field.type}}" ng-model="field.model"
+                                                 options="field.options"
+                                                 unit-model="field.unitModel"></rgu-control>
+                                    <rgu-control ng-if="field.type==='tagsinput' &&  ($parent.Mode!='Read') " type="{{field.type}}" ng-model="field.model"
+                                                 options="field.options"
+                                                 placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                                    <rgu-control ng-if="field.type==='range' &&  ($parent.Mode!='Read') " type="range" subtype="{{field.options}}" ng-model="field.model" options="field.modelarrays"
+                                                 unit-model="field.unitModel" ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+                                    <rgu-control ng-if="field.type==='history' &&  ($parent.Mode!='Read')" type="history" subtype="{{field.options}}"
+                                                 ng-model="field.modelarrays" options="field.model"
+                                                 ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+
+                                    <div ng-if="field.type==='doc' &&  ($parent.Mode!='Read')" class="doc-control-manager">
+                                        <table class="doc-control-grid">
+                                            <tr ng-repeat="doc in field.model">
+                                                <td>
+                                                    <a target="_blank" href="{{field.pathfile +doc.fname}}">{{doc.fname}}</a>
+                                                </td>
+                                                <td class="doc-control-actions">
+                                                    <button class="doc-control-delete" ng-click="$event.preventDefault();deleteDoc( field.model,$index)">Delete</button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <div class="upload-group doc-control-upload">
+                                            <input type="file" id="upload-doc" jsonpath="{{file.jsPath}}" class="input-file" onchange='angular.element(this).scope().uploadFile(this)'>
+                                        </div>
+                                    </div>
+
+                                    <input ng-if="($parent.Mode=='Read')" disabled="disabled" type="password" value="{{ vaildfiled(field)?field.model:''}}" class="form-control" placeholder="">
+                                    <div class="form-field-details-row" ng-if="vaildfiled(field) ==false && field.selected==true">
+                                        <span class="form-field-message" style="color:red">
+                                            Please enter value
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </fieldset>
+                        <div class="form-group form-row">
+                            <div class="col-sm-3">
+                                <label></label>
+                            </div>
+                            <div class="col-sm-9">
+                                <input id="option-agreed" ng-model="TermsConditions" type="checkbox" value="agreed">
+                                <label for="option-agreed">
+                                    I have read and agreed to the <a href="{{campaign.termsAndConditionsFile}}">
+                                        Terms &amp;
+                                        Conditions
+                                    </a>.
+                                </label>
+                                <p ng-show="(campaign.usercodetype=='Pay')" class="campaign-agree-cost">I agree to pay an amount of <span class="campaign-user-cost">{{campaign.usercode}} {{campaign.usercodecurrentcy}}</span> registration fee.</p>
+                            </div>
+
+                        </div>
+                        <div style="padding-top:20px">
+                            <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"><div ng-bind-html="messageBox"></div></uib-alert>
+                        </div>
+                        <div class="form-group form-row">
+                            <div class="col-sm-3">
+                                <label></label>
+                            </div>
+                            <div class="col-sm-9">
+                                <button type="button" ng-click="cancel()" class="btn btn-default">Cancel</button>
+                                <button type="button" ng-hide="!Isregis" ng-click="Register()" class="btn btn-primary">Register</button>
+                                <button type="button" ng-hide="Isregis" ng-click="notifyMissingInformationOfVault()" class="btn btn-primary">Send back to delegator</button>
+                                <button type="button" ng-if="Mode!=='Edit'" ng-hide="IsReadOnly" ng-click="Edit()" class="btn btn-primary">Edit</button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </script>
+            <div ng-if="false" class="search-load-more">
+                <button type="button" class="feed-load-more" ng-click="loadMore('interactions');">See more interactions</button>
+            </div>
+        </div>
+    </div>
+
+</div>

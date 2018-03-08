@@ -1,0 +1,77 @@
+﻿@using GH.Lang
+<div ng-controller="ActivityLogSettingsController" id="activity-log" class="account-activity-log">
+
+
+    <div class="account-form-row">
+        <div class="account-form-label">
+            <span class="field-title">Keep a record of your logging in/out Regit</span>
+        </div>
+        <div class="account-form-control control-float-right">
+            <switcher ng-model="activityLogSettings.RecordAccess" switcher-on-text="Yes" switcher-off-text="No" on-changed="saveActivityLogSetting('RecordAccess')"></switcher>
+        </div>
+    </div>
+
+    <div class="account-form-row">
+        <div class="account-form-label">
+            <span class="field-title">Keep a record of your profile setting</span>
+        </div>
+        <div class="account-form-control control-float-right">
+            <switcher ng-model="activityLogSettings.RecordProfile" switcher-on-text="Yes" switcher-off-text="No" on-changed="saveActivityLogSetting('RecordProfile')"></switcher>
+        </div>
+    </div>
+
+    <div class="account-form-row">
+        <div class="account-form-label">
+            <span class="field-title">Keep a record of your account setting changes</span>
+        </div>
+        <div class="account-form-control control-float-right">
+            <switcher ng-model="activityLogSettings.RecordAccount" switcher-on-text="Yes" switcher-off-text="No" on-changed="saveActivityLogSetting('RecordAccount')"></switcher>
+        </div>
+    </div>
+
+    <div class="account-form-row">
+        <div class="account-form-label">
+            <span class="field-title">Keep a record of your network activities</span>
+        </div>
+        <div class="account-form-control control-float-right">
+            <switcher ng-model="activityLogSettings.RecordNetwork" switcher-on-text="Yes" switcher-off-text="No" on-changed="saveActivityLogSetting('RecordNetwork')"></switcher>
+        </div>
+    </div>
+
+
+    <div class="account-form-row">
+        <div class="account-form-label">
+            <span class="field-title">Keep a record of information vault operations</span>
+        </div>
+        <div class="account-form-control control-float-right">
+            <switcher ng-model="activityLogSettings.RecordVault" switcher-on-text="Yes" switcher-off-text="No" on-changed="saveActivityLogSetting('RecordVault')"></switcher>
+        </div>
+    </div>
+
+    <div class="account-form-row">
+        <div class="account-form-label">
+            <span class="field-title">Keep a record of delegation activities</span>
+        </div>
+        <div class="account-form-control control-float-right">
+            <switcher ng-model="activityLogSettings.RecordDelegation" switcher-on-text="Yes" switcher-off-text="No" on-changed="saveActivityLogSetting('RecordDelegation')"></switcher>
+        </div>
+    </div>
+
+    <div class="account-form-row">
+        <div class="account-form-label">
+            <span class="field-title">Keep a record of your interactions </span>
+        </div>
+        <div class="account-form-control control-float-right">
+            <switcher ng-model="activityLogSettings.RecordInteraction" switcher-on-text="@Regit.YesText" switcher-off-text="@Regit.NoText" on-changed="saveActivityLogSetting('RecordInteraction')"></switcher>
+        </div>
+    </div>
+
+    <div class="account-form-row">
+        <div class="account-form-label">
+            <span class="field-title">@Regit.ActivityLogSettings_RecordSocialActivity</span>
+        </div>
+        <div class="account-form-control control-float-right">
+            <switcher ng-model="activityLogSettings.RecordSocialActivity" switcher-on-text="@Regit.YesText" switcher-off-text="@Regit.NoText" on-changed="saveActivityLogSetting('RecordSocialActivity')"></switcher>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+﻿@{
+    Layout = "~/Areas/User/Views/Shared/_MainLayout.cshtml";
+}
+
+@section styles {    @RenderSection("styles", required: false) }
+@section scripts {    @RenderSection("scripts", required: false) }
+
+@*  TWO COLUMN LAYOUT   *@
+
+<div class="body-cols body-cols-narrow">
+
+    <div class="body-col body-col-main">
+        <!-- MAIN COLUMN -->      
+        @RenderBody()
+            </div>
+    <div class="body-col body-col-right">
+        <!-- RIGHT COLUMN (ASIDE)-->   
+        @Html.Partial("_MainAsidePartial")
+    </div>
+
+</div>
+

@@ -1,0 +1,233 @@
+﻿<div ng-controller="searchVaultFormGroup">
+    <div class="vault-group-content" ng-repeat="value in listForm" ng-if="read">
+            <div class="vault-row" ng-if="write">
+                <div class="vault-group-actions">
+                    <button ng-hide="value.isEdit" class="btn-vault-action btn-vault-edit" ngclipboard data-clipboard-target="#copy-{{query.formName}}{{$index}}">
+                        Copy text
+                    </button>
+
+                    <button ng-hide="value.isEdit" class="btn-vault-action btn-vault-edit" ng-click="value.isEdit = !value.isEdit">
+                        Edit
+                    </button>
+
+                    <button ng-hide="!value.isEdit" class="btn-vault-action btn-vault-save" ng-click="Save()">
+                        Save
+                    </button>
+                    <button ng-hide="!value.isEdit" class="btn-vault-action btn-vault-cancel btn-cancel"
+                            ng-click="Cancel()">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+            <!-- // -->
+            <div class="vault-row" ng-hide="value.isEdit" id="copy-{{query.formName}}{{$index}}">
+                <div class="vault-label">
+                    <label ng-if="$index == 0"> {{_form._label}} </label>
+                </div>
+                <div class="vault-field">
+                    <div class="vault-field-value">
+                        <span ng-if="value.description">
+                            <strong> Description: </strong> {{value.description }}
+                        </span>
+                        <div ng-show="value.description == _form._default" class="vault-is-default">default</div> <br />
+                        <span ng-if="value.firstName">
+                            <strong> First name: </strong> {{value.firstName }} <br />
+                        </span>
+
+                        <span ng-if="value.lastName">
+                            <strong> Last name: </strong> {{value.lastName }} <br />
+                        </span>
+                        <span ng-if="value.nationality">
+                            <strong> Nationality: </strong> {{value.nationality }} <br />
+                        </span>
+                        <span ng-if="value.nationalID">
+                            <strong> NRIC / National ID: </strong> {{value.nationalID }} <br />
+                        </span>
+                        <span ng-if="value.location.country">
+                            <strong> Country: </strong> {{value.location.country }} <br />
+                        </span>
+                        <span ng-if="value.race">
+                            <strong> Race: </strong> {{value.race }} <br />
+                        </span>
+                        <span ng-if="value.issuedIn">
+                            <strong> Issued in: </strong> {{value.issuedIn }} <br />
+                        </span>
+                        <span ng-if="value.address">
+                            <strong>Address: </strong> {{value.address }} <br />
+                        </span>
+
+                        <span ng-if="value.issuedDate">
+                            <strong>Issued date: </strong> {{value.issuedDate | date:'fullDate'}} <br />
+                        </span>
+                        <span ng-if="!value.indefiniteDate">
+                          
+                                <strong> Expiry date: </strong> {{value.expiryDate | date:'fullDate'}}
+                            <br />
+                        </span>
+                        <!-- indefiniteDate -->
+                        <span ng-if="value.indefiniteDate">
+                            <strong> Expiry date: </strong> Indefinite
+                            <br />
+                        </span>
+                        <!-- End indefiniteDate -->
+                       
+                        <span ng-if="value.note">
+                            <strong> Note: </strong> {{value.note }} <br />
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+            <div ng-if="write" ng-hide="!value.isEdit">
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label></label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <strong>National Identity Card </strong>
+                        <button class="btn-vault-privacy" ng-class="{'privacy-on': value.privacy}"
+                                ng-click="value.privacy = !value.privacy"
+                                bs-tooltip
+                                data-title="{{value.privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                                data-placement="bottom-left"></button>
+                    </div>
+
+                </div>
+
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>Decription</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-control type="textbox" ng-model="value.description">
+                        </rgu-control>
+
+                    </div>
+
+                </div>
+
+                <!--firstName -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>First name</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-control type="textbox" ng-model="value.firstName"></rgu-control>
+                    </div>
+                </div>
+
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>Last name</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-control type="textbox" ng-model="value.lastName"></rgu-control>
+                    </div>
+                </div>
+
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>Nationality </label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-control type="textbox" ng-model="value.nationality"></rgu-control>
+                    </div>
+                </div>
+
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>NRIC / National ID</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-control type="textbox" ng-model="value.nationalID"></rgu-control>
+                    </div>
+                </div>
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>Race</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-control type="textbox" ng-model="value.race"></rgu-control>
+                    </div>
+                </div>
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>Address</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-control type="textbox" ng-model="value.address"></rgu-control>
+                    </div>
+                </div>
+                <div class="vault-row">
+                    <div class="vault-label">
+                        Country
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-location-picker ng-model="value.location" nocity="true" ></rgu-location-picker>
+                    </div>
+
+                </div>
+                <!--issuedDate  -->
+
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>Issued date</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-date-input type="combo" ng-model="value.issuedDate"></rgu-date-input>
+                    </div>
+                </div>
+
+                <!-- Indefinite-->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>Indefinite</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <label class="checkbox-square"><input type="checkbox" ng-model="value.indefiniteDate" /><span></span></label>
+                    </div>
+                </div>
+                <div class="vault-row" ng-show="!value.indefiniteDate">
+                    <div class="vault-label">
+                        <label>Expiry date:</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-date-input type="combo" ng-model="value.expiryDate" after="value.issuedDate"></rgu-date-input>
+                    </div>
+                </div>
+                <!-- end Indefinite-->
+                <!-- note -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>Note</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <textarea ng-model="value.note"></textarea>
+                    </div>
+                </div>
+
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>Default</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <label class="checkbox-square"><input type="checkbox" ng-model="value._default" /><span></span></label>
+                    </div>
+                </div>
+
+            </div >
+
+        </div>
+
+   <div ng-if="query.value !=''">
+
+        <div class="vault-entry-form-edit-actions">
+            <button type="button"
+                    class="btn-edit-vault-field-action btn-edit-vault-field-cancel"
+                    ng-click="$event.preventDefault();cancelField(entry)">
+                Close view
+            </button>
+
+        </div>
+    </div>
+</div>

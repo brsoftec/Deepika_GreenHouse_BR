@@ -1,0 +1,66 @@
+﻿@using GH.Core.Models
+@{
+    ViewBag.Title = "Business Workflow Permissions";
+    ViewBag.NgApp = "regitBusinessWorkflow";
+    Layout = "~/Areas/User/Views/Shared/_LayoutDefaultBusinessApply.cshtml";
+}
+@section styles {
+
+    <link rel="stylesheet" href="@Url.Versioned("~/Areas/Beta/css/workflow.css")">
+}
+@section initscripts {
+
+    <script>
+        angular.module('regitBusinessWorkflow', ['myApp', 'workflow']);
+    </script>
+}
+
+@section scripts {
+
+    <script src="@Url.Versioned("~/Areas/regitUI/js/modules/workflow.js")"></script>
+}
+
+
+<div class="module module-main module-workflow">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/BusinessAccount">&laquo; Business Home</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="/Workflow">Workflow</a>
+        </li>
+        <li class="breadcrumb-item active">Permissions</li>
+    </ol>
+    <h1>Workflow Permission List</h1>
+    <div class="workflow-page workflow-permissions">
+
+
+        <h3 class="workflow-heading">Access Permissions</h3>
+        <div class="workflow-permissions-legends">
+            <p><span class="permission-badge permission-badge-W">W</span>&nbsp;Can write: make changes, create/edit items</p>             
+            <p><span class="permission-badge permission-badge-R">R</span>&nbsp;Read only: cannot change</p>             
+            <p><span class="permission-badge permission-badge-X">X</span>&nbsp;No access allowed</p>  
+            <p><span class="myrole myrole-legend"></span>My role</p>
+        </div>
+        <table class="table table-striped workflow-permissions-grid">
+            <tr>
+                <th>Page/Resource</th>
+                <th class="permission-col@(ViewBag.IsRole.IsAdmin==true ? " myrole" : "")">Admin</th>
+                <th class="permission-col@(ViewBag.IsRole.IsEditor==true ? " myrole" : "")">Editor</th>
+                <th class="permission-col@(ViewBag.IsRole.IsApprover==true ? " myrole" : "")">Approver</th>
+            </tr>
+            @foreach (Resource resource in ViewBag.Resources)
+            {
+                <tr>
+                    <td>@resource.Name</td>
+                    <td class="permission-col@(ViewBag.IsRole.IsAdmin==true ? " myrole" : "")"><span class="permission-badge permission-badge-@resource.Permissions.Admin">@resource.Permissions.Admin</span></td>
+                    <td class="permission-col@(ViewBag.IsRole.IsEditor==true ? " myrole" : "")"><span class="permission-badge permission-badge-@resource.Permissions.Editor">@resource.Permissions.Editor</span></td>
+                    <td class="permission-col@(ViewBag.IsRole.IsApprover==true ? " myrole" : "")"><span class="permission-badge permission-badge-@resource.Permissions.Approver">@resource.Permissions.Approver</span></td>
+                </tr>
+            }
+        </table>
+
+    </div>
+
+
+</div>

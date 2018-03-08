@@ -1,0 +1,37 @@
+﻿@using GH.Web.Areas.User.ViewModels
+@model WebErrorViewModel
+
+@{
+    ViewBag.Title = "Error";
+    if (User.Identity.IsAuthenticated)
+    {
+        Layout = "~/Areas/User/Views/Shared/_LayoutFullApply.cshtml";
+    }
+    else
+    {
+        Layout = "~/Areas/User/Views/Shared/_PublicLayout.cshtml";
+    }
+    WebErrorViewModel error = TempData["error"] as WebErrorViewModel ?? Model;
+}
+@section styles{
+    <link href="@Url.Versioned("~/Areas/Beta/css/error.css")" rel="stylesheet"/>
+}
+@section scripts {
+
+}
+
+<div class="module module-main module-error">
+
+    <div class="error-page-container">
+        <div class="error-page-heading">Oops!</div>
+        <div class="error-page-subhead">
+           @error.Name
+        </div>
+        <div class="error-page-text">
+            <p>Some unexpected thing happened. Please try again later.</p>
+            <blockquote>@error.Message</blockquote>
+            <p>If the problem persists, please send us feedback about this error (include the error details above).</p>
+            <p>Sorry for any inconvenience caused.</p>
+        </div>
+    </div>
+</div>

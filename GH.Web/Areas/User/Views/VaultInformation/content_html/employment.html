@@ -1,0 +1,169 @@
+﻿<div class="vault-group">
+    <div class="vault-panel" ng-controller="employmentController">
+        <div class="vault-panel-header">
+            <button class="btn-vault-panel-header btn-vault-panel-back" ng-click="vm.AlphaRedirectTask('main_form.html')" href="#"> Back</button>
+            <button class="btn-vault-panel-header btn-vault-panel-close" ng-click="vm.AlphaRedirectTask('main_form.html')" href="#"> Close</button>
+            <h4 class="vault-panel-title">
+                Add new an employment
+            </h4>
+        </div>
+
+        <div class="vault-panel-body">
+            <form name="formEmployment" class="vault-panel-form" novalidate>
+                <div class="vault-panel-row">
+
+                    <div class="vault-panel-row">
+                        <label>Description</label>
+                        <input ng-model="_new.description">
+                    </div>
+
+                    <div class="vault-panel-row">
+                        <label> Company name</label>
+                        <input ng-model="_new.companyName">
+                    </div>
+
+                    <div class="vault-panel-row">
+                        <label>Title</label>
+                        <input ng-model="_new.title">
+                    </div>
+                    <div class="vault-panel-row">
+
+                        <label>Email</label>
+                        <input ng-model="_new.email" rules="email" />
+                    </div>
+
+                    <div class="vault-panel-row">
+                        <div class="vault-panel-col">
+                            <label>Phone number</label>
+                            <rgu-phone-input name="phone" ng-model="_new.phoneNumber" phone-code="_new.phoneCountry">
+
+                            </rgu-phone-input>
+                            <!--<input ng-model="_new.phoneNumber" rules="phone" />-->
+                        </div>
+
+                        <div class="vault-panel-col">
+                            <label>Fax</label>
+                            <rgu-phone-input name="fax" ng-model="_new.fax" phone-code="_new.faxCountry">
+                            </rgu-phone-input>
+                            <!--<input ng-model="_new.fax" rules="phone" />-->
+                        </div>
+                    </div>
+
+                    <div class="vault-panel-row">
+                        <div class="vault-panel-col">
+                            <label>Mobile phone</label>
+                            <rgu-phone-input name="mobile" ng-model="_new.mobileNumber" phone-code="_new.mobileCountry">
+
+                            </rgu-phone-input>
+                            <!--<input ng-model="_new.mobileNumber" rules="phone" />-->
+                        </div>
+                        <div class="vault-panel-col">
+                            <label>Salary</label>
+                            <input ng-model="_new.salary">
+                        </div>
+                    </div>
+                    <div class="vault-panel-row">
+                        <label>Employment status</label>
+                        <input ng-model="_new.employmentStatus">
+                    </div>
+
+                    <!--         -->
+                    <!--document-->
+                    <div class="vault-panel-row">
+                        <label><strong> --- Document Files --- </strong> <br /></label>
+                    </div>
+                    <div class="vault-panel-row form-doc-manager">
+
+                        <div class="vault-form-doc-manager" ng-controller="DocumentController">
+                            <button type="button" class="vault-doc-upload btn btn-default" ng-click="$event.preventDefault(); uploadDocForm( _newJspath)">
+                                Add file
+                            </button>
+
+                            <div ng-repeat="doc in _listdoc">
+
+                                <div ng-if="doc.jsPath == _newJspath">
+                                    <div class="vault-doc-grid vault-form-doc-grid">
+                                        <div class="vault-panel-col third">
+                                            <span class="vault-doc-type-icon vault-doc-type-{{GenerateFileType(doc.type)}}"></span>
+                                            <span>
+                                                <a href="#" class="vault-doc-fname" ng-click="$event.preventDefault();openDocEditorForm(doc)"
+                                                   ng-bind="doc.name"></a>
+                                            </span>
+                                            <span>
+                                                <a href="#" class="vault-doc-name" ng-click="$event.preventDefault();openDocEditorForm(doc)"
+                                                   ng-bind="doc.description"></a>
+                                            </span>
+                                        </div>
+                                        <div class="vault-panel-col third">
+                                            <span class="vault-doc-cat" ng-bind="doc.category"></span>
+                                        </div>
+                                        <div class="vault-panel-col third">
+                                            <span class="vault-doc-actions" ng-init="">
+                                                <button class="vault-doc-delete" ng-click="$event.preventDefault();DeleteFile(doc)">Delete</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--end document-->
+
+                    <div class="vault-panel-row">
+                        <div class="vault-panel-col">
+                            <label>Start date </label>
+                            <rgu-date-input type="combo" ng-model="_new.startDate"></rgu-date-input>
+                        </div>
+
+                        <div class="vault-panel-col">
+                            <label>End date </label>
+                            <rgu-date-input type="combo" ng-model="_new.endDate" after="_new.startDate"></rgu-date-input>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="vault-panel-row">
+                        <label>Address line</label>
+                        <input id="addressInput" ng-model="_new.addressLine">
+                        <label class="checkbox-square"> <input type="checkbox" ng-model="showMap"/><span></span>Show map to find location</label>
+                    </div>
+                    <div class="vault-panel-row" ng-show="showMap">
+
+                        <location-map inputid="addressInput"></location-map>
+                    </div>
+
+                    <div class="vault-panel-row" ng-show="!showMap">
+                        <rgu-control type="location" ng-model="_new.countryCity"></rgu-control>
+
+                    </div>
+
+                    <div class="vault-panel-col third">
+                        <label>ZIP / Postal Code</label>
+                        <input ng-model="_new.zipCode">
+                    </div>
+
+
+                    <div class="vault-panel-row">
+                        <label>Note</label>
+                        <textarea ng-model="_new.note"></textarea>
+                    </div>
+
+                    <div class="vault-panel-row vault-panel-row-tall">
+                        <label class="checkbox-square"><input type="checkbox" ng-model="_new._default" /><span></span>Set as default</label>
+                        <!--<input type="checkbox" ng-model="_new._default">
+                        <label>Set as default</label>-->
+                    </div>
+
+                </div>
+                <!---->
+                <div class="vault-panel-actions">
+                    <button type="button" class="btn btn-primary vault-panel-action vault-panel-save" ng-disabled="_new.description==''" ng-click="addNewForm(_new); Save(); vm.AlphaRedirectTask('main_form.html')" href="#">Save</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

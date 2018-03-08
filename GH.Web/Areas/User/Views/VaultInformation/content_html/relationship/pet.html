@@ -1,0 +1,77 @@
+﻿<!--pet content-->
+<div ng-controller="PetController">
+
+    <div class="vault-panel-row">
+        <div class="vault-panel-row">
+            <label>{{_new.description.label}}</label>
+            <input ng-model="_new.description.value">
+        </div>
+        <div class="vault-panel-row">
+            <label>{{_new.name.label}}</label>
+            <input ng-model="_new.name.value">
+        </div>
+
+        <div class="vault-panel-row">
+            <div class="vault-panel-col third">
+                <label>{{_new.type.label}}</label>
+                <div class="form-panel-control">
+                    <rgu-control type="select" class="short" options="['Dog','Cat', 'Bird', 'Fish', 'Other']" ng-model="_new.type.value" />
+
+                </div>
+            </div>
+        </div>
+        <div class="vault-panel-row">
+            <label>{{_new.breed.label}}</label>
+            <input ng-model="_new.breed.value">
+        </div>
+
+
+
+        <div class="vault-panel-row">
+            <label>{{_new.gender.label}}</label>
+            <div class="form-panel-control">
+                <rgu-radio-group values="['Male','Female', 'Other']" ng-model="_new.gender.value"></rgu-radio-group>
+                <!--<div class="radio">
+                    <input type="radio" name="input-title" id="input-title-mr"
+                           ng-model="_new.gender.value" value="Male" checked>
+                    <label for="input-title-mr">Male</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" name="input-title" id="input-title-ms"
+                           ng-model="_new.gender.value" value="Female">
+                    <label for="input-title-ms">Female</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" name="input-title" id="input-title-o"
+                           ng-model="_new.gender.value" value="Other">
+                    <label for="input-title-o">Other</label>
+                </div>-->
+            </div>
+        </div>
+
+        <div class="vault-panel-row">
+            <label>{{_new.dob.label}}</label>
+            <input ng-model="_new.dob.value">
+        </div>
+
+
+
+        <div class="vault-panel-row">
+            <label>{{_new.note.label}}</label>
+            <textarea ng-model="_new.note.value"></textarea>
+        </div>
+
+        <!--<div class="vault-panel-row"  ng-controller="UploadDocumentController">
+            <label for="input-media">Upload Media</label>
+            <input type="file" ng-model-instant id="fileToUpload" onchange="angular.element(this).scope().setFiles(this)" />
+            <input type="button" value="Upload" ng-click="fnUpload();" />
+
+
+        </div>-->
+    </div>
+
+    <div class="vault-panel-actions">
+        <button class="btn btn-primary vault-panel-action vault-panel-save" ng-disabled="!formGroup.$valid" ng-click="addNewForm(_new); Save(); vm.AlphaRedirectTask('main_form.html')" href="#">Save</button>
+    </div>
+
+</div>

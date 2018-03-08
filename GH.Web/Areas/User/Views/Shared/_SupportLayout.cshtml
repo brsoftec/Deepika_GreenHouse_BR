@@ -1,0 +1,81 @@
+@{
+    ViewBag.AngularApp = "regitAbout";
+    ViewBag.NgApp = "regitAbout";
+    ViewBag.Area = "support";
+    bool isPublic;
+
+    if (Request.IsAuthenticated)
+    {
+        bool isBusiness = Session["ViewTier"] == "business";
+        isPublic = false;
+        ViewBag.NgApp = "myApp";
+        ViewBag.ContainerClass = "support-container";
+        Layout = isBusiness ? "~/Areas/User/Views/Shared/_MainBusinessLayoutApply.cshtml" : "~/Areas/User/Views/Shared/_MainLayoutApply.cshtml";
+
+    }
+    else
+    {  
+        isPublic = true;
+        ViewBag.AngularApp = "regitAbout";
+        ViewBag.ContainerClass = "module module-main";
+        Layout = "~/Areas/User/Views/Shared/_AboutNewLayout.cshtml";
+
+    
+    }
+}
+
+@section styles {    @RenderSection("styles", required: false) }
+
+
+@section prescripts {
+    @if (!isPublic)
+    {
+        <script>
+            var regitGlobal = regitGlobal || {};
+            regitGlobal.ngApp = 'myApp';
+        </script>
+
+    }
+    else
+    {
+
+        
+    }
+}
+@section initscripts {
+
+    @if (isPublic)
+    {
+
+        <script>
+            angular.module('regitAbout',['ngCookies','ngSanitize', 'UserModule']);
+        </script>
+
+       <!--<script src="~/Areas/Beta/js/greenhouseApp.js"></script>-->
+        <!--<script src="@Url.Versioned("~/Areas/User/Scripts/Services/UserModule.js")"></script>-->
+        <!--<script src="@Url.Versioned("~/Areas/User/Scripts/Services/AuthorizationService.js")"></script>-->
+        <!--<script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/public-signin.js")"></script>-->
+
+    }
+
+    
+    @RenderSection("initscripts", required: false) 
+}
+
+@section scripts {
+    @RenderSection("scripts", required: false)
+}
+
+    @*  FULL WIDTH LAYOUT   *@
+
+<div class="body-cols body-cols-full">
+
+    <div class="body-col body-col-full">
+        <!-- MAIN COLUMN -->
+        @RenderBody()
+        @RenderSection("body", required: false)
+    </div>
+    
+
+</div>
+

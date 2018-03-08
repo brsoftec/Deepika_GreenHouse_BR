@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "Activity Log";
+
+        Layout = "~/Areas/User/Views/Shared/_LayoutDefaultBusinessApply.cshtml";
+   
+}
+
+@section styles {
+    <link rel="stylesheet" href="~/Areas/Beta/css/activity-log.css" />
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/activity-log-ctrl")
+    <script src="~/Areas/User/Scripts/Services/ActivityLogServices.js">
+
+    </script>
+}
+
+<div class="module module-main module-activity-log" ng-controller="ManagerActivityLogController">
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/">&laquo; Home</a>
+        </li>
+        <li class="breadcrumb-item active">Activity Log</li>
+    </ol>
+
+    <h1>Activity Log </h1>
+    <div class="page-actions">
+        <button class="btn btn-default page-action-text" ng-click="deleteActivityLogByUser()">Clear All</button>
+    </div>
+    <form class="form-horizontal form-activity-log">
+        <div class="page-filter activity-log-filter">
+            <button class="page-filter-item activity-log-filter-item filter-activities" ng-click="selectFilter('all')" ng-class="{active:view.currentFilter==='all'}">All Activities</button>
+            <button class="page-filter-item activity-log-filter-item filter-user" ng-click="selectFilter('user')" ng-class="{active:view.currentFilter==='user'}">User</button>
+            <button class="page-filter-item activity-log-filter-item filter-interactions" ng-click="selectFilter('interactions')" ng-class="{active:view.currentFilter==='interactions'}">Interactions</button>
+            <button class="page-filter-item activity-log-filter-item filter-network" ng-click="selectFilter('network')" ng-class="{active:view.currentFilter==='network'}">Network</button>
+            <button class="page-filter-item activity-log-filter-item filter-settings" ng-click="selectFilter('settings')" ng-class="{active:view.currentFilter==='settings'}">Account Settings</button>
+        </div>
+
+        @*<p>{{testTime | json}}</p>*@
+
+        <div class="activity-grid">
+            <table class="table table-striped">
+                <tbody>
+                    <tr ng-repeat="activity in ActivityLogs" ng-if="!activity.removed">
+
+                        <td><div class="activity-time">{{activity.DateTime | friendlyTime}}</div></td>
+
+                        <td class="">{{activity.Title}}</td>
+                        <td class="grid-actions">
+                            @*                        <a href="#" class="activity-action-view">View</a>*@
+                            <a href="#" ng-click="deleteActivityLog(activity)" class="btn-cell-delete">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="notifications-footer">
+                <a ng-click="pullMoreActivityLog()" href="#">See More &raquo;</a>
+            </div>
+        </div>
+    </form>
+</div>

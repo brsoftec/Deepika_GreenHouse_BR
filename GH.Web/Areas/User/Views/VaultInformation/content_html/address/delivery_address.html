@@ -1,0 +1,61 @@
+﻿  <!-- content Delivery Address -->
+
+    <div ng-controller="DeliveryAddressController">
+        <div class="vault-panel-row">
+            <div class="vault-panel-row">
+                <label>Description </label>
+                <input ng-model="_new.description">
+            </div>
+            <div class="vault-panel-row">
+                <label>Address</label>
+                <input id="addressInput" ng-model="_new.addressLine" placeholder="Street #, Street Name, Unit #">
+                <label class="checkbox-square"><input type="checkbox" ng-model="showMap" /><span></span>Show map to find location</label>
+                <!--<rgu-checkbox ng-model="showMap" label="Show map to find location"></rgu-checkbox>-->
+            </div>
+            <div class="vault-panel-row" ng-show="showMap">
+                <location-map inputid="addressInput"></location-map>
+            </div>
+
+            <div class="vault-panel-row" ng-show="!showMap">
+                <rgu-control type="location" ng-model="_new.countryCity"></rgu-control>
+            </div>
+            <div class="vault-panel-row">
+                <label>ZIP / Postal Code </label>
+                <input ng-model="_new.zipCode">
+            </div>
+            <div class="vault-panel-row">
+                <label>Additional instructions </label>
+                <input ng-model="_new.instruction">
+            </div>
+            <div class="vault-panel-row">
+                <label>From date </label>
+
+                <rgu-date-input type="combo" ng-model="_new.startDate"></rgu-date-input>
+            </div>
+            <div class="vault-panel-row">
+                <label class="checkbox-square"><input type="checkbox" ng-model="_new.checkEndDate" /><span></span>Specify End Date</label>
+                <!--<input type="checkbox" ng-model="_new.checkEndDate" />
+                <label>Specify End Date </label>-->
+            </div>
+
+            <div class="vault-panel-row" ng-show="_new.checkEndDate">
+                <label>To date </label>
+                <rgu-date-input type="combo" ng-model="_new.endDate" after="_new.startDate"></rgu-date-input>
+            </div>
+            <div class="vault-panel-row">
+                <label>Note</label>
+                <textarea ng-model="_new.note"></textarea>
+            </div>
+            <div class="vault-panel-row vault-panel-row-tall">
+                <label class="checkbox-square"><input type="checkbox" ng-model="_new._default" /><span></span>Set as default</label>
+                <!--<input type="checkbox" ng-model="_new._default">
+                <label>Set as default</label>-->
+            </div>
+        </div>
+
+        <div class="vault-panel-actions">
+            <button  type="button" class="btn btn-primary vault-panel-action vault-panel-save" ng-disabled="_new.description==''" ng-click="addNewForm(_new); Save(); vm.AlphaRedirectTask('main_form.html')" href="#">Save</button>
+        </div>
+    </div>
+
+<!-- -->

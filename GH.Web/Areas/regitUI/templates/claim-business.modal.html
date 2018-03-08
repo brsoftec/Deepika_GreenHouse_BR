@@ -1,0 +1,52 @@
+<div class="modal modal-box modal-form-box claim-business-modal" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <button type="button" class="modal-box-close" ng-click="closeClaimBusinessModal($hide)">Close</button>
+    <div class="modal-box-header">Claim {{claim.ucb.name}} now</div>
+
+    <form class="modal-form modal-box-form claim-business-form">
+        <div class="modal-form-row">
+            <div class="modal-form-label">
+                <label>Your Name</label>
+            </div>
+            <div class="modal-form-control">
+                <input class="modal-form-input" ng-model="claim.form.name">
+            </div>
+        </div>
+        <div class="modal-form-row">
+            <div class="modal-form-label">
+                <label>Phone Number</label>
+            </div>
+            <div class="modal-form-control">
+                <rgu-phone-input class="modal-box-form-input-component" name="claimerPhone" ng-model="claim.form.phone"
+                                 phone-type="full">
+                </rgu-phone-input>
+            </div>
+        </div>
+        <div class="modal-form-row">
+            <div class="modal-form-label">
+                <label>Email</label>
+            </div>
+            <div class="modal-form-control">
+                <input class="modal-form-input" ng-model="claim.form.email">
+            </div>
+        </div>
+        <div class="modal-form-row tall">
+            <div class="modal-form-label">
+                <label>Message</label>
+            </div>
+            <div class="modal-form-control">
+                <textarea class="modal-form-input" rows="4" ng-model="claim.form.message"></textarea>
+            </div>
+        </div>
+
+        <div class="modal-form-actions">
+
+            <button type="button" ng-click="closeClaimBusinessModal($hide)" class="modal-form-action form-action-cancel">Cancel</button>
+            <button type="button" class="modal-form-action form-action-primary form-action-submit"
+                    ng-disabled="!canClaim()" ng-click="sendClaim($hide)">
+                Send
+            </button>
+
+        </div>
+    </form>
+</div>

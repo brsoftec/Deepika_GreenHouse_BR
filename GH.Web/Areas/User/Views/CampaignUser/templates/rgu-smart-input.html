@@ -1,0 +1,7 @@
+<ui-select multiple tagging="tagTransform" tagging-label="{{label}}" ng-model="$parent.tags">
+    <ui-select-match placeholder="{{placeholder}}">{{$item.label}}</ui-select-match>
+    <ui-select-choices repeat="item in richList | filter:$select.search" group-by="groupBy">
+        <span class="richlist-item-prefix" ng-bind-html="item.prefix"></span>
+        <span class="richlist-item-label" ng-bind-html="item.label"></span>
+    </ui-select-choices>
+</ui-select>

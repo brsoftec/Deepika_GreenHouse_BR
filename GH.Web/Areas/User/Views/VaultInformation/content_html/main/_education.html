@@ -1,0 +1,285 @@
+﻿  <!-- education -->
+<div ng-controller="educationController">
+    <div ng-if="_form._name !='' ">
+        <div class="vault-group">
+            <!--HEADER -->
+            <div class="vault-group-header">
+                <h4>{{_form._label}}</h4>
+                <button class="btn-vault-group-collapse" ng-init="hide_educationBody=false;"
+                        ng-click="$event.preventDefault();hide_educationBody=!hide_educationBody;"></button>
+            </div>
+            <div ng-hide="hide_educationBody">
+
+
+                <div class="vault-group-content" ng-repeat="value in _listForm">
+                    <div class="vault-row">
+
+                        <div class="vault-group-actions">
+                            <button ng-hide="value.IsEdit" class="btn-vault-action btn-vault-edit" ngclipboard data-clipboard-target="#copy-education{{$index}}">
+                                Copy text
+                            </button>
+                            <button ng-hide="value.IsEdit" class="btn-vault-action btn-vault-edit" ng-click="value.IsEdit = !value.IsEdit">
+                                Edit
+                            </button>
+                            <button ng-hide="!value.IsEdit" class="btn-vault-action btn-vault-save" ng-click="Save()">
+                                Save
+                            </button>
+                            <button ng-hide="!value.IsEdit" class="btn-vault-action btn-vault-cancel btn-cancel"
+                                    ng-click="Cancel()">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                    <!-- // -->
+                    <div class="vault-row" ng-hide="value.IsEdit" id="copy-education{{$index}}">
+                        <div class="vault-label">
+                            <label>Education</label>
+                        </div>
+                        <div class="vault-field">
+                            <div class="vault-field-value">
+                                <span ng-if="value.description">
+                                    <strong> Description: </strong> {{value.description }}
+                                </span>
+
+                                <div ng-show="value.description == _form._default" class="vault-is-default">default</div> <br />
+                                <span ng-if="value.schoolName">
+                                    <strong> School name: </strong> {{value.schoolName }} <br />
+                                </span>
+
+                                <span ng-if="value.major">
+                                    <strong> Major: </strong> {{value.major }} <br />
+                                </span>
+                                <span ng-if="value.minor">
+                                    <strong> Minor: </strong> {{value.minor }} <br />
+                                </span>
+                                <span ng-if="value.schoolId">
+                                    <strong>School Id: </strong> {{value.schoolId}} <br />
+                                </span>
+                                <span ng-if="value.expiryDate">
+                                    <strong> Expiry date: </strong> {{value.expiryDate | vaultValue }} <br />
+                                </span>
+
+                                <span ng-if="value.certificationType">
+                                    <strong> Certification type: </strong> {{value.certificationType}} <br />
+                                </span>
+                                <span ng-if="value.grade">
+                                    <strong> Grade: </strong> {{value.grade}} <br />
+                                </span>
+                                <span ng-if="value.certificateNumber">
+                                    <strong> Certificate number: </strong> {{value.certificateNumber}} <br />
+                                </span>
+                                <span ng-if="value.graduatedDate">
+                                    <strong> Graduated date: </strong> {{value.graduatedDate | date:'fullDate'}} <br />
+                                </span>
+                                <!--document-->
+                                <div class="vault-form-doc-manager" ng-controller="DocumentController">
+                                    <div ng-if="_listdoc.length >0">
+                                        <div ng-repeat="doc in _listdoc">
+                                            <div class="vault-doc-grid vault-form-doc-grid" ng-if="value.docJspath ===  doc.jsPath">
+                                                <span ng-if="doc.description">
+                                                    <strong> {{doc.description}}</strong>
+                                                    <br />
+                                                </span>
+                                                <span ng-if="doc.name">
+                                                    <a href="/Content/vault/documents/{{ruserid}}/{{doc.name}}" target="_blank">{{doc.name}}</a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end document-->
+                                <span ng-if="value.note">
+                                    <br /> <strong> Note: </strong> {{value.note }} <br />
+                                </span>
+                                <div class="vault-privacy-indicator" ng-class="{'privacy-on': value.privacy}"
+                                     bs-tooltip
+                                     data-title="{{value.privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                                     data-placement="bottom-left">
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <!-- //  edit education-->
+                    <div ng-hide="!value.IsEdit">
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>Description</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-control type="textbox" ng-model="value.description">
+                                </rgu-control>
+                                <button class="btn-vault-privacy" ng-class="{'privacy-on': value.privacy}"
+                                        ng-click="value.privacy = !value.privacy"
+                                        bs-tooltip
+                                        data-title="{{value.privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                                        data-placement="bottom-left"></button>
+                            </div>
+                            <button class="vault-field-remove" ng-click="removeForm(value); removeFormDoc(value)">Remove</button>
+                        </div>
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>School name</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-control type="textbox" ng-model="value.schoolName"></rgu-control>
+                            </div>
+                        </div>
+
+                        <!--Major -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>Major</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-control type="textbox" ng-model="value.major"></rgu-control>
+                            </div>
+                        </div>
+                        <!--Minor -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>Minor</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-control type="textbox" ng-model="value.minor"></rgu-control>
+                            </div>
+                        </div>
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>School Id</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-control type="textbox" ng-model="value.schoolId"></rgu-control>
+                            </div>
+                        </div>
+
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>Expiry date</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-date-input type="combo" ng-model="value.expiryDate"></rgu-date-input>
+
+                            </div>
+                        </div>
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>Certification type</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-control type="textbox" ng-model="value.certificationType"></rgu-control>
+                            </div>
+                        </div>
+
+                        <div class="vault-row">
+
+                            <div class="vault-label">
+                                <label>Grade</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-control type="textbox" ng-model="value.grade" rules="" />
+                            </div>
+
+                        </div>
+                        <!--startDate datedmy -->
+
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>Certificate number</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-control type="textbox" ng-model="value.certificateNumber"></rgu-control>
+                            </div>
+                        </div>
+
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>Graduated date</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-date-input type="combo" ng-model="value.graduatedDate"></rgu-date-input>
+
+                            </div>
+                        </div>
+                        <!-- document-->
+                        <div class="vault-row">
+                            <div class="vault-label">
+
+                            </div>
+                            <div class="vault-field-edit" ng-controller="DocumentController">
+                                <div class="vault-form-doc-manager">
+                                    <div ng-repeat="doc in _listdoc">
+                                        <div class="vault-doc-grid vault-form-doc-grid" ng-if="doc.jsPath == value.docJspath">
+                                            <table width="100%">
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="vault-doc-fname" ng-click="$event.preventDefault();openDocEditorForm(doc)"
+                                                           ng-bind="doc.description"></a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="#" class="vault-doc-name" ng-click="$event.preventDefault();openDocEditorForm(doc)"
+                                                           ng-bind="doc.name"></a>
+                                                    </td>
+                                                    <td>
+                                                        <button class="vault-doc-delete" ng-click="$event.preventDefault();DeleteFile(doc)">Delete</button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                            <div ng-init="doc.expiryDate = value.expiryDate"></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div style="margin-top: 10px; margin-bottom: 10px;">
+                                    <button type="button" class="vault-doc-upload btn btn-default" ng-click="$event.preventDefault(); uploadDocForm(value.docJspath)">
+                                        Add more file
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- end document-->
+                        <!-- note -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>Note</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <textarea ng-model="value.note"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>Default</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <label class="checkbox-square"><input type="checkbox" ng-model="value._default" /><span></span></label>
+                                <!--<rgu-control type="checkbox" ng-model="value._default" />-->
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- noteOnline -->
+                <!-- // -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label> </label>
+
+                    </div>
+                    <div class="vault-field-actions">
+                        <a href="#" class="vault-field-add"
+                           ng-click="$event.preventDefault(); vm.AlphaRedirectTask('education.html') ">+ Add more education</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

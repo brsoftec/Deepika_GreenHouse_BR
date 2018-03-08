@@ -1,0 +1,103 @@
+﻿@using GH.Lang
+<div ng-controller="ManageNetworkController" collapse-base-on-route="/manage-network-settings" class="collapse-item manage-network">
+    <div class="collapse-header">
+
+        <a href="#/manage-network-settings" class="regit-color" data-toggle="collapse" aria-expanded="false" data-target="#manageNetworkCollapseContent">@Regit.Manage_Your_Network_Title</a>
+    </div>
+    <div class="collapse-content">
+        <div class="collapse" id="manageNetworkCollapseContent">
+            <div class="row network-section">
+                <div class="col-md-12 network-section-name">
+                    @Regit.Network_Title
+                </div>
+                <hr class="clear x2" />
+            </div>
+            <div class="row networks">
+                <div class="col-md-12 network">
+                    <div class="network-name">
+                        {{trustedNetwork.Name}}
+                    </div>
+                    <hr />
+                    <div class="friends">
+                        <div ng-repeat="friend in trustedNetwork.Friends" class="friend">
+                            <div class="row">
+                                <div class="col-md-8 friend-name">
+                                    {{friend.DisplayName}}
+                                </div>
+                                <div class="col-md-4 text-right action">
+                                    <a ng-click="moveFriend(friend, trustedNetwork, normalNetwork, $index)">@Regit.To_Normal_Message</a> <a ng-click="removeFriend(friend, trustedNetwork, $index)" class="x-mark-circle"></a>
+                                </div>
+                            </div>
+                            <hr ng-if="!$last" />
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+                <div class="col-md-12 network">
+                    <div class="network-name">
+                        {{normalNetwork.Name}}
+                    </div>
+                    <hr />
+                    <div class="friends">
+                        <div ng-repeat="friend in normalNetwork.Friends" class="friend">
+                            <div class="row">
+                                <div class="col-md-8 friend-name">
+                                    {{friend.DisplayName}}
+                                </div>
+                                <div class="col-md-4 text-right action">
+                                    <a ng-click="moveFriend(friend, normalNetwork, trustedNetwork, $index)">@Regit.To_Trusted_Message</a> <a ng-click="removeFriend(friend, normalNetwork, $index)" class="x-mark-circle"></a>
+                                </div>
+                            </div>
+                            <hr ng-if="!$last" />
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+            </div>
+            <div class="row network-invitation-section">
+                <div class="col-md-12 network-section-name">
+                    <div class="network-invitation text-right">
+                        <div>
+                            <span class="no-result" ng-show="searchFriendNoResult">@Regit.No_Results_Found</span> <div class="search-friend-input-wrapper">
+                            <input type="text" ng-model="invitation" placeholder="@Regit.Find_Your_Friends_Message" uib-typeahead="friend as friend.DisplayName for friend in findFriends($viewValue)" typeahead-no-results="searchFriendNoResult" typeahead-wait-ms="500" typeahead-editable="false" typeahead-template-url="searchFriendsTemplate.html" /></div> <a class="btn btn-blue" ng-click="invite()">@Regit.Invite_Title</a>
+                            <script type="text/ng-template" id="searchFriendsTemplate.html">
+                                <div class="search-friend-item">
+                                    <div class="search-friend-avatar">
+                                        <img ng-src="{{match.model.Avatar ? match.model.Avatar : '/Areas/User/Content/Images/no-pic.png'}}">
+                                    </div>
+                                    <div class="search-friend-name">
+                                        <span ng-bind-html="match.model.DisplayName | uibTypeaheadHighlight:query"></span>
+                                    </div>
+                                </div>
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <hr class="clear x2" />
+            </div>
+            <div class="row pending-invitaions-section">
+                <div class="col-md-12 network-section-name">
+                    @Regit.Pending_Invitations_Title
+                </div>
+                <hr class="clear x2" />
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="friends">
+                        <div ng-repeat="invitation in invitations" class="friend">
+                            <div class="row">
+                                <div class="col-md-8 friend-name">
+                                    {{invitation.Sender.DisplayName}}
+                                </div>
+                                <div class="col-md-4 text-right action">
+                                    <a ng-click="accept(invitation, $index)">@Regit.AcceptBtn</a> <a ng-click="deny(invitation, $index)" class="x-mark-circle"></a>
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

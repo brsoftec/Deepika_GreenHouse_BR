@@ -1,0 +1,145 @@
+.analytics-search {
+    /*position: absolute;*/
+    /*top: -60px; right: 10px;*/
+    margin: 10px;
+
+}
+
+.analytics-search-input {
+    background: transparent url(../img/search.svg) no-repeat 97% center;
+    background-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 4px 20px 4px 4px;
+}
+
+
+/* ANALYTICS
+*/
+.analytics h3 {
+    text-align: center;
+}
+
+.analytics-header {
+    width: 35%;
+    margin: 10px auto;
+}
+
+.analytics-header rgu-checkbox {
+    margin-top: 10px;
+}
+
+.btn-analytics-export {
+    float: right;
+}
+
+.btn-download-excel {
+    float: right;
+    margin-right: 10px;
+}
+
+.analytics-section {
+    border: 1px solid #bbb;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.analytics-message {
+    padding: 10px;
+}
+
+.analytics-chart {
+    padding-right: 20px;
+}
+
+.analytics-section h4 {
+    margin: 0 0 10px 0;
+    padding: 5px 10px;
+    color: #666;
+    background: #eee;
+    border-bottom: 1px solid #ddd;
+}
+
+.analytics-table {
+    width: 48%;
+    float: left;
+    margin-right: 10px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.analytics-table table {
+    border: 1px solid #bbb;
+}
+
+.analytics-table th, .analytics-table td {
+    border-right: 1px solid #bbb;
+}
+
+.analytics-table th {
+    color: #666;
+    background: #eee;
+}
+
+.analytics-table td {
+    color: #999;
+}
+
+.analytics-data {
+    clear: both;
+    font-size: 90% !important;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.analytics-grid {
+    min-width: 400px;
+    display: none;
+}
+
+.analytics-grid-container {
+    width: 100%;
+    overflow-x: scroll;
+
+}
+
+.analytics-grid-header {
+    margin: 0 10px;
+}
+.analytics-grid-preview {
+    margin-top: 20px;
+    /*width: 100%;*/
+    /*table-layout: fixed;*/
+
+}
+
+.analytics-grid-preview th {
+    border-right: 1px solid #ddd;
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
+}
+
+.analytics-grid-preview td {
+    white-space: nowrap;
+    border-right: 1px solid #ddd;
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
+    /*max-width: 8em;*/
+}
+
+.analytics-grid-preview tr:last-child {
+    border-bottom: 1px solid #ddd;
+}
+
+.analytics-data rgu-checkbox {
+    margin-left: 20px;
+}
+
+.analytics-tags {
+    clear: both;
+    width: 100%;
+}
+
+.analytics-pagination {
+    margin: 10px auto !important;
+}

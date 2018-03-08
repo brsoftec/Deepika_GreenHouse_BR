@@ -1,0 +1,96 @@
+.signup-form-row {
+    width: 100%;
+}
+.signup-form-label {
+    width: 150px;
+    display: inline-block;
+    text-align: right;
+    margin-right: 10px;
+    color: #999;
+}
+
+.user-signup-form input {
+    display: inline-block;
+    width: 65% !important;
+    margin: 4px;
+    padding: 2px 4px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 90%;
+}
+.user-signup-form input.error {
+    color: crimson;
+    border-color: crimson;
+}
+
+.signup-form-email {
+}
+.signup-form-submit {
+    display: block;
+    margin: 10px 10px 10px 170px;
+    border: none;
+    border-radius: 4px;
+    background: #00adef;
+    color: white;
+    text-align: center;
+    font-size: 120%;
+    padding: 6px 20px;
+    cursor: pointer;
+    font-weight: 500;
+}
+.signup-form-submit:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+.signup-business {
+    text-align: center;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+}
+.signup-business p {
+    margin: 0; padding: 0;
+    font-size: 90% !important;
+}
+.signup-business a {
+    display: block;
+    color: #00adef !important;
+    font-size: 90% !important;
+    font-weight: 500;
+}
+
+p.signup-form-message {
+    margin: 0 4px 0 180px;
+    padding: 0;
+    font-size: 90%;
+    color: crimson;
+}
+.signup-messages p {
+    font-size: 90%;
+    font-weight: 500;
+    position: relative;
+    padding-left: 10px;
+    line-height: 1.2;
+}
+.signup-messages rgu-spinner {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+}
+
+.signup-disclaimer {
+    margin: 10px 4px 10px 140px;
+    color: #999;
+}
+
+.signup-messages {
+    margin: 10px 4px 10px 150px;
+    color: #999;
+}
+
+.signup-business-action {
+    background: none;
+    border: none;
+    color: #00adef;
+}

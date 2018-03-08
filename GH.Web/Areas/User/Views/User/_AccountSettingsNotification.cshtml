@@ -1,0 +1,45 @@
+﻿@using GH.Lang
+<div ng-controller="NotificationSettingsController" collapse-base-on-route="/notification-settings" class="collapse-item">
+    <div class="collapse-header">
+        <a href="#/notification-settings" class="regit-color" data-toggle="collapse" aria-expanded="false" data-target="#notificationSettingsCollapseContent">@Regit.Notification_Settings_Title</a>
+    </div>
+    <div class="collapse-content">
+        <div class="collapse" id="notificationSettingsCollapseContent">
+            <div class="row field">
+                <div class="col-md-8">
+                    <span class="field-title">@Regit.Interactions_Title </span>
+                </div>
+                <div class="col-md-4 text-right">
+                    <switcher ng-model="Model.Interactions" switcher-on-text="@Regit.YesText" switcher-off-text="@Regit.NoText" on-changed="Save()"></switcher>
+                </div>
+            </div>
+            <hr />
+            <div class="row field">
+                <div class="col-md-8">
+                    <span class="field-title">@Regit.Event_And_Reminders_Title</span>
+                </div>
+                <div class="col-md-4 text-right">
+                    <switcher ng-model="Model.EventAndReminders" switcher-on-text="@Regit.YesText" switcher-off-text="@Regit.NoText" on-changed="Save()"></switcher>
+                </div>
+            </div>
+            <hr />
+            <div class="row field">
+                <div class="col-md-8">
+                    <span class="field-title">@Regit.Network_Request_Title</span>
+                </div>
+                <div class="col-md-4 text-right">
+                    <switcher ng-model="Model.NetworkRequest" switcher-on-text="@Regit.YesText" switcher-off-text="@Regit.NoText" on-changed="Save()"></switcher>
+                </div>
+            </div>
+            <hr />
+            <div class="row field">
+                <div class="col-md-8">
+                    <span class="field-title">@Regit.Workflow_Title</span>
+                </div>
+                <div class="col-md-4 text-right">
+                    <switcher ng-model="Model.Workflow" switcher-on-text="@Regit.YesText" switcher-off-text="@Regit.NoText" on-changed="Save()"></switcher>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

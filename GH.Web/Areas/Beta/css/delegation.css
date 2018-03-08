@@ -1,0 +1,36 @@
+.delegation-details-heading {
+    font-weight: 300;
+    font-size: 160%;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.module-delegation-details {
+    padding: 20px;
+    min-height: 200px;
+}
+
+delegation-details-content {
+    clear: both;
+}
+.delegation-row {
+    cursor: pointer;
+}
+
+.delegation-row.active {
+    border: 2px solid #00adef !important;
+}
+
+.delegation-invite-section {
+    /*width: 100%;*/
+    padding: 10px 20px 10px 20px;
+    vertical-align: top;
+    background: #eee !important;
+    border: 1px solid #ddd;
+}
+.delegation-invite-input  {
+    width: 16em !important;
+    height: 30px;
+    padding: 4px;
+
+}

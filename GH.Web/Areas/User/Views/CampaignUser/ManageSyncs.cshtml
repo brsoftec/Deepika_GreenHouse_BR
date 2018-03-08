@@ -1,0 +1,530 @@
+﻿@*<!--@formatter:off-->*@
+@{
+    Layout = "~/Areas/User/Views/Shared/_LayoutDefaultApply.cshtml";
+    ViewBag.Title = "Personal Handshake Manager";
+}
+
+@section scripts {
+
+    @Scripts.Render("~/bundles/BusinessUserSystem")
+
+    @Scripts.Render("~/bundles/CampaignService")
+
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/CampaignUser/ManageSyncsController.js")"></script>
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/HandshakeController.js")"></script>
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/CampaignUser/ManagerCampaignController.js")"></script>
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/dialog-confirm-ctrl.js")"></script>
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/NewFeeds/RegistrationHandshakeOnNewFeedController.js")"></script>
+}
+
+@section styles{
+    @Styles.Render("~/bundles/css/feed")
+    @Styles.Render("~/regitCampaign/css")
+    <link href="@Url.Versioned("~/Areas/Beta/css/business.css")" rel="stylesheet"/>
+    <link href="@Url.Versioned("~/Areas/Beta/css/interactions.css")" rel="stylesheet"/>
+    <link rel="stylesheet" href="@Url.Versioned("~/Areas/Beta/css/handshake.css")">
+    <link rel="stylesheet" href="@Url.Versioned("~/Areas/Beta/css/handshake-manager.css")">
+}
+
+@*<!--@formatter:on-->*@
+
+<div class="module module-main module-interactions module-handshake-manager" ng-controller="HandshakeController">
+<div ng-controller="ManageSyncsController as vm"
+     ng-init="vm.initializeController()">
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="/">&laquo; Home</a>
+    </li>
+    <li class="breadcrumb-item active">Personal Handshake Manager</li>
+</ol>
+
+<div class="page">
+<!-- // begin individual handshake-->
+<div class="page-cta-dashboard">
+    <button type="button" class="handshake-new-cta" ng-click="openHandshakeNewModal()">Create a Handshake</button>
+</div>
+<div class="page-section-header" ng-class="{opening:page.sections.individualHandshakes.opening}" ng-click="toggleSection('individualHandshakes')">Invididual Handshakes</div>
+<div class="interaction-manager clearfix individual-handshake-manager" ng-if="page.sections.individualHandshakes.opening">
+    <h3 class="section-subhead outgoing-handshakes">Outgoing Handshakes</h3>
+    <form class="handshakesForm">
+        <div class="campaigns-grid">
+            <table class="table table-striped interactions-grid">
+                <thead>
+                <tr>
+                    <th class="interaction-key">Handshake With</th>
+                    <th>Expire</th>
+                    <th>Last Sync</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="" ng-repeat="hs in outgoingHandshakes | filter:filterOutgoingHandshakes">
+                    <td class="interaction-key">
+                        <div class="handshake-grid-avatar" ng-if="hs.toAccountId">
+                            <img ng-src="{{hs.toAvatar | avatarUrl}}">
+                        </div>
+                        <div class="handshake-grid-avatar handshake-email-user-avatar" ng-if="!hs.toAccountId">
+                            <img ng-src="/Areas/Beta/img/email-user.svg">
+                        </div>
+                        <span class="handshake-user-name">{{hs.toName}}</span>
+                        <span class="handshake-user-email" ng-if="!hs.toAccountId"> ({{hs.toEmail}})</span>
+                    </td>
+                    <td class="interaction-date">
+                        <div ng-if="!hs.expiry.indefinite">{{hs.expiry.date|date:'yyyy-MM-dd'}}</div>
+                        <div ng-if="hs.expiry.indefinite">Indefinite</div>
+                    </td>
+                    <td class="interaction-date">
+                        <div ng-if="hs.synced">{{hs.synced|date:'yyyy-MM-dd'}}</div>
+                    </td>
+                    <td class="handshake-status-text">
+                        {{hs.status}}
+                    </td>
+                    <td class="interaction-actions">
+                        <button class="grid-action action-more" ng-click="openMoreActions(hs,$event)">
+                            More
+                        </button>
+                        <div class="more-actions-dropdown" ng-if="view.openingMoreActions===hs.Id">
+                            <button class="more-action" ng-click="openHandshakeEditModal(hs)">Edit</button>
+                            <button class="more-action" ng-click="pauseHandshake(hs)" ng-if="hs.status==='active'">Pause</button>
+                            <button class="more-action" ng-click="resumeHandshake(hs)" ng-if="hs.status==='paused'">Resume</button>
+                            <button class="more-action" ng-click="terminateHandshake(hs)">Terminate</button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+    <h3 class="section-subhead incoming-handshakes">Incoming Handshakes</h3>
+    <form class="handshakesForm">
+        <div class="campaigns-grid">
+            <table class="table table-striped interactions-grid">
+                <thead>
+                <tr>
+                    <th class="interaction-key">Handshake With</th>
+                    <th>Expire</th>
+                    <th>Last Sync</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="" ng-repeat="hs in incomingHandshakes track by $index">
+                    <td class="interaction-key">
+                        <div class="handshake-grid-avatar">
+                            <img ng-src="{{hs.fromAvatar | avatarUrl}}">
+                        </div>
+                        <span class="handshake-user-name">{{hs.name}}</span>
+                    </td>
+                    <td class="interaction-date">
+                        <div ng-if="!hs.expiry.indefinite">{{hs.expiry.date|date:'yyyy-MM-dd'}}</div>
+                        <div ng-if="hs.expiry.indefinite">Indefinite</div>
+                    </td>
+                    <td class="interaction-date">
+                        <div ng-if="hs.synced">{{hs.synced|date:'yyyy-MM-dd'}}</div>
+                    </td>
+                    <td class="handshake-status-text">
+                        {{hs.status}}
+                    </td>
+                    <td class="interaction-actions">
+                        <button class="grid-action action-more" ng-click="openMoreActions(hs,$event)">
+                            More
+                        </button>
+                        <div class="more-actions-dropdown" ng-if="view.openingMoreActions===hs.Id">
+                            <button class="more-action" ng-click="openHandshakeViewModal(hs)">View Form</button>
+                            <button class="more-action" ng-click="blockHandshake(hs)" ng-if="hs.status==='active'">Block</button>
+                            <button class="more-action" ng-click="unblockHandshake(hs)" ng-if="hs.status==='blocked'">Unblock</button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>
+
+<!-- // end individual handshake-->
+<div class="page-section-header" ng-class="{opening:page.sections.businessHandshakes.opening}" ng-click="toggleSection('businessHandshakes')">Business Handshakes</div>
+
+<div class="interaction-manager clearfix business-handshake-manager" ng-if="page.sections.businessHandshakes.opening">
+    <form class="form-horizontal form-campaigns">
+        <div class="campaigns-grid">
+            <table class="table table-striped interactions-grid">
+                <thead>
+                <tr>
+                    <th class="interaction-key">Handshake</th>
+                    <th>Expire</th>
+                    <th>Last Synced</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-init="status=c.Status.toLowerCase();" class="campaign-status-{{status}}"
+                    ng-repeat="c in vm.ListCampaignNodraff track by $index">
+                    <td class="interaction-key">
+                        <interaction-badge model="c"></interaction-badge>
+                        <span class="interaction-name">{{c.Name}}</span>
+                        <span class="interaction-business-name" ng-bind="c.BusinessName"></span>
+                    </td>
+                    <td class="interaction-date" ng-class="vm.GetClassStatusCampaign(c.Status)">
+                        <div ng-if="c.TimeType!=='Daily'">{{c.EnDate|date:'yyyy-MM-dd'}}</div>
+                        <div ng-if="c.TimeType==='Daily'">Indefinite</div>
+                    </td>
+                    <td class="interaction-date" ng-class="vm.GetClassStatusCampaign(c.Status)">
+                        <div ng-if="c.Type==='Handshake' && c.postHandShake.DateUpdateJson">{{c.postHandShake.DateUpdateJson}}</div>
+                    </td>
+                    <td class="interaction-status-value">
+                        <handshake-status-badge ng-if="c.Type==='Handshake'"
+                                                model="c.postHandShake">
+                        </handshake-status-badge>
+                    </td>
+                    <td class="interaction-actions">
+                        <button class="grid-action action-more" ng-click="openMoreActions(c,$event)">
+                            More
+                        </button>
+                        <div class="more-actions-dropdown" ng-if="view.openingMoreActions===c.Id">
+                            <button class="more-action" ng-click="vm.ShowFieldsHansahke(c.Id)">View Form</button>
+                            <button class="more-action" ng-if="c.Type=='Handshake' && c.postHandShake.IsJoin"
+                                    ng-click="vm.UnJoinOrJoin(c.postHandShake,c)">
+                                Pause
+                            </button>
+                            <button class="more-action" ng-if="c.Type=='Handshake' && !c.postHandShake.IsJoin"
+                                    ng-click="vm.UnJoinOrJoin(c.postHandShake,c)">
+                                Resume
+                            </button>
+                            <button class="more-action" ng-if="c.Type=='Handshake'" ng-click="vm.Remove(c.postHandShake,c)">Terminate</button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <ul items-per-page="10" boundary-links="true" ng-change="vm.pageChanged()" uib-pagination
+                ng-if="vm.totalCampaigns>10" total-items="vm.totalCampaigns" ng-model="vm.currentPageNumber"
+                class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;"
+                first-text="&laquo;" last-text="&raquo;">
+            </ul>
+        </div>
+        <div class="sync-members-pending-heading">Terminated Handshakes</div>
+        <table class="table table-striped interactions-grid">
+            <thead>
+            <tr>
+                <th>Handshake</th>
+                <th>Terminated</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="hs in listTerminateCampaign">
+                <td class="hs-member-name">
+                    <interaction-badge model="hs"></interaction-badge>
+                    <span class="interaction-name">{{hs.Name}}</span>
+                    <span class="interaction-business-name" ng-bind="hs.BusinessName"></span>
+                </td>
+                <td class="interaction-date">{{c.postHandShake.DateUpdateJson | friendlyTime}}</td>
+                <td class="interaction-actions">
+                    <button class="grid-action action-more" ng-click="openMoreActions(hs,$event)">
+                        More
+                    </button>
+                    <div class="more-actions-dropdown" ng-if="view.openingMoreActions===hs.Id">
+                        <button class="more-action" ng-click="deleteCampaign(hs)">
+                            Remove
+                        </button>
+                    </div>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </form>
+
+    <div class="campaigns-grid" ng-controller="ManageRequestHandShakeUserController">
+        <h1>Handshake Request Manager</h1>
+        <table class="table table-striped interactions-grid">
+            <thead>
+            <tr>
+
+                <th></th>
+                <th>Business</th>
+                <th>Request Date</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="hs in hsRequests" ng-if="hs.status!=='removed'">
+                <td class="hsr-avatar" style="text-align: left; vertical-align: middle;">
+                    <a class="grid-avatar avatar-prefix" href="{{businessProfileUrl(hs)}}">
+                        <img ng-src="{{hs.toProfile.avatar | avatarUrl:true}}"/>
+                    </a>
+                </td>
+                <td class="hsr-business-name">
+                    <a class="" href="{{businessProfileUrl(hs)}}">{{hs.toProfile.displayName}}</a>
+                </td>               
+                <td class="hsr-date">
+                    {{hs.createdAt | friendlyTime}}
+                </td>
+                <td>
+                    <span class="hsr-status-text" ng-if="hs.status==='complete' || hs.status==='read'">Completed</span>
+                </td>
+                <td class="more-actions">
+                    <button class="grid-action action-more" ng-click="view.openMoreActions(hs.id, $event)">More</button>
+                    <div class="more-actions-dropdown" ng-if="view.openingMoreActions===hs.id">
+
+                        <button class="more-action" ng-click="openHsrViewer(hs)">
+                            View Form
+                        </button>
+                        <button class="more-action" ng-click="delete(hs)">
+                            Cancel
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</div>
+</div>
+</div>
+
+@*<script type="text/ng-template" id="modal-feed-open-reg-handshake.html">
+    <div class="modal-container">
+        <h3 class="reg-title">{{campaign.Name}} - HANDSHAKE Form</h3>
+        <div class="stamp-regit">Powered by Regit</div>
+        <form class="form-horizontal form-registration">
+
+            <fieldset>
+                <legend>Personal Information</legend>
+
+
+                <div class="form-group form-row" ng-repeat="field in dataregisterform  | filter: filterRequired">
+                    <div class="col-sm-3">
+                        <label>{{field.displayName}}</label>
+                        <label ng-if="(!field.read && $parent.Iscustomrole && !field.write)"
+                               style="color:chocolate;font-size:small">Don't Permission</label>
+                        <label ng-if="(field.read && $parent.Iscustomrole &&  !field.write)"
+                               style="color:chocolate;font-size:small">Read</label>
+                        <label ng-if="(field.read && field.write && $parent.Iscustomrole )"
+                               style="color:chocolate;font-size:small">Read And Write</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <rgu-control ng-disabled="true"
+                                     ng-if="field.type!=='numinput' && field.type!=='tagsinput' &&  field.type!=='range' &&  field.type!=='history' &&  field.type!=='doc'"
+                                     type="{{field.type}}"
+                                     ng-model="field.model" options="field.options"></rgu-control>
+
+                        <rgu-control ng-disabled="true" ng-if="field.type==='numinput' " type="{{field.type}}"
+                                     ng-model="field.model"
+                                     options="field.options"
+                                     unit-model="field.unitModel"></rgu-control>
+                        <rgu-control ng-disabled="true" ng-if="field.type==='tagsinput'  " type="{{field.type}}"
+                                     ng-model="field.model"
+                                     options="field.options"
+                                     placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+
+                        <rgu-control ng-disabled="true" ng-if="field.type==='range'" type="range"
+                                     subtype="{{field.options}}" ng-model="field.model" options="field.modelarrays"
+                                     unit-model="field.unitModel" ng-required="field.optional"
+                                     rules="{{field.rules}}"></rgu-control>
+
+                        <rgu-control ng-disabled="true" ng-if="field.type==='history' " type="history"
+                                     subtype="{{field.options}}"
+                                     ng-model="field.modelarrays" options="field.model"
+                                     ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+
+                        <div ng-if="field.type==='doc' &&  ($parent.Mode!='Read')" class="doc-control-manager">
+                            <table class="doc-control-grid">
+                                <tr ng-repeat="doc in field.model">
+                                    <td>
+                                        <a target="_blank" href="{{field.pathfile +doc.fname}}">{{doc.fname}}</a>
+                                    </td>
+                                    <td class="doc-control-actions">
+                                        <button class="doc-control-delete"
+                                                ng-click="$event.preventDefault();deleteDoc( field.model,$index)">Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="upload-group doc-control-upload">
+                                <input ng-disabled="true" type="file" id="{{field.jsPath}}" jsonpath="{{field.jsPath}}"
+                                       class="input-file" onchange='angular.element(this).scope().uploadFile(this)'>
+                            </div>
+                        </div>
+
+                        <input ng-if="false" disabled="disabled" type="password"
+                               value="{{vaildfiled(field)?field.model:''}}" class="form-control" placeholder="">
+                        <div ng-if="false" class="form-field-details-row" $1$ng-if="vaildfiled(field) ==false" #1#>
+                            <span class="form-field-message" style="color:red">
+                                Please enter value
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-group form-row" ng-if="membershipFields.length">
+                    <div class="col-sm-12">
+                        <h5 class="form-optional-heading">Membership</h5>
+                    </div>
+                </div>
+
+                <div class="form-group form-row" ng-if="membershipFields.length"
+                     ng-repeat="field in membershipFields = (dataregisterform | filter: filterMembership)">
+                    <div class="col-sm-3">
+                        <label>{{field.displayName}}</label>
+                        <label ng-if="(!field.read && $parent.Iscustomrole && !field.write)"
+                               style="color:chocolate;font-size:small">Don't Permission</label>
+                        <label ng-if="(field.read && $parent.Iscustomrole &&  !field.write)"
+                               style="color:chocolate;font-size:small">Read</label>
+                        <label ng-if="(field.read && field.write && $parent.Iscustomrole )"
+                               style="color:chocolate;font-size:small">Read And Write</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <rgu-control ng-disabled="true" ng-if="field.type==='static' " type="static"
+                                     value="{{field.model}}" ng-model="field.model"></rgu-control>
+
+                        <rgu-control ng-disabled="true"
+                                     ng-if="field.type!=='static' && field.type!=='numinput' && field.type!=='tagsinput'   "
+                                     type="{{field.type}}"
+                                     ng-model="field.model" options="field.options"></rgu-control>
+                        <rgu-control ng-disabled="true" ng-if="field.type==='numinput'  " type="{{field.type}}"
+                                     ng-model="field.model"
+                                     options="field.options"
+                                     unit-model="field.unitModel"></rgu-control>
+                        <rgu-control ng-disabled="true" ng-if="field.type==='tagsinput'" type="{{field.type}}"
+                                     ng-model="field.model"
+                                     options="field.options"
+                                     placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                        <input ng-if="false" disabled="disabled" type="password"
+                               value="{{vaildfiled(field)?field.model:''}}" class="form-control" placeholder="">
+
+                        <div ng-if="false" class="form-field-details-row" ng-if="vaildfiled(field) ==false">
+                            <span class="form-field-message" style="color:red">
+                                Please enter value
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group form-row" ng-if="qaFields.length">
+                    <div class="col-sm-12">
+                        <h5 class="form-optional-heading">Answer Question</h5>
+                    </div>
+                </div>
+                <div class="form-group form-row" ng-if="qaFields.length"
+                     ng-repeat="field in qaFields = (dataregisterform | filter: filterQA)">
+                    <div class="col-sm-3">
+                        <label>{{field.displayName}}</label>
+                        <label ng-if="(!field.read && $parent.Iscustomrole && !field.write)"
+                               style="color:chocolate;font-size:small">Don't Permission</label>
+                        <label ng-if="(field.read && $parent.Iscustomrole &&  !field.write)"
+                               style="color:chocolate;font-size:small">Read</label>
+                        <label ng-if="(field.read && field.write && $parent.Iscustomrole )"
+                               style="color:chocolate;font-size:small">Read And Write</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <rgu-control ng-disabled="true" ng-if="true" type="qa" choices="{{field.choices}}"
+                                     options="field.modelarrays"
+                                     ng-model="field.model"></rgu-control>
+                        <input ng-if="false" disabled="disabled" type="password"
+                               value="{{ vaildfiled(field)?field.model:""}}" class="form-control" placeholder="">
+                        <div ng-if="false" class="form-field-details-row" $1$ng-if="vaildfiled(field) ==false" #1#>
+                            <span class="form-field-message" style="color:red">
+                                Please enter value
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div clss="form-group form-row" ng-if="optionalFields.length">
+                    <div class="col-sm-12">
+                        <h5 class="form-optional-heading">Optional</h5>
+                    </div>
+                </div>
+                <div class="form-group form-row" ng-if="optionalFields.length"
+                     ng-repeat="field in optionalFields = (dataregisterform | filter: filterOptional)">
+                    <div class="col-sm-3">
+                        <input type="checkbox" ng-model="field.selected">
+                        <label>{{field.displayName}}</label>
+                        <label ng-if="(!field.read && $parent.Iscustomrole && !field.write)"
+                               style="color:chocolate;font-size:small">Don't Permission</label>
+                        <label ng-if="(field.read && $parent.Iscustomrole &&  !field.write)"
+                               style="color:chocolate;font-size:small">Read</label>
+                        <label ng-if="(field.read && field.write && $parent.Iscustomrole )"
+                               style="color:chocolate;font-size:small">Read And Write</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <rgu-control ng-disabled="true"
+                                     ng-if="field.type!=='numinput' && field.type!=='tagsinput'  && field.type!=='range' && field.type!=='history' &&  field.type!=='doc'"
+                                     type="{{field.type}}"
+                                     ng-model="field.model" options="field.options"></rgu-control>
+                        <rgu-control ng-disabled="true" ng-if="field.type==='numinput' " type="{{field.type}}"
+                                     ng-model="field.model"
+                                     options="field.options"
+                                     unit-model="field.unitModel"></rgu-control>
+                        <rgu-control ng-disabled="true" ng-if="field.type==='tagsinput'  " type="{{field.type}}"
+                                     ng-model="field.model"
+                                     options="field.options"
+                                     placeholder="Add {{field.label.toLowerCase()}}"></rgu-control>
+                        <rgu-control ng-disabled="true" ng-if="field.type==='range'  " type="range"
+                                     subtype="{{field.options}}" ng-model="field.model" options="field.modelarrays"
+                                     unit-model="field.unitModel" ng-required="field.optional"
+                                     rules="{{field.rules}}"></rgu-control>
+                        <rgu-control ng-disabled="true" ng-if="field.type==='history' " type="history"
+                                     subtype="{{field.options}}"
+                                     ng-model="field.modelarrays" options="field.model"
+                                     ng-required="field.optional" rules="{{field.rules}}"></rgu-control>
+
+                        <div ng-if="field.type==='doc'" class="doc-control-manager">
+                            <table class="doc-control-grid">
+                                <tr ng-repeat="doc in field.model">
+                                    <td>
+                                        <a target="_blank" href="{{field.pathfile +doc.fname}}">{{doc.fname}}</a>
+                                    </td>
+                                    <td class="doc-control-actions">
+                                        <button class="doc-control-delete"
+                                                ng-click="$event.preventDefault();deleteDoc( field.model,$index)">Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="upload-group doc-control-upload">
+                                <input ng-disabled="true" type="file" id="{{field.jsPath}}" jsonpath="{{file.jsPath}}"
+                                       class="input-file" onchange='angular.element(this).scope().uploadFile(this)'>
+                            </div>
+                        </div>
+
+                        <input ng-if="false" disabled="disabled" type="password"
+                               value="{{ vaildfiled(field)?field.model:''}}" class="form-control" placeholder="">
+                        <div ng-if="false" class="form-field-details-row"
+                             $1$ng-if="vaildfiled(field) ==false && field.selected==true" #1#>
+                            <span class="form-field-message" style="color:red">
+                                Please enter value
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+
+            </fieldset>
+            <div style="padding-top:20px">
+                <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+                    <div ng-bind-html="messageBox"></div>
+                </
+                <uib-alert>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm-3">
+                    <label></label>
+                </div>
+                <div class="col-sm-9">
+                    <button type="button" ng-click="cancel()" class="btn btn-default">Cancel</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</script>*@

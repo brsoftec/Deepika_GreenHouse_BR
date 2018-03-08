@@ -1,0 +1,88 @@
+﻿@using GH.Lang;
+
+@{
+    ViewBag.Title = "Sign Up";
+    Layout = "~/Areas/User/Views/Shared/_SignupLayout.cshtml";
+    ViewBag.BodyClass = "signup";
+}
+
+@section styles{
+    @*<link href="@Url.Versioned("~/Areas/Beta/css/signin.css")" rel="stylesheet" />*@
+    <link href="@Url.Versioned("~/Areas/Beta/css/signup.css")" rel="stylesheet"/>
+}
+
+@section initscripts{
+    <script>
+        var regitGlobal = regitGlobal || {};
+        regitGlobal.inviteId = "@ViewBag.InviteId";
+    </script>
+}
+
+@* BODY *@
+<div class="section section-public section-signup">
+    <div class="public-container signup-container" ng-controller="UserSignupController">
+        <div class="public-aside">
+            <div class="aside-logo">
+                <img src="~/Areas/Beta/img/regit-logotype.svg">
+            </div>
+        </div>
+        <div class="signup-form" ng-init="outsiteId = '@ViewBag.Id'">
+            <h1>New Individual Account</h1>
+
+            <h2>
+                You’re one step closer to making your life easier!
+            </h2>
+
+            <div class="user-signup-form">
+                <form>
+                    <div class="signup-form-row">
+                        <label class="signup-form-label">Email *</label>
+                        <input type="text" name="signupEmail" class="signup-form-email" ng-class="{error:signupError.email}" placeholder="Your email address"
+                               ng-model="signup.email" ng-change="onSignupInput('email')" ng-blur="onSignupInput('email')"/>
+                        <p class="signup-form-message" ng-if="signupError.email==='null'">Please enter email address</p>
+                        <p class="signup-form-message" ng-if="signupError.email==='invalid'">Please enter a valid email address</p>
+                        <p class="signup-form-message" ng-if="signupError.email==='taken'">Email address already taken</p>
+                    </div>
+                    <div class="signup-form-row">
+                        <label class="signup-form-label">First Name *</label>
+                        <input type="text" name="signupFirstName" class="signup-form-fname" ng-class="{error:signupError.firstName}" placeholder="Your first name"
+                               ng-model="signup.firstName" ng-change="onSignupInput('firstName')" ng-blur="onSignupInput('firstName')"/>
+                        <p class="signup-form-message" ng-if="signupError.firstName">Please enter first name</p>
+                    </div>
+                    <div class="signup-form-row">
+                        <label class="signup-form-label">Last Name</label>
+                        <input type="text" class="signup-form-lname" name="signupLastName" ng-model="signup.lastName" placeholder="Your last name"/>
+                    </div>
+                    <div class="signup-form-row">
+                    <label class="signup-form-label">Pasword *</label>
+                    <input type="password" name="signupPassword" class="signup-form-password" ng-class="{error:signupError.password}" placeholder=""
+                           ng-model="signup.password" ng-change="onSignupInput('password')" ng-blur="onSignupInput('password')"/>
+                    <p class="signup-form-message" ng-if="signupError.password==='null'">Please enter password</p>
+                    <p class="signup-form-message" ng-if="signupError.password==='length'">Please enter at least 8 characters</p>
+                    </div>
+                    <div class="signup-form-row">
+                    <label class="signup-form-label">Re-enter Pasword *</label>
+                    <input type="password" name="signupRePassword" class="signup-form-password" ng-class="{error:signupError.repass}" placeholder=""
+                           ng-model="signup.repass" ng-change="onSignupInput('repass')" ng-blur="onSignupInput('repass')"/>
+                    <p class="signup-form-message" ng-if="signupError.repass==='null'">Please re-enter password</p>
+                    <p class="signup-form-message" ng-if="signupError.repass==='mismatch' && signup.repass.length>=signup.password.length">Password mismatch</p>
+                    </div>
+                    <div class="signup-disclaimer">
+                        <p>By proceeding, I agree to the <a href="/about/terms-conditions" target="_blank">Terms &amp; Conditions</a>.</p>
+                    </div>
+                    <div class="signup-messages">
+                        <p ng-if="signupView.signingUp"><rgu-spinner></rgu-spinner> Signing up...</p>
+                        <p ng-if="signupView.signupError">Error creating account: {{signupView.signupError}}. Please try again later.</p>
+                        <p ng-if="signupView.signingIn"><rgu-spinner></rgu-spinner> Signed up succesfully<br>Logging in...</p>
+                        <p ng-if="signupView.signinError">Error logging in: {{signupView.signinError}}. <a href="/User/LogIn">Log in again</a></p>
+                    </div>
+                    <div class="signup-actions">
+                    <button type="button" class="signup-form-submit" ng-disabled="!canSignup()" ng-click="signupSubmit()">Register</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>

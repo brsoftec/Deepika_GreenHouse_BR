@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "~/Areas/User/Views/Shared/_LayoutDefaultBusiness.cshtml";
+}
+
+
+
+@* BODY *@
+
+<div class="module module-main module-notifications">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#/">&laquo; Home</a></li>
+        <li class="breadcrumb-item active">Notification Center</li>
+    </ol>
+    <h1>Notifications</h1>
+
+    <form class="form-horizontal form-notifications">
+        <div class="notifications-grid">
+            <header>
+                <a href="#" id="btn-notifications-mark-all-read">Mark All as Read</a>
+                <a href="#" id="btn-notifications-settings">Settings</a>
+            </header>
+            <table class="table table-striped">
+                <tbody>
+                    <tr ng-repeat="notif in notifications">
+                        <td class="notifications-avatar"><img src="http://placehold.it/40x40"></td>
+                        <td class="notifications-details">
+                            <div class="notifications-desc" ng-bind="notif.desc"></div>
+                            <div class="notification-when" ng-bind="whenNotification(notif)"></div>
+                            <div ng-if="notif.type==='delegation'" class="notifications-actions">
+                                <a href="#">View</a>
+                                <a href="#">Accept</a>
+                                <a href="#">Deny</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="notifications-footer">
+                <button type="button" class="feed-load-more" ng-click="feedLoadMore()">See more...</button>
+            </div>
+
+        </div>
+    </form>
+</div>

@@ -1,0 +1,64 @@
+﻿   <!-- content Insurance -->
+
+   <div ng-controller="InsuranceController">
+        <div class="vault-panel-row">
+            <div class="vault-panel-row">
+                <label>Description</label>
+                <input ng-model="_new.description">
+            </div>
+            <div class="vault-panel-row">
+                <label>Insurer</label>
+                <input ng-model="_new.insurer">
+            </div>
+            <div class="vault-panel-row">
+                <label>Bank branch</label>
+                <input ng-model="_new.bankBranch">
+            </div>
+            <div class="vault-panel-row">
+                <label>Insurance type</label>
+                <div class="form-panel-control">
+                    <rgu-control type="select" class="short"
+                                 options="['Home Insurance','Travel Insurance', 'Medical Insurance', 'Driving insurance',
+                                                         'Mortgage Insurance', 'Life Insurance' ]" ng-model="_new.insuranceType" />
+
+                </div>
+            </div>
+            <div class="vault-panel-row">
+                <label>Policy number</label>
+                <input ng-model="_new.policyNumber">
+            </div>
+
+
+            <div class="vault-panel-row">
+                <label>Start date </label>
+                <rgu-date-input type="combo" ng-model="_new.startDate"></rgu-date-input>
+            </div>
+            <!-- Indefinite -->
+            <div class="vault-panel-row">
+                <label class="checkbox-square"><input type="checkbox" ng-model="_new.indefiniteDate" /><span></span>Indefinite</label>
+                <!--<input type="checkbox" ng-model="_new.indefiniteDate" />
+                <label>Indefinite </label>-->
+            </div>
+
+            <div class="vault-panel-row" ng-show="!_new.indefiniteDate">
+                <label>Expiry Date </label>
+                <rgu-date-input type="combo" ng-model="_new.expiryDate" after="_new.startDate"></rgu-date-input>
+            </div>
+            <!-- End Indefinite-->
+            <div class="vault-panel-row">
+                <label>Note</label>
+                <textarea ng-model="_new.note"></textarea>
+            </div>
+            <div class="vault-panel-row vault-panel-row-tall">
+                <label class="checkbox-square"><input type="checkbox" ng-model="_new._default" /><span></span>Set as default</label>
+                <!--<input type="checkbox" ng-model="_new._default">
+                <label>Set as default</label>-->
+            </div>
+        </div>
+
+        <div class="vault-panel-actions">
+            <button class="btn btn-primary vault-panel-action vault-panel-save" ng-disabled="_new.description==''" ng-click="addNewForm(_new); Save(); vm.AlphaRedirectTask('main_form.html')" href="#">Save</button>
+        </div>
+    </div>
+
+<!-- -->

@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Support";
+    Layout = "~/Areas/User/Views/Shared/_SupportLayout.cshtml";
+}
+@section styles {
+
+<link rel="stylesheet" href="@Url.Versioned("~/Areas/Beta/css/support.css")">
+}
+@section scripts {
+    <script src="@Url.Versioned("~/Areas/User/Scripts/Controllers/SupportController.js")"></script>
+}
+
+<div class="module module-main module-account" ng-controller="SupportController">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/">&laquo; Home</a>
+        </li>
+        <li class="breadcrumb-item active">Support</li>
+    </ol>
+    <h1>Support</h1>
+    <div class="support-page"></div>
+    
+    
+</div>

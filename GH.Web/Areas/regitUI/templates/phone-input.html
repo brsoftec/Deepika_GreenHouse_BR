@@ -1,0 +1,8 @@
+<div class="rgu-phone-input" ng-form="form{{name}}">
+    <!--<pre>{{model}}</pre>-->
+    <input type="text" name="{{name}}" placeholder="{{placeholder}}" ng-model="phone" phone-type="{{phoneType}}" input-element="inputElement"
+           international-phone-number phone-code="phoneCode" initial-country="{{initialCountry}}" add-plus="{{addPlus}}" class="phone-input" ng-disabled="locked">
+
+    <div class="error-phone error-phone-valid" ng-if="!initing && phone.length && !control.$error.internationalPhoneNumber">&nbsp;</div>
+    <div class="error-phone error-phone-invalid" ng-if="!initing && model.length && control.$error.internationalPhoneNumber">Invalid phone number</div>
+</div>

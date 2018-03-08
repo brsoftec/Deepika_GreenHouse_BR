@@ -1,0 +1,39 @@
+<div class="work-time-container">
+
+    <div class="work-time-247">
+        <label class="checkbox-square"><input type="checkbox" ng-model="model.open247" /><span></span>Open 24/7</label>
+        <!--<rgu-checkbox ng-model="model.open247" label="Open 24/7"></rgu-checkbox>-->
+
+    </div>
+    <div class="work-time-ranges" ng-if="!model.open247">
+        <div class="work-time-range" ng-repeat="range in model.ranges">
+            <div class="work-time-range-hours">
+                From <rgu-time-input ng-model="range.from"></rgu-time-input>
+                To <rgu-time-input ng-model="range.to"></rgu-time-input>
+            </div>
+            <div class="work-time-range-days">
+                <button ng-repeat="weekday in range.weekdays" class="work-time-range-day-switch"
+                        ng-class="{'work-time-range-day-switch-active': weekday.open}"
+                        ng-bind="weekday.name" ng-click="toggleDay(range, weekday)">
+                </button>
+                <button class="work-time-range-day-switch work-time-range-day-switch-all"
+                        ng-class="{'work-time-range-day-switch-active': range.allDays}"
+                        ng-click="toggleAllDays(range)" bs-tooltip data-title="Apply to all days">All
+                </button>
+            </div>
+            <div class="work-time-range-actions">
+                <button class="work-time-range-action-delete" ng-click="removeRange(range,$index)"
+                bs-tooltip data-title="Remove hours">
+                    Remove range
+                </button>
+            </div>
+        </div>
+        <div class="work-time-actions">
+            <button class="work-time-action-add" ng-click="addRange()">
+                Add hours
+            </button>
+        </div>
+    </div>
+
+</div>
+

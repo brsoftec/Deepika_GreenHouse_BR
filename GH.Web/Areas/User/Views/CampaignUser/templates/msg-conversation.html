@@ -1,0 +1,26 @@
+<div class="headpane" ng-if="isOpenHeadpane">
+    <div class="user-picker-container clearfix">
+        <ul class="user-picker-picked">
+            <li ng-repeat="user in participators">
+                <span ng-bind="user.name"></span>
+                <button class="btn-delete-inline" ng-if="participators.length>1 && (conversation.isGroupChat || !$first)" ng-click="unpickUser(user)">Unpick</button>
+            </li>
+        </ul>
+        <rgu-user-picker class="msg-conversation-user-picker" ng-model="participators" inline="true"></rgu-user-picker>
+        <button class="btn btn-primary btn-input-action" ng-click="submitParticipators(false)">Done</button>
+    </div>
+
+</div>
+<div class="msg-conversation">
+    <div class="msg-conversation-entry" ng-repeat="message in messages track by $index" ng-init="isGroup=conversation.isGroupChat"
+         ng-class="{'msg-from-me': message.fromMe}">
+        <div class="msg-conversation-avatar unselectable" ng-if="!message.fromMe">
+            <img ng-if="!isGroup" ng-src="{{conversation.from.avatar}}">
+            <img ng-if="isGroup" ng-src="{{message.from.avatar}}">
+        </div>
+        <div class="msg-conversation-text" ng-bind-html="message.text"></div>
+        <div class="msg-conversation-seen unselectable" ng-if="$last && message.fromMe && message.read"
+             ng-bind="renderSeenInfo(message)"></div>
+    </div>
+</div>
+<msg-input conversation-id="{{conversation.id}}"></msg-input>

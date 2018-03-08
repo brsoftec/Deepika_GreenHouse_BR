@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div id="page_wrapper">
+        <div id="header">
+            <div class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a href="/" class="navbar-brand hidden-sm hidden-md hidden-lg">Green House</a>
+                        </div>
+                        <div class="navbar-collapse collapse">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-6">
+                                            <div class="input-li">
+                                                <input type="text" class="form-control" placeholder="Search" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-6">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-5">
+                                            <div class="input-li">
+                                                <input type="text" class="form-control" placeholder="Email" /><br />
+                                                <a class="hidden-xs">Forgot your password?</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-5">
+                                            <div class="input-li">
+                                                <input type="password" class="form-control" placeholder="Password" />
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-2">
+                                            <div class="input-li">
+                                                <a class="btn btn-default">Login</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row hidden-sm hidden-md hidden-lg">
+                                <div class="col-xs-12 col-md-6 col-md-offset-6">
+                                    <div class="input-li">
+                                        <a>Forgot your password?</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content">
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="navbar">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="http://regit.sg">About us</a>
+                        </li>
+                        <li>
+                            <a>Legal</a>
+                        </li>
+                        <li>
+                            <a>Careers</a>
+                        </li>
+                        <li>
+                            <a>Regit for Businesses</a>
+                        </li>
+                        <li>
+                            <a>Developers</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>            
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/angular")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,1040 @@
+﻿
+﻿@model GH.Core.ViewModels.BusinessInteractionViewModel
+@{
+    bool canApprove = false;
+    if (ViewBag.IsRole != null)
+    {
+        canApprove = ViewBag.IsRole.IsApprover || ViewBag.IsRole.IsAdmin;
+    }
+    bool reviewing = ViewBag.Reviewing == true;
+    bool isNew = string.IsNullOrEmpty(Model.id);
+
+    bool newFromTemplate = false;
+    if (Model.state != null && Model.state == "newFromTemplate")
+    {
+        newFromTemplate = true;
+    }
+
+    string type = Model.type;
+    if (type == null)
+    {
+        type = "Registration";
+    } else
+    {
+        type = type.ToLower();
+    }
+    string status = Model.status;
+    if (status != null)
+    {
+        status = status.ToLower();
+    }
+    bool isTemplate = status == "template";
+    
+    string name = isNew ? "New " + Model.type : Model.name;
+    if (!isNew && isTemplate)
+    {
+        name += " Template";
+    }
+
+    bool isReg = type == "registration";
+    bool isEvent = type == "event";
+    bool isBroadcast = type == "broadcast";
+    bool isFeedBased = isReg || isEvent || isBroadcast;
+    var participants = Model.participants;
+    bool hasParticipants = !string.IsNullOrEmpty(participants) && participants != "0";
+    bool formIneditable = reviewing || hasParticipants;
+
+    ViewBag.Title = name + (reviewing ? " - Interaction Reviewer" : " - Interaction Editor");
+
+    Layout = "~/Areas/User/Views/Shared/_InteractionEditorLayout.cshtml";
+    ViewBag.Interaction = Model;
+
+    //    Logger Log = LogManager.GetCurrentClassLogger();
+}
+@section styles{
+
+}
+@section prescripts {
+
+    <script>
+    var regitGlobal = regitGlobal || {};
+    @if (isNew && !newFromTemplate)
+    {
+        <text>
+            regitGlobal.interaction = {
+                isNew: true,
+
+                status: 'New',
+                id: "@Model.id",
+                name: "@Html.Raw(Model.name)",
+                type: "@type",
+                description: ""
+            };
+        </text>
+    }
+    else
+    {
+        <text>
+            regitGlobal.interaction = {
+                isNew: @Json.Encode(isNew),
+                newFromTemplate: @Json.Encode(newFromTemplate),
+                id: "@Model.id",
+                status: "@Model.status",
+                created: new Date("@Model.created.AddHours(8).ToString("o")"),
+                name: "@Html.Raw(Model.name)",
+                type: "@type",
+                description: @Html.Raw(Json.Encode(Model.description)),
+
+                image: "@Model.image",
+                url: "@Model.targetUrl",
+                termsType: "@Model.termsType",
+                termsUrl: "@Model.termsUrl",
+
+                paid: @Json.Encode(Model.paid),
+                price: "@Model.price.ToString()",
+                priceCurrency: "@Model.priceCurrency",
+
+                indefinite: @Json.Encode(Model.indefinite),
+                from: "@Model.from.ToString("o")",
+
+                socialShare: "@Model.socialShare",
+                target: "@Model.target",
+                distribute: "@Model.distribute",
+                verb: "@Model.verb",
+                notes: @Html.Raw(Json.Encode(Model.notes)),
+
+                participants: "@Model.participants"
+            };
+        </text>
+    }
+    @if (Model.target == "criteria")
+    {
+        var criteria = Model.criteria;
+        <text>
+            regitGlobal.interaction.criteria = {
+                gender: "@criteria.gender",
+                age: {
+                    type: "@criteria.age.type",
+                    min: @Json.Encode(criteria.age.min),
+                    max: @Json.Encode(criteria.age.max)
+                },
+                location: {
+                    type: "@criteria.location.type",
+                    country: "@criteria.location.country",
+                    area: "@criteria.location.area"
+                }
+            };
+        </text>
+    }
+        
+    @if (Model.indefinite == false && Model.until.HasValue)
+    {
+//        var until = DateTime.Parse(Model.until);
+//        @:regitGlobal.interaction.until = "@Model.until.Value.ToString("o")";
+        @:regitGlobal.interaction.until = "@Model.until.GetValueOrDefault().ToString("o")";
+    }   
+    @if (Model.eventInfo != null)
+    {
+        @:regitGlobal.interaction.eventInfo = @Html.Raw(Json.Encode(Model.eventInfo));
+    }     
+    @if (Model.boost != null)
+    {
+        @:regitGlobal.interaction.boost = "@Model.boost";
+    }   
+    @if (Model.comments != null)
+    {
+        @:regitGlobal.interaction.comments = @Html.Raw(Json.Encode(Model.comments));
+    }
+    @if (!isNew || newFromTemplate)
+    {
+        @:regitGlobal.interaction.fields = JSON.parse(@Html.Raw(Json.Encode(Model.fieldsJson)));
+        @:regitGlobal.interaction.groups = JSON.parse(@Html.Raw(Json.Encode(Model.groupsJson)));
+    }    
+    @if (ViewBag.reviewing == true)
+    {
+        @:regitGlobal.interaction.reviewing = true;
+    }@*regitGlobal.interaction.fields = [
+                @foreach (var field in Model.fields)
+            {
+                <text>
+                    {
+                        id: "@field.id",
+                        type: "@field.type",
+                        options: "@field.options",
+                        label: "@field.label",
+                        displayName: "@field.displayName",
+                        jsPath: "@field.jsPath",
+                        path: "@field.path",
+                        value: "@field.value",
+                        optional: Json.Encode("@field.optional"),
+
+                    }, 
+                </text>
+            }
+            ];*@</script>
+}
+@section initscripts {
+
+}
+@section scripts {
+    <script src="~/Scripts/angular-drag-and-drop-lists.min.js">
+    </script>
+}
+@section body {
+    <div class="module module-main module-interaction-editor @(reviewing ? "reviewing" : "")" ng-controller="InteractionEditorController">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/BusinessAccount">&laquo; Business Home</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="/Campaign/ManagerCampaign">Interaction Module</a>
+        </li>
+        <li class="breadcrumb-item active">Interaction {{reviewing ? 'Reviewer' : (isNew ? 'Creator' : 'Editor')}}</li>
+    </ol>
+    <div class="interaction-editor-toolbar">
+        @if (isFeedBased)
+        {
+            <button type="button" class="interaction-editor-tool action-preview-details"
+                    ng-click="previewDetails()" ng-disabled="!canPreviewDetails()">
+                Preview Interaction
+            </button>
+        }
+        @if (!isBroadcast)
+        {
+            <button type="button" class="interaction-editor-tool action-preview-form"
+                    ng-click="previewForm()" ng-disabled="!canPreviewForm()">
+                Preview <br>Form
+            </button>
+        }
+
+        @if (!reviewing)
+        {
+            <button type="button" class="interaction-editor-tool action-save-interaction"
+                    ng-click="saveInteraction()" ng-disabled="!form.dirty || !canSaveInteraction()">
+                Save <span ng-bind="isTemplate ? 'Template' : 'Interaction'"></span>
+            </button>
+
+            if (!isTemplate && !hasParticipants)
+            {
+                <div class="more-actions save-more-actions">
+                    <button class="grid-action action-more save-more-action"
+                            ng-click="rguView.openMoreActions('save-template',$event)">More</button>
+                    <div class="more-actions-dropdown save-more-actions-dropdown" ng-if="rguView.isOpenMoreActions('save-template')">
+                        <button ng-if="!isTemplate" class="more-action" ng-click="saveInteraction('template')">Save As Template</button>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+    <div class="interaction-editor interaction-type-{{type}}">
+
+    <div class="interaction-editor-heading">
+        <span class="interaction-editor-heading-prefix">{{reviewing ? 'Review' : (isNew ? 'New' : 'Edit')}} {{Type}}<span ng-if="isTemplate"> Template</span></span>
+        <span class="interaction-editor-heading-name" ng-bind="interaction.name"></span>
+    </div>
+    @if (reviewing && !string.IsNullOrEmpty(Model.notes))
+    {
+        <div class="interaction-comment interaction-notes" ng-bind-html="interaction.notes | textToHtml"></div>
+    }
+    <div class="interaction-messages">
+
+        <div class="interaction-message message-alert" ng-if="touched.details && !completeDetails() || touched.publish && !completePublish() || touched.form && !completeForm()">
+            <p>Please correct before saving:</p>
+            <ul>
+                <li ng-if="!interaction.name">Missing interaction name</li>
+                @if (isEvent)
+                {
+                    <li ng-if="!validity.fields.event">Incomplete event details</li>
+                }
+                @if (!isBroadcast)
+                {
+                    <li ng-if="!interaction.termsUrl">Missing terms and conditions</li>
+                }
+                <li ng-if="!completePublish()">Invalid criteria</li>
+                <li ng-if="!completeForm()">Incomplete form</li>
+            </ul>
+        </div>
+    </div>
+    <div class="interaction-editor-nav">
+        <button type="button" ng-repeat="page in pages" class="interaction-editor-nav-item nav-{{page.name}}" ng-if="!(isBroadcast && page.name==='form')"
+                ng-bind="page.label" ng-click="navTo(page.name)" ng-class="{active:page.name===activePage, invalidPage: !validity.pages[page.name]}">
+        </button>
+    </div>
+    <div class="interaction-editor-page" id="details" ng-show="activePage==='details'" ng-class="{invalidPage: !validity.pages.details }">
+    <form name="formDetails">
+    <fieldset>
+    @if (!reviewing)
+    {
+        <div class="form-row tall" ng-if="comments.details">
+            <div class="interaction-form-label">
+                <label>Reviewer Comment</label>
+            </div>
+
+            <div class="interaction-form-control">
+                <div class="interaction-comment" ng-bind-html="comments.details | textToHtml"></div>
+            </div>
+        </div>
+    }
+
+    <div class="form-row required" ng-class="{invalidField:!interaction.name.length}">
+        <div class="interaction-form-label">
+            <label>Name</label>
+        </div>
+
+        <div class="interaction-form-control">
+            @if (reviewing)
+            {
+                <interaction-edit-static ng-model="interaction.name"></interaction-edit-static>
+            }
+            else
+            {
+                <input type="text" ng-model="interaction.name" required autofocus placeholder="Enter name of the {{type}} (max 100 characters)">
+            }
+        </div>
+
+    </div>
+    <div class="form-row tall">
+        <div class="interaction-form-label">
+            <label>Description</label>
+        </div>
+
+        <div class="interaction-form-control">
+            @if (reviewing)
+            {
+                <interaction-edit-static ng-model="interaction.description" type="html"></interaction-edit-static>
+            }
+            else
+            {
+                <textarea rows="8" ng-model="interaction.description" placeholder="Enter full text description of the {{type}}"></textarea>
+            }
+        </div>
+
+    </div>
+    @if (isEvent)
+    {
+        <div class="form-row required" ng-class="{invalidField:!interaction.eventInfo.fromDate || !interaction.eventInfo.fromTime }">
+            <div class="interaction-form-label">
+                <label>Event Start</label>
+            </div>
+            <div class="interaction-form-control">
+                @if (reviewing)
+                {
+                    <p>{{interaction.eventInfo.fromDate | prettyTime}} {{interaction.eventInfo.fromTime | prettyTime:'time'}}</p>
+                }
+                else
+                {
+                    <rgu-date-input name="fromDate" ng-model="interaction.eventInfo.fromDate" required></rgu-date-input>
+                    <rgu-time-input name="fromTime" ng-model="interaction.eventInfo.fromTime" required></rgu-time-input>
+                }
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="interaction-form-label">
+                <label>Event End</label>
+            </div>
+            <div class="interaction-form-control">
+                @if (reviewing)
+                {
+                    <p>{{interaction.eventInfo.toDate | prettyTime}} {{interaction.eventInfo.toTime | prettyTime:'time'}}</p>
+                }
+                else
+                {
+                    <rgu-date-input name="toDate" ng-model="interaction.eventInfo.toDate"></rgu-date-input>
+                    <rgu-time-input name="toTime" ng-model="interaction.eventInfo.toTime"></rgu-time-input>
+                }
+            </div>
+        </div>
+        <div class="form-row required" ng-class="{invalidField:!interaction.eventInfo.location.length}">
+            <div class="interaction-form-label">
+                <label>Location</label>
+            </div>
+            <div class="interaction-form-control">
+                @if (reviewing)
+                {
+                    <interaction-edit-static ng-model="interaction.eventInfo.location"></interaction-edit-static>
+                }
+                else
+                {
+                    <input type="text" ng-model="interaction.eventInfo.location" required placeholder="Enter location of the event">
+                }
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="interaction-form-label">
+                <label>Theme</label>
+            </div>
+            <div class="interaction-form-control">
+                @if (reviewing)
+                {
+                    <interaction-edit-static ng-model="interaction.eventInfo.theme"></interaction-edit-static>
+                }
+                else
+                {
+                    <input type="text" ng-model="interaction.eventInfo.theme" placeholder="Enter theme of the event">
+                }
+            </div>
+        </div>
+    }
+    @if (isReg || isEvent)
+    {
+        <div class="form-row">
+            <div class="interaction-form-label">
+                <label>Price</label>
+            </div>
+
+            <div class="interaction-form-control">
+                @if (reviewing)
+                {
+                    if (Model.paid == true)
+                    {
+
+                        <interaction-edit-static ng-model="interaction.price" type="money" currency="{{interaction.priceCurrency}}"></interaction-edit-static>
+                    }
+                    else
+                    {
+                        <p>Free</p>
+                    }
+                }
+                else
+                {
+                    <rgu-radio-group ng-model="interaction.paid" type="boolean" values="['Free','Pay']" class="inline-control"></rgu-radio-group>
+
+                    <rgu-input-group ng-if="interaction.paid" name="price" measure="currency" class="inline-control interaction-price-input" ng-model="interaction.price"
+                                     unit-model="interaction.priceCurrency">
+                    </rgu-input-group>
+                }
+            </div>
+
+        </div>
+    }
+    @if (isFeedBased)
+    {
+        <div class="form-row tall">
+            <div class="interaction-form-label">
+                <label>Image</label>
+            </div>
+
+            <div class="interaction-form-control">
+                @if (reviewing)
+                {
+                    <interaction-edit-static ng-model="interaction.image" type="image"></interaction-edit-static>
+                }
+                else
+                {
+                    <div class="upload-group">
+                        <input type="file" onchange='angular.element(this).scope().uploadFile(this)' id="input-media"
+                               class="input-file">
+                        <div ng-if="upload.imageTypeInvalid" class="interaction-message message-alert message-small">Please upload a valid image</div>
+                        <img ng-if="interaction.image" class="upload-img img-responsive" ng-src="{{interaction.image}}">
+                    </div>
+                }
+            </div>
+
+        </div>
+        <div class="form-row">
+            <div class="interaction-form-label">
+                <label>Target URL</label>
+            </div>
+
+            <div class="interaction-form-control">
+                @if (reviewing)
+                {
+                    <interaction-edit-static ng-model="interaction.url" type="url"></interaction-edit-static>
+                }
+                else
+                {
+                    <input type="text" ng-model="interaction.url" placeholder="Enter URL of the web page with more information about the {{type}}">
+                }
+            </div>
+
+        </div>
+    }
+    @if (!isBroadcast)
+    {
+        <div class="form-row required tall" ng-class="{invalidField:!interaction.termsUrl}">
+            <div class="interaction-form-label">
+                <label>Terms &amp; Conditions</label>
+            </div>
+
+            <div class="interaction-form-control">
+                @if (reviewing)
+                {
+                    <interaction-edit-static ng-model="interaction.termsUrl" type="url" label="{{interaction.termsType==='file' ? 'Uploaded file' : undefined}}">
+                    </interaction-edit-static>
+                }
+                else
+                {
+                    <rgu-radio-group ng-model="interaction.termsType" values="['url','file']" labels="['URL','Upload file']"></rgu-radio-group>
+                    <input type="text" ng-if="interaction.termsType==='url'" ng-model="interaction.termsUrl"
+                           placeholder="Enter URL of the terms and conditions">
+                    <div class="upload-group" ng-if="interaction.termsType==='file'">
+                        <input type="file" onchange='angular.element(this).scope().uploadFileConditions(this)'
+                               id="input-media-file" class="input-file">
+                        <div ng-if="upload.termsTypeInvalid" class="interaction-message message-alert message-small">Please upload a valid document or image</div>
+                        <a ng-if="interaction.termsUrl" href="{{interaction.termsUrl}}" target="_blank" ng-bind="interaction.termsUrl"></a>
+                        <button ng-if="interaction.termsUrl" class="doc-control-delete" ng-click="deleteUploadTerms()">Delete</button>
+                    </div>
+                }
+            </div>
+
+        </div>
+    }
+    @if (reviewing)
+    {
+        <div class="form-row tall">
+            <div class="interaction-form-label">
+                <label>Reviewer Comment</label>
+            </div>
+
+            <div class="interaction-form-control">
+                <textarea rows="4" ng-model="comments.details" placeholder="Enter comment on this Details section"></textarea>
+            </div>
+        </div>
+    }
+
+    </fieldset>
+    </form>
+    </div>
+    <div class="interaction-editor-page" id="publish" ng-if="activePage==='publish'">
+    <form name="formPublish">
+    <fieldset>
+    @if (!reviewing)
+    {
+        <div class="form-row tall" ng-if="comments.publish">
+            <div class="interaction-form-label">
+                <label>Reviewer Comment</label>
+            </div>
+
+            <div class="interaction-form-control">
+                <div class="interaction-comment" ng-bind-html="comments.publish | textToHtml"></div>
+            </div>
+        </div>
+    }
+    <div class="form-row">
+        <div class="interaction-form-label">
+            <label>Timing</label>
+        </div>
+
+        <div class="interaction-form-control">
+            @if (reviewing)
+            {
+                <p>
+                    From {{interaction.from | prettyTime}} Until <span ng-if="interaction.indefinite">indefinite</span>
+                    <span ng-if="!interaction.indefinite" ng-bind="interaction.until | prettyTime"></span>
+                </p>
+            }
+            else
+            {
+                <label class="inline-label">Active From</label>
+                <rgu-date-input name="from" ng-model="interaction.from" required>
+                </rgu-date-input>
+                <label class="inline-label">Until</label>
+
+                <rgu-date-input ng-if="!interaction.indefinite" name="until"
+                                ng-model="interaction.until" required after="interaction.from">
+                </rgu-date-input>
+                <rgu-checkbox class="inline-control" ng-model="interaction.indefinite" label="Indefinite"></rgu-checkbox>
+            }
+        </div>
+
+    </div>
+    @if (type != "handshake" && type != "pushtovault")
+    {
+        <div class="form-row">
+            <div class="interaction-form-label">
+                <label>Target Audience</label>
+            </div>
+
+            <div class="interaction-form-control">
+                @if (reviewing)
+                {
+                    <interaction-edit-static ng-model="interaction.target" type="label" options="{all:'Everyone',criteria:'Criteria'}"></interaction-edit-static>
+                }
+                else
+                {
+                    <rgu-radio-group ng-model="interaction.target" name="target" values="['all','criteria']" labels="['Everyone','Criteria']"></rgu-radio-group>
+                }
+            </div>
+
+        </div>
+        <div class="form-row" ng-if="interaction.target==='criteria'">
+            <div class="interaction-form-label">
+                <label>Gender</label>
+            </div>
+
+            <div class="interaction-form-control">
+                @if (reviewing)
+                {
+                    <interaction-edit-static ng-model="interaction.criteria.gender"></interaction-edit-static>
+                }
+                else
+                {
+                    <rgu-option-group ng-model="interaction.criteria.gender" name="gender" values="['All','Male', 'Female']" labels="['All','Male', 'Female']" class="inline-control"></rgu-option-group>
+                }
+            </div>
+
+        </div>
+        <div class="form-row" ng-if="interaction.target==='criteria'">
+            <div class="interaction-form-label">
+                <label>Age</label>
+            </div>
+            <div class="interaction-form-control">
+                @if (reviewing)
+                {
+                    <div ng-if="interaction.criteria.age.type==='all'">Any Age</div>
+                    <div ng-if="interaction.criteria.age.type==='range'">
+                        From {{interaction.criteria.age.min}} To {{interaction.criteria.age.max}}
+                    </div>
+                }
+                else
+                {
+                    <rgu-radio-group ng-model="interaction.criteria.age.type" name="age" values="['all','range']" labels="['Any Age','Age Range']" class="inline-control"></rgu-radio-group>
+                    <div class="inline-control" ng-if="interaction.criteria.age.type==='range'">
+                        From <input type="number" class="input-shortnum" ng-model="interaction.criteria.age.min" min="1" ng-blur="checkAgeRange()">
+                        To <input type="number" class="input-shortnum" ng-model="interaction.criteria.age.max" min="{{interaction.criteria.age.min}}"
+                                  min="{{interaction.criteria.age.min}}" ng-blur="checkAgeRange()">
+                    </div>
+                    <div class="interaction-message message-alert message-small" ng-if="interaction.criteria.age.type==='range' && ageRange.invalid">
+                        Please enter a valid age range
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="form-row" ng-if="interaction.target==='criteria'" ng-class="{tall:interaction.criteria.location.type==='country'}">
+            <div class="interaction-form-label">
+                <label>Location</label>
+            </div>
+
+            <div class="interaction-form-control">
+                @if (reviewing)
+                {
+                    <div ng-if="interaction.criteria.location.type==='all'">Global</div>
+                    <div ng-if="interaction.criteria.location.type==='country'">
+                        Country: {{interaction.criteria.location.country}}<span ng-if="interaction.criteria.location.area">, {{interaction.criteria.location.area}}</span>
+                    </div>
+                }
+                else
+                {
+                    <rgu-radio-group ng-model="interaction.criteria.location.type" name="location" values="['all','country']" labels="['Global','Country/Area']" class="inline-control"></rgu-radio-group>
+                    <div ng-if="interaction.criteria.location.type==='country'">
+                        <location-criteria ng-model="interaction.criteria.location"></location-criteria>
+                    </div>
+                }
+            </div>
+
+        </div>
+    }
+    @if (isFeedBased)
+    {
+        <div class="form-row" ng-class="{tall:social.sharing}">
+            <div class="interaction-form-label">
+                <label>Social Sharing</label>
+            </div>
+            <div class="interaction-form-control">
+                @if (reviewing)
+                {
+                    <div ng-if="!social.sharing">No</div>
+                    <div ng-if="social.sharing">Show social sharing buttons</div>
+                    <social-provider-select ng-if="social.sharing" ng-model="social.providers" mode="static" class="inline-control"></social-provider-select>
+                }
+                else
+                {
+                    <rgu-checkbox ng-model="social.sharing" label="Show social sharing buttons"></rgu-checkbox>
+                    <social-provider-select ng-if="social.sharing" ng-model="social.providers"></social-provider-select>
+                }
+            </div>
+        </div>
+    }
+    @if (!isBroadcast)
+    {
+        <div class="form-row">
+            <div class="interaction-form-label">
+                <label>User Action Verb</label>
+            </div>
+            <div class="interaction-form-control">
+                @if (reviewing)
+                {
+                    <interaction-edit-static ng-model="interaction.verb" type="title"></interaction-edit-static>
+                }
+                else
+                {
+                    <rgu-option-group ng-model="interaction.verb" values="verbs" labels="verbLabels" class="inline-control"></rgu-option-group>
+                }
+            </div>
+        </div>
+    }
+    @if (isFeedBased)
+    {
+        <div class="form-row">
+            <div class="interaction-form-label">
+                <label>Distribute To</label>
+            </div>
+            <div class="interaction-form-control">
+                @if (reviewing)
+                {
+                    <interaction-edit-static ng-model="interaction.distribute" type="label" options="{public:'Targeted News Feed and Public Business Page',feed:'Targeted News Feed',profile:'Public Business Page'}"></interaction-edit-static>
+                }
+                else
+                {
+                    <rgu-radio-group ng-model="interaction.distribute" values="['feed','profile','public']"
+                                     labels="['Targeted News Feed','Public Business Page', 'Both']">
+                    </rgu-radio-group>
+                }
+
+            </div>
+        </div>
+    }
+    @if (!isTemplate && type != "pushtovault")
+    {
+        <div class="form-row tall" ng-if="!isNew">
+            <div class="interaction-form-label">
+                <label>Public URL</label>
+            </div>
+            <div class="interaction-form-control">
+
+                <div class="interaction-url">
+                    <a href="{{interaction.publicUrl | properUrl}}" ng-bind="interaction.publicUrl" target="_blank"></a>
+
+                    <button class="copy-url-btn btn btn-default" ngclipboard data-clipboard-text="{{interaction.publicUrl}}">
+                        Copy Link
+                    </button>
+                </div>
+                <rgu-checkbox ng-model="view.showQR" label="Show QR Code">
+                </rgu-checkbox>
+                <div class="interaction-qr" ng-if="view.showQR">
+                    <qr size="200" text="interaction.publicUrl"></qr>
+                    <a class="qr-export-btn btn btn-default" ng-click="exportQR($event)">Save As Image</a>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (reviewing)
+    {
+        <div class="form-row tall">
+            <div class="interaction-form-label">
+                <label>Reviewer Comment</label>
+            </div>
+
+            <div class="interaction-form-control">
+                <textarea rows="4" ng-model="comments.publish" placeholder="Enter comment on this Publishing section"></textarea>
+            </div>
+        </div>
+    }
+
+    </fieldset>
+    </form>
+    </div>
+
+    @if (!isBroadcast)
+    {
+        <div class="interaction-editor-page" id="form" ng-show="activePage==='form'">
+            @if (!reviewing && hasParticipants)
+            {
+                <div class="interaction-message message-alert">
+                    <p>This interaction has an existing member or participant. Form editing is disabled.</p>
+                </div>
+            }
+            <form name="formFormEditor">
+
+                @if (!reviewing)
+                {
+                    <div class="form-row tall" ng-if="comments.form">
+                        <div class="interaction-form-label">
+                            <label>Reviewer Comment</label>
+                        </div>
+
+                        <div class="interaction-form-control">
+                            <div class="interaction-comment" ng-bind-html="comments.form | textToHtml"></div>
+                        </div>
+                    </div>
+                }
+
+
+                @if (!reviewing)
+                {
+                    <div class="form-editor-template form-row" ng-if="isNew">
+                        <div class="interaction-form-label">
+                            <label for="select-template" ng-if="!form.formDirty">Select form template</label>
+                            <label for="select-template" ng-if="form.formDirty">Modified form template</label>
+                        </div>
+                        <div class="interaction-form-control interaction-form-template-selector">
+                            <select rgu-select ng-disabled="form.formDirty" class="select-template" id="select-template" ng-change="formActions.onSelectTemplate()"
+                                    ng-model="form.selectedTemplate"
+                                    ng-options="template as template.name for template in form.templates">
+                                <option value="">Blank Form</option>
+                            </select>
+                        </div>
+                    </div>
+                }
+
+
+                <div class="form-editor-container @(formIneditable ? "form-ineditable" : "")">
+                    @if (!formIneditable)
+                    {
+                        <div class="form-editor-pane form-editor-source" ng-keyup="onVaultEntryKeyPress($event)">
+                            <h3 class="form-editor-pane-heading">From Vault &gt;&gt;</h3>
+                            <div class="form-editor-vault-search">
+                                <input class="search-vault" id="vault-tree-search-input" placeholder="Search vault fields" autofocus
+                                       ng-model="vaultPane.searchQuery" ng-change="onVaultSearchInput()">
+                            </div>
+                            <div class="vault-tree" ng-class="{searching:vaultPane.searchQuery, showfull:!vaultPane.searchQuery}">
+                                <a ng-repeat="entry in vaultPane.matchedEntries = (vaultEntries | filter: filterEntriesByQuery)"
+                                   class="vault-entry vault-entry-level-{{entry.level}} vault-entry-type-{{entry.type}}"
+                                   ng-class="{'vault-entry-group':!entry.leaf, active: isActiveEntry(entry,$index),
+                   draggable: !entry.undraggable, disabled: entry.undraggable || addedToForm(entry), enabled: !addedToForm(entry)}"
+                                   ng-mouseover="gotoVaultEntry($index)"
+                                   ng-click="$event.preventDefault();selectVaultEntry($index)">
+                                    <span class="vault-entry-label"
+                                          ng-bind-html="entry.label | vaultEntryHighlightLabel:vaultPane.searchQuery">
+                                    </span>
+                                    <span class="vault-entry-path" ng-bind-html="entry.path | vaultEntryPath"></span>
+                                </a>
+                            </div>
+                            @if (type != "handshake" && type != "pushtovault")
+                            {
+                                <div class="form-editor-source-actions">
+                                    <button type="button" class="btn btn-default qa-add-btn" ng-click="formActions.addCustomField('qa')">
+                                        Add Custom Question
+                                    </button>
+                                    <button type="button" class="btn btn-default qa-add-btn" ng-click="formActions.addCustomField('doc')">
+                                        Add File Upload
+                                    </button>
+                                </div>
+                            }
+
+                        </div>
+                    }
+                    <div class="form-editor-pane form-editor-target">
+                        @if (!formIneditable)
+                        {
+                            <h3 class="form-editor-pane-heading">&gt;&gt; Add To Form</h3>
+                        }
+                        <div class="form-tree" dnd-list="form.groups" dnd-allowed-types="['group']" dnd-disable-if="form.reviewing">
+                            <div class="form-group" ng-repeat="group in form.groups" dnd-draggable="group" dnd-type="'group'"
+                                 dnd-moved="form.groups.splice($index, 1)" dnd-effect-allowed="move" dnd-disable-if="form.reviewing">
+                                <h4 class="form-group-heading" ng-bind="group.displayName || group.name || 'User Information'"></h4>
+                                <div class="form-group-fields" dnd-list="group.fields" dnd-allowed-types="[group.name]" dnd-disable-if="form.reviewing">
+                                    <div ng-repeat="field in group.fields track by $index" class="form-entry vault-entry-type-{{field.type}}"
+                                         ng-class="{editing:field.edit, required:!field.optional && !(field.edit && field.edit.optional)}"
+                                         dnd-draggable="field" dnd-type="group.name" dnd-effect-allowed="move"
+                                         dnd-dragstart="movingField(field)" dnd-moved="movedField(group)" 
+                                         dnd-disable-if="form.reviewing || field.edit">
+
+                                        @if (!formIneditable)
+                                        {
+                                            <div class="form-field-actions" ng-if="!field.edit">
+                                                <button type="button" class="form-field-action action-edit"
+                                                        ng-click="editField(field)">
+                                                    Edit field
+                                                </button>
+                                                <button type="button" class="form-field-action action-delete" ng-if="isDeletable(field)"
+                                                        ng-click="deleteField(field)">
+                                                    Delete field
+                                                </button>
+                                            </div>
+                                            <div class="form-field-actions" ng-if="field.edit">
+                                                <button type="button" class="form-field-action action-save" ng-disabled="!field.edit.dirty || field.edit.invalid"
+                                                        ng-click="saveField(field)">
+                                                    Save field
+                                                </button>
+                                                <button type="button" class="form-field-action action-cancel"
+                                                        ng-click="cancelField(field)">
+                                                    Cancel edit field
+                                                </button>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="form-field-actions">
+                                                <button type="button" class="form-field-action action-view" ng-class="{active:field.edit}"
+                                                        ng-click="toggleViewField(field)">
+                                                    View field
+                                                </button>
+                                            </div>
+                                        }
+                                        <span class="form-entry-label" ng-bind="field.displayName"></span>
+                                        <div class="form-field-edit" ng-if="field.edit" ng-controller="FormFieldEditorController">
+                                            <div class="form-field-path">{{field.jsPath | formFieldJsPath}} &raquo; {{field.displayName}}</div>
+                                            @if (!formIneditable)
+                                            {
+                                                <input type="text" ng-if="!isStatic" ng-model="field.edit.displayName" class="form-field-edit-input inline-control"/>
+                                                <input type="text" ng-if="isStatic" ng-model="field.edit.model" class="form-field-edit-input inline-control"/>
+                                                <rgu-checkbox ng-if="!isStatic" ng-model="field.edit.optional" label="Optional" class="inline-control optional-switch"></rgu-checkbox>
+                                                <div class="form-field-custom-editor" ng-if="field.type==='qa'">
+                                                    <rgu-radio-group type="boolean" values="['Free text','Define answers']"
+                                                                     ng-model="field.edit.choices">
+                                                    </rgu-radio-group>
+                                                    <rgu-answer-input ng-if="field.edit.choices" type="choices" ng-model="field.edit.model">
+                                                    </rgu-answer-input>
+                                                </div>
+                                                <div class="form-field-custom-editor" ng-if="field.type==='range'">
+                                                    <label class="inline-label">Enter Ranges</label>
+                                                    <div class="inline-control">
+                                                        <rgu-range-input ng-if="!field.options" ng-model="field.edit.model"></rgu-range-input>
+                                                        <rgu-range-input ng-if="field.options==='age'" type="age"
+                                                                         ng-model="field.edit.model" invalid="field.edit.invalid">
+                                                        </rgu-range-input>
+                                                        <rgu-range-input ng-if="field.options==='currency'" type="currency"
+                                                                         ng-model="field.edit.model" unit-model="field.edit.unitModel">
+                                                        </rgu-range-input>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="form-field-custom-viewer" ng-if="field.type==='qa' && field.choices">
+                                                    <label class="inline-label">Select answer</label> <select rgu-select class="inline" ng-model="field.edit.model" ng-options="choice.value as choice.value for choice in field.model"></select>
+                                                </div>
+                                                <div class="form-field-custom-viewer" ng-if="field.type==='range'">
+                                                    <label class="inline-label">Select range</label> <select rgu-select class="inline" ng-model="field.edit.model" ng-options="range as range for range in field.model"></select>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                @if (reviewing)
+                {
+                    <div class="form-row tall">
+                        <div class="interaction-form-label">
+                            <label>Reviewer Comment</label>
+                        </div>
+
+                        <div class="interaction-form-control">
+                            <textarea rows="4" ng-model="comments.form" placeholder="Enter comment on this form"></textarea>
+                        </div>
+                    </div>
+                }
+            </form>
+        </div>
+    }
+
+    <div class="interaction-editor-page" id="workflow" ng-show="activePage==='workflow'" ng-class="{invalidPage: !validity.pages.workflow }">
+        <form name="formWorkflow">
+
+            <div class="form-row" ng-if="!interaction.isNew">
+                <div class="interaction-form-label">
+                    <label>Status</label>
+                </div>
+                <div class="interaction-form-control static-value">
+                    {{interaction.status}}
+                </div>
+            </div>
+            <div class="form-row" ng-if="!interaction.isNew">
+                <div class="interaction-form-label">
+                    <label>Created</label>
+                </div>
+                <div class="interaction-form-control static-value">
+                    <p class="">{{interaction.created | prettyTime}} ({{interaction.created | friendlyTime}})</p>
+                </div>
+            </div>
+
+            @if (!reviewing)
+            {
+                <div class="form-row tall">
+                    <div class="interaction-form-label">
+                        <label>Editor's Notes</label>
+                    </div>
+                    <div class="interaction-form-control">
+                        <textarea rows="4" ng-model="interaction.notes" placeholder="Enter comment on this interaction, for internal sharing with other workflow members"></textarea>
+
+                    </div>
+                </div>
+            }
+
+
+
+            <div class="form-row tall" ng-if="reviewing || !reviewing && comments.general.length">
+                <div class="interaction-form-label">
+                    <label>Reviewer Comment</label>
+                </div>
+
+                <div class="interaction-form-control">
+                    @if (reviewing)
+                    {
+                        <textarea rows="4" ng-model="comments.general" placeholder="Enter general comment on this interaction, for internal sharing with other workflow members"></textarea>
+                    }
+                    else
+                    {
+                        <div class="interaction-comment" ng-if="comments.general.length" ng-bind-html="comments.general | textToHtml"></div>
+                    }
+                </div>
+            </div>
+
+
+            <div class="form-row" ng-if="!isTemplate">
+                <div class="interaction-form-label">
+
+                </div>
+                <div class="interaction-form-control">
+                    @if (!reviewing)
+                    {
+                        <p ng-if="form.dirty">Changes made to this interaction require approval before becoming active.</p>
+                        <p ng-if="!canSaveInteraction()">Correct all errors before proceeding.</p>
+                    }
+                    else
+                    {
+                        <p ng-if="!hasComments()">You have no comments.</p>
+                        <p ng-if="review.dirty && hasComments()">You have entered new comments.</p>
+                    }
+                    @if (!reviewing)
+                    {
+                        <button type="button" class="interaction-editor-workflow-action action-sendreview"
+                                ng-disabled="!canSaveInteraction()" ng-click="sendReview()">
+                            <span ng-if="form.dirty">Save and </span>Send For Review
+                        </button>
+                    }
+                    else
+                    {
+                        <button type="button" class="interaction-editor-workflow-action action-feedback"
+                                ng-disabled="!canFeedback()" ng-click="sendFeedback()">
+                            Feedback Comments to Editor
+                        </button>
+                    }
+                    @if (reviewing)
+                    {
+                        <button type="button" class="interaction-editor-workflow-action action-approve"
+                                ng-click="approve()">
+                            Approve
+                        </button>
+                    }
+
+                    else if (canApprove)
+                    {
+                        <button type="button" class="interaction-editor-workflow-action action-approve approve-own"
+                                ng-disabled="!canSaveInteraction()" ng-click="approve(true)">
+                            <span ng-if="form.dirty">Save and </span>Approve
+                        </button>
+                    }
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="interaction-editor-actions" ng-class="{}">
+        <button type="button" ng-if="activePage==='details' || !isBroadcast && activePage==='publish' || isBroadcast && activePage==='form'" class="interaction-editor-action action-next"
+                ng-click="navNext()">
+            Next
+        </button>
+        <button type="button" ng-if="isBroadcast && activePage==='publish' || activePage==='form'" class="interaction-editor-action action-next"
+                ng-click="navTo('workflow')">
+            Finish
+        </button>
+        <button type="button" ng-if="activePage==='workflow'" class="interaction-editor-action action-back"
+                ng-click="navTo(isBroadcast ? 'publish':'form')">
+            Back
+        </button>
+    </div>
+    </div>
+    </div>
+}

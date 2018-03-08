@@ -1,0 +1,19 @@
+<div class="modal modal-box alert-modal" tabindex="-1" role="dialog" aria-hidden="true" ng-class="{'has-actions': !!actions}">
+
+    <button type="button" class="modal-box-close" ng-click="closeAlert($hide)">Close</button>
+    <div class="alert-header alert-{{style}}" ng-if="style"></div>
+    <div class="alert-message" ng-bind-html="message">
+
+    </div>
+
+    <div class="modal-box-form-actions" ng-if="actions">
+
+        <button type="button" ng-click="closeAlert($hide)" class="modal-box-form-action modal-box-form-action-cancel">Cancel
+        </button>
+        <button type="button" class="modal-box-form-action form-action-primary form-action-submit"
+                ng-click="closeAlert($hide, true)">Yes
+        </button>
+
+    </div>
+
+</div>

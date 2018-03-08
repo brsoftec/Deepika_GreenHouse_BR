@@ -1,0 +1,156 @@
+<div class="modal interaction-form-modal" tabindex="-1" role="dialog" aria-hidden="true"
+     ng-controller="InteractionFormController">
+    <div class="interaction-form-header">
+
+        <div class="interaction-form-type" ng-bind="interaction.type"></div>
+        <div class="interaction-form-avatar" ng-if="interaction.business.avatar">
+            <img class="" ng-src="{{interaction.business.avatar | avatarUrl:true}}">
+        </div>
+        <div class="header-business-name" ng-bind="interaction.business.name"></div>
+        <h3 class="interaction-form-heading">{{interaction.name}} - {{titleSuffix}}</h3>
+    </div>
+
+    <div class="interaction-form-delegation" ng-if="view.initializing && !interaction.editing">
+        <p><rgu-spinner></rgu-spinner>Loading form...</p>
+    </div>
+
+    <div class="interaction-form-delegation" rgu-event-listener
+         ng-if="!isHandshake && !interaction.editing && ListManagerDelegatedTo.length>1">
+        <div class="form-row">
+            <div class="interaction-form-delegation-label">
+                <label for="select-delegator">{{interaction.participated ? 'Registered' : 'Registering' }} for</label>
+            </div>
+            <div class="interaction-form-delegation-control">
+
+                <div class="delegator-selector" id="select-delegator" ng-class="{selecting: delegation.selecting}">
+                    <div class="delegator-selector-selected delegator-selector-item"
+                         ng-click="toggleSelectDelegator();">
+                        <div class="delegator-selector-item-avatar avatar-prefix">
+                            <img ng-src="{{DelegationSelected.fromAvatar | avatarUrl}}">
+                        </div>
+                        <div class="delegator-selector-item-name">
+                            {{DelegationSelected.FromUserDisplayName}}
+                            <span ng-if="!DelegationSelected.isMe">
+                                ({{DelegationSelected.DelegationRole}}}
+                                </span>
+                        </div>
+                    </div>
+                    <div class="delegator-selector-dropdown" ng-if="delegation.selecting">
+                        <div class="delegator-selector-list">
+                            <div class="delegator-selector-item delegator-selector-list-item"
+                                 ng-class="{selected:del===delegation.selected}"
+                                 ng-repeat="del in ListManagerDelegatedTo" ng-click="selectDelegator(del)">
+                                <div class="delegator-selector-item-avatar avatar-prefix">
+                                    <img ng-src="{{del.fromAvatar | avatarUrl}}">
+                                </div>
+                                <div class="delegator-selector-item-name">
+                                    {{del.FromUserDisplayName}}<span ng-if="del.DelegationRole" class="delegation-role-badge" ng-bind="del.DelegationRole"></span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="interaction-form-delegation" ng-if="interaction.editing">
+        <p>This is only a sample preview of how the form will be shown, as well as how the user interacts by viewing and
+            editing information. No actual data or result apply.</p>
+        <p ng-if="!canPreviewForm()">Incomplete form not shown here.</p>
+    </div>
+
+
+<!--
+    <div html-from-text class="interaction-form-description" ng-if="!isFeedBased" ng-model="interaction.description" data-expandable="true">
+    </div>
+-->
+   <!-- <div class="interaction-form-delegation" ng-if="interaction.comment" ng-bind-html="interaction.comment | textToHtml">
+   --> <div class="interaction-form-description" ng-if="!isFeedBased" ng-bind-html="interaction.description | textToHtml">
+    </div>
+
+
+    <form class="form-horizontal form-registration interaction-form" ng-if="!view.initializing"
+          ng-class="{editing: mode.editingForm, viewonly: mode.viewOnly}">
+        <div class="interaction-messages" ng-if="currentParticipation">
+            <div class="interaction-message message-info message-small">
+                <p ng-if="currentParticipation.actor==='self'">You {{verbPast}}
+                    {{currentParticipation.participated |
+                    friendlyTime}}</p>
+                <p ng-if="currentParticipation.actor==='for'">You {{verbPast}} on behalf of
+                    {{currentParticipation.actorName}} {{currentParticipation.participated | friendlyTime}}</p>
+                <p ng-if="currentParticipation.actor==='by'">You {{verbPast}} via delegatee
+                    {{currentParticipation.actorName}} {{currentParticipation.participated | friendlyTime}}</p>
+                <p ng-if="currentParticipation.actor==='other'">This person already {{verbPast}} via
+                    another delegation</p>
+                <!--<p ng-if="!mode.delegated">You already {{verb}}ed via another delegation</p>-->
+            </div>
+        </div>
+
+        <div>
+            <button type="button" class="interaction-form-edit"
+                    ng-if="!interaction.participated && !mode.editingForm && !mode.viewOnly && !view.missingReadonlyFields"
+                    ng-click="Edit()">Edit
+            </button>
+
+            <fieldset ng-repeat="group in groups">
+                <legend ng-bind="group.displayName || group.name"></legend>
+                <div class="form-row" ng-repeat="field in group.fields">
+                    <interaction-field ng-model="field" interaction="interaction" mode="mode"
+                                       validate="validate"></interaction-field>
+                </div>
+            </fieldset>
+
+        </div>
+
+
+        <div class="interaction-messages" ng-if="!interaction.participated && !view.missingReadonlyFields && !mode.preview">
+            <div class="interaction-message message-alert" ng-if="validate.noValue">
+                <p>Please fill in all missing information.</p>
+            </div>
+            <div class="interaction-message message-alert" ng-if="!validate.noValue && validate.invalid">
+                <p>Some information is invalid. Please correct.</p>
+            </div>
+
+        </div>
+        <div class="interaction-messages" ng-if="!interaction.participated && view.missingReadonlyFields">
+            <div class="interaction-message message-alert">
+                <p>Some information is missing but you have no permission to fill in. As a result, only your delegator
+                    can complete this registration.</p>
+            </div>
+        </div>
+
+        <div class="interaction-form-agree" ng-if="!interaction.participated">
+
+            <rgu-checkbox id="option-agreed" ng-model="form.agreed"></rgu-checkbox>
+            <label ng-if="!interaction.termsUrl" for="option-agreed">
+                I agree to <a href="/about/terms-conditions" target="_blank">Regit Terms &amp; Conditions</a>
+            </label>
+            <label ng-if="interaction.termsUrl" for="option-agreed">
+                I agree to the <a href="{{interaction.termsUrl | properUrl}}" target="_blank">Terms &amp; Conditions</a>
+            </label>
+            <p ng-if="interaction.paid && interaction.price>0" class="campaign-agree-cost">I agree to pay an
+                amount of {{interaction.priceCurrency}} <span class="interaction-price-amount">{{interaction.price | currency:'':2}}</span>
+                registration fee.</p>
+
+        </div>
+        <div class="interaction-form-actions">
+
+            <button type="button" ng-click="cancel()" class="interaction-form-action form-action-cancel">Cancel</button>
+            <button type="button" ng-if="currentParticipation && interaction.type != 'handshake'"
+                    class="interaction-form-action form-action-primary form-action-unregister" ng-click="deRegister()">
+                Un{{interaction.verb}}
+            </button>
+            <button type="button" ng-if="!currentParticipation && !view.missingReadonlyFields"
+                    class="interaction-form-action form-action-primary form-action-submit"
+                    ng-disabled="!canRegister()" ng-click="Register()">
+                {{interaction.verb}}
+            </button>
+            <button type="button" ng-if="view.missingReadonlyFields" ng-disabled="!form.agreed"
+                    class="interaction-form-action form-action-primary form-action-forward"
+                    ng-click="notifyMissingInformationOfVault()">Forward to Delegator
+            </button>
+
+        </div>
+    </form>
+</div>

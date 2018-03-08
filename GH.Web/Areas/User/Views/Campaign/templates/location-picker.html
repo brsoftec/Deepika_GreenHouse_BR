@@ -1,0 +1,10 @@
+<label class="short">Country</label><label class="short">State/Province/Region</label>
+<select rgu-select class="short" ng-model="location.country" ng-options="country as country for country in countries">
+</select>
+<select rgu-select class="short" ng-model="location.region" ng-options="region as region for region in regions">
+</select>
+<label class="short">City</label><label class="short">ZIP / Postal Code</label>
+
+<select rgu-select class="short" ng-model="location.city" ng-options="city as city for city in cities">
+</select>
+<input type="text" class="short" ng-model="location.zipCode">

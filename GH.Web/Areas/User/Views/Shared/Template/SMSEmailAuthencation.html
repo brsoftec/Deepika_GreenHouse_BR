@@ -1,0 +1,49 @@
+﻿
+<div class="sms-auth-content signin-auth">
+    <center>
+        <div class="otp-content">
+            <table>
+                <tr>
+                    <td style="padding: 5px;">
+                        <button class="btn btn-primary" ng-disabled="sms.disable" ng-click="getOtpSms()">{{sms.buttonLabel}}</button>
+
+                    </td>
+                    <td style="padding: 5px;">
+                        <button class="btn btn-info" ng-disabled="email.disable" ng-click="getOtpEmail()">{{email.buttonLabel}}</button>
+                    </td>
+                </tr>
+            </table>
+
+            <p ng-if="!verify.sent">
+                Choose a method to receive your PIN.
+            </p>
+            <p ng-if="verify.sent">
+                <span ng-if="verify.option == 'email'">
+                    Please enter the code in email.
+                </span>
+                <span ng-if="verify.option == 'sms'">
+                    Please enter the code in SMS .
+                </span>
+            </p>
+        </div>
+        <div class="sms-auth-input-row" ng-if="verify.sent">
+
+            <input ng-model="verify.pin" type="password" autofocus class="input-pin sms-auth-input" placeholder="_ _ _ _"
+                   ng-enter="verifyOtp(verify.pin)">
+        </div>
+
+        <div class="button-group sms-auth-actions">
+            <button type="button" ng-click="cancelOtp()" class="btn btn-default sms-auth-btn">
+                Cancel
+            </button>
+            <button type="submit" ng-click="verifyOtp(verify.pin);" class="btn btn-primary sms-auth-btn" ng-disabled="!verify.sent">
+                Authenticate
+            </button>
+        </div>
+        <div style="padding-top:20px">
+            <span>{{verify.error}}</span>
+
+        </div>
+
+    </center>
+</div>

@@ -1,0 +1,106 @@
+﻿.trouble-page > .container {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    color: #454545;
+}
+
+.box {
+    max-width: 100%;
+    width: 600px;
+    margin: auto;
+    padding: 0 100px 50px;
+    border: 2px solid #00aeef;
+}
+
+.trouble-box-error-wrapper {
+    visibility: hidden;
+    min-height: 120px;
+}
+
+    .trouble-box-error-wrapper.has-error {
+        visibility: visible;
+    }
+
+.trouble-box-error {
+    padding: 30px;
+    border-color: #ED1D24;
+    color: #ED1D24;
+    margin-bottom: 20px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.box-header {
+    font-size: 80px;
+    font-family: "swing";
+    color: #00aeef;
+    text-align: center;
+}
+
+.trouble-row-group:not(:first-child) {
+    margin-top: 20px;
+}
+
+.trouble-row {
+    margin-top: 5px;
+}
+
+.step-title {
+    font-weight: 600;
+}
+
+.step-action {
+    margin-top: 10px;
+    text-align: center;
+}
+
+    .step-action .btn {
+        font-weight: 600;
+    }
+
+.trouble-step-2 .step-action {
+    margin-top: 20px;
+}
+
+    .trouble-step-2 .step-action .btn {
+        margin-top: 5px;
+        min-width: 50%;
+    }
+
+.trouble-step-3 .forgeter-avatar img {
+    width: 100%;
+    height: 100%;
+    width: 100px;
+    height: 100px;
+    max-width: 100%;
+}
+
+.trouble-step-3 .forgeter-name {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.trouble-step-3 .reset-options-account-info > table {
+    width: 100%;
+}
+
+    .trouble-step-3 .reset-options-account-info > table .left-cell {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .trouble-step-3 .reset-options-account-info > table .right-cell {
+        padding: 10px;
+    }
+
+.trouble-step-4 input {
+    text-align: center;
+}
+
+.trouble-step-4 .trouble-row {
+    margin-top: 10px;
+}
+
+.trouble-step-4 .step-action .btn {
+    min-width: 50%;
+}

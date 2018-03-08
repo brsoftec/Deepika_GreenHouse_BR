@@ -1,0 +1,671 @@
+﻿<!-- Other -->
+<div ng-controller="OthersController">
+    <div ng-if="others._name !='' ">
+        <div class="vault-group">
+
+            <!--HEADER -->
+            <div class="vault-group-header">
+                <h4>{{others._label}}</h4>
+                <button class="btn-vault-group-collapse" ng-init="hide_othersBody=false;"
+                        ng-click="$event.preventDefault();hide_othersBody=!hide_othersBody;"></button>
+            </div>
+            <div ng-hide="hide_othersBody">
+
+                <!--preference_interesting-->
+                <div class="vault-group-content" ng-if="preference._name">
+                    <div class="vault-row">
+                        <div class="vault-group-actions">
+                            <button ng-hide="value.IsEdit" type="button" class="btn-vault-action btn-vault-edit" ngclipboard data-clipboard-target="#copy-preference">
+                                Copy text
+                            </button>
+                            <button ng-hide="IsEdit" type="button" class="btn-vault-action btn-vault-edit" ng-click="Edit()">
+                                Edit
+                            </button>
+                            <button ng-hide="!IsEdit" type="button" class="btn-vault-action btn-vault-save" ng-click="Save()">
+                                Save
+                            </button>
+                            <button ng-hide="!IsEdit" type="button" class="btn-vault-action btn-vault-cancel btn-cancel"
+                                    ng-click="Cancel()">
+                                Cancel
+                            </button>
+                        </div>
+
+                    </div>
+
+                   
+                    <!-- // preference -->
+                    <div class="vault-row" ng-hide="IsEdit" id="copy-preference">
+                        <div class="vault-label">
+                            <label>{{preference._label}}</label>
+                        </div>
+                        <div class="vault-field">
+                            <div class="vault-field-value">
+
+                            
+                                <!--basic -->
+                                <span ng-if="preference_sexuality._value">
+                                    <strong> {{preference_sexuality._label}}: </strong> {{preference_sexuality._value}} <br />
+                                </span>
+                                <span ng-if="preference_languages._value !=''">
+                                    <strong>{{preference_languages._label}}: </strong>  {{preference_languages._value.join(', ')}} <br />
+                                </span>
+                                <span ng-if="preference_ethnicity._value">
+                                    <strong> {{preference_ethnicity._label}}: </strong> {{preference_ethnicity._value}} <br />
+                                </span>
+                                <span ng-if="preference_religion._value">
+                                    <strong> {{preference_religion._label}}: </strong> {{preference_religion._value}} <br />
+                                </span>
+                                <span ng-if="preference_disability._value">
+                                    <strong> {{preference_disability._label}}: </strong> {{preference_disability._value}} <br />
+                                </span>
+                                <!--end basic-->
+                                <span ng-if="preference_interests._value !=''">
+                                    <strong>{{preference_interests._label}}: </strong>  {{preference_interests._value.join(', ')}} <br />
+                                </span>
+                                <span ng-if="preference_sports._value !=''">
+                                    <strong>{{preference_sports._label}}: </strong>  {{preference_sports._value.join(', ')}} <br />
+                                </span>
+                                <span ng-if="preference_food._value !=''">
+                                    <strong>{{preference_food._label}}: </strong> {{preference_food._value.join(', ') }} <br />
+                                </span>
+                                <span ng-if="preference_allergies._value !=''">
+                                    <strong>{{preference_allergies._label}}: </strong> {{preference_allergies._value.join(', ') }} <br />
+                                </span>
+
+                                <span ng-if="preference_seat._value !=''">
+                                    <strong>{{preference_seat._label}}: </strong> {{preference_seat._value.join(', ') }} <br />
+                                </span>
+
+                                <span ng-if="preference_season._value !=''">
+                                    <strong>{{preference_season._label}}: </strong>  {{preference_season._value.join(', ') }}
+                                </span>
+                            </div>
+
+                            <div class="vault-privacy-indicator" ng-class="{'privacy-on': preference._privacy}"
+                                 bs-tooltip
+                                 data-title="{{preference._privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                                 data-placement="bottom-left">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- // -->
+                    <div ng-hide="!IsEdit">
+                        <div class="vault-row">
+                            <div class="vault-label">
+                            </div>
+                            <div class="vault-field-edit">
+                                <label>
+                                    <strong>
+                                        {{preference._name}}
+                                    </strong>
+                                </label>
+                                <button class="btn-vault-privacy" ng-class="{'privacy-on': preference._privacy}"
+                                        ng-click="preference._privacy = !preference._privacy"
+                                        bs-tooltip
+                                        data-title="{{preference._privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                                        data-placement="bottom-left"></button>
+                            </div>
+
+                        </div>
+                      
+                        <!--sexuality-->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{preference_sexuality._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <input name="sexuality" placeholder="" ng-model="preference_sexuality._value" />
+                            </div>
+                        </div>
+                        <!--language-->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{preference_languages._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-smart-input ng-model="preference_languages._value" placeholder="Enter your languages" type="language">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <!--ethnicity-->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{preference_ethnicity._label}}</label>
+                            </div>
+                            <div class="vault-field-edit"> 
+                                <input name="ethnicity" placeholder="" ng-model="preference_ethnicity._value" />
+                            </div>
+                        </div>
+                        <!--religion-->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{preference_religion._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <input name="religon" placeholder="" ng-model="preference_religion._value" />
+                            </div>
+                        </div>
+                        <!--disability-->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{preference_disability._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <input name="disability" placeholder="" ng-model="preference_disability._value" />
+                            </div>
+                        </div>
+
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{preference_interests._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-smart-input ng-model="preference_interests._value" placeholder="Enter your interests" type="interest">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{preference_sports._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-smart-input ng-model="preference_sports._value" placeholder="Enter your sports" type="sport">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <!-- preference_food preference_allergies -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{preference_food._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-smart-input ng-model="preference_food._value" placeholder="List your favorite foods" type="food">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <!-- preference_allergies -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{preference_allergies._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-smart-input ng-model="preference_allergies._value" placeholder="List your allergies">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <!-- preference_seat -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <!-- label>{{preference_seat._label}}</label -->
+                                <label>Seat</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-smart-input ng-model="preference_seat._value" type="seat" placeholder="on plane/train/boat etc.">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <!-- preference_seat -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{preference_season._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-smart-input ng-model="preference_season._value">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+                <hr />
+                <!--favourite-->
+                <div class="vault-group-content" ng-if="favourite._name">
+                    <div class="vault-row">
+                        <div class="vault-group-actions">
+                            <button ng-hide="value.IsEdit" class="btn-vault-action btn-vault-edit" ngclipboard data-clipboard-target="#copy-favourite">
+                                Copy text
+                            </button>
+                            <button ng-hide="IsEdit_favourite" class="btn-vault-action btn-vault-edit" ng-click="Edit_favourite()">
+                                Edit
+                            </button>
+                            <button ng-hide="!IsEdit_favourite" class="btn-vault-action btn-vault-save" ng-click="Save()">
+                                Save
+                            </button>
+                            <button ng-hide="!IsEdit_favourite" class="btn-vault-action btn-vault-cancel btn-cancel"
+                                    ng-click="Cancel()">
+                                Cancel
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <!-- // -->
+                    <div class="vault-row" ng-hide="IsEdit_favourite" id="copy-favourite">
+                        <div class="vault-label">
+                            <label>{{favourite._label}}</label>
+                        </div>
+                        <div class="vault-field">
+                            <div class="vault-field-value">
+                                <span ng-if="favourite_colour._value !=''">
+                                    <strong>{{favourite_colour._label}}:  </strong>  {{favourite_colour._value.join(', ')}} <br />
+                                </span>
+                                <span ng-if="favourite_holiday._value !=''">
+                                    <strong>{{favourite_holiday._label}}: </strong> {{favourite_holiday._value.join(', ') }} <br />
+                                </span>
+                                <span ng-if="favourite_movie._value !=''">
+                                    <strong>{{favourite_movie._label}}: </strong> {{favourite_movie._value.join(', ') }} <br />
+                                </span>
+                                <span ng-if="favourite_music_type._value !=''">
+                                    <strong> {{favourite_music_type._label}}: </strong>{{favourite_music_type._value.join(', ') }} <br />
+                                </span>
+                                <span ng-if="favourite_song._value !=''">
+                                    <strong> {{favourite_song._label}}: </strong>{{favourite_song._value.join(', ') }} <br />
+                                </span>
+                                <span ng-if="favourite_tv_show._value !=''">
+                                    <strong> {{favourite_tv_show._label}}: </strong> {{favourite_tv_show._value.join(', ') }} <br />
+                                </span>
+                                <span ng-if="favourite_personality._value !=''">
+                                    <strong> {{favourite_personality._label}}: </strong> {{favourite_personality._value.join(', ') }} <br />
+                                </span>
+                                <span ng-if="favourite_preferred_time._value !=''">
+                                    <strong> {{favourite_preferred_time._label}}: </strong> {{favourite_preferred_time._value}} <br />
+                                </span>
+                                <span ng-if="favourite_note._value !=''">
+                                    <strong> {{favourite_note._label}}: </strong>{{favourite_note._value }}
+                                </span>
+                            </div>
+
+                            <div class="vault-privacy-indicator" ng-class="{'privacy-on': favourite._privacy}"
+                                 bs-tooltip
+                                 data-title="{{favourite._privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                                 data-placement="bottom-left">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- // -->
+                    <div ng-hide="!IsEdit_favourite">
+                        <div class="vault-row">
+                            <div class="vault-label">
+                            </div>
+                            <div class="vault-field-edit">
+                                <label>
+                                    <strong>
+                                        {{favourite._name}}
+                                    </strong>
+                                </label>
+                                <button class="btn-vault-privacy" ng-class="{'privacy-on': favourite._privacy}"
+                                        ng-click="favourite._privacy = !preference._privacy"
+                                        bs-tooltip
+                                        data-title="{{favourite._privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                                        data-placement="bottom-left"></button>
+                            </div>
+
+                        </div>
+                        <!-- favourite_colour -->
+                        <div class="vault-row">
+
+                            <div class="vault-label">
+                                <label>{{favourite_colour._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-smart-input ng-model="favourite_colour._value" type="color" placeholder="Enter your favorite color">
+                                </rgu-smart-input>
+
+                            </div>
+
+                        </div>
+                        <!-- favourite_holiday -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{favourite_holiday._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-smart-input ng-model="favourite_holiday._value" type="movie" placeholder="Enter your favorite holiday">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <!-- favourite_holiday -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{favourite_movie._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-smart-input ng-model="favourite_movie._value" type="movie" placeholder="Enter your favorite movie">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <!-- favourite_music_type -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{favourite_music_type._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-smart-input ng-model="favourite_music_type._value" type="musicGenre" placeholder="Enter your favorite music genre">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <!-- favourite_song -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{favourite_song._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-smart-input ng-model="favourite_song._value" type="song" placeholder="Enter your favorite songs">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+
+                        <!-- favourite_tv_show -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{favourite_tv_show._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-smart-input ng-model="favourite_tv_show._value" type="tvShow" placeholder="Enter your favorite TV shows">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <!-- favourite_personality -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{favourite_personality._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-smart-input ng-model="favourite_personality._value" type="personality" placeholder="">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <!-- favourite_preferred_time -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{favourite_preferred_time._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <input ng-model="favourite_preferred_time._value" type="text" placeholder="" />
+                             
+                            </div>
+                        </div>
+                        <!-- favourite_preferred_time -->
+                      
+                    </div>
+                </div>
+
+                <hr />
+                <!--body-->
+                <div class="vault-group-content" ng-if="body._name">
+                    <div class="vault-row">
+                        <div class="vault-group-actions">
+                            <button ng-hide="value.IsEdit" class="btn-vault-action btn-vault-edit" ngclipboard data-clipboard-target="#copy-body">
+                                Copy text
+                            </button>
+                            <button ng-hide="IsEdit_body" class="btn-vault-action btn-vault-edit" ng-click="Edit_body()">
+                                Edit
+                            </button>
+                            <button ng-hide="!IsEdit_body" class="btn-vault-action btn-vault-save" ng-click="Save()">
+                                Save
+                            </button>
+                            <button ng-hide="!IsEdit_body" class="btn-vault-action btn-vault-cancel btn-cancel"
+                                    ng-click="Cancel()">
+                                Cancel
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <!-- // -->
+                    <div class="vault-row" ng-hide="IsEdit_body" id="copy-body">
+                        <div class="vault-label">
+                            <label>{{body._label}}</label>
+                        </div>
+                        <div class="vault-field">
+                            <div class="vault-field-value">
+
+                                <span ng-if="body_eye_colour._value !=''">
+                                    <strong>{{body_eye_colour._label }}:</strong> {{body_eye_colour._value.join(', ')}} <br />
+                                </span>
+                                <span ng-if="body_hair_colour._value !=''">
+                                    <strong>{{body_hair_colour._label }}:</strong>  {{body_hair_colour._value.join(', ') }}<br />
+                                </span>
+
+                                <span ng-if="body_height._value">
+                                    <strong>{{body_height._label }}:</strong> {{body_height._value }} {{body_height._unit }} <br />
+                                </span>
+                                <span ng-if="body_weight._value">
+                                    <strong>{{body_weight._label }}:</strong> {{body_weight._value }} {{body_weight._unit }} <br />
+                                </span>
+                                <span ng-if="body_type._value !=''">
+                                    <strong>{{body_type._label }}:</strong>   {{body_type._value.join(', ') }} <br />
+                                </span>
+                                <span ng-if="body_neck._value">
+                                    <strong>{{body_neck._label }}:</strong> {{body_neck._value }} {{body_neck._unit }} <br />
+                                </span>
+                                <span ng-if="body_chest._value">
+                                    <strong>{{body_chest._label }}:</strong> {{body_chest._value }} {{body_chest._unit }} <br />
+                                </span>
+                                <span ng-if="body_arm._value">
+                                    <strong>{{body_arm._label }}:</strong> {{body_arm._value }} {{body_arm._unit }} <br />
+
+                                </span>
+                                <span ng-if="body_leg._value">
+                                    <strong>{{body_leg._label }}:</strong> {{body_leg._value }} {{body_leg._unit }} <br />
+                                </span>
+                                <span ng-if="body_inner._value">
+                                    <strong>{{body_inner._label }}:</strong> {{body_inner._value }} {{body_inner._unit }} <br />
+                                </span>
+                                <span ng-if="body_bicep._value">
+                                    <strong>{{body_bicep._label }}:</strong> {{body_bicep._value }} {{body_bicep._unit }} <br />
+                                </span>
+                                <span ng-if="body_shoes._value">
+                                    <strong>{{body_shoes._label }}:</strong> {{body_shoes._value }} {{body_shoes._unit }} <br />
+                                </span>
+                                <span ng-if="body_ring._value">
+                                    <strong>{{body_ring._label }}:</strong> {{body_ring._value }} {{body_ring._unit }} <br />
+                                </span>
+                                <span ng-if="body_left_eye._value">
+                                    <strong>{{body_left_eye._label }}:</strong> {{body_left_eye._value }} <br />
+                                </span>
+                                <span ng-if="body_right_eye._value">
+                                    <strong>{{body_right_eye._label }}:</strong> {{body_right_eye._value }} <br />
+                                </span>
+
+                            </div>
+
+                            <div class="vault-privacy-indicator" ng-class="{'privacy-on': body._privacy}"
+                                 bs-tooltip
+                                 data-title="{{body._privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                                 data-placement="bottom-left">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- // -->
+                    <div ng-hide="!IsEdit_body">
+                        <div class="vault-row">
+                            <div class="vault-label">
+                            </div>
+                            <div class="vault-field-edit">
+                                <label>
+                                    <strong>
+                                        {{body._name}}
+                                    </strong>
+                                </label>
+                                <button class="btn-vault-privacy" ng-class="{'privacy-on': body._privacy}"
+                                        ng-click="body._privacy = !preference._privacy"
+                                        bs-tooltip
+                                        data-title="{{body._privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                                        data-placement="bottom-left"></button>
+                            </div>
+
+                        </div>
+                        <!-- body_eye_colour -->
+                        <div class="vault-row">
+
+                            <div class="vault-label">
+                                <label>{{body_eye_colour._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-smart-input ng-model="body_eye_colour._value" type="color">
+                                </rgu-smart-input>
+
+                            </div>
+
+                        </div>
+                        <!-- body_hair_colour -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{body_hair_colour._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-smart-input ng-model="body_hair_colour._value" type="color">
+                                </rgu-smart-input>
+                            </div>
+                        </div>
+                        <!-- body_height -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{body_height._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-input-group measure="length" ng-model="body_height._value" unit-model="body_height._unit">
+                                </rgu-input-group>
+                            </div>
+                        </div>
+                        <!-- body_weight -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{body_weight._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-input-group measure="weight" ng-model="body_weight._value" unit-model="body_weight._unit">
+                                </rgu-input-group>
+                            </div>
+                        </div>
+
+                        <!-- body_type -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{body_type._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-tag-input ng-model="body_type._value" list="bodyTypes" label="(other type)">
+                                </rgu-tag-input>
+                            </div>
+                        </div>
+
+
+                        <!-- body_neck -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{body_neck._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-input-group measure="length" ng-model="body_neck._value" unit-model="body_neck._unit"></rgu-input-group>
+                            </div>
+                        </div>
+                        <!-- body_chest -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{body_chest._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-input-group measure="length" ng-model="body_chest._value" unit-model="body_chest._unit">
+                                </rgu-input-group>
+                            </div>
+                        </div>
+                        <!-- body_arm -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{body_arm._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-input-group measure="length" ng-model="body_arm._value" unit-model="body_arm._unit">
+                                </rgu-input-group>
+                            </div>
+                        </div>
+                      
+                        <!-- body_leg -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{body_leg._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-input-group measure="length" ng-model="body_leg._value" unit-model="body_leg._unit">
+                                </rgu-input-group>
+                            </div>
+                        </div>
+                      
+
+                        <!-- body_inner -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{body_inner._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-input-group measure="length" ng-model="body_inner._value" unit-model="body_inner._unit">
+                                </rgu-input-group>
+                            </div>
+                        </div>
+
+                        <!-- body_bicep -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{body_bicep._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-input-group measure="length" ng-model="body_bicep._value" unit-model="body_bicep._unit">
+                                </rgu-input-group>
+                            </div>
+                        </div>
+                        <!-- body_shoes -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{body_shoes._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-input-group measure="shoesize" ng-model="body_shoes._value" unit-model="body_shoes._unit">
+                                </rgu-input-group>
+                            </div>
+                        </div>
+                        <!-- body_ring -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{body_ring._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <rgu-input-group measure="length" ng-model="body_ring._value" unit-model="body_ring._unit">
+                                </rgu-input-group>
+                            </div>
+                        </div>
+
+
+                        <!-- body_left_eye -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{body_left_eye._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <input ng-model="body_left_eye._value">
+                            </div>
+                        </div>
+                        <!-- body_right_eye -->
+                        <div class="vault-row">
+                            <div class="vault-label">
+                                <label>{{body_right_eye._label}}</label>
+                            </div>
+                            <div class="vault-field-edit">
+                                <input ng-model="body_right_eye._value">
+                            </div>
+                        </div>
+                        <!-- end // -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

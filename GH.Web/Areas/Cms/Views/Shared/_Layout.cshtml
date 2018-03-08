@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html ng-app="myApp" ng-cloak>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Regit - @ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/futurify-icon")
+    @Styles.Render("~/bundles/sweet-alert/css")
+    @RenderSection("styles", required: false)
+</head>
+<body>
+    <div id="page_wrapper">
+        <div id="header">
+            @Html.Partial("_HeaderPartial")
+        </div>
+        <div id="content" class="container-fluid">
+            @RenderBody()
+        </div>
+    </div>
+    <div id="footer">
+        @Html.Partial("_FooterPartial")
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/user-service")
+    @Scripts.Render("~/bundles/sweet-alert")
+    
+    @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        var myApp = getApp('myApp', ['ngSanitize', 'ngCookies', 'TranslationModule', 'UserModule', 'oitozero.ngSweetAlert', 'CommonDirectives'], true);
+    </script>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <script src="~/Areas/User/Scripts/Controllers/user-layout-ctrl.js"></script>
+    }
+    else
+    {
+        @Scripts.Render("~/bundles/login-ctrl")
+    }
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+<div class="vault-profile">
+    <div class="vault-profile-heading">Your Profile Strength</div>
+    <div class="vault-profile-bar">
+        <div class="vault-profile-thumb" ng-style="{width:strength+'%'}">
+        </div>
+        <div class="vault-profile-grades">
+            <div ng-repeat="grade in grades" class="vault-profile-grade" ng-bind="grade.label" ng-style="{width:grade.amount+'%'}"
+                 ng-class="{'vault-profile-grade-active':$index===currentGrade, 'vault-profile-grade-inactive':$index>currentGrade}"></div>
+        </div>
+
+    </div>
+
+
+</div>
+
+

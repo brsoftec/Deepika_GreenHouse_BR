@@ -1,0 +1,840 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EDA8BFD9-B219-4D93-904F-7E58BC05434C}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GH.Core</RootNamespace>
+    <AssemblyName>GH.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <UseGlobalApplicationHostFile />
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>12.0</OldToolsVersion>
+    <LangVersion>7</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.3.3.1\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+    </Reference>
+    <Reference Include="Elmah.Mvc, Version=2.1.2.1389, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Elmah.Mvc.2.1.2\lib\net40\Elmah.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.0.1.1, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.0.1.1\lib\net20\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelHandler, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelHandler.1.0.1\lib\Net40\ExcelHandler.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
+      <HintPath>..\packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ionic.Zip, Version=1.9.1.5, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.1.2.5\lib\net40\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="libphonenumber, Version=5.8.606.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.LibPhoneNumber.1.0.0\lib\libphonenumber.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.1\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop, Version=1.0.168.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Bson, Version=2.2.4.26, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.2.4\lib\net45\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=2.2.4.26, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.2.4\lib\net45\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.2.4.26, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.2.4\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Legacy, Version=2.2.4.26, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\mongocsharpdriver.2.2.4\lib\net45\MongoDB.Driver.Legacy.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.5\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI, Version=1.2.5.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.1.2.5\lib\net40\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PayPal, Version=1.8.0.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PayPal.1.8.0\lib\net451\PayPal.dll</HintPath>
+    </Reference>
+    <Reference Include="Quartz, Version=2.5.0.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Quartz.2.5.0\lib\net40\Quartz.dll</HintPath>
+    </Reference>
+    <Reference Include="Stripe.net, Version=8.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stripe.net.8.2.0\lib\net45\Stripe.net.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Tweetinvi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7247f14397bf67b9, processorArchitecture=MSIL">
+      <HintPath>..\packages\TweetinviAPI.1.0\lib\net45\Tweetinvi.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Readme\Elmah.txt" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="job_scheduling_data_2_0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
+    <Content Include="Services\es-user-index-settings.json" />
+    <Content Include="Services\greenhouse-es-index-settings.json" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Services\es-social-post-index-settings.json" />
+    <EmbeddedResource Include="SignalR\Core\SignalR.EventAggregatorProxy.SystemWeb\Resources\EventProxy.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Adapters\AccountAdapter.cs" />
+    <Compile Include="Adapters\CampaignAdapter.cs" />
+    <Compile Include="Adapters\InteractionAdapter.cs" />
+    <Compile Include="Adapters\ManualHandshakeAdapter.cs" />
+    <Compile Include="Adapters\OutsiteAdapter.cs" />
+    <Compile Include="Adapters\RequestAdapter.cs" />
+    <Compile Include="Adapters\TransactionAdapter.cs" />
+    <Compile Include="Adapters\SocialAdapter.cs" />
+    <Compile Include="Adapters\VaultAdapter.cs" />
+    <Compile Include="BlueCode\BusinessLogic\ActivityLogBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\BusinessMemberLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\CacheContainer.cs" />
+    <Compile Include="BlueCode\BusinessLogic\CacheManager.cs" />
+    <Compile Include="BlueCode\BusinessLogic\CachePolicy.cs" />
+    <Compile Include="BlueCode\BusinessLogic\CampaignService.cs" />
+    <Compile Include="BlueCode\BusinessLogic\CheckJob.cs" />
+    <Compile Include="BlueCode\BusinessLogic\IAuthTokensLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\ICampaignService.cs" />
+    <Compile Include="BlueCode\BusinessLogic\IManageTokenDeviceBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\IManualHandshakeBusinessLogic .cs" />
+    <Compile Include="BlueCode\BusinessLogic\IProfilePrivacyBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\IRequestBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\JobScheduler.cs" />
+    <Compile Include="BlueCode\BusinessLogic\ManageTokenDeviceBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\AuthTokensLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\ManualHandshakeBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\Payment\PaymentCardLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\Payment\PayPalConfig.cs" />
+    <Compile Include="BlueCode\BusinessLogic\Payment\BillingLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\Payment\PromoCodeLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\Payment\StripePaymentLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\Payment\SubcriptionLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\IOutsiteBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\OutsiteBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\Payment\CreditCardLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\ProfilePrivacyBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\RequestBusinessLogic.cs" />
+    <Compile Include="BlueCode\Entity\AuthToken\AuthToken.cs" />
+    <Compile Include="BlueCode\Entity\Campaign\CampaignEntity.cs" />
+    <Compile Include="BlueCode\Entity\Common\EnumRoleStatus.cs" />
+    <Compile Include="BlueCode\Entity\InformationVault\DocumentVault.cs" />
+    <Compile Include="BlueCode\Entity\InformationVault\EnumVaultGroup.cs" />
+    <Compile Include="BlueCode\Entity\InformationVault\Field.cs" />
+    <Compile Include="BlueCode\Entity\Interaction\Participation.cs" />
+    <Compile Include="BlueCode\Entity\Invite\Invite.cs" />
+    <Compile Include="BlueCode\Entity\ManageTokenDevice\ManageTokenDevice.cs" />
+    <Compile Include="BlueCode\Entity\ManualHandshake\ManualHandshake.cs" />
+    <Compile Include="BlueCode\Entity\Outsite\EnumOutSiteType.cs" />
+    <Compile Include="BlueCode\Entity\Payment\Billing.cs" />
+    <Compile Include="BlueCode\Entity\Payment\PaymentPlanDetail.cs" />
+    <Compile Include="BlueCode\Entity\Payment\PromoCode.cs" />
+    <Compile Include="BlueCode\BusinessLogic\LogLogic.cs" />
+    <Compile Include="BlueCode\Entity\ProfilePrivacy\ProfilePrivacy.cs" />
+    <Compile Include="BlueCode\Entity\Request\Request.cs" />
+    <Compile Include="BlueCode\Entity\UserCreatedBusiness\UserCreatedBusiness.cs" />
+    <Compile Include="Extensions\ExtensionBsonDocument.cs" />
+    <Compile Include="Helpers\Utils.cs" />
+    <Compile Include="Models\ApiStateModel.cs" />
+    <Compile Include="Models\EnumAccount.cs" />
+    <Compile Include="Models\FuncResult.cs" />
+    <Compile Include="Models\Interaction.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\Profile.cs" />
+    <Compile Include="Models\Resource.cs" />
+    <Compile Include="Models\VaultField.cs" />
+    <Compile Include="Services\AdminService.cs" />
+    <Compile Include="Services\BusinessInteractionService.cs" />
+    <Compile Include="Services\IAdminService.cs" />
+    <Compile Include="Services\IBusinessInteractionService.cs" />
+    <Compile Include="Services\IInteractionService.cs" />
+    <Compile Include="Services\IInviteService.cs" />
+    <Compile Include="Services\InteractionService.cs" />
+    <Compile Include="Services\InviteService.cs" />
+    <Compile Include="Services\IResourceService.cs" />
+    <Compile Include="Services\IUserCreatedBusinessService.cs" />
+    <Compile Include="Services\IUserService.cs" />
+    <Compile Include="Services\IVaultService.cs" />
+    <Compile Include="Services\MessagingService.cs" />
+    <Compile Include="Services\ResourceService.cs" />
+    <Compile Include="Services\UserCreatedBusinessService.cs" />
+    <Compile Include="Services\UserService.cs" />
+    <Compile Include="Services\VaultService.cs" />
+    <Compile Include="TaskServices\ASubTask.cs" />
+    <Compile Include="TaskServices\Payment\BillingTask.cs" />
+    <Compile Include="TaskServices\Payment\SubcriptionTask.cs" />
+    <Compile Include="BlueCode\BusinessLogic\PostHandShakeBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\FeedBackBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\IFeedBackBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\SearchBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\EventBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\CampaignLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\CampaignBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\CampaignCalculator.cs" />
+    <Compile Include="BlueCode\BusinessLogic\DelegationBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\FriendBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\IActivityLogBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\IBusinessMemberLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\ICampaignLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\ICampaignBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\ICampaignCaculator.cs" />
+    <Compile Include="BlueCode\BusinessLogic\IDelegationBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\IFriendBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\IInfomationVaultBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\ILocationBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\InfomationVaultBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\IMessageBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\INotificationBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\IPostBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\IProfileBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\LocationBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\PersonalMessageBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\NotificationBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\PostBusinessLogic.cs" />
+    <Compile Include="BlueCode\BusinessLogic\ProfileBusinessLogic.cs" />
+    <Compile Include="BlueCode\DataAccess\EnumRegitTable.cs" />
+    <Compile Include="BlueCode\DataAccess\IInfomationVaultRepository.cs" />
+    <Compile Include="BlueCode\DataAccess\InfomationVaultRepository.cs" />
+    <Compile Include="BlueCode\DataAccess\IProfileRepository.cs" />
+    <Compile Include="BlueCode\DataAccess\IRepository.cs" />
+    <Compile Include="BlueCode\DataAccess\MongoDBConnection.cs" />
+    <Compile Include="BlueCode\DataAccess\MongoDBRepository.cs" />
+    <Compile Include="BlueCode\DataAccess\PagingExtension.cs" />
+    <Compile Include="BlueCode\DataAccess\ProfileRepository.cs" />
+    <Compile Include="BlueCode\Entity\ActivityLog\ActivityLogEntity.cs" />
+    <Compile Include="BlueCode\Entity\ActivityLog\EnumActivityLog.cs" />
+    <Compile Include="BlueCode\Entity\Campaign\CampaignItem.cs" />
+    <Compile Include="BlueCode\Entity\Delegation\DelegationGroupVault.cs" />
+    <Compile Include="BlueCode\Entity\Delegation\EnumDelegationPermission.cs" />
+    <Compile Include="BlueCode\Entity\Event\EventListItem.cs" />
+    <Compile Include="BlueCode\Entity\Campaign\CampaignModel.cs" />
+    <Compile Include="BlueCode\Entity\Campaign\CampaignFilter.cs" />
+    <Compile Include="BlueCode\Entity\Campaign\CampaignItemForHomeFeed.cs" />
+    <Compile Include="BlueCode\Entity\Campaign\CampaignListItem.cs" />
+    <Compile Include="BlueCode\Entity\Campaign\CampaignRegistrationFormField.cs" />
+    <Compile Include="BlueCode\Entity\Campaign\CampaignUserFilterResult.cs" />
+    <Compile Include="BlueCode\Entity\Campaign\EnumCampaignStatus.cs" />
+    <Compile Include="BlueCode\Entity\Campaign\EnumCampaignType.cs" />
+    <Compile Include="BlueCode\Entity\Campaign\EnumTargetNetwork.cs" />
+    <Compile Include="BlueCode\Entity\Common\BsonEntity.cs" />
+    <Compile Include="BlueCode\Entity\Common\DataList.cs" />
+    <Compile Include="BlueCode\Entity\Common\EnumGender.cs" />
+    <Compile Include="BlueCode\Entity\Common\EnumYesNo.cs" />
+    <Compile Include="BlueCode\Entity\Common\IMongoDBEntity.cs" />
+    <Compile Include="BlueCode\Entity\Common\KeyValue.cs" />
+    <Compile Include="BlueCode\Entity\Common\TransactionalInformation.cs" />
+    <Compile Include="BlueCode\Entity\Delegation\DelegationItemTemplate.cs" />
+    <Compile Include="BlueCode\Entity\Delegation\DelegationModelView.cs" />
+    <Compile Include="BlueCode\Entity\Delegation\EnumDelegationDirection.cs" />
+    <Compile Include="BlueCode\Entity\Delegation\EnumDelegationStatus.cs" />
+    <Compile Include="BlueCode\Entity\Event\EnumTypeEvent.cs" />
+    <Compile Include="BlueCode\Entity\FeedBack\FeedBackEntity.cs" />
+    <Compile Include="BlueCode\Entity\InformationVault\FieldinformationVaultGaneric.cs" />
+    <Compile Include="BlueCode\Entity\InformationVault\FieldinformationVault.cs" />
+    <Compile Include="BlueCode\Entity\InformationVault\InfoField.cs" />
+    <Compile Include="BlueCode\Entity\InformationVault\InfomationVaultEntity.cs" />
+    <Compile Include="BlueCode\Entity\Message\Conversation.cs" />
+    <Compile Include="BlueCode\Entity\Message\PersonalMessage.cs" />
+    <Compile Include="BlueCode\Entity\Message\EnumMessageType.cs" />
+    <Compile Include="BlueCode\Entity\Network\FriendNetwork.cs" />
+    <Compile Include="BlueCode\Entity\Network\Network.cs" />
+    <Compile Include="BlueCode\Entity\Notification\EnumRuntimeNotificationType.cs" />
+    <Compile Include="BlueCode\Entity\Notification\EnumNotificationType.cs" />
+    <Compile Include="BlueCode\Entity\Notification\LastestNotification.cs" />
+    <Compile Include="BlueCode\Entity\Notification\NotificationMessage.cs" />
+    <Compile Include="BlueCode\Entity\Outsite\Outsite.cs" />
+    <Compile Include="BlueCode\Entity\Payment\PaymentCard.cs" />
+    <Compile Include="BlueCode\Entity\PostHandShake\PostHandShake.cs" />
+    <Compile Include="BlueCode\Entity\Post\DataRegisCampaign.cs" />
+    <Compile Include="BlueCode\Entity\Post\EnumFollowType.cs" />
+    <Compile Include="BlueCode\Entity\Post\EnumPostType.cs" />
+    <Compile Include="BlueCode\Entity\Post\Follower.cs" />
+    <Compile Include="BlueCode\Entity\Post\Post.cs" />
+    <Compile Include="BlueCode\Entity\Profile\BusinessMember.cs" />
+    <Compile Include="BlueCode\Entity\Profile\CitiesEntity.cs" />
+    <Compile Include="BlueCode\Entity\Profile\CountriesEntity.cs" />
+    <Compile Include="BlueCode\Entity\Profile\EnumBusinessMemberStatus.cs" />
+    <Compile Include="BlueCode\Entity\Profile\EnumFriendGroup.cs" />
+    <Compile Include="BlueCode\Entity\Profile\EnumUserType.cs" />
+    <Compile Include="BlueCode\Entity\Profile\FriendItem.cs" />
+    <Compile Include="BlueCode\Entity\Profile\ProfileEntity.cs" />
+    <Compile Include="BlueCode\Entity\Profile\RegionsEntity.cs" />
+    <Compile Include="BlueCode\Entity\Profile\ShortProfile.cs" />
+    <Compile Include="BlueCode\Entity\Search\UserSearchResult.cs" />
+    <Compile Include="Caliburn.Micro\EventAggregator.cs" />
+    <Compile Include="Caliburn.Micro\ExtensionMethods.cs" />
+    <Compile Include="BlueCode\DataAccess\Collectors\ISocialCollector.cs" />
+    <Compile Include="BlueCode\DataAccess\Collectors\SocialApiUrl.cs" />
+    <Compile Include="BlueCode\DataAccess\Collectors\SocialCollector.cs" />
+    <Compile Include="Configurations\EmailTemplates.cs" />
+    <Compile Include="Exceptions\CustomException.cs" />
+    <Compile Include="Exceptions\CustomExceptionFilter.cs" />
+    <Compile Include="Exceptions\ErrorCode.cs" />
+    <Compile Include="Exceptions\ErrorViewModel.cs" />
+    <Compile Include="Extensions\MongoContext.cs" />
+    <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Extensions\TransactionType.cs" />
+    <Compile Include="Handler\MongoConnectionHandler.cs" />
+    <Compile Include="Helpers\CommonFunctions.cs" />
+    <Compile Include="Helpers\ConfigHelper.cs" />
+    <Compile Include="Helpers\FileAccessHelper.cs" />
+    <Compile Include="Helpers\LinQHelper.cs" />
+    <Compile Include="Helpers\ListType.cs" />
+    <Compile Include="Helpers\MongoHelper.cs" />
+    <Compile Include="Helpers\NotificationTemplateHelper.cs" />
+    <Compile Include="Helpers\PhoneNumberHelper.cs" />
+    <Compile Include="Helpers\TwitterHelper.cs" />
+    <Compile Include="IRepositories\ITransactionRepository.cs" />
+    <Compile Include="IRepositories\IDisabledUserRepository.cs" />
+    <Compile Include="Interfaces\IEntityRepository.cs" />
+    <Compile Include="Interfaces\IMongoEntity.cs" />
+    <Compile Include="IServices\ITransactionService.cs" />
+    <Compile Include="IServices\IDisabledUserService.cs" />
+    <Compile Include="Lang\Regit.Designer.cs">
+      <DependentUpon>Regit.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Lang\Regit.vi.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Regit.vi.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604220354375_InitialCreate.cs" />
+    <Compile Include="Migrations\201604220354375_InitialCreate.Designer.cs">
+      <DependentUpon>201604220354375_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604250305068_AddFacebookToken.cs" />
+    <Compile Include="Migrations\201604250305068_AddFacebookToken.Designer.cs">
+      <DependentUpon>201604250305068_AddFacebookToken.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605050424008_AddCmsPage.cs" />
+    <Compile Include="Migrations\201605050424008_AddCmsPage.Designer.cs">
+      <DependentUpon>201605050424008_AddCmsPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605050429430_UpdateCmsPage.cs" />
+    <Compile Include="Migrations\201605050429430_UpdateCmsPage.Designer.cs">
+      <DependentUpon>201605050429430_UpdateCmsPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605090220570_AddCmsImages.cs" />
+    <Compile Include="Migrations\201605090220570_AddCmsImages.Designer.cs">
+      <DependentUpon>201605090220570_AddCmsImages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605170731234_AddLayoutZone.cs" />
+    <Compile Include="Migrations\201605170731234_AddLayoutZone.Designer.cs">
+      <DependentUpon>201605170731234_AddLayoutZone.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605171021106_RemoveCodeFieldFromLayout.cs" />
+    <Compile Include="Migrations\201605171021106_RemoveCodeFieldFromLayout.Designer.cs">
+      <DependentUpon>201605171021106_RemoveCodeFieldFromLayout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605180253370_AddRequiredToCmsLayoutFields.cs" />
+    <Compile Include="Migrations\201605180253370_AddRequiredToCmsLayoutFields.Designer.cs">
+      <DependentUpon>201605180253370_AddRequiredToCmsLayoutFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605241128301_AddGalleryModels.cs" />
+    <Compile Include="Migrations\201605241128301_AddGalleryModels.Designer.cs">
+      <DependentUpon>201605241128301_AddGalleryModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608160403023_RefractorDb.cs" />
+    <Compile Include="Migrations\201608160403023_RefractorDb.Designer.cs">
+      <DependentUpon>201608160403023_RefractorDb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountBindingModels.cs" />
+    <Compile Include="Models\BasicProfile.cs" />
+    <Compile Include="Models\BusinessAccountRole.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BaseObject.cs" />
+    <Compile Include="Models\CmsImage.cs" />
+    <Compile Include="Models\CmsLayout.cs" />
+    <Compile Include="Models\CmsZone.cs" />
+    <Compile Include="Models\CmsZoneContent.cs" />
+    <Compile Include="Models\BusinessPost.cs" />
+    <Compile Include="Models\Country.cs" />
+    <Compile Include="Models\DisabledUser.cs" />
+    <Compile Include="Models\FacebookFeed.cs" />
+    <Compile Include="Extensions\FollowType.cs" />
+    <Compile Include="Models\FeedBack.cs" />
+    <Compile Include="Models\GalleryFile.cs" />
+    <Compile Include="Models\GalleryFolder.cs" />
+    <Compile Include="Models\GreenHouseDbContext.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\CmsPage.cs" />
+    <Compile Include="Models\MongoEntity.cs" />
+    <Compile Include="Models\Network.cs" />
+    <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\Permission.cs" />
+    <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\SecurityQuestion.cs" />
+    <Compile Include="Models\SecurityQuestionAnswer.cs" />
+    <Compile Include="Models\SocialPost.cs" />
+    <Compile Include="Models\Template.cs" />
+    <Compile Include="Models\FollowTransaction.cs" />
+    <Compile Include="Models\Transaction.cs" />
+    <Compile Include="Models\TwitterFeed.cs" />
+    <Compile Include="Models\Account.cs" />
+    <Compile Include="Services\IPersonalMessageService.cs" />
+    <Compile Include="Services\IProcessPostService.cs" />
+    <Compile Include="Services\PersonalMessageService.cs" />
+    <Compile Include="Services\ProcessPostService.cs" />
+    <Compile Include="SignalR\Constraints\MessageGroupConstrainedEventConstraint.cs" />
+    <Compile Include="SignalR\Constraints\MessageSingleConstrainedEventConstraint.cs" />
+    <Compile Include="SignalR\Constraints\ToUserConstrainedEventConstraint.cs" />
+    <Compile Include="SignalR\Core\SignalR.EventAggregatorProxy.Constraint\ConstraintContext.cs" />
+    <Compile Include="SignalR\Core\SignalR.EventAggregatorProxy.Constraint\EventConstraintHandler.cs" />
+    <Compile Include="SignalR\Core\SignalR.EventAggregatorProxy.Constraint\IEventConstraintHandler.cs" />
+    <Compile Include="SignalR\Core\SignalR.EventAggregatorProxy.SystemWeb\Owin\AppBuilderExtensions.cs" />
+    <Compile Include="SignalR\Core\SignalR.EventAggregatorProxy.SystemWeb\Owin\EventScriptMiddleware.cs" />
+    <Compile Include="SignalR\Core\SignalR.EventAggregatorProxy\Boostrap\Bootstrapper.cs" />
+    <Compile Include="SignalR\Core\SignalR.EventAggregatorProxy\EventAggregation\EventProxy.cs" />
+    <Compile Include="SignalR\Core\SignalR.EventAggregatorProxy\EventAggregation\IEventAggregator.cs" />
+    <Compile Include="SignalR\Core\SignalR.EventAggregatorProxy\Event\BuildManagerAssemblyLocator.cs" />
+    <Compile Include="SignalR\Core\SignalR.EventAggregatorProxy\Event\IAssemblyLocator.cs" />
+    <Compile Include="SignalR\Core\SignalR.EventAggregatorProxy\Event\ITypeFinder.cs" />
+    <Compile Include="SignalR\Core\SignalR.EventAggregatorProxy\Event\TypeFinder.cs" />
+    <Compile Include="SignalR\Core\SignalR.EventAggregatorProxy\Extensions\AssemblyExtensions.cs" />
+    <Compile Include="SignalR\Core\SignalR.EventAggregatorProxy\Extensions\CollectionExtensions.cs" />
+    <Compile Include="SignalR\Core\SignalR.EventAggregatorProxy\Extensions\TypeExtensions.cs" />
+    <Compile Include="SignalR\Core\SignalR.EventAggregatorProxy\Hubs\EventAggregatorProxyHub.cs" />
+    <Compile Include="SignalR\Core\SignalR.EventAggregatorProxy\Model\EventType.cs" />
+    <Compile Include="SignalR\Core\SignalR.EventAggregatorProxy\Model\Subscription.cs" />
+    <Compile Include="SignalR\Core\SignalR.EventAggregatorProxy\Model\SubscriptionDTO.cs" />
+    <Compile Include="SignalR\EventConstraintHandlers\MessageGroupConstrainedEventConstraintHandler.cs" />
+    <Compile Include="SignalR\EventConstraintHandlers\MessageSingleConstrainedEventConstraintHandler.cs" />
+    <Compile Include="SignalR\EventConstraintHandlers\ToUserConstrainedEventConstraintHandler.cs" />
+    <Compile Include="SignalR\EventProxy\EventAggregatorProxy.cs" />
+    <Compile Include="SignalR\Events\Event.cs" />
+    <Compile Include="SignalR\Events\GenericEvent.cs" />
+    <Compile Include="SignalR\Events\IMessageEvent.cs" />
+    <Compile Include="SignalR\Events\MessageGroupConstrainedEvent.cs" />
+    <Compile Include="SignalR\Events\MessageSingleConstrainedEvent.cs" />
+    <Compile Include="SignalR\Events\NotificationType.cs" />
+    <Compile Include="SignalR\Events\StandardEvent.cs" />
+    <Compile Include="SignalR\Events\ToUserConstrainedEvent.cs" />
+    <Compile Include="ViewModels\BusinessAccountViewModel.cs" />
+    <Compile Include="ViewModels\BusinessInteractionViewModel.cs" />
+    <Compile Include="ViewModels\CampaignDto.cs" />
+    <Compile Include="ViewModels\ChangeViewModel.cs" />
+    <Compile Include="ViewModels\FieldHandShakeViewModel.cs" />
+    <Compile Include="ViewModels\HandShakeViewModel.cs" />
+    <Compile Include="ViewModels\InteractionViewModel.cs" />
+    <Compile Include="ViewModels\InviteEmailViewModel.cs" />
+    <Compile Include="ViewModels\ManualHandshakeViewModel.cs" />
+    <Compile Include="ViewModels\MessageDataViewModel.cs" />
+    <Compile Include="ViewModels\OutsiteViewModel.cs" />
+    <Compile Include="ViewModels\PhoneViewModel.cs" />
+    <Compile Include="ViewModels\PushVaultViewModel.cs" />
+    <Compile Include="ViewModels\RequestViewModel.cs" />
+    <Compile Include="ViewModels\TokenDeviceViewModel.cs" />
+    <Compile Include="ViewModels\UserDelegation.cs" />
+    <Compile Include="ViewModels\ValidPhoneViewModel.cs" />
+    <Compile Include="ViewModels\VerifyEmailViewModel.cs" />
+    <Compile Include="Models\VerifyToken.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\TransactionRepository.cs" />
+    <Compile Include="Services\AccountService.cs" />
+    <Compile Include="Services\AccountStatisticService.cs" />
+    <Compile Include="Services\AwsElasticsearchService.cs" />
+    <Compile Include="Services\BusinessAccountStatisticsService.cs" />
+    <Compile Include="Services\CmsImageService.cs" />
+    <Compile Include="Services\CmsLayoutService.cs" />
+    <Compile Include="BlueCode\DataAccess\Collectors\FacebookCollector.cs" />
+    <Compile Include="Services\DataService.cs" />
+    <Compile Include="Repositories\DisabledUserRepository.cs" />
+    <Compile Include="Services\DisabledUserService.cs" />
+    <Compile Include="Repositories\EntityRepository.cs" />
+    <Compile Include="Services\TransactionService.cs" />
+    <Compile Include="ViewModels\DisableUserParamter.cs" />
+    <Compile Include="ViewModels\DisableUserResult.cs" />
+    <Compile Include="Services\GalleryFolderService.cs" />
+    <Compile Include="Services\GalleryFileService.cs" />
+    <Compile Include="Services\IAccountService.cs" />
+    <Compile Include="Services\IAccountStatisticService.cs" />
+    <Compile Include="Services\IAwsElasticsearchService.cs" />
+    <Compile Include="Services\IBusinessAccountStatisticsService.cs" />
+    <Compile Include="Services\ICmsImageService.cs" />
+    <Compile Include="Services\ICmsLayoutService.cs" />
+    <Compile Include="Services\ICmsPageService.cs" />
+    <Compile Include="BlueCode\DataAccess\Collectors\IFacebookCollector.cs" />
+    <Compile Include="Services\IDataService.cs" />
+    <Compile Include="Services\IGalleryFolderService.cs" />
+    <Compile Include="Services\IGalleryFileService.cs" />
+    <Compile Include="Services\IJoiningBusinessInvitationService.cs" />
+    <Compile Include="Services\IMailService.cs" />
+    <Compile Include="Services\IDbMigrationService.cs" />
+    <Compile Include="Services\INotificationService.cs" />
+    <Compile Include="Services\IRoleService.cs" />
+    <Compile Include="Services\ISocialPageService.cs" />
+    <Compile Include="Services\IVerifyTokenService.cs" />
+    <Compile Include="Services\JoiningBusinessInvitationService.cs" />
+    <Compile Include="Services\NetworkService.cs" />
+    <Compile Include="Services\INetworkService.cs" />
+    <Compile Include="Services\ISocialPostService.cs" />
+    <Compile Include="Services\ISocialService.cs" />
+    <Compile Include="BlueCode\DataAccess\Collectors\ITwitterCollector.cs" />
+    <Compile Include="Services\MailService.cs" />
+    <Compile Include="Services\CmsPageService.cs" />
+    <Compile Include="Services\DbMigrationService.cs" />
+    <Compile Include="Services\ISecurityQuestionService.cs" />
+    <Compile Include="Services\NotificationService.cs" />
+    <Compile Include="Services\RoleService.cs" />
+    <Compile Include="Services\SecurityQuestionService.cs" />
+    <Compile Include="Services\SocialPageService.cs" />
+    <Compile Include="Services\SocialPostService.cs" />
+    <Compile Include="Services\SocialService.cs" />
+    <Compile Include="BlueCode\DataAccess\Collectors\TwitterCollector.cs" />
+    <Compile Include="Services\VerifyTokenService.cs" />
+    <Compile Include="ViewModels\AccountCompaignStaticViewModel.cs" />
+    <Compile Include="ViewModels\AccountViewModel.cs" />
+    <Compile Include="ViewModels\AgeRange.cs" />
+    <Compile Include="ViewModels\AnswerSecurityQuestionModel.cs" />
+    <Compile Include="ViewModels\AccountRegistrationTimeStatResult.cs" />
+    <Compile Include="ViewModels\DisableUserViewModel.cs" />
+    <Compile Include="ViewModels\EnableParameter.cs" />
+    <Compile Include="ViewModels\EsSearchSocialPostResult.cs" />
+    <Compile Include="ViewModels\EsSocialPost.cs" />
+    <Compile Include="ViewModels\FolloweeViewModel.cs" />
+    <Compile Include="ViewModels\DemographicRegistrationStatisticsResult.cs" />
+    <Compile Include="ViewModels\FollowersStatisticResult.cs" />
+    <Compile Include="ViewModels\FolloweeParameter.cs" />
+    <Compile Include="ViewModels\FolloweeResult.cs" />
+    <Compile Include="ViewModels\FollowTransactionParamter.cs" />
+    <Compile Include="ViewModels\IAwsEsSearchDocument.cs" />
+    <Compile Include="ViewModels\MembersByLocationResult.cs" />
+    <Compile Include="ViewModels\NotificationContent.cs" />
+    <Compile Include="ViewModels\SearchGalleryFileCriteria.cs" />
+    <Compile Include="ViewModels\SearchGalleryFolderCriteria.cs" />
+    <Compile Include="ViewModels\SearchUserParameter.cs" />
+    <Compile Include="ViewModels\SearchSocialPostsOnAwsEsCriteria.cs" />
+    <Compile Include="ViewModels\SearchUserCriteria.cs" />
+    <Compile Include="ViewModels\SearchUserResult.cs" />
+    <Compile Include="ViewModels\ShareResult.cs" />
+    <Compile Include="ViewModels\SocialPostViewModel.cs" />
+    <Compile Include="ViewModels\TodayRegistrationStatisticsResult.cs" />
+    <Compile Include="ViewModels\TransactionParamter.cs" />
+    <Compile Include="ViewModels\TransactionResult.cs" />
+    <Compile Include="ViewModels\TransactionViewModel.cs" />
+    <Compile Include="ViewModels\TwitterHomeTimelineCriteria.cs" />
+    <Compile Include="ViewModels\TwitterRetweetModel.cs" />
+    <Compile Include="ViewModels\TwitterFavoritePostModel.cs" />
+    <Compile Include="ViewModels\TwitterUpdateStatusModel.cs" />
+    <Compile Include="ViewModels\VerifyOTPViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BlueCode\BusinessLogic\Location\" />
+    <Folder Include="Utils\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Lang\Regit.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Regit.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>GH.Lang</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lang\Regit.vi.resx">
+      <CustomToolNamespace>GH.Lang</CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Regit.vi.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604220354375_InitialCreate.resx">
+      <DependentUpon>201604220354375_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604250305068_AddFacebookToken.resx">
+      <DependentUpon>201604250305068_AddFacebookToken.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605050424008_AddCmsPage.resx">
+      <DependentUpon>201605050424008_AddCmsPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605050429430_UpdateCmsPage.resx">
+      <DependentUpon>201605050429430_UpdateCmsPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605090220570_AddCmsImages.resx">
+      <DependentUpon>201605090220570_AddCmsImages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605170731234_AddLayoutZone.resx">
+      <DependentUpon>201605170731234_AddLayoutZone.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605171021106_RemoveCodeFieldFromLayout.resx">
+      <DependentUpon>201605171021106_RemoveCodeFieldFromLayout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605180253370_AddRequiredToCmsLayoutFields.resx">
+      <DependentUpon>201605180253370_AddRequiredToCmsLayoutFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605241128301_AddGalleryModels.resx">
+      <DependentUpon>201605241128301_AddGalleryModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608160403023_RefractorDb.resx">
+      <DependentUpon>201608160403023_RefractorDb.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GH.Util\GH.Util.csproj">
+      <Project>{cea66658-813a-4c28-928b-08631526bbe9}</Project>
+      <Name>GH.Util</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!--
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>4534</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:4534/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v14.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

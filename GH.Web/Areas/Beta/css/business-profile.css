@@ -1,0 +1,95 @@
+.jcarousel {
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-container {
+    width: 20000em;
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.carousel-slide {
+    max-width: 600px;
+    height: 200px;
+}
+
+.carousel-picture {
+    margin: 0 auto;
+    height: 200px; width: auto;
+}
+
+.carousel-controls {
+    position: absolute;
+    left: 10px; top: 10px;
+    z-index: 100;
+}
+
+.album-heading {
+    text-align: center;
+    color: #00adef;
+    font-size: 140%;
+}
+.album-picture {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.handshake-request-modal {
+    height: 600px !important;
+}
+
+.hsr-open-action {
+    width: 100%;
+    padding: 6px;
+    border: none;
+    border-radius: 4px;
+    background: orange;
+    color: white;
+}
+
+.business-profile-badge {
+    border: 1px solid #00adef;
+    border-radius: 3px;
+    padding: 4px 10px;
+    color: #00adef;
+    text-align: center;
+    display: inline-block;
+}
+.business-profile-actions {
+    margin-top: 10px;
+}
+.business-profile-action {
+    background: #00adef;
+    border: none;
+    border-radius: 4px;
+    padding: 8px;
+    text-align: center;
+    width: 100%;
+    color: white;
+}
+
+.claim-business-modal {
+    width: 420px;
+    height: 450px;
+    margin: auto;
+    overflow: hidden;
+}
+.handshake-request-modal {
+    height: 600px !important;
+}
+
+.form-action-primary {
+    background-color: #00adef;
+    color: white;
+}
+
+.form-action-cancel {
+    background-image: url(../img/form-cancel.svg);
+}
+
+.form-action-submit {
+    background-image: url(../img/send-lite.svg);
+}

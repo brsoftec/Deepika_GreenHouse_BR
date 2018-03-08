@@ -1,0 +1,186 @@
+﻿<div ng-controller="searchVaultFormGroup">
+
+    <div class="vault-group-content" ng-repeat="value in listForm" ng-if="read">
+        <div class="vault-row" ng-if="write">
+            <div class="vault-group-actions">
+                <button ng-hide="value.isEdit" class="btn-vault-action btn-vault-edit" ngclipboard data-clipboard-target="#copy-{{query.formName}}{{$index}}">
+                    Copy text
+                </button>
+
+                <button ng-hide="value.isEdit" class="btn-vault-action btn-vault-edit" ng-click="value.isEdit = !value.isEdit">
+                    Edit
+                </button>
+
+                <button ng-hide="!value.isEdit" class="btn-vault-action btn-vault-save" ng-click="Save()">
+                    Save
+                </button>
+                <button ng-hide="!value.isEdit" class="btn-vault-action btn-vault-cancel btn-cancel"
+                        ng-click="Cancel()">
+                    Cancel
+                </button>
+            </div>
+        </div>
+        <div class="vault-row" ng-hide="value.isEdit" id="copy-{{query.formName}}{{$index}}">
+            <div class="vault-label">
+                <label ng-if="$index == 0"> {{_form._label}} </label>
+            </div>
+            <div class="vault-field">
+                <div class="vault-field-value">
+                    <span ng-if="value.description != ''">
+                        <strong> Description: </strong> {{value.description }}
+                    </span>
+
+                    <div ng-show="value.description == _form._default" class="vault-is-default">default</div> <br />
+                    <!--//-->
+                    <span ng-if="value.holder">
+                        <strong> Name card holder: </strong> {{value.holder }} <br />
+                    </span>
+
+                    <span ng-if="value.cardNumber">
+                        <strong> Card number: </strong> {{value.cardNumber }} <br />
+                    </span>
+                    <span ng-if="value.securityCode">
+                        <strong> Security code: </strong> {{value.securityCode }} <br />
+                    </span>
+
+                    <span ng-if="!value.indefiniteDate">
+                        <span ng-if="value.expiryNo">
+                            <font color="red">
+                                <strong> Expiry date: </strong> {{value.expiryDate | date:'fullDate'}}
+                            </font>
+                        </span>
+                        <span ng-if="!value.expiryNo">
+                            <strong> Expiry date: </strong> {{value.expiryDate | date:'fullDate'}}
+                        </span>
+                        <br />
+                    </span>
+                    <!-- indefiniteDate -->
+                    <span ng-if="value.indefiniteDate">
+                        <strong> Expiry date: </strong> Indefinite
+                        <br />
+                    </span>
+                    <!-- End indefiniteDate -->
+                    <!--//-->
+
+                    <span ng-if="value.note">
+                        <strong> Note: </strong> {{value.note }} <br />
+                    </span>
+                </div>
+
+            </div>
+        </div>
+        <div ng-if="write" ng-hide="!value.isEdit">
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label></label>
+                </div>
+                <div class="vault-field-edit">
+                    <strong>{{_form._label}} </strong>
+                    <button class="btn-vault-privacy" ng-class="{'privacy-on': value.privacy}"
+                            ng-click="value.privacy = !value.privacy"
+                            bs-tooltip
+                            data-title="{{value.privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                            data-placement="bottom-left"></button>
+                </div>
+
+            </div>
+
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>Decription</label>
+                </div>
+                <div class="vault-field-edit">
+                    <rgu-control type="textbox" ng-model="value.description">
+                    </rgu-control>
+
+                </div>
+
+            </div>
+            <!--//-->
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>Name card holder</label>
+                </div>
+                <div class="vault-field-edit">
+                    <rgu-control type="textbox" ng-model="value.holder"></rgu-control>
+                </div>
+            </div>
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>Bank branch</label>
+                </div>
+                <div class="vault-field-edit">
+                    <rgu-control type="textbox" ng-model="value.bankBranch"></rgu-control>
+                </div>
+            </div>
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>Card number</label>
+                </div>
+                <div class="vault-field-edit">
+                    <input ng-model="value.cardNumber" />
+                </div>
+            </div>
+
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>Security code</label>
+                </div>
+                <div class="vault-field-edit">
+                    <rgu-control type="textbox" ng-model="value.securityCode"></rgu-control>
+                </div>
+            </div>
+
+            <!-- Indefinite-->
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>Indefinite</label>
+                </div>
+                <div class="vault-field-edit">
+                    <label class="checkbox-square"><input type="checkbox" ng-model="value.indefiniteDate" /><span></span></label>
+                    <!--<rgu-control type="checkbox" ng-model="value.indefiniteDate" />-->
+                </div>
+            </div>
+            <div class="vault-row" ng-show="!value.indefiniteDate">
+                <div class="vault-label">
+                    <label>Expiry date:</label>
+                </div>
+                <div class="vault-field-edit">
+                    <rgu-date-input type="combo" ng-model="value.expiryDate"></rgu-date-input>
+                </div>
+            </div>
+            <!-- end Indefinite-->
+            <!--//-->
+
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>Note</label>
+                </div>
+                <div class="vault-field-edit">
+                    <textarea ng-model="value.note"></textarea>
+                </div>
+            </div>
+
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>Default</label>
+                </div>
+                <div class="vault-field-edit">
+                    <label class="checkbox-square"><input type="checkbox" ng-model="value._default" /><span></span></label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="query.value !=''">
+
+        <div class="vault-entry-form-edit-actions">
+            <button type="button"
+                    class="btn-edit-vault-field-action btn-edit-vault-field-cancel"
+                    ng-click="$event.preventDefault();cancelField(entry)">
+                Close view
+            </button>
+
+        </div>
+    </div>
+</div>

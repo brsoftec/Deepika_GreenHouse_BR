@@ -1,0 +1,259 @@
+﻿<div ng-controller="searchVaultForm">
+    <div class="vault-group-content" ng-repeat="value in listForm" ng-if="read">
+        <div class="vault-row" ng-if="write">
+            <div class="vault-group-actions">
+                <button ng-hide="value.isEdit" class="btn-vault-action btn-vault-edit" ngclipboard data-clipboard-target="#copy-{{query.formName}}{{$index}}">
+                    Copy text
+                </button>
+
+                <button ng-hide="value.isEdit" class="btn-vault-action btn-vault-edit" ng-click="value.isEdit = !value.isEdit">
+                    Edit
+                </button>
+
+                <button ng-hide="!value.isEdit" class="btn-vault-action btn-vault-save" ng-click="Save()">
+                    Save
+                </button>
+                <button ng-hide="!value.isEdit" class="btn-vault-action btn-vault-cancel btn-cancel"
+                        ng-click="Cancel()">
+                    Cancel
+                </button>
+            </div>
+        </div>
+
+        <div class="vault-row" ng-hide="value.isEdit" id="copy-{{query.formName}}{{$index}}">
+            <div class="vault-label">
+                <label ng-if="$index == 0"> {{_form._label}} </label>
+            </div>
+            <div class="vault-field">
+                <div class="vault-field-value">
+                    <span ng-if="value.description">
+                        <strong> Description: </strong> {{value.description }}
+                    </span>
+                    <div ng-show="value.description == _form._default" class="vault-is-default">default</div> <br />
+                    <!-- // -->
+                    <span ng-if="value.companyName">
+                        <strong> Company name: </strong> {{value.companyName }} <br />
+                    </span>
+                    <span ng-if="value.title">
+                        <strong> Title: </strong> {{value.title }} <br />
+                    </span>
+                    <span ng-if="value.email">
+                        <strong> Email: </strong> {{value.email }} <br />
+                    </span>
+
+                    <span ng-if="value.phoneNumber">
+                        <strong> Phone number: </strong>  +{{value.phoneCountry }}{{value.phoneNumber }} <br />
+                    </span>
+                    <span ng-if="value.fax">
+                        <strong> Fax: </strong> +{{value.faxCountry }}{{value.fax }} <br />
+                    </span>
+
+                    <span ng-if="value.mobileNumber">
+                        <strong> Mobile number: </strong> +{{value.mobileCountry }}{{value.mobileNumber }} <br />
+                    </span>
+
+                    <span ng-if="value.salary">
+                        <strong> Salary: </strong> {{value.salary }} <br />
+                    </span>
+
+                    <span ng-if="value.employmentStatus">
+
+                        <strong> Employment status: </strong> {{value.employmentStatus }} <br />
+                    </span>
+                    <span ng-if="value.startDate">
+                        <strong>Start date: </strong> {{value.startDate | date:'fullDate'}} <br />
+                    </span>
+                    <span ng-if="value.endDate">
+                        <strong> End date: </strong> {{value.endDate  | date:'fullDate'}} <br />
+                    </span>
+                    <span ng-if="value.addressLine">
+                        <strong> Address line: </strong> {{value.addressLine }} <br />
+                    </span>
+                    <span ng-if="value.countryCity.country">
+                        <strong> Country: </strong> {{value.countryCity.country }} <br />
+                    </span>
+                    <span ng-if="value.countryCity.city">
+                        <strong> City: </strong> {{value.countryCity.city }} <br />
+                    </span>
+                    <!-- // -->
+                    <span ng-if="value.note">
+                        <strong> Note: </strong> {{value.note }} <br />
+                    </span>
+                </div>
+
+            </div>
+        </div>
+        <div ng-if="write" ng-hide="!value.isEdit">
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label></label>
+                </div>
+                <div class="vault-field-edit">
+                    <strong>{{_form._label}} </strong>
+                    <button class="btn-vault-privacy" ng-class="{'privacy-on': value.privacy}"
+                            ng-click="value.privacy = !value.privacy"
+                            bs-tooltip
+                            data-title="{{value.privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                            data-placement="bottom-left"></button>
+                </div>
+
+            </div>
+
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>Decription</label>
+                </div>
+                <div class="vault-field-edit">
+                    <rgu-control type="textbox" ng-model="value.description">
+                    </rgu-control>
+                </div>
+            </div>
+            <!-- // -->
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>Company name</label>
+                </div>
+                <div class="vault-field-edit">
+                    <rgu-control type="textbox" ng-model="value.companyName" />
+                </div>
+            </div>
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>Title</label>
+                </div>
+                <div class="vault-field-edit">
+                    <rgu-control type="textbox" ng-model="value.title" />
+                </div>
+            </div>
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>Email</label>
+                </div>
+                <div class="vault-field-edit">
+                    <rgu-control type="textbox" ng-model="value.email" rules="email" />
+                </div>
+            </div>
+            <!-- phoneNumber -->
+            <div class="vault-row">
+
+                <div class="vault-label">
+                    <label>Phone number</label>
+                </div>
+                <div class="vault-field-edit">
+                    <rgu-phone-input name="phone_main{{$index}}" ng-model="value.phoneNumber" phone-code="value.phoneCountry">
+                    </rgu-phone-input>
+                </div>
+            </div>
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>Fax</label>
+                </div>
+                <div class="vault-field-edit">
+                    <rgu-phone-input name="fax_main{{$index}}" ng-model="value.fax" phone-code="value.faxCountry">
+                    </rgu-phone-input>
+                </div>
+            </div>
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>Mobile Number</label>
+                </div>
+                <div class="vault-field-edit">
+                    <rgu-phone-input name="mobile_main{{$index}}" ng-model="value.mobileNumber"
+                                     phone-code="value.mobileCountry" rule-fails="">
+                    </rgu-phone-input>
+                </div>
+            </div>
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>salary</label>
+                </div>
+                <div class="vault-field-edit">
+                    <rgu-control type="textbox" ng-model="value.salary"></rgu-control>
+                </div>
+            </div>
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>Employment status</label>
+                </div>
+                <div class="vault-field-edit">
+                    <rgu-control type="textbox" ng-model="value.employmentStatus"></rgu-control>
+                </div>
+            </div>
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>Start date</label>
+                </div>
+                <div class="vault-field-edit">
+                    <rgu-date-input type="combo" ng-model="value.startDate"></rgu-date-input>
+                </div>
+            </div>
+
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>End date</label>
+                </div>
+                <div class="vault-field-edit">
+                    <rgu-date-input type="combo" ng-model="value.endDate" after="value.startDate"> </rgu-date-input>
+                </div>
+            </div>
+            <!--addressLine -->
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>Address Line</label>
+                </div>
+                <div class="vault-field-edit">
+                    <rgu-control type="textbox" ng-model="value.addressLine"></rgu-control>
+                </div>
+            </div>
+            <div class="vault-row">
+
+                <div class="vault-label">
+
+                </div>
+                <div class="vault-field-edit">
+                    <rgu-control type="location" ng-model="value.countryCity"></rgu-control>
+                </div>
+            </div>
+
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>ZIP / Postal Code</label>
+                </div>
+                <div class="vault-field-edit">
+                    <rgu-control type="textbox" ng-model="value.zipCode" rules="" />
+                </div>
+
+            </div>
+            <!-- // -->
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>Note</label>
+                </div>
+                <div class="vault-field-edit">
+                    <textarea ng-model="value.note"></textarea>
+                </div>
+            </div>
+
+            <div class="vault-row">
+                <div class="vault-label">
+                    <label>Default</label>
+                </div>
+                <div class="vault-field-edit">
+                    <label class="checkbox-square"><input type="checkbox" ng-model="value._default" /><span></span></label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="query.value !=''">
+
+        <div class="vault-entry-form-edit-actions">
+            <button type="button"
+                    class="btn-edit-vault-field-action btn-edit-vault-field-cancel"
+                    ng-click="$event.preventDefault();cancelField(entry)">
+                Close view
+            </button>
+
+        </div>
+    </div>
+</div>

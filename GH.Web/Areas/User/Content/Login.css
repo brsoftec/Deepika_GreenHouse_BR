@@ -1,0 +1,100 @@
+﻿.input-border-radius {
+    border-radius: 15px;
+}
+
+.button-border-radius {
+    border-radius: 55px;
+}
+
+.component-padding {
+    padding: 10px;
+}
+
+.no-padding-login-part {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.padding-forgot-password {
+    padding-bottom: 25px !important;
+}
+
+.button-background {
+    background-color: white;
+    color: black;
+    border-color: white;
+}
+
+#footer {
+    background-color: white !important;
+}
+
+[ng-cloak], .ng-cloak {
+    display: none !important;
+}
+
+.error-message {
+    color: cornflowerblue;
+}
+
+.external-login-button {
+    padding-right: 80px;
+    padding-top: 10px;
+}
+
+.img-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.img-size {
+    width: 180px;
+    height: 180px;
+}
+
+.sologan-color {
+    color: #B8B9BE;
+    font-weight: bold;
+    font-size: 50px;
+}
+
+.img-container {
+    padding-top: 50px;
+}
+
+.img-sologan {
+    width: 400px;
+}
+
+.verifying-email-container {
+    margin-top: 50px;
+    font-weight: 200;
+    color: #666;
+    text-align: center;
+    font-size: 16px;
+}
+
+    .verifying-email-container h1 {
+        font-weight: 600;
+        font-size: 30px;
+    }
+
+    .verifying-email-container .btn {
+        font-weight: 600;
+        font-size: 30px;
+        padding: 6px 30px;
+        margin-top: 30px;
+    }
+
+.disable-user-container {
+    margin-top: 50px;
+    font-weight: 200;
+    color: #666;
+    font-size: 16px;
+}
+
+    .disable-user-container h1 {
+        font-weight: 600;
+        font-size: 30px;
+    }

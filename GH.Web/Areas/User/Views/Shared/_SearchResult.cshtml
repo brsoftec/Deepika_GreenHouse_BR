@@ -1,0 +1,329 @@
+﻿<script type="text/ng-template" id="search.html">
+    <div class="row dashboard-row">
+        <div class="container-fluid">
+            <div class="row" style="padding-bottom: 10px">
+                <div class="col-md-12">
+                    <h2 class="header-text-line social-title"><span class="header-text regit-color">SEARCH REGION</span></h2>
+                </div>
+            </div>
+            <div ng-if="personalPosts.length || personalUsers.length" class="search-area personal-search-area">
+                <div class="area-title">
+                    Personal
+                </div>
+                <div class="area-content">
+                    <div ng-if="personalUsers.length" class="area-section area-users">
+                        <div class="search-result-users">
+                            <div class="search-result-user" ng-repeat="user in personalUsers">
+                                <div class="avatar-wrapper" ng-click="ShowProfile(user)">
+                                    <img ng-src="{{user.PhotoUrl ?  user.PhotoUrl: '/Areas/User/Content/Images/no-pic.png'}}" />
+                                </div>
+                                <div class="user-info" ng-click="ShowProfile(user)">
+                                    <div class=" user-display-name"><a href="{{user.AccountType == 'Business'? '/BusinessAccount/Profile' : '/User/Profile'}}/{{user.Id}}">{{user.DisplayName}}<i ng-show="user.AccountType == 'Business' && user.BusinessAccountVerified" class="fa fa-check-circle" style="margin-left: 5px;color: #00a651;" aria-hidden="true"></i></a></div>
+                                    <div class="user-address">{{user.City}}{{user.City && user.Country ? ',' : ''}} {{user.Country}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="area-tool">
+                            <a ng-click="searchPersonalUsers(true)">See More</a>
+                        </div>
+                    </div>
+                    <div ng-if="personalPosts.length" class="area-section area-posts">
+                        <div class="row">
+                            <div class="search-result-posts">
+                                <div class="col-md-12">
+                                    <div class="col-md-12 row-feed" ng-repeat="post in personalPosts">
+                                        <div class="row feed-content">
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <div class="feed-logo-width" ng-click="ShowProfile(post.Account)">
+                                                        <img class=" img-responsive social-icon-small" ng-src="{{post.Account.PhotoUrl ? post.Account.PhotoUrl : '/Areas/User/Content/Images/no-pic.png'}}" />
+                                                    </div>
+                                                    <div class="feed-user">
+                                                        <div class="feed-user-container">
+                                                            <a href="{{post.Account.AccountType == 'Business'? '/BusinessAccount/Profile' : '/User/Profile'}}/{{post.Account.Id}}">
+                                                                <span ng-if="post.Account.DisplayName" class="user-name regit-color" ng-click="ShowProfile(post.Account)">
+                                                                    {{post.Account.DisplayName}}<i ng-show="post.Account.AccountType == 'Business' && post.Account.BusinessAccountVerified" class="fa fa-check-circle" style="margin-left: 5px;color: #00a651;" aria-hidden="true"></i>
+                                                                </span>
+                                                                <span ng-if="!post.Account.DisplayName" class="user-name regit-color">
+                                                                    {{post.Account.Email}}
+                                                                </span>
+                                                            </a>
+                                                        </div>
+                                                        <div>
+                                                            <small class="feed-time-live">
+                                                                Posted <span am-time-ago="post.CreatedOn"></span>
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="feed-action pull-right">
+                                                        <div class="action-dropdown dropdown">
+                                                            <a data-toggle="dropdown" aria-expanded="true"><i style="padding: 10px 0" class="fa fa-chevron-down regit-color-disable"></i></a>
+                                                            <ul class="dropdown-menu from-right">
+                                                                <li>
+                                                                    <a class="toggle" ng-click="delete(post.Id)"><i class="glyphicon glyphicon-remove" style="padding: 5px; background-color: #a8a9ae; color: white"></i> Delete</a>
+                                                                </li>
+                                                                <li role="separator" class="divider"></li>
+                                                                <li>
+                                                                    <a class="toggle"><i class="glyphicon glyphicon-alert" style="color: #a8a9ae; padding: 5px"></i> Report</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row feed-content-wrapper">
+                                                <div class="col-md-12 facebook-post">
+                                                    <div class="col-xs-12 facebook-post-wrapper">
+                                                        <div class="row row-feed">
+                                                            <div ng-if="!post.VideoUrl" class="col-xs-4" ng-class="{'col-xs-4': post.Photos.length > 0}">
+                                                                <div class="col-xs-12">
+                                                                    <div class="row" ng-if="post.Photos.length == 1">
+                                                                        <div class="col-xs-12 photo-feed">
+                                                                            <div ng-click="openLightbox(post.Photos, 0)" class="photo-feed-wrapper" style="background: url('{{post.Photos[0].Url}}'); background-size: cover; background-position: center"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row" ng-if="post.Photos.length > 1">
+                                                                        <div class="col-xs-6 photo-feed" ng-repeat="img in post.Photos" ng-if="$index <= 1">
+                                                                            <div ng-click="openLightbox(post.Photos, $index)" class="photo-feed-wrapper" style="background: url('{{img.Url}}'); background-size: cover; background-position: center"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-xs-2 photo-feed" ng-repeat="img in post.Photos" ng-if="$index > 1 && $index < 7">
+                                                                            <div ng-click="openLightbox(post.Photos, $index)" class="photo-feed-wrapper" style="background: url('{{img.Url}}'); background-size: cover; background-position: center"></div>
+                                                                        </div>
+                                                                        <div class="col-xs-2 photo-feed" ng-if="post.Photos.length >= 8">
+                                                                            <div ng-click="openLightbox(post.Photos, 7)" class="photo-feed-wrapper" style="background: url('{{post.Photos[7].Url}}'); background-size: cover; background-position: center">
+                                                                                <div class="photo-feed-wrapper-backdrop" ng-if="post.Photos.length > 8">+{{post.Photos.length - 7}}</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-6 col-xs-6" ng-if="post.VideoUrl">
+                                                                <video class="social-post-video" ng-attr-poster="{{post.Photos[0].Url}}" controls>
+                                                                    <source ng-src="{{post.VideoUrl|trustUrl}}" type="video/mp4">
+                                                                    Your browser does not support the video tag.
+                                                                </video>
+                                                            </div>
+                                                            <div class="message-content col-xs-12" ng-if="post.Photos.length == 0" ng-bind-html="post.Message"></div>
+                                                            <div class="message-content col-xs-8" ng-if="post.Photos.length > 0" ng-bind-html="post.Message"></div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-12">
+                                                                <div class="col-xs-12 feed-btn-bar">
+                                                                    <div class="row">
+                                                                        <div class="col-xs-1">
+                                                                            <div class="row">
+                                                                                <a class="r-like regit-color-disable r-2x" ng-click="likePost(post.Id)" ng-class="{'active': post.IsLiked }"></a>
+                                                                                <label class="regit-color-disable feed-btn-count">{{post.TotalLike}}</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xs-1">
+                                                                            <div class="row">
+                                                                                <a ng-click="addCommentToSocialPost(post)" class="r-comment regit-color-disable r-2x"></a>
+                                                                                <label class="regit-color-disable feed-btn-count">{{post.TotalComment}}</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xs-1">
+                                                                            <div class="row">
+                                                                                <a ng-click="sharePostToSocialNetwork(post)" class="r-share regit-color-disable r-2x"></a>
+                                                                                <label class="regit-color-disable feed-btn-count">{{post.TotalShares}}</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xs-1">
+                                                                            <div class="row">
+                                                                                <a ng-if="post.Privacy == 'Public'" class="r-public r-2x regit-color-disable"></a>
+                                                                                <a ng-if="post.Privacy == 'Friends'" class="r-friends r-2x regit-color-disable"></a>
+                                                                                <a ng-if="post.Privacy == 'Private'" class="r-private r-2x regit-color-disable"></a>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="pull-right" style="margin: 15px 0">
+                                                                            <div class="feed-source">
+                                                                                <img ng-if="showSocialIcon(2,post)" style="height: 15px" class="img-responsive social-icon-small" src="/Content/Images/r-icon.png" />
+                                                                                <img ng-if="showSocialIcon(1,post)" style="height: 15px" class="img-responsive social-icon-small" src="/Content/Images/twit-bird.png" />
+                                                                                <img ng-if="showSocialIcon(0,post)" style="height: 15px" class="img-responsive social-icon-small" src="/Content/Images/f-icon.png" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="area-tool">
+                            <a ng-click="searchPersonalPosts(true)">See More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="globalPosts.length || globalUsers.length" class="search-area global-search-area">
+                <div class="area-title">
+                    Global
+                </div>
+                <div class="area-content">
+                    <div ng-if="globalUsers.length" class="area-section area-users">
+                        <div class="search-result-users">
+                            <div class="search-result-user" ng-repeat="user in globalUsers">
+                                <div class="avatar-wrapper" ng-click="ShowProfile(user)">
+                                    <img ng-src="{{user.PhotoUrl ?  user.PhotoUrl: '/Areas/User/Content/Images/no-pic.png'}}" />
+                                </div>
+                                <div class="user-info">
+                                    <div class="user-display-name" ng-click="ShowProfile(user)"><a href="{{user.AccountType == 'Business'? '/BusinessAccount/Profile' : '/User/Profile'}}/{{user.Id}}">{{user.DisplayName}}<i ng-show="user.AccountType == 'Business' && user.BusinessAccountVerified" class="fa fa-check-circle" style="margin-left: 5px;color: #00a651;" aria-hidden="true"></i></a></div>
+                                    <div class="user-address">{{user.City}}{{user.City && user.Country ? ',' : ''}} {{user.Country}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="area-tool">
+                            <a ng-click="searchGlobalUsers(true)">See More</a>
+                        </div>
+                    </div>
+                    <div ng-if="globalPosts.length" class="area-section area-posts">
+                        <div class="row">
+                            <div class="search-result-posts">
+                                <div class="col-md-12">
+                                    <div class="col-md-12 row-feed" ng-repeat="post in globalPosts">
+                                        <div class="row feed-content">
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <div class="feed-logo-width" ng-click="ShowProfile(user)">
+                                                        <img class="img-responsive social-icon-small" ng-src="{{post.Account.PhotoUrl ? post.Account.PhotoUrl : '/Areas/User/Content/Images/no-pic.png'}}" />
+                                                    </div>
+                                                    <div class="feed-user">
+                                                        <div class="feed-user-container">
+                                                            <a href="{{post.Account.AccountType == 'Business'? '/BusinessAccount/Profile' : '/User/Profile'}}/{{post.Account.Id}}">
+                                                                <span ng-if="post.Account.DisplayName" class="user-name regit-color" ng-click="ShowProfile(user)">
+                                                                    {{post.Account.DisplayName}}<i ng-show="post.Account.AccountType == 'Business' && post.Account.BusinessAccountVerified" class="fa fa-check-circle" style="margin-left: 5px;color: #00a651;" aria-hidden="true"></i>
+                                                                </span>
+                                                                <span ng-if="!post.Account.DisplayName" class="user-name regit-color">
+                                                                    {{post.Account.Email}}
+                                                                </span>
+                                                            </a>
+                                                        </div>
+                                                        <div>
+                                                            <small class="feed-time-live">
+                                                                Posted <span am-time-ago="post.CreatedOn"></span>
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="feed-action pull-right">
+                                                        <div class="action-dropdown dropdown">
+                                                            <a data-toggle="dropdown" aria-expanded="true"><i style="padding: 10px 0" class="fa fa-chevron-down regit-color-disable"></i></a>
+                                                            <ul class="dropdown-menu from-right">
+                                                                <li>
+                                                                    <a class="toggle" ng-click="delete(post.Id)"><i class="glyphicon glyphicon-remove" style="padding: 5px; background-color: #a8a9ae; color: white"></i> Delete</a>
+                                                                </li>
+                                                                <li role="separator" class="divider"></li>
+                                                                <li>
+                                                                    <a class="toggle"><i class="glyphicon glyphicon-alert" style="color: #a8a9ae; padding: 5px"></i> Report</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row feed-content-wrapper">
+                                                <div class="col-md-12 facebook-post">
+                                                    <div class="col-xs-12 facebook-post-wrapper">
+                                                        <div class="row row-feed">
+                                                            <div ng-if="!post.VideoUrl" class="col-xs-4" ng-class="{'col-xs-4': post.Photos.length > 0}">
+                                                                <div class="col-xs-12">
+                                                                    <div class="row" ng-if="post.Photos.length == 1">
+                                                                        <div class="col-xs-12 photo-feed">
+                                                                            <div class="photo-feed-wrapper">
+                                                                                <img ng-src="{{post.Photos[0].Url}}" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row" ng-if="post.Photos.length > 1">
+                                                                        <div class="col-xs-6 photo-feed" ng-repeat="img in post.Photos" ng-if="$index == 0">
+                                                                            <div class="photo-feed-wrapper">
+                                                                                <img ng-src="{{img.Url}}" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xs-6 photo-feed" ng-repeat="img in post.Photos" ng-if="$index == 1">
+                                                                            <div class="photo-feed-wrapper">
+                                                                                <img ng-src="{{img.Url}}" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-xs-2 photo-feed" ng-repeat="img in post.Photos" ng-if="$index > 1">
+                                                                            <div class="photo-feed-wrapper">
+                                                                                <img ng-src="{{img.Url}}" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-6 col-xs-6" ng-if="post.VideoUrl">
+                                                                <video class="social-post-video" ng-attr-poster="{{post.Photos[0].Url}}" controls>
+                                                                    <source ng-src="{{post.VideoUrl|trustUrl}}" type="video/mp4">
+                                                                    Your browser does not support the video tag.
+                                                                </video>
+                                                            </div>
+                                                            <div class="message-content col-xs-12" ng-if="post.Photos.length == 0" ng-bind-html="post.Message"></div>
+                                                            <div class="message-content col-xs-8" ng-if="post.Photos.length > 0" ng-bind-html="post.Message"></div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-12">
+                                                                <div class="col-xs-12 feed-btn-bar">
+                                                                    <div class="row">
+                                                                        <div class="col-xs-1">
+                                                                            <div class="row">
+                                                                                <a class="r-like regit-color-disable r-2x" ng-click="likePost(post.Id)" ng-class="{'active': post.IsLiked }"></a>
+                                                                                <label class="regit-color-disable feed-btn-count">{{post.TotalLike}}</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xs-1">
+                                                                            <div class="row">
+                                                                                <a ng-click="addCommentToSocialPost(post)" class="r-comment regit-color-disable r-2x"></a>
+                                                                                <label class="regit-color-disable feed-btn-count">{{post.TotalComment}}</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xs-1">
+                                                                            <div class="row">
+                                                                                <a ng-click="sharePostToSocialNetwork(post)" class="r-share regit-color-disable r-2x"></a>
+                                                                                <label class="regit-color-disable feed-btn-count">{{post.TotalShares}}</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xs-1">
+                                                                            <div class="row">
+                                                                                <a ng-if="post.Privacy == 'Public'" class="r-public r-2x regit-color-disable"></a>
+                                                                                <a ng-if="post.Privacy == 'Friends'" class="r-friends r-2x regit-color-disable"></a>
+                                                                                <a ng-if="post.Privacy == 'Private'" class="r-private r-2x regit-color-disable"></a>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="pull-right" style="margin: 15px 0">
+                                                                            <div class="feed-source">
+                                                                                <img ng-if="showSocialIcon(2,post)" style="height: 15px" class="img-responsive social-icon-small" src="/Content/Images/r-icon.png" />
+                                                                                <img ng-if="showSocialIcon(1,post)" style="height: 15px" class="img-responsive social-icon-small" src="/Content/Images/twit-bird.png" />
+                                                                                <img ng-if="showSocialIcon(0,post)" style="height: 15px" class="img-responsive social-icon-small" src="/Content/Images/f-icon.png" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="area-tool">
+                            <a ng-click="searchGlobalPosts(true)">See More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

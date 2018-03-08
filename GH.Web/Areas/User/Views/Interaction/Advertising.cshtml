@@ -1,0 +1,59 @@
+﻿@model GH.Web.Areas.User.ViewModels.NewFeedsViewModel
+@{
+    ViewBag.Title = "Interaction Details";
+    Layout = "~/Areas/User/Views/Shared/_PublicInteractionLayout.cshtml";
+    var campaignid = ViewBag.campaignid;
+}
+@section styles{
+    @Styles.Render("~/bundles/css/feed")
+}
+@section scripts {
+
+    @Scripts.Render("~/bundles/RegistrationCampaignPublish")
+}
+
+<div class="feed feed-individual">
+    <div class="module module-main module-feed">
+        <div class="feed-entry feed-interaction feed-ad">
+
+            <div class="feed-header">
+                <div class="feed-avatar">
+                    <img src="@Model.BusinessImageUrl">
+                </div>
+                <div class="feed-fromwhen">
+                    <div class="feed-from">
+                        <a href="#">@Model.BusinessName</a>
+                    </div>
+                </div>
+                <div class="feed-follow">
+                    <a href="/User/SignIn?ReturnUrl=@Url.Encode(Request.RawUrl)" class="follow-cta"
+                       ng-bind="isFollowing(campaign)?'Following':'Follow'">
+                        Follow
+                    </a>
+                </div>
+
+            </div>
+            <div class="feed-content">
+                <h3 class="feed-campaign-type-heading">@Model.CampaignType</h3>
+
+                <h4 class="feed-interaction-name">@Model.CampaignName.ToUpper()</h4>
+
+                <div class="feed-interaction-text">
+                    @Model.Description
+                </div>
+
+
+                <div class="feed-interaction-picture">
+
+                    <a class="img-campaign img-reg" href="@Model.TargetLink" target="_blank">
+                        <img src="@Model.Image" class="img-responsive">
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<input ng-hide="true" id="allowqrcode" value="Model.AllowCreateQrCode" style="display:none" />
+<input ng-hide="true" id="publilink" value="Model.PublicURL" style="display:none" />

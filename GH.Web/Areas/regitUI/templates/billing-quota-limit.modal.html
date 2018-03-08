@@ -1,0 +1,19 @@
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog billing-quota-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="btn-modal-close" ng-click="$hide()">Close</button>
+                <h4 class="modal-title">Usage Exceeds Plan Quota</h4></div>
+        </div>
+        <div class="modal-body">
+                <div class="billing-quota-text">
+                    <p>Your usage has reached limit imposed by {{plan.label}}(your current number is {{current}},your max number is {{maxnumber}})</p>
+                </div>
+                <div class="billing-quota-actions">
+                    <button class="btn btn-default modal-action" ng-click="$hide()">Close</button>
+                    <a class="btn btn-primary modal-action" href="/BusinessAccount/Billing">Upgrade Now</a>
+                </div>
+        </div>
+    </div>
+</div>
+

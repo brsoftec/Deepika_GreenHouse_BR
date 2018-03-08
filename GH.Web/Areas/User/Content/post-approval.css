@@ -1,0 +1,171 @@
+﻿.post-preview {
+    border: 1px solid #ccc;
+}
+
+    .post-preview .creator-avatar, .post-preview .post-header-info {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .post-preview .creator-avatar {
+        width: 45px;
+        margin-right: 10px;
+    }
+
+        .post-preview .creator-avatar img {
+            width: 100%;
+            height: 100%;
+        }
+
+    .post-preview .creator {
+        font-size: 18px;
+    }
+
+        .post-preview .creator .creator-name {
+            color: #00aeef;
+        }
+
+    .post-preview .post-content .post-message {
+        font-size: 16px;
+        padding: 25px 10px 10px;
+    }
+
+    .post-preview .post-content .post-medias img {
+        width: 100%;
+    }
+
+    .post-preview .post-content .post-medias video {
+        width: 100%;
+        height: 56.25%;
+    }
+
+.post-review {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.post-review-container {
+    max-width: 100%;
+    width: 400px;
+    margin: auto;
+}
+
+.post-review .post-reject-message textarea {
+    resize: none;
+    height: 100px;
+}
+
+.post-review .btn-reject {
+    background: #00aeef;
+    color: #fff;
+    font-size: 18px;
+    width: 100%;
+    font-weight: 300;
+}
+
+.post-review .post-review-actions {
+    margin-top: 10px;
+}
+
+.post-review .btn-cancel {
+    display: inline-block;
+    width: 49%;
+    vertical-align: top;
+    background: #eee;
+    color: #aaa;
+    float: left;
+    font-weight: 300;
+    font-size: 18px;
+}
+
+.post-review .btn-approve {
+    display: inline-block;
+    width: 49%;
+    vertical-align: top;
+    background: #00aeef;
+    color: #fff;
+    float: right;
+    font-weight: 300;
+    font-size: 18px;
+}
+
+.post-header-left {
+}
+
+.post-header-right {
+    text-align: right;
+}
+
+.btn-post-edit {
+    display: inline-block;
+    width: 49%;
+    vertical-align: top;
+    background: #00aeef;
+    color: #fff;
+    float: right;
+    font-weight: 300;
+    font-size: 18px;
+}
+
+.comments {
+    margin-top: 10px;
+}
+
+.comment-item {
+    width: 100%;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.comment-header {
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+}
+
+.comment-left {
+    width: 80px;
+    display: inline-block;
+    position: absolute;
+    height: 100%;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px 0px 0px 0px;
+}
+
+.comment-action {
+    width: 100%;
+    height: 100%;
+    font: 14px;
+    font-weight: bold;
+}
+
+.Reject {
+    background:#ff6a00
+}
+
+.Repost {
+    background:#00aeef
+}
+
+.Approve {
+    background:#0cd93c
+}
+
+.comment-right {
+    width:100%;
+}
+
+.comment-user {
+    font-weight: bold;
+}
+
+.comment-time {
+}
+
+.comment-content {
+    margin-top: 10px;
+    text-align: justify;
+}

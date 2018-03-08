@@ -1,0 +1,26 @@
+h2 {
+    font-size: 200%;
+    font-weight: 500;
+}
+
+h4 {
+    text-align: left;
+    font-weight: 500;
+}
+
+h5 {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    font-weight: 400;
+}
+/*RESPONSIVE*/
+
+@media only screen and (max-width: 840px) {
+
+
+    .legal-doc {
+        width: 90% !important;
+    }
+
+
+}

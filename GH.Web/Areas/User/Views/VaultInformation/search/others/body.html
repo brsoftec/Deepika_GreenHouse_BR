@@ -1,0 +1,377 @@
+﻿<div ng-controller="SearchOthersBodyController">
+
+    <div ng-if="write == true && read == true">
+        <!--body-->
+        <div class="vault-group-content" ng-if="body._name">
+            <div class="vault-row">
+                <div class="vault-group-actions">
+                    <button ng-hide="IsEdit" class="btn-vault-action btn-vault-edit" ngclipboard data-clipboard-target="#copy-body">
+                        Copy text
+                    </button>
+                    <button ng-hide="IsEdit" class="btn-vault-action btn-vault-edit" ng-click="Edit()">
+                        Edit
+                    </button>
+                    <button ng-hide="!IsEdit" class="btn-vault-action btn-vault-save" ng-click="Save()">
+                        Save
+                    </button>
+                    <button ng-hide="!IsEdit" class="btn-vault-action btn-vault-cancel btn-cancel"
+                            ng-click="Cancel()">
+                        Cancel
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- // -->
+            <div class="vault-row" ng-hide="IsEdit" id="copy-body">
+                <div class="vault-label">
+                    <label>{{body._label}}</label>
+                </div>
+                <div class="vault-field">
+                    <div class="vault-field-value">
+
+                        <span ng-if="body_eye_colour._value !=''">
+                            <strong>{{body_eye_colour._label }}:</strong> {{body_eye_colour._value.join(', ')}} <br />
+                        </span>
+                        <span ng-if="body_hair_colour._value !=''">
+                            <strong>{{body_hair_colour._label }}:</strong>  {{body_hair_colour._value.join(', ') }}<br />
+                        </span>
+
+                        <span ng-if="body_height._value">
+                            <strong>{{body_height._label }}:</strong> {{body_height._value }} {{body_height._unit }} <br />
+                        </span>
+                        <span ng-if="body_weight._value">
+                            <strong>{{body_weight._label }}:</strong> {{body_weight._value }} {{body_weight._unit }} <br />
+                        </span>
+                        <span ng-if="body_type._value !=''">
+                            <strong>{{body_type._label }}:</strong>   {{body_type._value.join(', ') }} <br />
+                        </span>
+                        <span ng-if="body_neck._value">
+                            <strong>{{body_neck._label }}:</strong> {{body_neck._value }} {{body_neck._unit }} <br />
+                        </span>
+                        <span ng-if="body_chest._value">
+                            <strong>{{body_chest._label }}:</strong> {{body_chest._value }} {{body_chest._unit }} <br />
+                        </span>
+                        <span ng-if="body_arm._value">
+                            <strong>{{body_arm._label }}:</strong> {{body_arm._value }} {{body_arm._unit }} <br />
+
+                        </span>
+                        <span ng-if="body_leg._value">
+                            <strong>{{body_leg._label }}:</strong> {{body_leg._value }} {{body_leg._unit }} <br />
+                        </span>
+                        <span ng-if="body_inner._value">
+                            <strong>{{body_inner._label }}:</strong> {{body_inner._value }} {{body_inner._unit }} <br />
+                        </span>
+                        <span ng-if="body_bicep._value">
+                            <strong>{{body_bicep._label }}:</strong> {{body_bicep._value }} {{body_bicep._unit }} <br />
+                        </span>
+                        <span ng-if="body_shoes._value">
+                            <strong>{{body_shoes._label }}:</strong> {{body_shoes._value }} {{body_shoes._unit }} <br />
+                        </span>
+                        <span ng-if="body_ring._value">
+                            <strong>{{body_ring._label }}:</strong> {{body_ring._value }} {{body_ring._unit }} <br />
+                        </span>
+                        <span ng-if="body_left_eye._value">
+                            <strong>{{body_left_eye._label }}:</strong> {{body_left_eye._value }} <br />
+                        </span>
+                        <span ng-if="body_right_eye._value">
+                            <strong>{{body_right_eye._label }}:</strong> {{body_right_eye._value }} <br />
+                        </span>
+
+                    </div>
+
+                    <div class="vault-privacy-indicator" ng-class="{'privacy-on': body._privacy}"
+                         bs-tooltip
+                         data-title="{{body._privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                         data-placement="bottom-left">
+                    </div>
+                </div>
+            </div>
+
+            <!-- // -->
+            <div ng-hide="!IsEdit">
+                <div class="vault-row">
+                    <div class="vault-label">
+                    </div>
+                    <div class="vault-field-edit">
+                        <label>
+                            <strong>
+                                {{body._name}}
+                            </strong>
+                        </label>
+                        <button class="btn-vault-privacy" ng-class="{'privacy-on': body._privacy}"
+                                ng-click="body._privacy = !preference._privacy"
+                                bs-tooltip
+                                data-title="{{body._privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                                data-placement="bottom-left"></button>
+                    </div>
+
+                </div>
+                <!-- body_eye_colour -->
+                <div class="vault-row">
+
+                    <div class="vault-label">
+                        <label>{{body_eye_colour._label}}</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-smart-input ng-model="body_eye_colour._value" type="color">
+                        </rgu-smart-input>
+
+                    </div>
+
+                </div>
+                <!-- body_hair_colour -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>{{body_hair_colour._label}}</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-smart-input ng-model="body_hair_colour._value" type="color">
+                        </rgu-smart-input>
+                    </div>
+                </div>
+                <!-- body_height -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>{{body_height._label}}</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-input-group measure="length" ng-model="body_height._value" unit-model="body_height._unit">
+                        </rgu-input-group>
+                    </div>
+                </div>
+                <!-- body_weight -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>{{body_weight._label}}</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-input-group measure="weight" ng-model="body_weight._value" unit-model="body_weight._unit">
+                        </rgu-input-group>
+                    </div>
+                </div>
+
+                <!-- body_type -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>{{body_type._label}}</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-tag-input ng-model="body_type._value" list="bodyTypes" label="(other type)">
+                        </rgu-tag-input>
+                    </div>
+                </div>
+
+
+                <!-- body_neck -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>{{body_neck._label}}</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-input-group measure="length" ng-model="body_neck._value" unit-model="body_neck._unit"></rgu-input-group>
+                    </div>
+                </div>
+                <!-- body_chest -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>{{body_chest._label}}</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-input-group measure="length" ng-model="body_chest._value" unit-model="body_chest._unit">
+                        </rgu-input-group>
+                    </div>
+                </div>
+                <!-- body_arm -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>{{body_arm._label}}</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-input-group measure="length" ng-model="body_arm._value" unit-model="body_arm._unit">
+                        </rgu-input-group>
+                    </div>
+                </div>
+                <!-- body_arm -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>{{body_arm._label}}</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-input-group measure="length" ng-model="body_arm._value" unit-model="body_arm._unit">
+                        </rgu-input-group>
+                    </div>
+                </div>
+                <!-- body_leg -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>{{body_leg._label}}</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-input-group measure="length" ng-model="body_leg._value" unit-model="body_leg._unit">
+                        </rgu-input-group>
+                    </div>
+                </div>
+                <!-- body_inner -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>{{body_inner._label}}</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-input-group measure="length" ng-model="body_inner._value" unit-model="body_inner._unit">
+                        </rgu-input-group>
+                    </div>
+                </div>
+
+                <!-- body_inner -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>{{body_inner._label}}</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-input-group measure="length" ng-model="body_inner._value" unit-model="body_inner._unit">
+                        </rgu-input-group>
+                    </div>
+                </div>
+
+                <!-- body_bicep -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>{{body_bicep._label}}</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-input-group measure="length" ng-model="body_bicep._value" unit-model="body_bicep._unit">
+                        </rgu-input-group>
+                    </div>
+                </div>
+                <!-- body_shoes -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>{{body_shoes._label}}</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-input-group measure="shoesize" ng-model="body_shoes._value" unit-model="body_shoes._unit">
+                        </rgu-input-group>
+                    </div>
+                </div>
+                <!-- body_ring -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>{{body_ring._label}}</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <rgu-input-group measure="length" ng-model="body_ring._value" unit-model="body_ring._unit">
+                        </rgu-input-group>
+                    </div>
+                </div>
+
+
+                <!-- body_left_eye -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>{{body_left_eye._label}}</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <input ng-model="body_left_eye._value">
+                    </div>
+                </div>
+                <!-- body_right_eye -->
+                <div class="vault-row">
+                    <div class="vault-label">
+                        <label>{{body_right_eye._label}}</label>
+                    </div>
+                    <div class="vault-field-edit">
+                        <input ng-model="body_right_eye._value">
+                    </div>
+                </div>
+                <!-- end // -->
+            </div>
+        </div>
+
+    </div>
+    <div ng-if="write == false && read == false">
+       
+            <!--body-->
+            <div class="vault-group-content" ng-if="body._name">
+                <div class="vault-row">
+                    <div class="vault-group-actions">
+                        <button class="btn-vault-action btn-vault-edit" ngclipboard data-clipboard-target="#copy-body">
+                            Copy text
+                        </button>
+                       
+                    </div>
+
+                </div>
+
+                <!-- // -->
+                <div class="vault-row" id="copy-body">
+                    <div class="vault-label">
+                        <label>{{body._label}}</label>
+                    </div>
+                    <div class="vault-field">
+                        <div class="vault-field-value">
+
+                            <span ng-if="body_eye_colour._value !=''">
+                                <strong>{{body_eye_colour._label }}:</strong> {{body_eye_colour._value.join(', ')}} <br />
+                            </span>
+                            <span ng-if="body_hair_colour._value !=''">
+                                <strong>{{body_hair_colour._label }}:</strong>  {{body_hair_colour._value.join(', ') }}<br />
+                            </span>
+
+                            <span ng-if="body_height._value">
+                                <strong>{{body_height._label }}:</strong> {{body_height._value }} {{body_height._unit }} <br />
+                            </span>
+                            <span ng-if="body_weight._value">
+                                <strong>{{body_weight._label }}:</strong> {{body_weight._value }} {{body_weight._unit }} <br />
+                            </span>
+                            <span ng-if="body_type._value !=''">
+                                <strong>{{body_type._label }}:</strong>   {{body_type._value.join(', ') }} <br />
+                            </span>
+                            <span ng-if="body_neck._value">
+                                <strong>{{body_neck._label }}:</strong> {{body_neck._value }} {{body_neck._unit }} <br />
+                            </span>
+                            <span ng-if="body_chest._value">
+                                <strong>{{body_chest._label }}:</strong> {{body_chest._value }} {{body_chest._unit }} <br />
+                            </span>
+                            <span ng-if="body_arm._value">
+                                <strong>{{body_arm._label }}:</strong> {{body_arm._value }} {{body_arm._unit }} <br />
+
+                            </span>
+                            <span ng-if="body_leg._value">
+                                <strong>{{body_leg._label }}:</strong> {{body_leg._value }} {{body_leg._unit }} <br />
+                            </span>
+                            <span ng-if="body_inner._value">
+                                <strong>{{body_inner._label }}:</strong> {{body_inner._value }} {{body_inner._unit }} <br />
+                            </span>
+                            <span ng-if="body_bicep._value">
+                                <strong>{{body_bicep._label }}:</strong> {{body_bicep._value }} {{body_bicep._unit }} <br />
+                            </span>
+                            <span ng-if="body_shoes._value">
+                                <strong>{{body_shoes._label }}:</strong> {{body_shoes._value }} {{body_shoes._unit }} <br />
+                            </span>
+                            <span ng-if="body_ring._value">
+                                <strong>{{body_ring._label }}:</strong> {{body_ring._value }} {{body_ring._unit }} <br />
+                            </span>
+                            <span ng-if="body_left_eye._value">
+                                <strong>{{body_left_eye._label }}:</strong> {{body_left_eye._value }} <br />
+                            </span>
+                            <span ng-if="body_right_eye._value">
+                                <strong>{{body_right_eye._label }}:</strong> {{body_right_eye._value }} <br />
+                            </span>
+
+                        </div>
+
+                        <div class="vault-privacy-indicator" ng-class="{'privacy-on': body._privacy}"
+                             bs-tooltip
+                             data-title="{{body._privacy?'Private (shared to nobody)':'Public (shared to friends)'}}"
+                             data-placement="bottom-left">
+                        </div>
+                    </div>
+                </div>
+
+             
+            </div>
+     
+    </div>
+
+</div>

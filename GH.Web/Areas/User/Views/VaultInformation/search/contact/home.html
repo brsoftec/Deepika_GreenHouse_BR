@@ -1,0 +1,239 @@
+﻿<div ng-controller="SearchContactPhoneController">
+    <div class="vault-group-content" ng-if="query.value != '' ">
+        <div class="vault-row" ng-if="addNewError">
+            <div class="vault-label">
+                <label>  </label>
+            </div>
+            <div class="vault-field">
+                <div class="form-field-message form-field-error">{{addNewError}}</div>
+            </div>
+        </div>
+        <!-- // End edit Repeat -->
+        <div ng-repeat="value in listMobile">
+            <div class="vault-row" ng-if="query.value == '' || query.value == value.value">
+
+                <rgu-phone-input name="{{query.formName}}{{$index}}" ng-model="value.phoneNumber"
+                                 phone-code="value.codeCountry">
+                </rgu-phone-input>
+            </div>
+
+
+        </div>
+        <button type="button"
+                class="btn-edit-vault-field-action btn-edit-vault-field-cancel"
+                ng-click="$event.preventDefault();cancelField(entry)">
+            Cancel
+        </button>
+        <button type="button" class="btn-edit-vault-field-action"
+                ng-click="IsvalidPhoneNumber()">
+            Save
+        </button>
+    </div>
+
+
+    <!--FORM -->
+    <div ng-if="query.value == '' ">
+        <div ng-if="write == false && read == false">
+            <!-- Mobile-->
+            <div class="vault-group-content">
+                <div class="vault-group-actions contact-edit-actions">
+                    <button ng-hide="mobile.edit" class="btn-vault-action btn-vault-edit" ngclipboard
+                            data-clipboard-target="#mobile">
+                        Copy text
+                    </button>
+                    <button ng-hide="mobile.edit" class="btn-vault-action btn-vault-edit"
+                            ng-click="mobile.edit = !mobile.edit">
+                        Edit
+                    </button>
+
+                    <button ng-hide="!mobile.edit" class="btn-vault-action btn-vault-save" ng-click="IsvalidPhoneNumber()">
+                        Save
+                    </button>
+                    <button ng-hide="!mobile.edit" class="btn-vault-action btn-vault-cancel btn-cancel"
+                            ng-click="mobile.edit = !mobile.edit">
+                        Cancel
+                    </button>
+                </div>
+
+                <div id="mobile">
+
+                    <div class="vault-row" ng-if="listMobile.length === 0">
+                        <div class="vault-label">
+                            <label> Mobile </label>
+
+                        </div>
+                        <div class="vault-field">
+
+
+                        </div>
+                    </div>
+                    <!--// Repeat-->
+                    <div ng-hide="mobile.edit">
+                        <div ng-repeat="showValue in listMobile">
+                            <!--{{value | json}}-->
+                            <!--// main-->
+
+
+                            <div class="vault-row">
+                                <div class="vault-label">
+                                    <label ng-if="$index == 0"> Mobile phone</label>
+                                </div>
+                                <div class="vault-field">
+                                    <div class="vault-field-value">
+                                        <span ng-if="showValue.value != ''">
+                                            {{showValue.value }}
+                                        </span>
+                                        <div ng-show="showValue.default" class="vault-is-default">default</div>
+                                        <br />
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- // end Main -->
+                    <!-- // Edit -->
+                    <div ng-hide="!mobile.edit">
+                        <div class="vault-row" ng-if="addNewError">
+                            <div class="vault-label">
+                                <label>  </label>
+                            </div>
+                            <div class="vault-field">
+                                <div class="form-field-message form-field-error">{{addNewError}}</div>
+                            </div>
+                        </div>
+                        <!-- // End edit Repeat -->
+                        <div ng-repeat="value in listMobile">
+                            <div class="vault-row">
+                                <div class="vault-label">
+                                    <label ng-if="$index == 0"> Mobile phone</label>
+                                </div>
+                                <div class="vault-field" ng-if="query.value == '' || query.value == value.value">
+                                    <div class="contact-list">
+
+                                        <div class="contact-item-field">
+                                            <rgu-phone-input name="moblie{{$index}}" ng-model="value.phoneNumber"
+                                                             phone-code="value.codeCountry">
+                                            </rgu-phone-input>
+                                        </div>
+                                        <div class="contact-item-set-default">
+                                            <div class="vault-is-default" ng-if="value.default">default</div>
+                                            <button class="vault-set-default" ng-if="!value.default"
+                                                    ng-click="CheckDefault(value)">
+                                                Set default
+                                            </button>
+                                        </div>
+                                        <div class="contact-item-actions">
+                                            <button class="vault-field-remove" ng-click="removeMobile(value)">
+                                                Remove
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <!-- // End edit Repeat -->
+                        <div ng-hide="isNew.value" class="vault-row">
+
+                            <div class="vault-label">
+
+                            </div>
+                            <div class="vault-field-actions">
+                                <a href="#" class="vault-field-add"
+                                   ng-click="$event.preventDefault(); new();">+ Add more Mobile phone</a>
+                            </div>
+                        </div>
+                        <div ng-hide="!isNew.value">
+
+
+                            <div class="vault-row">
+                                <div class="vault-label">
+                                    <label> New mobile phone </label>
+                                </div>
+                                <div class="vault-field">
+                                    <div class="contact-list">
+
+                                        <div class="contact-item-field">
+                                            <rgu-phone-input name="{{query.formName}}" ng-model="_new.phoneNumber" rule-fails=""
+                                                             phone-code="_new.codeCountry">
+                                            </rgu-phone-input>
+                                        </div>
+
+                                        <div class="contact-item-set-default">
+                                            <div class="vault-is-default" ng-if="_new.default">default</div>
+                                            <button class="vault-set-default" ng-if="!_new.default"
+                                                    ng-click="CheckDefault(_new)">
+                                                Set default
+                                            </button>
+                                        </div>
+                                        <div class="contact-item-actions">
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="vault-row">
+                                <div class="vault-label">
+                                    <label>  </label>
+                                </div>
+                                <div class="vault-field">
+                                    <button class="btn btn-default" ng-click="CheckAddNew(_new)" ng-disabled="!formVaultSearch.{{query.formName}}.$modelValue">Accept</button>
+
+                                    <button class="btn btn-default" ng-click="isNew.value = !isNew.value">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <!-- // End Edit-->
+                </div>
+
+            </div>
+
+            <!-- End Mobile-->
+        </div>
+
+        <div ng-if="write == true && read == true">
+            <div class="vault-group-actions contact-edit-actions">
+                <button class="btn-vault-action btn-vault-edit" ngclipboard
+                        data-clipboard-target="#copy-{{query.formName}}">
+                    Copy text
+                </button>
+
+            </div>
+
+            <div id="copy-{{query.formName}}">
+                <div ng-repeat="showValue in listMobile">
+                    <!--{{value | json}}-->
+                    <!--// main -->
+                    <div class="vault-row">
+                        <div class="vault-label">
+                            <label ng-if="$index == 0"> Mobile phone</label>
+                        </div>
+                        <div class="vault-field">
+                            <div class="vault-field-value">
+                                <span ng-if="showValue.value != ''">
+                                    {{showValue.value }}
+                                </span>
+                                <div ng-show="showValue.default" class="vault-is-default">default</div>
+                                <br />
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

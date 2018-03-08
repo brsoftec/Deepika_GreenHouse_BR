@@ -1,0 +1,51 @@
+﻿@using GH.Lang
+<div ng-controller="ManageOneRegitAccountController" collapse-base-on-route="/manage-regit-one-account-settings" class="collapse-item">
+    <div class="collapse-header">
+        <a href="#/manage-regit-one-account-settings" class="regit-color" data-toggle="collapse" aria-expanded="false" data-target="#manageRegitAccCollapseContent">@Regit.Manage_Regit_One_Account_Settings</a>
+    </div>
+    <div class="collapse-content">
+        <div class="collapse" id="manageRegitAccCollapseContent">
+            <div class="row field">
+                <div class="col-md-8">
+                    <span class="field-title">@Regit.Facebook_Title</span>
+                </div>
+                <div class="col-md-4 text-right">
+                    <switcher ng-model="socialsLinked.Facebook" switcher-on-text="@Regit.YesText" switcher-off-text="@Regit.NoText" on-changed="processLinking('Facebook')"></switcher>
+                </div>
+            </div>
+            <hr />
+            <div class="row field">
+                <div class="col-md-8">
+                    <span class="field-title">@Regit.Twitter_Title</span>
+                </div>
+                <div class="col-md-4 text-right">
+                    <switcher ng-model="socialsLinked.Twitter" switcher-on-text="@Regit.YesText" switcher-off-text="@Regit.NoText" on-changed="processLinking('Twitter')"></switcher>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div bs-modal bs-modal-on-hidden="onLinkFacebookPageModalHidden()" bs-modal-show="configs.ShowLinkFacebookPageModal" class="modal fade link-facebook-page-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4>@Regit.CONNECT_TO_A_FACEBOOK_PAGE</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="fb-pages">
+                        <div class="fb-page" ng-repeat="fbPage in facebookPages">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" ng-model="connectFacebook.SelectedPage" ng-value="fbPage"> {{fbPage.name}} | {{fbPage.category}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-white" ng-click="configs.ShowLinkFacebookPageModal = false">@Regit.Cancel</a>
+                    <a class="btn btn-blue" ng-click="connectToPage()">@Regit.Connect</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
